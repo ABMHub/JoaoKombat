@@ -1,5 +1,22 @@
 # JoaoKombat
 
+## Comando úteis:
+```
+git add . -> salva todas as alterações feitas na pasta (pode ser revertível)
+git commit -m "comentário" -> salva permanentemente as mudanças no repositório
+git push -> manda as mundanças pros amiguinhos (repositório remoto)
+```
+```
+git pull -> pega as mudanças no repositório remoto e mescla com suas mudanças locais (cuidado com conflitos!!!)
+```
+```
+git branch nome_branch -> cria uma branch com o nome que você escolher
+git switch nome_branch -> muda de uma branch para a outra
+```
+*(a branch principal é sempre master)*
+```
+git reset --hard -> reseta suas mudanças para o commit mais recentes
+```
 ## Todo-List Protótipo Mario
 
 1. [X] Pintar o fundo 
