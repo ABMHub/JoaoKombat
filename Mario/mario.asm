@@ -1,7 +1,8 @@
 .data
 
-	.include "mario1.s"
-	.include "parte1.s"
+	.include "Sprites/data/mario2.s"
+	#.include "mario1.s"
+	.include "Sprites/data/parte1.s"
 	
 	VGA1INICIO: 	.word 0xFF000000
 	VGA1FINAL: 	.word 0xFF012C00
@@ -61,7 +62,7 @@ FORA_MARIO:
 	BACKGROUND(a1)
 	
 	li t0, 35
-	la t2, mario1
+	la t2, mario2
 	lw t3, MARIOINICIO
 	lw t4, MARIOFINAL
 	li t6, 0
