@@ -15,7 +15,7 @@
 	lw t4, VGA1FINAL
 
 	addi %imagem, %imagem, 8
-	
+
 LOOP_BG:	
 	beq t3, t4, FORA_BG
 
