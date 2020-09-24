@@ -1,6 +1,8 @@
 .data
 	.include "Sprites/data/mario1.s"
+	.include "Sprites/data/mario2.s"
 	.include "Sprites/data/mario3.s"
+	.include "Sprites/data/mario4.s"
 	.include "Sprites/data/parte1.s"
 	
 	VGA1INICIO: 	.word 0xFF000000
@@ -8,6 +10,13 @@
 	
 	MARIOINICIO:    .word 0xFF00E4C0
 	MARIOFINAL:	.word 0xFF00E4D0
+
+.macro  SLEEP (%x)	#função que faz um delay de x microssegundos
+	# SLEEP
+    	li a0,%x	#a0=valor de delay passado como parâmetro 
+    	li a7,32	#ecall que chama faz o delay de a0 milisegundos
+    	ecall
+.end_macro
 
 .macro	BACKGROUND(%imagem)
 
@@ -111,6 +120,10 @@ KBHIT:	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO	# TENTANDO S
 	SWITCH_CASE_TECLA: 		#DETERMINA PRA ONDE O CARA TA MEXENDO
 	#t2 tem o valor da tecla pressionada
 	
+	mv t0, a0
+	SLEEP(50)
+	mv a0, t0
+		
 	la a1, parte1
 	APAGAR(a1)
 		
@@ -119,15 +132,47 @@ KBHIT:	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO	# TENTANDO S
 	beq t3, t2, DIREITA			#move pra direita
 	
 	DIREITA:
-
+	
+	#FRAME1
 	la t4, MARIOINICIO		#Coloca em t4 endereço da posição inicial do mario
 	lw t5, 0(t4)			#Carrega pra t5 o valor contido no endereço que está em t4
-	addi t5, t5, 16			#Soma 4 no valor de MARIOINICIO
+	addi t5, t5, 4			#Soma 4 no valor de MARIOINICIO
 	sw t5, 0(t4)			#Coloca o novo valor de t4 na LABEL MARIOINICIO
 	
 	la t4, MARIOFINAL		#Coloca em t4 endereço da posição final do mario
 	lw t5, 0(t4)			#Carrega pra t5 o valor contido no endereço que está em t4
-	addi t5, t5, 16			#Soma 4 no valor de MARIOFINAL
+	addi t5, t5, 4			#Soma 4 no valor de MARIOFINAL
+	sw t5, 0(t4)			#Coloca o novo valor de t4 na LABEL MARIOFINAL
+	
+	
+	li a0, 31			#contador
+	la t1, MARIOINICIO		#Coloca dentro de t1 o endereço onde está a posição inicial do mario
+	lw a1, 0(t1)			#Carrega pra a1 a posição inicial de onde está o mario
+	la t1, MARIOFINAL		#Coloca dentro de t1 o endereço onde está a posição final do Mario
+	lw a2, 0(t1)			#Carrega pra a2 a posição final de onde está o mario
+	li a3, 0 			#a3 é o contador
+	la a4, mario2			#a4 tem os bits de mario
+	addi a4, a4, 8			#addi mágico
+	
+	
+	PERSONAGEM(a0, a1, a2, a3, a4)	#pinta o personagem
+	
+	##FRAME 2
+	mv t0, a0
+	SLEEP(50)
+	mv a0, t0
+	
+	la a1, parte1
+	APAGAR(a1)
+	
+	la t4, MARIOINICIO		#Coloca em t4 endereço da posição inicial do mario
+	lw t5, 0(t4)			#Carrega pra t5 o valor contido no endereço que está em t4
+	addi t5, t5, 4			#Soma 4 no valor de MARIOINICIO
+	sw t5, 0(t4)			#Coloca o novo valor de t4 na LABEL MARIOINICIO
+	
+	la t4, MARIOFINAL		#Coloca em t4 endereço da posição final do mario
+	lw t5, 0(t4)			#Carrega pra t5 o valor contido no endereço que está em t4
+	addi t5, t5, 4			#Soma 4 no valor de MARIOFINAL
 	sw t5, 0(t4)			#Coloca o novo valor de t4 na LABEL MARIOFINAL
 	
 	
@@ -143,6 +188,69 @@ KBHIT:	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO	# TENTANDO S
 	
 	PERSONAGEM(a0, a1, a2, a3, a4)	#pinta o personagem
 	
+	#FRAME 3
+	mv t0, a0
+	SLEEP(50)
+	mv a0, t0
+	
+	la a1, parte1
+	APAGAR(a1)
+	
+	la t4, MARIOINICIO		#Coloca em t4 endereço da posição inicial do mario
+	lw t5, 0(t4)			#Carrega pra t5 o valor contido no endereço que está em t4
+	addi t5, t5, 4			#Soma 4 no valor de MARIOINICIO
+	sw t5, 0(t4)			#Coloca o novo valor de t4 na LABEL MARIOINICIO
+	
+	la t4, MARIOFINAL		#Coloca em t4 endereço da posição final do mario
+	lw t5, 0(t4)			#Carrega pra t5 o valor contido no endereço que está em t4
+	addi t5, t5, 4			#Soma 4 no valor de MARIOFINAL
+	sw t5, 0(t4)			#Coloca o novo valor de t4 na LABEL MARIOFINAL
+	
+	
+	li a0, 31			#contador
+	la t1, MARIOINICIO		#Coloca dentro de t1 o endereço onde está a posição inicial do mario
+	lw a1, 0(t1)			#Carrega pra a1 a posição inicial de onde está o mario
+	la t1, MARIOFINAL		#Coloca dentro de t1 o endereço onde está a posição final do Mario
+	lw a2, 0(t1)			#Carrega pra a2 a posição final de onde está o mario
+	li a3, 0 			#a3 é o contador
+	la a4, mario4			#a4 tem os bits de mario
+	addi a4, a4, 8			#addi mágico
+	
+	
+	PERSONAGEM(a0, a1, a2, a3, a4)	#pinta o personagem
+	
+	#FRAME 4
+	mv t0, a0
+	SLEEP(50)
+	mv a0, t0
+	
+	la a1, parte1
+	APAGAR(a1)
+	
+	la t4, MARIOINICIO		#Coloca em t4 endereço da posição inicial do mario
+	lw t5, 0(t4)			#Carrega pra t5 o valor contido no endereço que está em t4
+	addi t5, t5, 4			#Soma 4 no valor de MARIOINICIO
+	sw t5, 0(t4)			#Coloca o novo valor de t4 na LABEL MARIOINICIO
+	
+	la t4, MARIOFINAL		#Coloca em t4 endereço da posição final do mario
+	lw t5, 0(t4)			#Carrega pra t5 o valor contido no endereço que está em t4
+	addi t5, t5, 4			#Soma 4 no valor de MARIOFINAL
+	sw t5, 0(t4)			#Coloca o novo valor de t4 na LABEL MARIOFINAL
+	
+	
+	li a0, 31			#contador
+	la t1, MARIOINICIO		#Coloca dentro de t1 o endereço onde está a posição inicial do mario
+	lw a1, 0(t1)			#Carrega pra a1 a posição inicial de onde está o mario
+	la t1, MARIOFINAL		#Coloca dentro de t1 o endereço onde está a posição final do Mario
+	lw a2, 0(t1)			#Carrega pra a2 a posição final de onde está o mario
+	li a3, 0 			#a3 é o contador
+	la a4, mario1			#a4 tem os bits de mario
+	addi a4, a4, 8			#addi mágico
+	
+	
+	PERSONAGEM(a0, a1, a2, a3, a4)	#pinta o personagem
+		
+				
 	j END_SWITCH_CASE_TECLA	
 	
 	
