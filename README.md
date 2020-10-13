@@ -19,15 +19,15 @@ git reset --hard -> reseta suas mudanças para o commit mais recentes
 ```
 ## Todo-List Protótipo Mario
 
-1. [X] Pintar o fundo 
-2. [X] Pintar o personagem 
-3. [ ] Fazer o personagem se mover pra frente (deixando um rastro msm)
-4. [ ] Fazer o personagem se mover pra frente apagando o rastro dele e repintando com o fundo
-5. [ ] Fazer o personagem se mover pra frente com animação
-6. [ ] Fazer o personagem se mover para trás, pular e agaixar
-7. [ ] Fazer o personagem dar um soco
-8. [ ] Fazer o personagem dar um chute
-9. [ ] Verificar se houve colisão e aplicar o dano se tiver
+01. [X] Pintar o fundo 
+02. [X] Pintar o personagem 
+03. [ ] Fazer o personagem se mover pra frente (deixando um rastro msm)
+04. [ ] Fazer o personagem se mover pra frente apagando o rastro dele e repintando com o fundo
+05. [ ] Fazer o personagem se mover pra frente com animação
+06. [ ] Fazer o personagem se mover para trás, pular e agaixar
+07. [ ] Fazer o personagem dar um soco
+08. [ ] Fazer o personagem dar um chute
+09. [ ] Verificar se houve colisão e aplicar o dano se tiver
 10. [ ] Criar poderzinho
 11. [ ] Criar personagens diferentes
 12. [ ] Criar os menus
@@ -35,15 +35,15 @@ git reset --hard -> reseta suas mudanças para o commit mais recentes
 
 ## Todo-List
 
-1. [ ] Pintar o fundo 
-2. [ ] Pintar o personagem 
-3. [ ] Fazer o personagem se mover pra frente (deixando um rastro msm)
-4. [ ] Fazer o personagem se mover pra frente apagando o rastro dele e repintando com o fundo
-5. [ ] Fazer o personagem se mover pra frente com animação
-6. [ ] Fazer o personagem se mover para trás, pular e agaixar
-7. [ ] Fazer o personagem dar um soco
-8. [ ] Fazer o personagem dar um chute
-9. [ ] Verificar se houve colisão e aplicar o dano se tiver
+01. [ ] Pintar o fundo 
+02. [ ] Pintar o personagem 
+03. [ ] Fazer o personagem se mover pra frente (deixando um rastro msm)
+04. [ ] Fazer o personagem se mover pra frente apagando o rastro dele e repintando com o fundo
+05. [ ] Fazer o personagem se mover pra frente com animação
+06. [ ] Fazer o personagem se mover para trás, pular e agaixar
+07. [ ] Fazer o personagem dar um soco
+08. [ ] Fazer o personagem dar um chute
+09. [ ] Verificar se houve colisão e aplicar o dano se tiver
 10. [ ] Criar poderzinho
 11. [ ] Criar personagens diferentes
 12. [ ] Criar os menus

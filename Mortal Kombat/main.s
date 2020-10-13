@@ -6,13 +6,13 @@
 	VGA1INICIO: 		.word 0xFF000000
 	VGA1FINAL: 		.word 0xFF012C00
 
-	PERSONAGEM1_INICIO: 	.word 0xFF00E4C0
+	PERSONAGEM1_INICIO: 	.word 0xFF009100
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
 
-.macro  SLEEP (%x)	#função que faz um delay de x microssegundos
+.macro  SLEEP (%x)		#função que faz um delay de x microssegundos
 	# SLEEP
-    	li a0,%x	#a0=valor de delay passado como parâmetro 
-    	li a7,32	#ecall que chama faz o delay de a0 milisegundos
+    	li a0,%x		#a0=valor de delay passado como parâmetro 
+    	li a7,32		#ecall que chama faz o delay de a0 milisegundos
     	ecall
 .end_macro
 
@@ -21,7 +21,7 @@
 	mv a0, s9
 	jal ra, BACKGROUND	# argumento em a0 = fundo
 
-	la a0, mario4
+	la a0, SubZeroParado1
 	jal ra, PERSONAGEM
 	
 	la tp,KDInterrupt    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção

@@ -39,7 +39,9 @@ SALTAR_LINHA:
 	j LOOP_PERSONAGEM
 	
 FIM_PERSONAGEM:
-
+	mv t0, a0
+	SLEEP(50)
+	mv a0, t0
 	ret
 	
 	

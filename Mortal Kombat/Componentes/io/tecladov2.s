@@ -22,6 +22,8 @@ SWITCH_CASE_TECLA:
 	li t3, 'd'
 	beq t3, t2, DIREITA		# verifica se a tecla pressionada é 'd'
 	
+	#li t3, 'a'
+	
 DIREITA:
 	
 SWITCH_CASE_PERSONAGEM_FRAME1:
@@ -34,7 +36,7 @@ SWITCH_CASE_PERSONAGEM_FRAME1:
 	
 	
 SUBZERO:
-	la a0, mario1
+	la a0, SubZeroParado1
 	j FRAME
 SCORPION:
 	#la a0, SCORPION1	
@@ -59,26 +61,17 @@ FRAME:
 	addi t1, t1, 4			# soma 4 pixels na posição inicial
 	sw t1, 0(t0)			# salva a nova posição inicial
 	
-	la t2, PERSONAGEM1_FINAL	
-	lw t3, 0(t2)			# t3 = posição final do personagem
+	#la t2, PERSONAGEM1_FINAL	
+	#lw t3, 0(t2)			# t3 = posição final do personagem
 
-	addi t3, t3, 4			# soma 4 pixels na posição final
-	sw t3, 0(t2)			# salva a nova posição final (ISSO NÃO ESTÁ SENDO UTILIZADO EM LUGAR ALGUM NO MOMENTO E SE POSSÍVEL EVITE USAR)
+	#addi t3, t3, 4			# soma 4 pixels na posição final
+	#sw t3, 0(t2)			# salva a nova posição final (ISSO NÃO ESTÁ SENDO UTILIZADO EM LUGAR ALGUM NO MOMENTO E SE POSSÍVEL EVITE USAR)
 	
 	jal ra, PERSONAGEM		# PINTA O PERSONAGEM
-	
-	addi sp, sp, -4
-	sw a0, 0(sp)
-	
-	SLEEP(50)
-
-	lw a0, 0(sp)
-	addi sp, sp, 4
 	
 	addi s0, s0, 1			# incrementa o contador de frames
 	blt  s0, s1, FRAME		# repete enquanto não atingir o máximo de frames
 	
-
 Fim_KDInterrupt:
 	lw ra, 0(sp)			# recupera ra
 	addi sp, sp, 4			# libera espaço na pilha
