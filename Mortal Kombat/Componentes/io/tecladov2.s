@@ -28,7 +28,7 @@ DIREITA:
 	
 SWITCH_CASE_PERSONAGEM_FRAME1:
 	li s0, 0			# contador de frames
-	li s1, 4			# total de frames
+	li s1, 5			# total de frames
 	
 	# checagem de personagens	
 	li t0, 0	
@@ -36,8 +36,8 @@ SWITCH_CASE_PERSONAGEM_FRAME1:
 	
 	
 SUBZERO:
-	la a0, SubZeroParado1
-	j FRAME
+	la a0, SubZeroMov1
+	j NEXT
 SCORPION:
 	#la a0, SCORPION1	
 	#Frame 1
@@ -50,27 +50,12 @@ SCORPION:
 #
 #Ao término do loop o personagem se desloca 16 pixels
 ############################################################################################
-FRAME:	
-	mv a1, s9			# a1 = background
+NEXT:	li a2, 3
+	jal ra, FRAME
 	
-	jal ra, APAGAR			# APAGA O PERSONAGEM
-	
-	la t0, PERSONAGEM1_INICIO	
-	lw t1, 0(t0)			# t1 = posição inicial do personagem
-	
-	addi t1, t1, 4			# soma 4 pixels na posição inicial
-	sw t1, 0(t0)			# salva a nova posição inicial
-	
-	#la t2, PERSONAGEM1_FINAL	
-	#lw t3, 0(t2)			# t3 = posição final do personagem
-
-	#addi t3, t3, 4			# soma 4 pixels na posição final
-	#sw t3, 0(t2)			# salva a nova posição final (ISSO NÃO ESTÁ SENDO UTILIZADO EM LUGAR ALGUM NO MOMENTO E SE POSSÍVEL EVITE USAR)
-	
-	jal ra, PERSONAGEM		# PINTA O PERSONAGEM
-	
-	addi s0, s0, 1			# incrementa o contador de frames
-	blt  s0, s1, FRAME		# repete enquanto não atingir o máximo de frames
+	la a0, SubZeroParado1
+	li a2, 1
+	jal ra, FRAME
 	
 Fim_KDInterrupt:
 	lw ra, 0(sp)			# recupera ra
