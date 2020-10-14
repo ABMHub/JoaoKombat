@@ -1,6 +1,6 @@
 # JoaoKombat
 
-## O RARS CRASHOU 4 VEZES
+## O RARS CRASHOU 8 VEZES
 
 ## Comando úteis:
 ```
