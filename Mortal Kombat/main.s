@@ -6,7 +6,7 @@
 	VGA1INICIO: 		.word 0xFF000000
 	VGA1FINAL: 		.word 0xFF012C00
 
-	PERSONAGEM1_INICIO: 	.word 0xFF009100
+	PERSONAGEM1_INICIO: 	.word 0xFF00B420
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
 
 .macro  SLEEP (%x)		#função que faz um delay de x microssegundos
@@ -21,6 +21,7 @@
 	mv a0, s9
 	jal ra, BACKGROUND	# argumento em a0 = fundo
 
+	la s10, SubZeroParado1
 	la a0, SubZeroParado1
 	jal ra, PERSONAGEM
 	
@@ -42,7 +43,7 @@ INFINITO:
 
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem.s"
-.include "componentes/io/tecladov2.s"
+.include "componentes/io/subzeroio.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/caminhar.s"
 .include "componentes/bitmap/golpe.s"

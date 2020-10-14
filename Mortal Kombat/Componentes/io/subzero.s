@@ -80,59 +80,55 @@ SUBZERO_PARA_CIMA:
 LEVANTAR: 
 	la s10, SubZeroParado1			# faz com que s10 tenha ele parado
 	la a0, SubZeroAgachando1SUBINDO		# carrega o sprite dele agaixado
-	li a3, -9600
-	li a2, 1
-	jal ra, CAMINHAR_FRAME
+	li a3, -9600				# desloca 30 pixels para cima
+	li a2, 1				# 1 frame
+	jal ra, CAMINHAR_FRAME			# animação
 	j RESET
 ###########################################################################################
 ABAIXAR:
-	la t0, SubZeroParado1
+	la t0, SubZeroAgachando2		# se já estiver abaixado não faz nada
+	beq t0, s10, Fim_KDInterrupt		
+	
+	la t0, SubZeroParado1			# se estiver em pé tem que abaixar
 	beq t0, s10, AGACHAR
-	
-	la t0, SubZeroAgachando2
-	beq t0, s10, Fim_KDInterrupt
-	
+
 AGACHAR:
-	li a3, 4800
-	la a0, SubZeroAgachando1
-	li a2, 2
-	jal ra, CAMINHAR_FRAME
-	la s10, SubZeroAgachando2
+	li a3, 4800				# desloca 15 pixels para baixo
+	la a0, SubZeroAgachando1		# carrega o sprite abaixando
+	li a2, 2				# são 2 frames
+	jal ra, CAMINHAR_FRAME			# animação
+	la s10, SubZeroAgachando2		# seta ele a
 	j Fim_KDInterrupt
 
 ###########################################################################################
 CHUTE:
 SWITCH_CASE_PERSONAGEM_CHUTE:
-    # checagem de personagens
-    	la t0, SubZeroAgachando2
-	beq t0, s10, LEVANTAR
-    
+
     	la t0, SubZeroParado1
-   	li a2, 3
-   	beq t0, s10, SUBZERO_CHUTE        #PERSONAGEM 1 É O SUBZERO
+   	beq t0, s10, SUBZERO_CHUTE        	# se estiver em pé chuta
    	
-   	la t0, SubZeroAgachando2
+   	la t0, SubZeroAgachando2		# se estiver abaixado dá outro chute
 	beq t0, s10, CHUTE_ABAIXADO
 	
 SUBZERO_CHUTE:
-    	la a0, SubZeroChute1
-    	j GOLPE
+	li a2, 3				# são 3 frames
+    	la a0, SubZeroChute1			
+    	j GOLPE					# animação
     	
 CHUTE_ABAIXADO:   
     
 SOCO:
 SWITCH_CASE_PERSONAGEM_SOCO:
-    # checagem de personagens
     	la t0, SubZeroParado1
-    	li a2, 2
-    	beq t0, s10, SUBZERO_SOCO        #PERSONAGEM 1 É O SUBZERO
+    	beq t0, s10, SUBZERO_SOCO        	# Se estiver em pé dá um soco
     	
-    	la t0, SubZeroAgachando2
+    	la t0, SubZeroAgachando2		# Se estiver abaixado dá outro tipo de soco
 	beq t0, s10, SOCO_ABAIXADO
 
 SUBZERO_SOCO:
+	li a2, 2				# são 2 frames
    	la a0, SubZeroSocoFraco1
-   	j GOLPE
+   	j GOLPE					# animação
  
 SOCO_ABAIXADO:
 
@@ -157,11 +153,10 @@ RESET:	la a0, SubZeroParado1		# posição padrão
 	j Fim_KDInterrupt
 	
 GOLPE:
-    	jal ra, FRAME_GOLPE
-
-    	la a0, SubZeroParado1
-    	li a2, 1
-    	jal ra, FRAME_GOLPE
+    	jal ra, FRAME_GOLPE		# animação do golpe
+    	la a0, SubZeroParado1		# reseta ele parado
+    	li a2, 1			# 1 frame
+    	jal ra, FRAME_GOLPE		
     	j Fim_KDInterrupt
 	
 Fim_KDInterrupt:
