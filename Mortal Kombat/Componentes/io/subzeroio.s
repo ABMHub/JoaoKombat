@@ -168,8 +168,8 @@ SUBZERO_CHUTE_ALTO:
        	j GOLPE
 
 RASTEIRA:
-	li a2, 6
-       	la a0, SubZeroRasteira1
+	li a2, 5
+       	la a0, SubZeroRasteira2
        	jal ra, FRAME_GOLPE			# animação
     	
     	la a0, SubZeroAgachando2
@@ -192,6 +192,14 @@ SUBZERO_JAB:
        	j GOLPE
 
 ALPISTE_ORH: 
+	li a2, 6
+       	la a0, SubZeroAlpiste1
+       	jal ra, FRAME_GOLPE			# animação
+    	
+    	la a0, SubZeroAgachando2
+   	li a2, 1
+   	jal ra, FRAME_GOLPE			# animação
+    	j Fim_KDInterrupt
 ############################################################################################
 #Esse loop é responsável por realizar a animação do personagem se movimentando para frente
 #caso ele esteja virado para a direita.

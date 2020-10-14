@@ -46,7 +46,7 @@ SALTAR_LINHA:
 FIM_PERSONAGEM:
 
 	mv t0, a0
-	SLEEP(2)
+	SLEEP(50)
 	mv a0, t0
 	
 	ret
