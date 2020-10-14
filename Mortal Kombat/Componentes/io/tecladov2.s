@@ -111,17 +111,15 @@ SUBZERO_SOCO:
 #Ao término do loop o personagem se desloca 16 pixels
 ############################################################################################
 CAMINHAR:	
-	li a2, 3
-	jal ra, CAMINHAR_FRAME
+	li a2, 3			# quantidade de frames
+	jal ra, CAMINHAR_FRAME		
 	
-RESET:	la a0, SubZeroParado1
-	li a2, 1
-	li a3, 0
-	jal ra, CAMINHAR_FRAME
+RESET:	la a0, SubZeroParado1		# posição padrão
+	li a2, 1			# contagem de frames
+	jal ra, FRAME_GOLPE		# a golpe não desloca o personagem 
 	j Fim_KDInterrupt
 	
 GOLPE:
-	#li a2, 3
     	jal ra, FRAME_GOLPE
 
     	la a0, SubZeroParado1
