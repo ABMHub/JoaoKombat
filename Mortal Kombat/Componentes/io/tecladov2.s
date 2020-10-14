@@ -26,6 +26,9 @@ SWITCH_CASE_TECLA:
 	
 	li t3, 'x'
     	beq t3, t2, CHUTE        #verifica se a tecla pressionada é 'x'
+    	
+    	li t3, 'c'
+    	beq t3, t2, SOCO
 
 		
 DIREITA:
@@ -58,11 +61,24 @@ CHUTE:
 SWITCH_CASE_PERSONAGEM_CHUTE:
     # checagem de personagens
     li t0, 0
+    li a2, 3
     beq t0, s10, SUBZERO_CHUTE        #PERSONAGEM 1 É O SUBZERO
 
 SUBZERO_CHUTE:
     la a0, SubZeroChute1
     j GOLPE
+    
+SOCO:
+SWITCH_CASE_PERSONAGEM_SOCO:
+    # checagem de personagens
+    li t0, 0
+    li a2, 2
+    beq t0, s10, SUBZERO_SOCO        #PERSONAGEM 1 É O SUBZERO
+
+SUBZERO_SOCO:
+    la a0, SubZeroSocoFraco1
+    j GOLPE
+
 
 
 ############################################################################################
@@ -83,7 +99,7 @@ CAMINHAR:
 	j Fim_KDInterrupt
 	
 GOLPE:
-	li a2, 3
+	#li a2, 3
     	jal ra, FRAME_GOLPE
 
     	la a0, SubZeroParado1
