@@ -44,4 +44,5 @@ INFINITO:
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/tecladov2.s"
 .include "componentes/bitmap/apagar.s"
-.include "componentes/bitmap/frame.asm"
+.include "componentes/bitmap/caminhar.s"
+.include "componentes/bitmap/golpe.s"
