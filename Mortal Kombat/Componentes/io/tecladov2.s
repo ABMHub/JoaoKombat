@@ -24,6 +24,9 @@ SWITCH_CASE_TECLA:
 	li t3, 'a'
 	beq t3, t2, ESQUERDA
 	
+	li t3, 'w'
+	beq t3, t2, PULAR_CIMA
+	
 	li t3, 'x'
     	beq t3, t2, CHUTE        #verifica se a tecla pressionada é 'x'
     	
@@ -56,28 +59,46 @@ SUBZERO_PRA_TRAS:
 	la a0, SubZeroMov3FT
 	li a3, -4
 	j CAMINHAR 
+	
+	
+PULAR_CIMA:
+SWITCH_CASE_PERSONAGEM_PULAR_PARA_CIMA:
+	li t0, 0
+	beq t0, s10, SUBZERO_PARA_CIMA
+
+SUBZERO_PARA_CIMA:
+	la a0, SubZeroPulando1
+	li a3, -9600
+	li a2, 2
+	jal ra, CAMINHAR_FRAME
+	
+	la a0, SubZeroPulando2
+	li a3, 9600
+	#  a2 = 2
+	jal ra, CAMINHAR_FRAME
+	j RESET
 
 CHUTE:
 SWITCH_CASE_PERSONAGEM_CHUTE:
     # checagem de personagens
-    li t0, 0
-    li a2, 3
-    beq t0, s10, SUBZERO_CHUTE        #PERSONAGEM 1 É O SUBZERO
+    	li t0, 0
+   	li a2, 3
+   	beq t0, s10, SUBZERO_CHUTE        #PERSONAGEM 1 É O SUBZERO
 
 SUBZERO_CHUTE:
-    la a0, SubZeroChute1
-    j GOLPE
+    	la a0, SubZeroChute1
+    	j GOLPE
     
 SOCO:
 SWITCH_CASE_PERSONAGEM_SOCO:
     # checagem de personagens
-    li t0, 0
-    li a2, 2
-    beq t0, s10, SUBZERO_SOCO        #PERSONAGEM 1 É O SUBZERO
+    	li t0, 0
+    	li a2, 2
+    	beq t0, s10, SUBZERO_SOCO        #PERSONAGEM 1 É O SUBZERO
 
 SUBZERO_SOCO:
-    la a0, SubZeroSocoFraco1
-    j GOLPE
+   	la a0, SubZeroSocoFraco1
+   	j GOLPE
 
 
 
@@ -93,8 +114,9 @@ CAMINHAR:
 	li a2, 3
 	jal ra, CAMINHAR_FRAME
 	
-	la a0, SubZeroParado1
+RESET:	la a0, SubZeroParado1
 	li a2, 1
+	li a3, 0
 	jal ra, CAMINHAR_FRAME
 	j Fim_KDInterrupt
 	

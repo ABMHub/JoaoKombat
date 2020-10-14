@@ -15,7 +15,7 @@ FRAME:	addi sp, sp, -4
 	la t0, PERSONAGEM1_INICIO	
 	lw t1, 0(t0)			# t1 = posição inicial do personagem
 	
-	add t1, t1, a3			# soma 4 pixels na posição inicial
+	add t1, t1, a3			# soma a3 pixels na posição inicial
 	sw t1, 0(t0)			# salva a nova posição inicial
 	
 	#la t2, PERSONAGEM1_FINAL	
