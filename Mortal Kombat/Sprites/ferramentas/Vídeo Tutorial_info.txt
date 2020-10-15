@@ -1,0 +1,43 @@
+Fatiador de Sprite Sheet e Alinhador de frames - by Mauricio B. Gehling - mbg3dmind@gmail.com
+
+
+Para assistir um vídeo tutorial com explicações detalhadas do uso das ferramentas, acesse:
+http://mbg3dmind.wordpress.com/2012/07/11/fatiador-de-sprite-sheet-e-editor-de-alinhamento/
+
+
+
+Versão 1.4 - atualizada em 18/06/2018
+- Integração do fatiador e alinhador, basta usar F8 para alternar entre um e outro.
+- Frames detectados no fatiador são carregados automaticamente no alinhador (orientação padrão no canto inferior esquerdo, costuma dar os melhores resultados).
+- Mais opções de grid para ajudar no alinhamento manual, com vários níveis de cortes e 2 cores, claro e escuro.
+- Todos os recursos presentes nas versões anteriores da ferramenta continuam existindo. 
+
+
+
+Versão 1.3 - atualizada em 10/07/2014
+- Novo modo de detectar bounding box = Varinha Mágica (liga ou desliga com botão direito do mouse), basta um clique sobre o sprite e ele será detectado
+- Todas as ferramentas de geração de bounding box funcionam entre si, podendo ser usadas em qualquer ordem
+- Cada bounding box possui um número de acordo com a ordem que foi detectado, esta ordem será usada para exportar; os números podem ser escondidos ou exibidos com a tecla N
+- Para permitir a integração das ferramentas, todo bounding box detectado permanece ativo mesmo quando fizer outras seleções, por isso novas formas de eliminar bounding box foram criadas: tecla DELETE ou U remove o último detectado, tecla END ou T remove todos
+- Girar a roda do mouse permite rolar o sprite sheet para cima ou para baixo
+- Ao usar qualquer ferramenta o nível de zoom atual permanece
+- Validações e outros ajustes menores
+
+
+
+Versão 1.2 - atualizada em 17/06/2014
+- Grande melhoria de performance no tempo de detecção do bounding box
+- Editor de alinhamento com opção de exportar os frames em um strip (sprite sheet horizontal), com nomenclatura que permite abrir como uma animação no GameMaker automaticamente [opção default]
+- Editor de alinhamento com nova função de remover o frame atual da animação
+- Outros ajustes menores
+
+
+
+Versão 1.1 - atualizada em 03/06/2014
+- Melhorias na interface (com menu gráfico para ferramentas principais de bounding box e alinhamento)
+- Permite ler arquivos com transparência
+- Possibilidade de exportar arquivos removendo cor do fundo 
+(igual a opção Remove Background quando carrega sprite no GM)
+- Editor de alinhamento com nova função de alinhar todos os frames no centro vertical (em Y)
+- Outros ajustes menores
+- Todas as teclas de atalho da versão 1.0 funcionam da mesma forma

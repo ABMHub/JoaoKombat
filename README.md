@@ -1,6 +1,6 @@
 # JoaoKombat
 
-## O RARS CRASHOU 8 VEZES
+## O RARS CRASHOU 12 VEZES NO DECORRER DO PROJETO
 
 ## Comando úteis:
 ```
@@ -18,6 +18,7 @@ git switch nome_branch -> muda de uma branch para a outra
 *(a branch principal é sempre master)*
 ```
 git reset --hard -> reseta suas mudanças para o commit mais recentes
+```
 
 ## Todo-List
 
