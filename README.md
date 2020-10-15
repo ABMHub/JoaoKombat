@@ -26,7 +26,7 @@ git reset --hard -> reseta suas mudanças para o commit mais recentes
 03. [X] Fazer o personagem se mover pra frente (deixando um rastro msm)
 04. [X] Fazer o personagem se mover pra frente apagando o rastro dele e repintando com o fundo
 05. [X] Fazer o personagem se mover pra frente com animação
-06. [ ] Fazer o personagem se mover para trás, pular e agaixar
+06. [X] Fazer o personagem se mover para trás, pular e agachar
 07. [X] Fazer o personagem dar um soco
 08. [X] Fazer o personagem dar um chute
 09. [ ] Verificar se houve colisão e aplicar o dano se tiver

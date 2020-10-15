@@ -41,7 +41,11 @@ AQUI3:	li t3, 's'
         
         li t3, 'v'
         beq t3, t2, JAB
+        
+        li t3, 'f'
+        beq t3, t2, BLOCK
 
+	j Fim_KDInterrupt		# Se não for nenhuma dessas não faz nada
 ###########################################################################################		
 DIREITA:
 SUBZERO_PRA_FRENTE:
@@ -155,7 +159,6 @@ SOCO_ABAIXADO:
     	
 CHUTE_ALTO:
 SWITCH_CASE_PERSONAGEM_CHUTE_ALTO:
-    # checagem de personagens
         la t0, SubZeroParado1
         beq t0, s10, SUBZERO_CHUTE_ALTO         # PERSONAGEM 1 É O SUBZERO
         
@@ -192,14 +195,82 @@ SUBZERO_JAB:
        	j GOLPE
 
 ALPISTE_ORH: 
-	li a2, 6
+	li a2, 1
+	li a3, -3840
        	la a0, SubZeroAlpiste1
-       	jal ra, FRAME_GOLPE			# animação
+       	jal ra, CAMINHAR_FRAME			# animação
+       	
+       	li a2, 1
+	li a3, -6400
+       	la a0, SubZeroAlpiste2
+       	jal ra, CAMINHAR_FRAME			# animação
+       	
+       	li a2, 1
+	li a3, -5120
+       	la a0, SubZeroAlpiste3
+       	jal ra, CAMINHAR_FRAME			# animação
+       	
+       	li a2, 1
+	li a3, 1280
+       	la a0, SubZeroAlpiste4
+       	jal ra, CAMINHAR_FRAME			# animação
+       	
+       	li a2, 1
+	li a3, 2560
+       	la a0, SubZeroAlpiste5
+       	jal ra, CAMINHAR_FRAME			# animação
+       	
+       	li a2, 1
+	li a3, 1920
+       	la a0, SubZeroAlpiste6
+       	jal ra, CAMINHAR_FRAME			# animação
+       	
+    	la s10, SubZeroParado1
+    	mv a0, s10
+   	j RESET
     	
-    	la a0, SubZeroAgachando2
-   	li a2, 1
-   	jal ra, FRAME_GOLPE			# animação
-    	j Fim_KDInterrupt
+BLOCK:
+	la t0, SubZeroBlock2			# block ativo
+	beq t0, s10, DESATIVAR_BLOCK
+	
+	la t0, SubZeroAgachando2		# se estiver abaixado ativa block no chao
+	beq t0, s10, BLOCK_CHAO
+
+ATIVAR_BLOCK:
+	la s10, SubZeroBlock2			# significa que o personagem ficará com escudo ativo
+	la a0, SubZeroBlock1
+	li a2, 2				# são 2 frames
+	jal ra, FRAME_GOLPE			# animação de block
+	j Fim_KDInterrupt
+	
+BLOCK_CHAO:
+	#la s10, SubZeroBlockChao2		# significa que o personagem ficará com block no chão ativo
+	#la a0, SubZeroBlockChao1
+	#li a2, 2				# são 2 frames
+	#jal ra, FRAME_GOLPE			# animação
+	j Fim_KDInterrupt
+	
+DESATIVAR_BLOCK:
+	#la t0, SubZeroBlockChao2
+	#beq t0, s10, DESATIVAR_BLOCK_CHAO	#block chao ativo
+	
+	mv a0, s10				# se chegou até aqui é porque está em pé
+	la s10, SubZeroParado1			# significa que o personagem ficará em pé
+	li a2, 2				# são 2 frames
+	jal ra, FRAME_GOLPE			# a0 tem o estado anterior de s10, anima a0
+	j RESET
+			
+DESATIVAR_BLOCK_CHAO:
+	#mv a0, s10
+	#la s10, SubZeroAgachando2
+	#li a2, 2
+	#jal ra, FRAME_GOLPE
+	
+	#la a0, SubZeroAgachando2
+	#li a2, 1
+	#jal ra, FRAME_GOLPE
+	j Fim_KDInterrupt
+		
 ############################################################################################
 #Esse loop é responsável por realizar a animação do personagem se movimentando para frente
 #caso ele esteja virado para a direita.
