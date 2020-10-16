@@ -85,7 +85,8 @@ ESQUERDA:
 	lw t1, 0(t0)
 	li a3, 0
 	addi t1, t1, -1
-	beq t1, zero, LIMITE_ESQUERDA
+	li t2, -1
+	beq t1, t2, LIMITE_ESQUERDA
 	sw t1, 0(t0)
 	
 SUBZERO_PRA_TRAS: 
@@ -285,6 +286,7 @@ CAMBALHOTA_PRA_FRENTE:
 	sw t0, 0(sp)
 	li t0, 7696
 	sw t0, 4(sp)
+	li s5, 1
 	j CAMBALHOTA
 	
 CAMBALHOTA_PRA_TRAS: 
@@ -293,6 +295,7 @@ CAMBALHOTA_PRA_TRAS:
 	sw t0, 0(sp)
 	li t0, 7664
 	sw t0, 4(sp)
+	li s5, -1
 	
 CAMBALHOTA:
 	la s10, SubZeroParado1			# garante que em s10 tenha ele parado
@@ -328,8 +331,10 @@ CONTROLE_SUBINDO:
 	la t0, CONTADOR1
 	lw t1, 0(t0)
 	li t2, 19
-	addi t1, t1, 1
+	add t1, t1, s5
 	bge t1, t2, LIMITE_DIREITA_CAMBALHOTA_SUBINDO
+	li t2, -1
+	beq t1, t2, LIMITE_ESQUERDA_CAMBALHOTA_SUBINDO
 	
 NAO_S:	sw t1, 0(t0)	
 	ret
@@ -338,22 +343,43 @@ CONTROLE_DESCENDO:
 	la t0, CONTADOR1
 	lw t1, 0(t0)
 	li t2, 19
-	addi t1, t1, 1
+	add t1, t1, s5
 	bge t1, t2, LIMITE_DIREITA_CAMBALHOTA_DESCENDO
+	li t2, -1
+	beq t1, t2, LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO
 	
 NAO_D:	sw t1, 0(t0)	
 	ret	
 			
 LIMITE_DIREITA_CAMBALHOTA_SUBINDO:
 	li a3, -7680
-	addi t1, t1, -1
+	sub s5, zero, s5
+	add t1, t1, s5
+	sub s5, zero, s5
 	j NAO_S
 	
 LIMITE_DIREITA_CAMBALHOTA_DESCENDO:
 	li a3, 7680
-	addi t1, t1, -1
+	sub s5, zero, s5
+	add t1, t1, s5
+	sub s5, zero, s5
+	j NAO_D
+	
+LIMITE_ESQUERDA_CAMBALHOTA_SUBINDO:
+	li a3, -7680
+	sub s5, zero, s5
+	add t1, t1, s5
+	sub s5, zero, s5
+	j NAO_S
+
+LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO:
+	li a3, 7680
+	sub s5, zero, s5
+	add t1, t1, s5
+	sub s5, zero, s5
 	j NAO_D
 		
+						
 PODER:
 	la a0, SubZeroPoder1
 	li a2, 5
