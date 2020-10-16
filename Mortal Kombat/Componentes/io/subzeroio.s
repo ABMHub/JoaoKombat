@@ -218,6 +218,9 @@ BLOCK:
 	la t0, SubZeroBlock2			# block ativo
 	beq t0, s10, DESATIVAR_BLOCK
 	
+	la t0, SubZeroBlockAgachado_2		# block ativo
+	beq t0, s10, DESATIVAR_BLOCK_CHAO
+	
 	la t0, SubZeroAgachando2		# se estiver abaixado ativa block no chao
 	beq t0, s10, BLOCK_CHAO
 

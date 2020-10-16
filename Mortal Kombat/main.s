@@ -8,6 +8,11 @@
 
 	PERSONAGEM1_INICIO: 	.word 0xFF0111E0
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
+	
+	ALTURA1:		.word 0x0
+	LARGURA1:		.word 0x0
+	
+	CONTADOR1:		.word 0x0
 
 .macro  SLEEP (%x)		#função que faz um delay de x microssegundos
 	# SLEEP
