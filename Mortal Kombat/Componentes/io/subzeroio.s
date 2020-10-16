@@ -261,31 +261,32 @@ DESATIVAR_BLOCK_CHAO:
 	
 CAMBALHOTA_PRA_FRENTE:	
 	addi sp, sp, -8
-	li t0, -10208				# desloca 28 pixels para cima e 32 pra frente
+	li t0, -7664				# desloca 28 pixels para cima e 32 pra frente
 	sw t0, 0(sp)
-	li t0, 10272
+	li t0, 7696
 	sw t0, 4(sp)
 	j CAMBALHOTA
 	
 CAMBALHOTA_PRA_TRAS: 
 	addi sp, sp, -8
-	li t0, -10272				# desloca 28 pixels para cima e 32 pra frente
+	li t0, -7696				# desloca 28 pixels para cima e 32 pra frente
 	sw t0, 0(sp)
-	li t0, 10208
+	li t0, 7664
 	sw t0, 4(sp)
 	
 CAMBALHOTA:
 	la s10, SubZeroParado1			# garante que em s10 tenha ele parado
-	la a0, SubZeroCambalhota1		# carrega o sprite da cambalhota
+	la a0, SubZeroCambalhota_1		# carrega o sprite da cambalhota
 	lw a3, 0(sp)
-	li a2, 2				# a cambalhota são 2 frames
+	li a2, 4				# a cambalhota são 2 frames
 	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
 		
 	la s10, SubZeroParado1			# garante que em s10 tenha ele parado
 	lw a3, 4(sp)					# desloca 28 pixels para baixo e 32 pra frente
-	li a2, 2				# a cambalhota são 2 frames
+	li a2, 4				# a cambalhota são 2 frames
 	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota descendo
 	
+	addi sp, sp, 8
 	j RESET
 	
 PODER:
