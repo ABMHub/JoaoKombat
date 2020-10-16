@@ -46,7 +46,7 @@ for archive in text:
     x = 'move ' + ''.join(temp) + ' S'
     os.system(x)
 
+f.close()
+
 x = 'del list.txt'
 os.system(x)
-
-f.close()
