@@ -1,6 +1,7 @@
 .data
 	.include "Sprites/data/mario.s"
 	.include "Sprites/data/background1.s"
+	.include "Sprites/data/scorpion.s"
 	.include "Sprites/data/subzero.s"
 	
 	VGA1INICIO: 		.word 0xFF000000
@@ -33,8 +34,8 @@
 	
 	jal ra, BACKGROUND	# argumento em a0 = fundo
 
-	la s10, SubZeroParado1
-	la a0, SubZeroParado1
+	la s10, ScorpionParado_1
+	la a0, ScorpionParado_1
 	jal ra, PERSONAGEM
 	
 	la tp,KDInterrupt    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
