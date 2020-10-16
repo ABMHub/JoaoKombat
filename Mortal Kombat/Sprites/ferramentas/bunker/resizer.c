@@ -41,6 +41,8 @@ void resize(char* arquivo) {
     int altura, largura;
     getSize(f, name, &altura, &largura);
 
+    char label[100];
+    strcpy(label, name);
     strcat(name, ".s");
     printf("%s\n", name);
 
@@ -48,7 +50,7 @@ void resize(char* arquivo) {
 
     int faltaLarg = (4 - (largura % 4)) % 4;
 
-    fprintf(g, "%s: .word %d, %d\n.byte ", name, largura + faltaLarg, altura % 2 ? altura + 1: altura);
+    fprintf(g, "%s: .word %d, %d\n.byte ", label, largura + faltaLarg, altura % 2 ? altura + 1: altura);
 
     if (altura % 2) {
         addAltura(g, largura + faltaLarg);

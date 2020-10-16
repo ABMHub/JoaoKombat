@@ -7,21 +7,20 @@ imgNames = os.listdir(FOLDER_PATH)
 
 f = open("list.txt", 'w')
 
-print(imgNames)
+x = 'mkdir imagens'
+os.system(x)
 
 for imgNames in imgNames:
     if imgNames[-1] == 'p':
         imgNames = imgNames[:-4]
-        x = 'bmp2oac2 ' + imgNames
+        x = 'bmp2isc ' + imgNames
+        print(x)
         os.system(x)
 
-        x = 'del ' + imgNames + '.mif'
+        x = 'rename ' + imgNames + ".data " + imgNames + 'N.s'
         os.system(x)
 
-        x = 'del ' + imgNames + '.bin'
-        os.system(x)
-
-        x = 'rename ' + imgNames + ".s " + imgNames + 'N.s'
+        x = 'move ' + imgNames + '.bmp imagens'
         os.system(x)
 
         f.write(imgNames + 'N.s\n')
@@ -42,14 +41,12 @@ os.system(x)
 
 for archive in text:
     x = 'del ' + archive
-    print(x)
     os.system(x)
     temp = archive.rsplit('N')
     x = 'move ' + ''.join(temp) + ' S'
-    print(x)
     os.system(x)
 
 f.close()
-# x = 'move list.txt S'
-# print(x)
-# os.system(x)
+
+x = 'del list.txt'
+os.system(x)
