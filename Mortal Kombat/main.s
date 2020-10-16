@@ -6,7 +6,7 @@
 	VGA1INICIO: 		.word 0xFF000000
 	VGA1FINAL: 		.word 0xFF012C00
 
-	PERSONAGEM1_INICIO: 	.word 0xFF00B420
+	PERSONAGEM1_INICIO: 	.word 0xFF0111E0
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
 
 .macro  SLEEP (%x)		#função que faz um delay de x microssegundos

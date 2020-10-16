@@ -11,6 +11,10 @@ APAGAR:
 	la t0, PERSONAGEM1_INICIO	
 	lw t0, 0(t0)			# t0 = posição inicial do personagem
 	
+	li t2, -320
+	mul t2, t2, s7
+	add t0, t0, t2
+	
 	#lw t4, 0(a0)			# t4 = largura do personagem
 	add t1, t0, s8			# t1 = PERSONAGEM1_FINAL
 

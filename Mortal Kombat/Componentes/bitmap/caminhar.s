@@ -6,13 +6,14 @@
 ############################################################################################
 CAMINHAR_FRAME:
 	li s0, 0
+	
 FRAME:	addi sp, sp, -4
 	sw ra, 0(sp)
 	
 	mv a1, s9			# a1 = background
 	
 	jal ra, APAGAR			# APAGA O PERSONAGEM
-	
+
 	la t0, PERSONAGEM1_INICIO	
 	lw t1, 0(t0)			# t1 = posição inicial do personagem
 	

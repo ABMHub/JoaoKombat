@@ -8,14 +8,17 @@
 
 PERSONAGEM:
 	li t4, 0xC7
+	
 	la t0, PERSONAGEM1_INICIO
 	lw t0, 0(t0)			#t0 = posição inicial do personagem
 	
-	lw s8, 0(a0)			#t1 = largura do personagem
-	
-	add t1, t0, s8			#t1 = posição final do personagem
-	
 ALT:	lw s7, 4(a0)			#t6 = altura do personagem
+	li t2, -320
+	mul t2, t2, s7
+	add t0, t0, t2
+	
+	lw s8, 0(a0)			#t1 = largura do personagem
+	add t1, t0, s8			#t1 = posição final do personagem
 	
 	addi a0, a0, 8			#addi mágico
 	

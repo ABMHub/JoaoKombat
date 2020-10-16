@@ -44,6 +44,10 @@ AQUI3:	li t3, 's'
         
         li t3, 'f'
         beq t3, t2, BLOCK
+        
+        li t1,0xFF200000    	# Endereço de controle do KDMMIO
+	li t0,0x01       	# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           	# Habilita interrupção do teclado
 
 	j Fim_KDInterrupt		# Se não for nenhuma dessas não faz nada
 ###########################################################################################		
@@ -90,9 +94,8 @@ SUBZERO_PARA_CIMA:
 LEVANTAR: 
 	la s10, SubZeroParado1			# faz com que s10 tenha ele parado
 	la a0, SubZeroAgachando1SUBINDO		# carrega o sprite dele agaixado
-	li a3, -9600				# desloca 30 pixels para cima
 	li a2, 1				# 1 frame
-	jal ra, CAMINHAR_FRAME			# animação
+	jal ra, FRAME_GOLPE			# animação
 	j RESET
 ###########################################################################################
 ABAIXAR:
@@ -103,10 +106,10 @@ ABAIXAR:
 	beq t0, s10, AGACHAR
 
 AGACHAR:
-	li a3, 4800				# desloca 15 pixels para baixo
+	#li a3, 4800				# desloca 15 pixels para baixo
 	la a0, SubZeroAgachando1		# carrega o sprite abaixando
 	li a2, 2				# são 2 frames
-	jal ra, CAMINHAR_FRAME			# animação
+	jal ra, FRAME_GOLPE			# animação
 	la s10, SubZeroAgachando2		# seta ele a
 	j Fim_KDInterrupt
 
@@ -195,35 +198,35 @@ SUBZERO_JAB:
        	j GOLPE
 
 ALPISTE_ORH: 
-	li a2, 1
-	li a3, -3840
+	#li a2, 1
+	#li a3, -3840
+       	#la a0, SubZeroAlpiste1
+       	#jal ra, CAMINHAR_FRAME			# animação
+       	
+       	#li a2, 1
+	#li a3, -6400
+       	#la a0, SubZeroAlpiste2
+       	#jal ra, CAMINHAR_FRAME			# animação
+       	
+       	#li a2, 1
+	#li a3, -5120
+       	#la a0, SubZeroAlpiste3
+       	#jal ra, CAMINHAR_FRAME			# animação
+       	
+       	#li a2, 1
+	#li a3, 1280
+       	#la a0, SubZeroAlpiste4
+       	#jal ra, CAMINHAR_FRAME			# animação
+       	
+       	#li a2, 1
+	#li a3, 2560
+       	#la a0, SubZeroAlpiste5
+       	#jal ra, CAMINHAR_FRAME			# animação
+       	
+       	li a2, 6
+	#li a3, 1920
        	la a0, SubZeroAlpiste1
-       	jal ra, CAMINHAR_FRAME			# animação
-       	
-       	li a2, 1
-	li a3, -6400
-       	la a0, SubZeroAlpiste2
-       	jal ra, CAMINHAR_FRAME			# animação
-       	
-       	li a2, 1
-	li a3, -5120
-       	la a0, SubZeroAlpiste3
-       	jal ra, CAMINHAR_FRAME			# animação
-       	
-       	li a2, 1
-	li a3, 1280
-       	la a0, SubZeroAlpiste4
-       	jal ra, CAMINHAR_FRAME			# animação
-       	
-       	li a2, 1
-	li a3, 2560
-       	la a0, SubZeroAlpiste5
-       	jal ra, CAMINHAR_FRAME			# animação
-       	
-       	li a2, 1
-	li a3, 1920
-       	la a0, SubZeroAlpiste6
-       	jal ra, CAMINHAR_FRAME			# animação
+       	jal ra, FRAME_GOLPE			# animação
        	
     	la s10, SubZeroParado1
     	mv a0, s10
@@ -296,6 +299,10 @@ GOLPE:
     	j Fim_KDInterrupt
 	
 Fim_KDInterrupt:
+	li t1,0xFF200000    	# Endereço de controle do KDMMIO
+	li t0,0x02       	# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           	# Habilita interrupção do teclado
+
 	lw ra, 0(sp)			# recupera ra
 	addi sp, sp, 4			# libera espaço na pilha
 	#csrrsi zero,0,0x10 	# seta o bit de habilitação de interrupção em ustatus 
