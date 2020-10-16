@@ -45,6 +45,14 @@ AQUI3:	li t3, 's'
         li t3, 'f'
         beq t3, t2, BLOCK
         
+        li t3, 'e'
+        beq t3, t2, CAMBALHOTA_PRA_FRENTE
+        
+        li t3, 'q'
+        beq t3, t2, CAMBALHOTA_PRA_TRAS
+        
+        li t3, ' '
+        beq t3, t2, PODER
         li t1,0xFF200000    	# Endereço de controle do KDMMIO
 	li t0,0x01       	# bit 1 habilita/desabilita a interrupção
 	sw t0,0(t1)           	# Habilita interrupção do teclado
@@ -58,6 +66,7 @@ SUBZERO_PRA_FRENTE:
 	
 	la a0, SubZeroMov1F			# move pra frente
 	li a3, 4
+
 	j CAMINHAR
 ###########################################################################################
 ESQUERDA:
@@ -83,12 +92,12 @@ SUBZERO_PARA_CIMA:
 	la a0, SubZeroPulando1			# carrega o sprite do pulo
 	li a3, -9600				# desloca 30 pixels para cima
 	li a2, 2				# o pulo são 2 frames
-	jal ra, CAMINHAR_FRAME			# mostra a animação do pulo
+	jal ra, FRAME_DESLOCAMENTO			# mostra a animação do pulo
 	
 	la a0, SubZeroPulando2			# prepara o reset
 	li a3, 9600				# desloca 30 pixels pra baixo
 	#  a2 = 2				# a2 já é 2 (2 frames")
-	jal ra, CAMINHAR_FRAME			# mostra a animação dele descendo
+	jal ra, FRAME_DESLOCAMENTO			# mostra a animação dele descendo
 	j RESET
 ###########################################################################################	
 LEVANTAR: 
@@ -185,7 +194,6 @@ RASTEIRA:
 
 JAB:
 SWITCH_CASE_PERSONAGEM_JAB:
-    # checagem de personagens
         la t0, SubZeroParado1
         beq t0, s10, SUBZERO_JAB        #PERSONAGEM 1 É O SUBZERO
         
@@ -198,33 +206,7 @@ SUBZERO_JAB:
        	j GOLPE
 
 ALPISTE_ORH: 
-	#li a2, 1
-	#li a3, -3840
-       	#la a0, SubZeroAlpiste1
-       	#jal ra, CAMINHAR_FRAME			# animação
-       	
-       	#li a2, 1
-	#li a3, -6400
-       	#la a0, SubZeroAlpiste2
-       	#jal ra, CAMINHAR_FRAME			# animação
-       	
-       	#li a2, 1
-	#li a3, -5120
-       	#la a0, SubZeroAlpiste3
-       	#jal ra, CAMINHAR_FRAME			# animação
-       	
-       	#li a2, 1
-	#li a3, 1280
-       	#la a0, SubZeroAlpiste4
-       	#jal ra, CAMINHAR_FRAME			# animação
-       	
-       	#li a2, 1
-	#li a3, 2560
-       	#la a0, SubZeroAlpiste5
-       	#jal ra, CAMINHAR_FRAME			# animação
-       	
        	li a2, 6
-	#li a3, 1920
        	la a0, SubZeroAlpiste1
        	jal ra, FRAME_GOLPE			# animação
        	
@@ -247,15 +229,15 @@ ATIVAR_BLOCK:
 	j Fim_KDInterrupt
 	
 BLOCK_CHAO:
-	#la s10, SubZeroBlockChao2		# significa que o personagem ficará com block no chão ativo
-	#la a0, SubZeroBlockChao1
-	#li a2, 2				# são 2 frames
-	#jal ra, FRAME_GOLPE			# animação
+	la s10, SubZeroBlockAgachado_2		# significa que o personagem ficará com block no chão ativo
+	la a0, SubZeroBlockAgachado_1
+	li a2, 2				# são 2 frames
+	jal ra, FRAME_GOLPE			# animação
 	j Fim_KDInterrupt
 	
 DESATIVAR_BLOCK:
-	#la t0, SubZeroBlockChao2
-	#beq t0, s10, DESATIVAR_BLOCK_CHAO	#block chao ativo
+	la t0, SubZeroBlockAgachado_2
+	beq t0, s10, DESATIVAR_BLOCK_CHAO	#block chao ativo
 	
 	mv a0, s10				# se chegou até aqui é porque está em pé
 	la s10, SubZeroParado1			# significa que o personagem ficará em pé
@@ -264,16 +246,51 @@ DESATIVAR_BLOCK:
 	j RESET
 			
 DESATIVAR_BLOCK_CHAO:
-	#mv a0, s10
-	#la s10, SubZeroAgachando2
-	#li a2, 2
-	#jal ra, FRAME_GOLPE
+	mv a0, s10
+	la s10, SubZeroAgachando2
+	li a2, 2
+	jal ra, FRAME_GOLPE
 	
-	#la a0, SubZeroAgachando2
-	#li a2, 1
-	#jal ra, FRAME_GOLPE
+	la a0, SubZeroAgachando2
+	li a2, 1
+	jal ra, FRAME_GOLPE
 	j Fim_KDInterrupt
+	
+CAMBALHOTA_PRA_FRENTE:	
+	addi sp, sp, -8
+	li t0, -10208				# desloca 28 pixels para cima e 32 pra frente
+	sw t0, 0(sp)
+	li t0, 10272
+	sw t0, 4(sp)
+	j CAMBALHOTA
+	
+CAMBALHOTA_PRA_TRAS: 
+	addi sp, sp, -8
+	li t0, -10272				# desloca 28 pixels para cima e 32 pra frente
+	sw t0, 0(sp)
+	li t0, 10208
+	sw t0, 4(sp)
+	
+CAMBALHOTA:
+	la s10, SubZeroParado1			# garante que em s10 tenha ele parado
+	la a0, SubZeroCambalhota1		# carrega o sprite da cambalhota
+	lw a3, 0(sp)
+	li a2, 2				# a cambalhota são 2 frames
+	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
 		
+	la s10, SubZeroParado1			# garante que em s10 tenha ele parado
+	lw a3, 4(sp)					# desloca 28 pixels para baixo e 32 pra frente
+	li a2, 2				# a cambalhota são 2 frames
+	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota descendo
+	
+	j RESET
+	
+PODER:
+	la a0, SubZeroPoder1
+	li a2, 5
+	jal ra, FRAME_GOLPE
+	
+	j RESET
 ############################################################################################
 #Esse loop é responsável por realizar a animação do personagem se movimentando para frente
 #caso ele esteja virado para a direita.
@@ -284,7 +301,10 @@ DESATIVAR_BLOCK_CHAO:
 ############################################################################################
 CAMINHAR:	
 	li a2, 3			# quantidade de frames
-	jal ra, CAMINHAR_FRAME		
+	jal ra, FRAME_DESLOCAMENTO	
+	li a2, 1
+	la a0, SubZeroParado1	
+	jal ra, FRAME_DESLOCAMENTO
 	
 RESET:	la a0, SubZeroParado1		# posição padrão
 	li a2, 1			# contagem de frames
@@ -299,13 +319,13 @@ GOLPE:
     	j Fim_KDInterrupt
 	
 Fim_KDInterrupt:
-	li t1,0xFF200000    	# Endereço de controle do KDMMIO
-	li t0,0x02       	# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           	# Habilita interrupção do teclado
+	li t1,0xFF200000    		# Endereço de controle do KDMMIO
+	li t0,0x02       		# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           		# Habilita interrupção do teclado
 
 	lw ra, 0(sp)			# recupera ra
 	addi sp, sp, 4			# libera espaço na pilha
-	#csrrsi zero,0,0x10 	# seta o bit de habilitação de interrupção em ustatus 
+	csrrsi zero,0,0x10 		# seta o bit de habilitação de interrupção em ustatus 
 	uret				# volta ao programa principal
 	
 	

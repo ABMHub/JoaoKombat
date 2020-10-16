@@ -4,10 +4,11 @@
 #a2 = quantidade de frames
 #			$$$$$$$$ s0 e s1 são alterados	$$$$$$$$
 ############################################################################################
-CAMINHAR_FRAME:
+FRAME_DESLOCAMENTO:
 	li s0, 0
 	
-FRAME:	addi sp, sp, -4
+DESLOCAR:
+	addi sp, sp, -4
 	sw ra, 0(sp)
 	
 	mv a1, s9			# a1 = background
@@ -29,9 +30,9 @@ FRAME:	addi sp, sp, -4
 	jal ra, PERSONAGEM		# PINTA O PERSONAGEM
 	
 	addi s0, s0, 1			# incrementa o contador de frames
-	blt  s0, a2, FRAME		# repete enquanto não atingir o máximo de frames
+	blt  s0, a2, DESLOCAR		# repete enquanto não atingir o máximo de frames
 	
-	lw ra, 0(sp)
-	addi sp, sp, 4
+	lw ra, 0(sp)			# restaura ra
+	addi sp, sp, 4			# desaloca espaço na pilha
 	ret
 	

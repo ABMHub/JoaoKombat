@@ -45,5 +45,5 @@ INFINITO:
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/subzeroio.s"
 .include "componentes/bitmap/apagar.s"
-.include "componentes/bitmap/caminhar.s"
+.include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/golpe.s"

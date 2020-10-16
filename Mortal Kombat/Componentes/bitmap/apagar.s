@@ -11,11 +11,10 @@ APAGAR:
 	la t0, PERSONAGEM1_INICIO	
 	lw t0, 0(t0)			# t0 = posição inicial do personagem
 	
-	li t2, -320
-	mul t2, t2, s7
-	add t0, t0, t2
+	li t2, -320			
+	mul t2, t2, s7			# -320 * altura do personagem
+	add t0, t0, t2			# t0 = canto superior esquerdo do personagem
 	
-	#lw t4, 0(a0)			# t4 = largura do personagem
 	add t1, t0, s8			# t1 = PERSONAGEM1_FINAL
 
 	lw t2, VGA1INICIO		# t2 = inicio da memória VGA
@@ -28,7 +27,7 @@ APAGAR:
 	
 PRE_LOOP_APAGAR:	
 	li t3, 0			# t3 = contador de linhas
-	#lw t0, 4(a0)			# limite de linhas
+	
 LOOP_APAGAR:
 	lw t5, 0(a1)			# carrega os pixels da imagem
 	sw t5, 0(t2)			# pinta a imagem

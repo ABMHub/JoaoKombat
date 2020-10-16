@@ -1,47 +1,38 @@
-CAMINHAR_FRAME:
+############################################################################################
+#a0 = endereço da imagem
+#a3 = Define se é pra frente ou para trás
+#a2 = quantidade de frames
+#			$$$$$$$$ s0 e s1 são alterados	$$$$$$$$
+############################################################################################
+FRAME_DESLOCAMENTO:
 	li s0, 0
 	
-LOOP_FRAME_DESLOCAMENTO:
+DESLOCAR:
+	addi sp, sp, -4			# aloca espaço na pilha
+	sw ra, 0(sp)			# salva ra
+	
+	mv a1, s9			# a1 = background
+	
+	jal ra, APAGAR			# APAGA O PERSONAGEM
 
-	addi sp, sp, -4
-	sw ra, 0(sp)
+	la t0, PERSONAGEM1_INICIO	
+	lw t1, 0(t0)			# t1 = posição inicial do personagem
 	
-	jal ra, APAGAR
+	add t1, t1, a3			# soma a3 pixels na posição inicial
+	sw t1, 0(t0)			# salva a nova posição inicial
 	
-	
-	
-	la t0, VGA1INICIO
-	lw t1, 0(t0)
-	
-	la t2, PERSONAGEM1_INICIO
-	lw t3, 0(t2)
-	
-	beq s6, zero, VGA1q
-	
-VGA2q:	li t4, 0x00100000	
-	or t1, t1, t4
-	or t3, t3, t4
+	#la t2, PERSONAGEM1_FINAL	
+	#lw t3, 0(t2)			# t3 = posição final do personagem
 
-VGA1q:	sw t1, 0(t0)
+	#addi t3, t3, 4			# soma 4 pixels na posição final
+	#sw t3, 0(t2)			# salva a nova posição final (ISSO NÃO ESTÁ SENDO UTILIZADO EM LUGAR ALGUM NO MOMENTO E SE POSSÍVEL EVITE USAR)
 	
-	add t3, t3, a3
-	sw t3, 0(t2)
+	jal ra, PERSONAGEM		# PINTA O PERSONAGEM
 	
-	jal ra, PERSONAGEM
-	
-	li t0,0xFF200604	# Escolhe o Frame 0 ou 1
-	xori s6, s6, 0x01
- 	sw s6,0(t0)		# seleciona a Frame t2
-
 	addi s0, s0, 1			# incrementa o contador de frames
-	blt  s0, a2, LOOP_FRAME_DESLOCAMENTO		# repete enquanto não atingir o máximo de frames
+	blt  s0, a2, DESLOCAR		# repete enquanto não atingir o máximo de frames
 	
-	mv t1, a0
-	SLEEP(2)
-	mv a0, t1
-	
-	lw ra, 0(sp)
-	addi sp, sp, 4
+	lw ra, 0(sp)			# restaura ra
+	addi sp, sp, 4			# desaloca espaço na pilha
 	ret
-	
 	
