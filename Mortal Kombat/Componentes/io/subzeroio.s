@@ -60,23 +60,42 @@ AQUI3:	li t3, 's'
 	j Fim_KDInterrupt		# Se não for nenhuma dessas não faz nada
 ###########################################################################################		
 DIREITA:
+	la t0, CONTADOR1
+	lw t1, 0(t0)
+	li a3, 0
+	li t2, 19
+	addi t1, t1, 1
+	bge t1, t2, LIMITE_DIREITA
+	
+	sw t1, 0(t0)
+	
 SUBZERO_PRA_FRENTE:
+	li a3, 4
+	addi t1, t1, -1
+	
+LIMITE_DIREITA:
 	la t0, SubZeroAgachando2		# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt
-	
 	la a0, SubZeroMov1F			# move pra frente
-	li a3, 4
-
+	
 	j CAMINHAR
 ###########################################################################################
 ESQUERDA:
-
-SUBZERO_PRA_TRAS:
+	la t0, CONTADOR1
+	lw t1, 0(t0)
+	li a3, 0
+	addi t1, t1, -1
+	beq t1, zero, LIMITE_ESQUERDA
+	sw t1, 0(t0)
+	
+SUBZERO_PRA_TRAS: 
+	addi t1, t1, 1
+	li a3, -4
+LIMITE_ESQUERDA:
 	la t0, SubZeroAgachando2		# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt
 
 	la a0, SubZeroMov3FT			# move pra trás
-	li a3, -4
 	j CAMINHAR 
 	
 ##########################################################################################	
@@ -260,6 +279,7 @@ DESATIVAR_BLOCK_CHAO:
 	j Fim_KDInterrupt
 	
 CAMBALHOTA_PRA_FRENTE:	
+
 	addi sp, sp, -8
 	li t0, -7664				# desloca 28 pixels para cima e 32 pra frente
 	sw t0, 0(sp)
@@ -278,17 +298,62 @@ CAMBALHOTA:
 	la s10, SubZeroParado1			# garante que em s10 tenha ele parado
 	la a0, SubZeroCambalhota_1		# carrega o sprite da cambalhota
 	lw a3, 0(sp)
-	li a2, 4				# a cambalhota são 2 frames
+	
+	li s2, 0
+	li s3, 4
+	
+LOOP_CAMBALHOTA_SUBINDO:
+	li a2, 1				# a cambalhota são 2 frames
+	jal ra, CONTROLE_SUBINDO
 	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
+	addi s2, s2, 1
+	blt s2, s3, LOOP_CAMBALHOTA_SUBINDO
+	
+	lw a3, 4(sp)
+	
+	li s2, 0
+	li s3, 4
 		
-	la s10, SubZeroParado1			# garante que em s10 tenha ele parado
-	lw a3, 4(sp)					# desloca 28 pixels para baixo e 32 pra frente
-	li a2, 4				# a cambalhota são 2 frames
-	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota descendo
+LOOP_CAMBALHOTA_DESCENDO:	
+	li a2, 1				# a cambalhota são 2 frames
+	jal ra, CONTROLE_DESCENDO
+	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
+	addi s2, s2, 1
+	blt s2, s3, LOOP_CAMBALHOTA_DESCENDO 
 	
 	addi sp, sp, 8
 	j RESET
 	
+CONTROLE_SUBINDO:
+	la t0, CONTADOR1
+	lw t1, 0(t0)
+	li t2, 19
+	addi t1, t1, 1
+	bge t1, t2, LIMITE_DIREITA_CAMBALHOTA_SUBINDO
+	
+NAO_S:	sw t1, 0(t0)	
+	ret
+
+CONTROLE_DESCENDO:
+	la t0, CONTADOR1
+	lw t1, 0(t0)
+	li t2, 19
+	addi t1, t1, 1
+	bge t1, t2, LIMITE_DIREITA_CAMBALHOTA_DESCENDO
+	
+NAO_D:	sw t1, 0(t0)	
+	ret	
+			
+LIMITE_DIREITA_CAMBALHOTA_SUBINDO:
+	li a3, -7680
+	addi t1, t1, -1
+	j NAO_S
+	
+LIMITE_DIREITA_CAMBALHOTA_DESCENDO:
+	li a3, 7680
+	addi t1, t1, -1
+	j NAO_D
+		
 PODER:
 	la a0, SubZeroPoder1
 	li a2, 5
@@ -309,6 +374,7 @@ CAMINHAR:
 	li a2, 1
 	la a0, SubZeroParado1	
 	jal ra, FRAME_DESLOCAMENTO
+	j Fim_KDInterrupt
 	
 RESET:	la a0, SubZeroParado1		# posição padrão
 	li a2, 1			# contagem de frames
