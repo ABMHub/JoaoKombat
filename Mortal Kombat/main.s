@@ -6,7 +6,7 @@
 	VGA1INICIO: 		.word 0xFF000000
 	VGA1FINAL: 		.word 0xFF012C00
 
-	PERSONAGEM1_INICIO: 	.word 0xFF0111E0
+	PERSONAGEM1_INICIO: 	.word 0xFF010E10
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
 	
 	ALTURA1:		.word 0x0
@@ -24,6 +24,12 @@
 .text
 	la s9, background1	# s9 sempre contém o background
 	mv a0, s9
+	
+	la t0, VGA1INICIO
+	lw a1, 0(t0)			# ta1 = inicio da memória vga
+	la t0, VGA1FINAL
+	lw a2, 0(t0)			# ta2 = final da memória vga
+	
 	jal ra, BACKGROUND	# argumento em a0 = fundo
 
 	la s10, SubZeroParado1
