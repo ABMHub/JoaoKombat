@@ -12,7 +12,7 @@
 	ALTURA1:		.word 0x0
 	LARGURA1:		.word 0x0
 	
-	CONTADOR1:		.word 0x0
+	CONTADOR1:		.word 0x1
 
 .macro  SLEEP (%x)		#função que faz um delay de x microssegundos
 	# SLEEP
