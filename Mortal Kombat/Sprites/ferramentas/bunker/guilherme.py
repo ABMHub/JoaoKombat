@@ -5,10 +5,22 @@ FOLDER_PATH = 'C:/Users/lucas/Documents/Programação/JoaoKombat/Mortal Kombat/S
 os.chdir(FOLDER_PATH)
 imgNames = os.listdir(FOLDER_PATH)
 
+for imgNames in imgNames:
+    if imgNames[-1] == 'g':
+        imgNames = imgNames[:-4]
+        x = 'png2bmpcmd -i ' + imgNames + '.png --bmp-bpp=24'
+        print(x)
+        os.system(x)
+
+        x = 'del '  + imgNames + '.png'
+        os.system(x)
+
 f = open("list.txt", 'w')
 
 x = 'mkdir imagens'
 os.system(x)
+
+imgNames = os.listdir(FOLDER_PATH)
 
 for imgNames in imgNames:
     if imgNames[-1] == 'p':

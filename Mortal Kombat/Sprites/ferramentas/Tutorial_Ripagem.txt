@@ -1,0 +1,15 @@
+Primeiro passo
+	Pegue a spritesheet que você quer e use o Fatiador_Alinhador.exe nela
+	Para aprender a usar ele, tem um link com o tutorial no outro txt
+
+Segundo passo
+	Converter todos os png para bmp
+	Existem conversores gratuitos na internet
+
+Terceiro Passo
+	Mover todos os bmp para o bunker
+
+Quarto Passo
+	Executar o programa do guilherme
+	Agora todos os arquivos .s estão na pasta S
+	Na pasta bunker existe um arquivo chamado compilado.s, ele é todos os frames juntos
