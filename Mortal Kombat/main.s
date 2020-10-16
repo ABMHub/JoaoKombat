@@ -13,7 +13,8 @@
 	LARGURA1:		.word 0x0
 	
 	CONTADOR1:		.word 0x1
-
+	CONTADOR2:		.word 0x0
+	
 .macro  SLEEP (%x)		#função que faz um delay de x microssegundos
 	# SLEEP
     	li a0,%x		#a0=valor de delay passado como parâmetro 
