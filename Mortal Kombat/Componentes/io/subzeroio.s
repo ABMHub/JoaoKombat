@@ -60,6 +60,9 @@ AQUI3_SubZero:	li t3, 's'
 	j Fim_KDInterrupt_SubZero		# Se não for nenhuma dessas não faz nada
 ###########################################################################################		
 DIREITA_SubZero:
+	la t0, SubZeroAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_SubZero
+
 	la t0, CONTADOR1
 	lw t1, 0(t0)
 	li a3, 0
@@ -71,16 +74,18 @@ DIREITA_SubZero:
 	
 SUBZERO_PRA_FRENTE_SubZero:
 	li a3, 4
-	addi t1, t1, -1
+	#addi t1, t1, -1
 	
 LIMITE_DIREITA_SubZero:
-	la t0, SubZeroAgachando_2		# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt_SubZero
+	addi t1, t1, -1
 	la a0, SubZeroAndando_1			# move pra frente
 	
 	j CAMINHAR_SubZero
 ###########################################################################################
 ESQUERDA_SubZero:
+	la t0, SubZeroAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_SubZero
+
 	la t0, CONTADOR1
 	lw t1, 0(t0)
 	li a3, 0
@@ -90,11 +95,11 @@ ESQUERDA_SubZero:
 	sw t1, 0(t0)
 	
 SUBZERO_PRA_TRAS_SubZero: 
-	addi t1, t1, 1
+	#addi t1, t1, 1
 	li a3, -4
 LIMITE_ESQUERDA_SubZero:
-	la t0, SubZeroAgachando_2		# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt_SubZero
+	addi t1, t1, 1
+	
 
 	la a0, SubZeroAndando_3V			# move pra trás
 	j CAMINHAR_SubZero

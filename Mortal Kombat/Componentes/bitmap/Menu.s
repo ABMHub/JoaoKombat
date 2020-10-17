@@ -37,7 +37,7 @@ LOOP3:
 	SLEEP(600)
    	beq t0, zero, LOOP3		#Loop conrinua se nenhuma tecla for pressionada
 	
-	sw zero, 0(t1)			#zera o valor no teclado
+	sw zero, 4(t1)			#zera o valor no teclado
 	li t2, 0			#Força a Frame 0
 	sw t2, 0(s0)
 	ret				#retorno

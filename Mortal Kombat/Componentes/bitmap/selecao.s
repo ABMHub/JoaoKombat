@@ -157,4 +157,7 @@ FIM_ESCOLHA:
 	la t2, PERSONAGEM1_INICIO
 	sw t1, 0(t2)
 	
+	li t2, 0xFF200000
+	sw zero, 4(t1)
+	
 	ret
