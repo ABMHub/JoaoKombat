@@ -2,6 +2,7 @@
 	.include "Sprites/data/mario.s"
 	.include "Sprites/data/background1.s"
 	.include "Sprites/data/subzero.s"
+	.include "Sprites/data/scorpion.s"
 	
 	VGA1INICIO: 		.word 0xFF000000
 	VGA1FINAL: 		.word 0xFF012C00
@@ -33,11 +34,11 @@
 	
 	jal ra, BACKGROUND	# argumento em a0 = fundo
 
-	la s10, SubZeroParado_1
-	la a0, SubZeroParado_1
+	la s10, ScorpionParado_1
+	la a0, ScorpionParado_1
 	jal ra, PERSONAGEM
 	
-	la tp,KDInterrupt_SubZero    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
+	la tp,KDInterrupt_Scorpion    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
 	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
 	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
 	li tp,0x100
@@ -56,6 +57,7 @@ INFINITO:
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/subzeroio.s"
+.include "componentes/io/scorpionio.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/golpe.s"
