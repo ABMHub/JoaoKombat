@@ -3,11 +3,17 @@
 	.include "Sprites/data/background1.s"
 	.include "Sprites/data/subzero.s"
 	.include "Sprites/data/scorpion.s"
+	.include "Sprites/data/menu.s"
+	.include "Sprites/data/MenuDeEscolha.s"
 	
 	VGA1INICIO: 		.word 0xFF000000
 	VGA1FINAL: 		.word 0xFF012C00
+	
+	VGA2INICIO:		.word 0xFF100000
+	VGA2FINAL:		.word 0xFF112C00
 
-	PERSONAGEM1_INICIO: 	.word 0xFF010E10
+	PERSONAGEM1: 		.word 0xFF010E10
+	PERSONAGEM1_INICIO:	.word 0xFF009158
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
 	
 	ALTURA1:		.word 0x0
@@ -24,6 +30,10 @@
 .end_macro
 
 .text
+	jal ra, MENU		#Tela de Abertura
+	
+	jal ra, SELECAO		#Tela de seleção
+	
 	la s9, background1	# s9 sempre contém o background
 	mv a0, s9
 	
@@ -34,19 +44,7 @@
 	
 	jal ra, BACKGROUND	# argumento em a0 = fundo
 
-	la s10, ScorpionParado_1
-	la a0, ScorpionParado_1
-	jal ra, PERSONAGEM
-	
-	la tp,KDInterrupt_Scorpion    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
-	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
-	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
-	li tp,0x100
-	csrrw zero,4,tp     	# habilita a interrupção do usuário
-
-	li t1,0xFF200000    	# Endereço de controle do KDMMIO
-	li t0,0x02       	# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           	# Habilita interrupção do teclado
+	jal ra, MATRIZ_ESCOLHA	#escolhe o personagem jogável
 	
 INFINITO:	
 	j INFINITO
@@ -61,3 +59,6 @@ INFINITO:
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/golpe.s"
+.include "componentes/bitmap/Menu.s"
+.include "componentes/bitmap/selecao.s"
+.include "componentes/bitmap/matriz.s"
