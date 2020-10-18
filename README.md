@@ -1,6 +1,6 @@
 # JoaoKombat
 
-## O RARS CRASHOU 12 VEZES NO DECORRER DO PROJETO
+## O RARS CRASHOU 25 VEZES NO DECORRER DO PROJETO
 
 ## Comando úteis:
 ```
@@ -33,5 +33,5 @@ git reset --hard -> reseta suas mudanças para o commit mais recentes
 09. [ ] Verificar se houve colisão e aplicar o dano se tiver
 10. [ ] Criar poderzinho
 11. [ ] Criar personagens diferentes
-12. [ ] Criar os menus
+12. [X] Criar os menus
 13. [ ] Fazer o relatório na madrugada do dia da apresentação

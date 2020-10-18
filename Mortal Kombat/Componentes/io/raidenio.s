@@ -110,17 +110,17 @@ PULAR_CIMA_Raiden:
 	beq t0, s10, LEVANTAR_Raiden
 
 RAIDEN_PARA_CIMA_Raiden:
-	#la s10, RaidenParado_1			# garante que em s10 tenha ele parado
-	#la a0, RaidenPulando_1			# carrega o sprite do pulo
-	#li a3, -9600				# desloca 30 pixels para cima
-	#li a2, 2				# o pulo são 2 frames
-	#jal ra, FRAME_DESLOCAMENTO			# mostra a animação do pulo
+	la s10, RaidenParado_1			# garante que em s10 tenha ele parado
+	la a0, RaidenPulando_1			# carrega o sprite do pulo
+	li a3, -9600				# desloca 30 pixels para cima
+	li a2, 2				# o pulo são 2 frames
+	jal ra, FRAME_DESLOCAMENTO			# mostra a animação do pulo
 	
-	#la a0, RaidenPulando_2			# prepara o reset
-	#li a3, 9600				# desloca 30 pixels pra baixo
+	la a0, RaidenPulando_2			# prepara o reset
+	li a3, 9600				# desloca 30 pixels pra baixo
 	#  a2 = 2				# a2 já é 2 (2 frames")
-	#jal ra, FRAME_DESLOCAMENTO			# mostra a animação dele descendo
-	#j RESET_Raiden
+	jal ra, FRAME_DESLOCAMENTO			# mostra a animação dele descendo
+	j RESET_Raiden
 ###########################################################################################	
 LEVANTAR_Raiden: 
 	la s10, RaidenParado_1			# faz com que s10 tenha ele parado
