@@ -10,6 +10,30 @@ Terceiro Passo
 	Mover todos os bmp para o bunker
 
 Quarto Passo
-	Executar o programa do guilherme
+	Executar o programa do guilherme (mudar o path do .py para o do seu pc)
 	Agora todos os arquivos .s estão na pasta S
 	Na pasta bunker existe um arquivo chamado compilado.s, ele é todos os frames juntos
+
+OBS.:
+Todos que repetem na volta devem ser nomeados com V no final
+Exemplo:
+SubzeroPulando_1.s
+SubzeroPulando_2.s
+SubzeroPulando_3V.s
+
+Agachando: 3 (1 repete na volta)
+Alpiste: 6
+Andando: 5 (1, 2, 3, 4V, 5V sendo que os 3 primeiros vão pra frente e os 3 últimos vão pra trás, quais frames fica a critério do ripador)
+Block: 3 (1 repete na volta)
+BlockAgachado: 3 (1 repete na volta)
+Cambalhota: 8
+ChuteAgachado: 5
+ChuteAlto: 6
+ChuteBaixo: 5
+Jab: 5 (2 repetem na volta)
+Parado: 1
+Poder: varia
+Pulando: 3 (1 repete na volta)
+Rasteira: 5
+Soco: 5 (2 repetem na volta)
+SocoAgachado: 3 (1 repete na volta)
