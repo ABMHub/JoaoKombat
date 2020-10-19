@@ -23,7 +23,7 @@ SubzeroPulando_3V.s
 
 Agachando: 3 (1 repete na volta)
 Alpiste: 6
-Andando: 5 (1, 2, 3, 4V, 5V sendo que os 3 primeiros vão pra frente e os 3 últimos vão pra trás, quais frames fica a critério do ripador)
+Andando: 5 (1, 2, 3V, 4V, 5V sendo que os 3 primeiros vão pra frente e os 3 últimos vão pra trás, quais frames fica a critério do ripador)
 Block: 3 (1 repete na volta)
 BlockAgachado: 3 (1 repete na volta)
 Cambalhota: 8
