@@ -34,7 +34,11 @@ LOOP3:
    	
 	sw t2, 0(s0)			# seleciona a Frame t2
 	xori t2, t2, 0x001		# escolhe a outra frame
-	SLEEP(600)
+	
+	li a0, 600
+	li a7, 32
+	ecall				# sleep de 600 
+	
    	beq t0, zero, LOOP3		#Loop conrinua se nenhuma tecla for pressionada
 	
 	sw zero, 4(t1)			#zera o valor no teclado

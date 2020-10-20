@@ -55,8 +55,10 @@ SALTAR_LINHA:
 
 FIM_PERSONAGEM:
 
-    	mv t0, a0
-   	SLEEP(50)
+    	mv t0, a0			# backup de a0
+   	li a0, 50			# DELAY DE 50 MICROSSEGUNDOS
+   	li a7, 32
+   	ecall				# SLEEP
     	mv a0, t0
 
     	ret

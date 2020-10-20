@@ -5,17 +5,17 @@
 #
 #Obs_Scorpion: Esse procedimento chama dois outros_Scorpion: APAGAR e PERSONAGEM
 #
-#			$$$$$$$$ s0 e s1 são alterados	$$$$$$$$
+#			$$$$$$$$ s0, s1, s2, s3 e s5 são alterados$$$$$$$$
 ############################################################################################ 
 
 KDInterrupt_Scorpion:  
-	addi sp, sp, -4			# aloca espaço na pilha
-	sw ra, 0(sp)			# salva ra na pilha
+	addi sp, sp, -4				# aloca espaço na pilha
+	sw ra, 0(sp)				# salva ra na pilha
 	
-	csrrci zero,0,1     		# clear o bit de habilitação de interrupção global em ustatus (reg 0)
-	li t1,0xFF200000    		# Endereço de controle do KDMMIO
-        lw t2,4(t1)             	# le a tecla
-        sw t2,12(t1)            	# escreve no display
+	csrrci zero,0,1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
+	li t1,0xFF200000    			# Endereço de controle do KDMMIO
+        lw t2,4(t1)             		# le a tecla
+        sw t2,12(t1)            		# escreve no display
         
 SWITCH_CASE_TECLA_Scorpion: 				
 	li t3, 'd'
@@ -53,34 +53,38 @@ AQUI3_Scorpion:	li t3, 's'
         
         li t3, ' '
         beq t3, t2, PODER_Scorpion
-        li t1,0xFF200000    	# Endereço de controle do KDMMIO
-	li t0,0x01       	# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           	# Habilita interrupção do teclado
+        li t1,0xFF200000    			# Endereço de controle do KDMMIO
+	li t0,0x01       			# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           			# Habilita interrupção do teclado
 
 	j Fim_KDInterrupt_Scorpion		# Se não for nenhuma dessas não faz nada
 ###########################################################################################		
 DIREITA_Scorpion:
-	la t0, CONTADOR1
-	lw t1, 0(t0)
-	li a3, 0
-	li t2, 19
-	addi t1, t1, 1
-	bge t1, t2, LIMITE_DIREITA_Scorpion
+	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Scorpion
+
+	la t0, CONTADOR1			# carrega o contador
+	lw t1, 0(t0)				
+	li a3, 0				# inicializa o deslocamento em 0
+	li t2, 19				# máximo do contador
+	addi t1, t1, 1				# incrementa o contador
+	bge t1, t2, LIMITE_DIREITA_Scorpion	# verifica se o contador atingiu o limite
 	
-	sw t1, 0(t0)
+	sw t1, 0(t0)				# guarda o novo valor do contador somente se não estiver no limite
 	
 SCORPION_PRA_FRENTE_Scorpion:
 	li a3, 4
-	addi t1, t1, -1
 	
 LIMITE_DIREITA_Scorpion:
-	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt_Scorpion
+	#addi t1, t1, -1
 	la a0, ScorpionAndando_1			# move pra frente
 	
 	j CAMINHAR_Scorpion
 ###########################################################################################
 ESQUERDA_Scorpion:
+	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Scorpion
+
 	la t0, CONTADOR1
 	lw t1, 0(t0)
 	li a3, 0
@@ -90,13 +94,12 @@ ESQUERDA_Scorpion:
 	sw t1, 0(t0)
 	
 SCORPION_PRA_TRAS_Scorpion: 
-	addi t1, t1, 1
 	li a3, -4
 LIMITE_ESQUERDA_Scorpion:
-	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt_Scorpion
+	#addi t1, t1, 1
+	
 
-	la a0, ScorpionAndando_3V			# move pra trás
+	la a0, ScorpionAndando_3V		# move pra trás
 	j CAMINHAR_Scorpion
 	
 ##########################################################################################	
@@ -147,7 +150,7 @@ CHUTE_Scorpion:
 SWITCH_CASE_PERSONAGEM_CHUTE_Scorpion:
 
     	la t0, ScorpionParado_1
-   	beq t0, s10, SCORPION_CHUTE_Scorpion        	# se estiver em pé chuta
+   	beq t0, s10, SCORPION_CHUTE_Scorpion      # se estiver em pé chuta
    	
    	la t0, ScorpionAgachando_2		# se estiver abaixado dá outro chute
 	beq t0, s10, CHUTE_ABAIXADO_Scorpion
@@ -155,7 +158,7 @@ SWITCH_CASE_PERSONAGEM_CHUTE_Scorpion:
 SCORPION_CHUTE_Scorpion:
 	li a2, 5				# são 3 frames
     	la a0, ScorpionChuteBaixo_1			
-    	j GOLPE_Scorpion					# animação
+    	j GOLPE_Scorpion				# animação
     	
 CHUTE_ABAIXADO_Scorpion:   
 	li a2, 5				# são 3 frames
@@ -169,7 +172,7 @@ CHUTE_ABAIXADO_Scorpion:
 SOCO_Scorpion:
 SWITCH_CASE_PERSONAGEM_SOCO_Scorpion:
     	la t0, ScorpionParado_1
-    	beq t0, s10, SCORPION_SOCO_Scorpion        	# Se estiver em pé dá um soco
+    	beq t0, s10, SCORPION_SOCO_Scorpion       # Se estiver em pé dá um soco
     	
     	la t0, ScorpionAgachando_2		# Se estiver abaixado dá outro tipo de soco
 	beq t0, s10, SOCO_ABAIXADO_Scorpion
@@ -177,7 +180,7 @@ SWITCH_CASE_PERSONAGEM_SOCO_Scorpion:
 SCORPION_SOCO_Scorpion:
 	li a2, 5				# são 2 frames
    	la a0, ScorpionSoco_1
-   	j GOLPE_Scorpion					# animação
+   	j GOLPE_Scorpion				# animação
  
 SOCO_ABAIXADO_Scorpion:
 	li a2, 3				# são 3 frames
@@ -215,7 +218,7 @@ RASTEIRA_Scorpion:
 JAB_Scorpion:
 SWITCH_CASE_PERSONAGEM_JAB_Scorpion:
         la t0, ScorpionParado_1
-        beq t0, s10, SCORPION_JAB_Scorpion        #PERSONAGEM 1 É O SCORPION
+        beq t0, s10, SCORPION_JAB_Scorpion        # PERSONAGEM 1 É O SCORPION
         
         la t0, ScorpionAgachando_2
         beq t0, s10, ALPISTE_ORH_Scorpion        # PERSONAGEM 1 É O SCORPION
@@ -280,34 +283,39 @@ DESATIVAR_BLOCK_CHAO_Scorpion:
 	j Fim_KDInterrupt_Scorpion
 	
 CAMBALHOTA_PRA_FRENTE_Scorpion:	
+	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Scorpion
 
-	addi sp, sp, -8
+	addi sp, sp, -8				# aloca 2 words
 	li t0, -7664				# desloca 28 pixels para cima e 32 pra frente
-	sw t0, 0(sp)
-	li t0, 7696
-	sw t0, 4(sp)
-	li s5, 1
+	sw t0, 0(sp)				# salva o deslocamento na pilha
+	li t0, 7696				# desloca 28 pixels para baixo e 32 para frente
+	sw t0, 4(sp)				# aloca na pilha
+	li s5, 1				# constante referente ao limite da borda
 	j CAMBALHOTA_Scorpion
 	
 CAMBALHOTA_PRA_TRAS_Scorpion: 
-	addi sp, sp, -8
-	li t0, -7696				# desloca 28 pixels para cima e 32 pra frente
-	sw t0, 0(sp)
-	li t0, 7664
-	sw t0, 4(sp)
-	li s5, -1
-	
+	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Scorpion
+
+	addi sp, sp, -8				# aloca 2 words
+	li t0, -7696				# desloca 28 pixels para cima e 32 pra trás
+	sw t0, 0(sp)				# salva na pilha
+	li t0, 7664				# desloca 28 pixels para baixo e 32 pra trás
+	sw t0, 4(sp)				# salva o deslocamento na pilha
+	li s5, -1				# constante referente ao limite da borda
+		
 CAMBALHOTA_Scorpion:
 	la s10, ScorpionParado_1			# garante que em s10 tenha ele parado
 	la a0, ScorpionCambalhota_1		# carrega o sprite da cambalhota
 	lw a3, 0(sp)
 	
-	li s2, 0
-	li s3, 4
+	li s2, 0				# contador
+	li s3, 4				# limite do contador
 	
 LOOP_CAMBALHOTA_SUBINDO_Scorpion:
 	li a2, 1				# a cambalhota são 2 frames
-	jal ra, CONTROLE_SUBINDO_Scorpion
+	jal ra, CONTROLE_SUBINDO_Scorpion	
 	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
 	addi s2, s2, 1
 	blt s2, s3, LOOP_CAMBALHOTA_SUBINDO_Scorpion
@@ -380,14 +388,20 @@ LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_Scorpion:
 	j NAO_D_Scorpion
 							
 PODER_Scorpion:
-	la a0, ScorpionPoder_1
-	li a2, 6
+	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Scorpion
+
+	la a0, ScorpionPoder_1			# carrega o sprite do poder
+	li a2, 6				# são 6 frames 
 	jal ra, FRAME_GOLPE
-	mv t0, a0
-	SLEEP(50)
-	mv a0, t0
 	
-	j RESET_Scorpion
+	#mv t0, a0				# backup de a0
+   	li a0, 50				# DELAY DE 50 MICROSSEGUNDOS
+   	li a7, 32
+   	ecall					# SLEEP
+    	#mv a0, t0
+	
+	j RESET_Scorpion				# reseta ele parado em pé
 ############################################################################################
 #Esse loop é responsável por realizar a animação do personagem se movimentando para frente
 #caso ele esteja virado para a direita.
@@ -397,7 +411,7 @@ PODER_Scorpion:
 #Ao término do loop o personagem se desloca 16 pixels
 ############################################################################################
 CAMINHAR_Scorpion:	
-	li a2, 3			# quantidade de frames
+	li a2, 3				# quantidade de frames
 	jal ra, FRAME_DESLOCAMENTO	
 	li a2, 1
 	la a0, ScorpionParado_1	
@@ -405,25 +419,25 @@ CAMINHAR_Scorpion:
 	j Fim_KDInterrupt_Scorpion
 	
 RESET_Scorpion:	la a0, ScorpionParado_1		# posição padrão
-	li a2, 1			# contagem de frames
-	jal ra, FRAME_GOLPE		# a golpe não desloca o personagem 
+	li a2, 1				# contagem de frames
+	jal ra, FRAME_GOLPE			# a golpe não desloca o personagem 
 	j Fim_KDInterrupt_Scorpion
 	
 GOLPE_Scorpion:
-    	jal ra, FRAME_GOLPE		# animação do golpe
-    	la a0, ScorpionParado_1		# reseta ele parado
-    	li a2, 1			# 1 frame
+    	jal ra, FRAME_GOLPE			# animação do golpe
+    	la a0, ScorpionParado_1			# reseta ele parado
+    	li a2, 1				# 1 frame
     	jal ra, FRAME_GOLPE		
     	j Fim_KDInterrupt_Scorpion
 	
 Fim_KDInterrupt_Scorpion:
-	li t1,0xFF200000    		# Endereço de controle do KDMMIO
-	li t0,0x02       		# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           		# Habilita interrupção do teclado
-
-	lw ra, 0(sp)			# recupera ra
-	addi sp, sp, 4			# libera espaço na pilha
-	csrrsi zero,0,0x10 		# seta o bit de habilitação de interrupção em ustatus 
-	uret				# volta ao programa principal
+	li t1,0xFF200000    			# Endereço de controle do KDMMIO
+	li t0,0x02       			# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           			# Habilita interrupção do teclado
+	
+	lw ra, 0(sp)				# recupera ra
+	addi sp, sp, 4				# libera espaço na pilha
+	csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
+	uret					# volta ao programa principal
 	
 	

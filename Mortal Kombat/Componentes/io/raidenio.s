@@ -5,17 +5,17 @@
 #
 #Obs_Raiden: Esse procedimento chama dois outros_Raiden: APAGAR e PERSONAGEM
 #
-#			$$$$$$$$ s0 e s1 são alterados	$$$$$$$$
+#			$$$$$$$$ s0, s1, s2, s3 e s5 são alterados$$$$$$$$
 ############################################################################################ 
 
 KDInterrupt_Raiden:  
-	addi sp, sp, -4			# aloca espaço na pilha
-	sw ra, 0(sp)			# salva ra na pilha
+	addi sp, sp, -4				# aloca espaço na pilha
+	sw ra, 0(sp)				# salva ra na pilha
 	
-	csrrci zero,0,1     		# clear o bit de habilitação de interrupção global em ustatus (reg 0)
-	li t1,0xFF200000    		# Endereço de controle do KDMMIO
-        lw t2,4(t1)             	# le a tecla
-        sw t2,12(t1)            	# escreve no display
+	csrrci zero,0,1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
+	li t1,0xFF200000    			# Endereço de controle do KDMMIO
+        lw t2,4(t1)             		# le a tecla
+        sw t2,12(t1)            		# escreve no display
         
 SWITCH_CASE_TECLA_Raiden: 				
 	li t3, 'd'
@@ -53,35 +53,38 @@ AQUI3_Raiden:	li t3, 's'
         
         li t3, ' '
         beq t3, t2, PODER_Raiden
-        li t1,0xFF200000    	# Endereço de controle do KDMMIO
-	li t0,0x01       	# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           	# Habilita interrupção do teclado
+        li t1,0xFF200000    			# Endereço de controle do KDMMIO
+	li t0,0x01       			# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           			# Habilita interrupção do teclado
 
 	j Fim_KDInterrupt_Raiden		# Se não for nenhuma dessas não faz nada
 ###########################################################################################		
 DIREITA_Raiden:
-	la t0, CONTADOR1
-	lw t1, 0(t0)
-	li a3, 0
-	li t2, 19
-	addi t1, t1, 1
-	bge t1, t2, LIMITE_DIREITA_Raiden
+	la t0, RaidenAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Raiden
+
+	la t0, CONTADOR1			# carrega o contador
+	lw t1, 0(t0)				
+	li a3, 0				# inicializa o deslocamento em 0
+	li t2, 19				# máximo do contador
+	addi t1, t1, 1				# incrementa o contador
+	bge t1, t2, LIMITE_DIREITA_Raiden	# verifica se o contador atingiu o limite
 	
-	sw t1, 0(t0)
+	sw t1, 0(t0)				# guarda o novo valor do contador somente se não estiver no limite
 	
 RAIDEN_PRA_FRENTE_Raiden:
 	li a3, 4
-	#addi t1, t1, -1
 	
 LIMITE_DIREITA_Raiden:
-	addi t1, t1, -1
-	la t0, RaidenAgachando_2		# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt_Raiden
+	#addi t1, t1, -1
 	la a0, RaidenAndando_1			# move pra frente
 	
 	j CAMINHAR_Raiden
 ###########################################################################################
 ESQUERDA_Raiden:
+	la t0, RaidenAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Raiden
+
 	la t0, CONTADOR1
 	lw t1, 0(t0)
 	li a3, 0
@@ -91,14 +94,12 @@ ESQUERDA_Raiden:
 	sw t1, 0(t0)
 	
 RAIDEN_PRA_TRAS_Raiden: 
-	#addi t1, t1, 1
 	li a3, -4
 LIMITE_ESQUERDA_Raiden:
-	addi t1, t1, -1
-	la t0, RaidenAgachando_2		# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt_Raiden
+	#addi t1, t1, 1
+	
 
-	la a0, RaidenAndando_3V			# move pra trás
+	la a0, RaidenAndando_3V		# move pra trás
 	j CAMINHAR_Raiden
 	
 ##########################################################################################	
@@ -149,15 +150,15 @@ CHUTE_Raiden:
 SWITCH_CASE_PERSONAGEM_CHUTE_Raiden:
 
     	la t0, RaidenParado_1
-   	beq t0, s10, RAIDEN_CHUTE_Raiden        	# se estiver em pé chuta
+   	beq t0, s10, RAIDEN_CHUTE_Raiden      	# se estiver em pé chuta
    	
    	la t0, RaidenAgachando_2		# se estiver abaixado dá outro chute
 	beq t0, s10, CHUTE_ABAIXADO_Raiden
 	
 RAIDEN_CHUTE_Raiden:
-	li a2, 5				# são 5 frames
+	li a2, 5				# são 3 frames
     	la a0, RaidenChuteBaixo_1			
-    	j GOLPE_Raiden					# animação
+    	j GOLPE_Raiden				# animação
     	
 CHUTE_ABAIXADO_Raiden:   
 	li a2, 3				# são 3 frames
@@ -171,7 +172,7 @@ CHUTE_ABAIXADO_Raiden:
 SOCO_Raiden:
 SWITCH_CASE_PERSONAGEM_SOCO_Raiden:
     	la t0, RaidenParado_1
-    	beq t0, s10, RAIDEN_SOCO_Raiden        	# Se estiver em pé dá um soco
+    	beq t0, s10, RAIDEN_SOCO_Raiden       # Se estiver em pé dá um soco
     	
     	la t0, RaidenAgachando_2		# Se estiver abaixado dá outro tipo de soco
 	beq t0, s10, SOCO_ABAIXADO_Raiden
@@ -179,7 +180,7 @@ SWITCH_CASE_PERSONAGEM_SOCO_Raiden:
 RAIDEN_SOCO_Raiden:
 	li a2, 5				# são 2 frames
    	la a0, RaidenSoco_1
-   	j GOLPE_Raiden					# animação
+   	j GOLPE_Raiden				# animação
  
 SOCO_ABAIXADO_Raiden:
 	li a2, 3				# são 3 frames
@@ -217,7 +218,7 @@ RASTEIRA_Raiden:
 JAB_Raiden:
 SWITCH_CASE_PERSONAGEM_JAB_Raiden:
         la t0, RaidenParado_1
-        beq t0, s10, RAIDEN_JAB_Raiden        #PERSONAGEM 1 É O RAIDEN
+        beq t0, s10, RAIDEN_JAB_Raiden        # PERSONAGEM 1 É O RAIDEN
         
         la t0, RaidenAgachando_2
         beq t0, s10, ALPISTE_ORH_Raiden        # PERSONAGEM 1 É O RAIDEN
@@ -282,34 +283,39 @@ DESATIVAR_BLOCK_CHAO_Raiden:
 	j Fim_KDInterrupt_Raiden
 	
 CAMBALHOTA_PRA_FRENTE_Raiden:	
+	la t0, RaidenAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Raiden
 
-	addi sp, sp, -8
+	addi sp, sp, -8				# aloca 2 words
 	li t0, -7664				# desloca 28 pixels para cima e 32 pra frente
-	sw t0, 0(sp)
-	li t0, 7696
-	sw t0, 4(sp)
-	li s5, 1
+	sw t0, 0(sp)				# salva o deslocamento na pilha
+	li t0, 7696				# desloca 28 pixels para baixo e 32 para frente
+	sw t0, 4(sp)				# aloca na pilha
+	li s5, 1				# constante referente ao limite da borda
 	j CAMBALHOTA_Raiden
 	
 CAMBALHOTA_PRA_TRAS_Raiden: 
-	addi sp, sp, -8
-	li t0, -7696				# desloca 28 pixels para cima e 32 pra frente
-	sw t0, 0(sp)
-	li t0, 7664
-	sw t0, 4(sp)
-	li s5, -1
-	
+	la t0, RaidenAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Raiden
+
+	addi sp, sp, -8				# aloca 2 words
+	li t0, -7696				# desloca 28 pixels para cima e 32 pra trás
+	sw t0, 0(sp)				# salva na pilha
+	li t0, 7664				# desloca 28 pixels para baixo e 32 pra trás
+	sw t0, 4(sp)				# salva o deslocamento na pilha
+	li s5, -1				# constante referente ao limite da borda
+		
 CAMBALHOTA_Raiden:
 	la s10, RaidenParado_1			# garante que em s10 tenha ele parado
 	la a0, RaidenCambalhota_1		# carrega o sprite da cambalhota
 	lw a3, 0(sp)
 	
-	li s2, 0
-	li s3, 4
+	li s2, 0				# contador
+	li s3, 4				# limite do contador
 	
 LOOP_CAMBALHOTA_SUBINDO_Raiden:
 	li a2, 1				# a cambalhota são 2 frames
-	jal ra, CONTROLE_SUBINDO_Raiden
+	jal ra, CONTROLE_SUBINDO_Raiden	
 	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
 	addi s2, s2, 1
 	blt s2, s3, LOOP_CAMBALHOTA_SUBINDO_Raiden
@@ -382,17 +388,23 @@ LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_Raiden:
 	j NAO_D_Raiden
 							
 PODER_Raiden:
-	la a0, RaidenPoder_1
-	li a2, 2
-	jal ra, FRAME_GOLPE
-	mv t0, a0
-	SLEEP(50)
-	mv a0, t0
-	
-	li a2, 1
+	la t0, RaidenAgachando_2		# se estiver agachado não faz nada
+	beq t0, s10, Fim_KDInterrupt_Raiden
+
+	la a0, RaidenPoder_1			# carrega o sprite do poder
+	li a2, 2				# são 2 frames na ida
 	jal ra, FRAME_GOLPE
 	
-	j RESET_Raiden
+	mv t0, a0				# backup de a0
+   	li a0, 50				# DELAY DE 50 MICROSSEGUNDOS
+   	li a7, 32
+   	ecall					# SLEEP
+    	mv a0, t0
+	
+	li a2, 1				# são 1 frames na volta (desfazer pose)
+	jal ra, FRAME_GOLPE
+	
+	j RESET_Raiden				# reseta ele parado em pé
 ############################################################################################
 #Esse loop é responsável por realizar a animação do personagem se movimentando para frente
 #caso ele esteja virado para a direita.
@@ -402,7 +414,7 @@ PODER_Raiden:
 #Ao término do loop o personagem se desloca 16 pixels
 ############################################################################################
 CAMINHAR_Raiden:	
-	li a2, 3			# quantidade de frames
+	li a2, 3				# quantidade de frames
 	jal ra, FRAME_DESLOCAMENTO	
 	li a2, 1
 	la a0, RaidenParado_1	
@@ -410,25 +422,25 @@ CAMINHAR_Raiden:
 	j Fim_KDInterrupt_Raiden
 	
 RESET_Raiden:	la a0, RaidenParado_1		# posição padrão
-	li a2, 1			# contagem de frames
-	jal ra, FRAME_GOLPE		# a golpe não desloca o personagem 
+	li a2, 1				# contagem de frames
+	jal ra, FRAME_GOLPE			# a golpe não desloca o personagem 
 	j Fim_KDInterrupt_Raiden
 	
 GOLPE_Raiden:
-    	jal ra, FRAME_GOLPE		# animação do golpe
-    	la a0, RaidenParado_1		# reseta ele parado
-    	li a2, 1			# 1 frame
+    	jal ra, FRAME_GOLPE			# animação do golpe
+    	la a0, RaidenParado_1			# reseta ele parado
+    	li a2, 1				# 1 frame
     	jal ra, FRAME_GOLPE		
     	j Fim_KDInterrupt_Raiden
 	
 Fim_KDInterrupt_Raiden:
-	li t1,0xFF200000    		# Endereço de controle do KDMMIO
-	li t0,0x02       		# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           		# Habilita interrupção do teclado
-
-	lw ra, 0(sp)			# recupera ra
-	addi sp, sp, 4			# libera espaço na pilha
-	csrrsi zero,0,0x10 		# seta o bit de habilitação de interrupção em ustatus 
-	uret				# volta ao programa principal
+	li t1,0xFF200000    			# Endereço de controle do KDMMIO
+	li t0,0x02       			# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           			# Habilita interrupção do teclado
+	
+	lw ra, 0(sp)				# recupera ra
+	addi sp, sp, 4				# libera espaço na pilha
+	csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
+	uret					# volta ao programa principal
 	
 	

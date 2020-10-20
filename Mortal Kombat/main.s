@@ -23,29 +23,30 @@
 	CONTADOR1:		.word 0x1
 	CONTADOR2:		.word 0x0
 	
-.macro  SLEEP (%x)		#função que faz um delay de x microssegundos
-	# SLEEP
-    	li a0,%x		#a0=valor de delay passado como parâmetro 
-    	li a7,32		#ecall que chama faz o delay de a0 milisegundos
-    	ecall
-.end_macro
+#.macro  SLEEP (%x)				#função que faz um delay de x microssegundos
+#    	li a0,%x				#a0=valor de delay passado como parâmetro 
+#    	li a7,32				#ecall que chama faz o delay de a0 milisegundos
+#    	ecall
+#.end_macro
 
 .text
-	jal ra, MENU		#Tela de Abertura
+	jal ra, MENU				#Tela de Abertura
 	
-	jal ra, SELECAO		#Tela de seleção
+	jal ra, SELECAO				#Tela de seleção
 	
-	la s9, background1	# s9 sempre contém o background
+	la s9, background1			# s9 sempre contém o background
 	mv a0, s9
 	
 	la t0, VGA1INICIO
-	lw a1, 0(t0)			# ta1 = inicio da memória vga
+	lw a1, 0(t0)				# ta1 = inicio da memória vga
 	la t0, VGA1FINAL
-	lw a2, 0(t0)			# ta2 = final da memória vga
+	lw a2, 0(t0)				# ta2 = final da memória vga
 	
-	jal ra, BACKGROUND	# argumento em a0 = fundo
+	jal ra, BACKGROUND			# argumento em a0 = fundo
 
-	jal ra, MATRIZ_ESCOLHA	#escolhe o personagem jogável
+	jal ra, MATRIZ_ESCOLHA			#escolhe o personagem jogável
+	
+	#jal ra, CENARIO			#escolhe um cenário de modo pseudoaleatório
 	
 INFINITO:	
 	j INFINITO
@@ -53,6 +54,7 @@ INFINITO:
 	li a7, 10
 	ecall
 
+#.include "componentes/bitmap/cenario.s"
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/subzeroio.s"
