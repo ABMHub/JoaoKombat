@@ -1,6 +1,6 @@
 .data
 	.include "Sprites/data/mario.s"
-	.include "Sprites/data/background1.s"
+	.include "Sprites/data/cenarios.s"
 	.include "Sprites/data/subzero.s"
 	.include "Sprites/data/raiden.s"
 	.include "Sprites/data/scorpion.s"
@@ -13,7 +13,7 @@
 	VGA2INICIO:		.word 0xFF100000
 	VGA2FINAL:		.word 0xFF112C00
 
-	PERSONAGEM1: 		.word 0xFF010E10
+	PERSONAGEM1: 		.word 0xFF010410
 	PERSONAGEM1_INICIO:	.word 0xFF009158
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
 	
@@ -34,7 +34,7 @@
 	
 	jal ra, SELECAO				#Tela de seleção
 	
-	la s9, background1			# s9 sempre contém o background
+	jal ra, CENARIO
 	mv a0, s9
 	
 	la t0, VGA1INICIO
@@ -54,7 +54,7 @@ INFINITO:
 	li a7, 10
 	ecall
 
-#.include "componentes/bitmap/cenario.s"
+.include "componentes/bitmap/cenario.s"
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/subzeroio.s"
