@@ -15,10 +15,15 @@
 
 	PERSONAGEM1: 		.word 0xFF010410
 	PERSONAGEM1_INICIO:	.word 0xFF009158
+	PERSONAGEM1_INICIO_ANTIGO: .word 0x0
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
 	
 	ALTURA1:		.word 0x0
 	LARGURA1:		.word 0x0
+	ALTURA1ATUAL:		.word 0x0
+	ALTURA1ANTIGA:		.word 0x0
+	LARGURA1ATUAL:		.word 0x0
+	LARGURA1ANTIGA:		.word 0x0
 	
 	CONTADOR1:		.word 0x1
 	CONTADOR2:		.word 0x0
@@ -43,6 +48,14 @@
 	lw a2, 0(t0)				# ta2 = final da memória vga
 	
 	jal ra, BACKGROUND			# argumento em a0 = fundo
+	
+	mv a0, s9
+	la t0, VGA2INICIO
+	lw a1, 0(t0)				# ta1 = inicio da memória vga
+	la t0, VGA2FINAL
+	lw a2, 0(t0)				# ta2 = final da memória vga
+	
+	jal ra, BACKGROUND			# argumento em a0 = fundo
 
 	jal ra, MATRIZ_ESCOLHA			#escolhe o personagem jogável
 	
@@ -62,6 +75,8 @@ INFINITO:
 .include "componentes/io/raidenio.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
+.include "componentes/bitmap/frame_deslocamento.s"
+.include "componentes/bitmap/limpar.s"
 .include "componentes/bitmap/golpe.s"
 .include "componentes/bitmap/Menu.s"
 .include "componentes/bitmap/selecao.s"

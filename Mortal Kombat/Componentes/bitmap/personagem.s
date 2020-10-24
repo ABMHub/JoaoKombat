@@ -7,7 +7,7 @@
 ############################################################################################
 
 PERSONAGEM:
-    	li t4, 0xC7C7C7C7
+    	li t4, 0xFFFFFFC7
 
 	la t0, PERSONAGEM1_INICIO
  	lw t0, 0(t0)            #t0 = posição inicial do personagem
@@ -33,14 +33,14 @@ ALT:  	lw t5, 4(a0)            #t6 = altura do personagem
 LOOP_PERSONAGEM:
     	beq t0, t1, SALTAR_LINHA
 
-    	lw t2, 0(a0)            # carrega os pixels da imagem
+    	lb t2, 0(a0)            # carrega os pixels da imagem
 
     	beq t2, t4, CONT
-    	sw t2, 0(t0)            # escreve os pixels de a0 na memória vga
+    	sb t2, 0(t0)            # escreve os pixels de a0 na memória vga
 
 CONT:   
-	addi t0, t0, 4            # incrementa as colunas da memória vga
-    	addi a0, a0, 4            # incrementa a imagem em 4 pixels
+	addi t0, t0, 1            # incrementa as colunas da memória vga
+    	addi a0, a0, 1            # incrementa a imagem em 1 pixel
     	j LOOP_PERSONAGEM
 
 SALTAR_LINHA:
