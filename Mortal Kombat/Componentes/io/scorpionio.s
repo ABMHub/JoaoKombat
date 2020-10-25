@@ -5,7 +5,7 @@
 #
 #Obs_Scorpion: Esse procedimento chama dois outros_Scorpion: APAGAR e PERSONAGEM
 #
-#			$$$$$$$$ s0, s1, s2, s3 e s5 são alterados$$$$$$$$
+#			$$$$$$$$ s0, s1, s4, s3 e s5 são alterados$$$$$$$$
 ############################################################################################ 
 
 KDInterrupt_Scorpion:  
@@ -98,7 +98,6 @@ SCORPION_PRA_TRAS_Scorpion:
 LIMITE_ESQUERDA_Scorpion:
 	#addi t1, t1, 1
 	
-
 	la a0, ScorpionAndando_3V		# move pra trás
 	j CAMINHAR_Scorpion
 	
@@ -115,19 +114,20 @@ SCORPION_PARA_CIMA_Scorpion:
 	la a0, ScorpionPulando_1			# carrega o sprite do pulo
 	li a3, -9600				# desloca 30 pixels para cima
 	li a2, 2				# o pulo são 2 frames
-	jal ra, FRAME_DESLOCAMENTO			# mostra a animação do pulo
+	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação do pulo
 	
 	la a0, ScorpionPulando_2			# prepara o reset
 	li a3, 9600				# desloca 30 pixels pra baixo
-	#  a2 = 2				# a2 já é 2 (2 frames")
-	jal ra, FRAME_DESLOCAMENTO			# mostra a animação dele descendo
+	
+	li a2, 2				# a2 já é 2 (2 frames")
+	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação dele descendo
 	j RESET_Scorpion
 ###########################################################################################	
 LEVANTAR_Scorpion: 
 	la s10, ScorpionParado_1			# faz com que s10 tenha ele parado
 	la a0, ScorpionAgachando_3V		# carrega o sprite dele agaixado
 	li a2, 1				# 1 frame
-	jal ra, FRAME_GOLPE			# animação
+	jal ra, FRAME_GOLPE_VGA			# animação
 	j RESET_Scorpion
 ###########################################################################################
 ABAIXAR_Scorpion:
@@ -141,7 +141,7 @@ AGACHAR_Scorpion:
 	#li a3, 4800				# desloca 15 pixels para baixo
 	la a0, ScorpionAgachando_1		# carrega o sprite abaixando
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE			# animação
+	jal ra, FRAME_GOLPE_VGA			# animação
 	la s10, ScorpionAgachando_2		# seta ele a
 	j Fim_KDInterrupt_Scorpion
 
@@ -163,11 +163,11 @@ SCORPION_CHUTE_Scorpion:
 CHUTE_ABAIXADO_Scorpion:   
 	li a2, 5				# são 3 frames
     	la a0, ScorpionChuteAgachado_1			
-    	jal ra, FRAME_GOLPE			# animação
+    	jal ra, FRAME_GOLPE_VGA			# animação
     	
    	mv a0, s10				# reseta ele agachado
    	li a2, 1				# 1 frame
-   	jal ra, FRAME_GOLPE			# animação
+   	jal ra, FRAME_GOLPE_VGA			# animação
     	j Fim_KDInterrupt_Scorpion
 SOCO_Scorpion:
 SWITCH_CASE_PERSONAGEM_SOCO_Scorpion:
@@ -185,11 +185,11 @@ SCORPION_SOCO_Scorpion:
 SOCO_ABAIXADO_Scorpion:
 	li a2, 3				# são 3 frames
    	la a0, ScorpionSocoAgachado_1
-   	jal ra, FRAME_GOLPE			# animação
+   	jal ra, FRAME_GOLPE_VGA			# animação
    	
    	mv a0, s10				# reseta pra ele
    	li a2, 1
-   	jal ra, FRAME_GOLPE			# animação
+   	jal ra, FRAME_GOLPE_VGA			# animação
     	j Fim_KDInterrupt_Scorpion
     	
 CHUTE_ALTO_Scorpion:
@@ -208,11 +208,11 @@ SCORPION_CHUTE_ALTO_Scorpion:
 RASTEIRA_Scorpion:
 	li a2, 5
        	la a0, ScorpionRasteira_1
-       	jal ra, FRAME_GOLPE			# animação
+       	jal ra, FRAME_GOLPE_VGA			# animação
     	
     	la a0, ScorpionAgachando_2
    	li a2, 1
-   	jal ra, FRAME_GOLPE			# animação
+   	jal ra, FRAME_GOLPE_VGA			# animação
     	j Fim_KDInterrupt_Scorpion
 
 JAB_Scorpion:
@@ -231,7 +231,7 @@ SCORPION_JAB_Scorpion:
 ALPISTE_ORH_Scorpion: 
        	li a2, 6
        	la a0, ScorpionAlpiste_1
-       	jal ra, FRAME_GOLPE			# animação
+       	jal ra, FRAME_GOLPE_VGA			# animação
        	
     	la s10, ScorpionParado_1
     	mv a0, s10
@@ -251,14 +251,14 @@ ATIVAR_BLOCK_Scorpion:
 	la s10, ScorpionBlock_2			# significa que o personagem ficará com escudo ativo
 	la a0, ScorpionBlock_1
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE			# animação de block
+	jal ra, FRAME_GOLPE_VGA			# animação de block
 	j Fim_KDInterrupt_Scorpion
 	
 BLOCK_CHAO_Scorpion:
 	la s10, ScorpionBlockAgachado_2		# significa que o personagem ficará com block no chão ativo
 	la a0, ScorpionBlockAgachado_1
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE			# animação
+	jal ra, FRAME_GOLPE_VGA			# animação
 	j Fim_KDInterrupt_Scorpion
 	
 DESATIVAR_BLOCK_Scorpion:
@@ -268,18 +268,18 @@ DESATIVAR_BLOCK_Scorpion:
 	mv a0, s10				# se chegou até aqui é porque está em pé
 	la s10, ScorpionParado_1			# significa que o personagem ficará em pé
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE			# a0 tem o estado anterior de s10, anima a0
+	jal ra, FRAME_GOLPE_VGA			# a0 tem o estado anterior de s10, anima a0
 	j RESET_Scorpion
 			
 DESATIVAR_BLOCK_CHAO_Scorpion:
 	mv a0, s10
 	la s10, ScorpionAgachando_2
 	li a2, 2
-	jal ra, FRAME_GOLPE
+	jal ra, FRAME_GOLPE_VGA
 	
 	la a0, ScorpionAgachando_2
 	li a2, 1
-	jal ra, FRAME_GOLPE
+	jal ra, FRAME_GOLPE_VGA
 	j Fim_KDInterrupt_Scorpion
 	
 CAMBALHOTA_PRA_FRENTE_Scorpion:	
@@ -310,27 +310,27 @@ CAMBALHOTA_Scorpion:
 	la a0, ScorpionCambalhota_1		# carrega o sprite da cambalhota
 	lw a3, 0(sp)
 	
-	li s2, 0				# contador
+	li s4, 0				# contador
 	li s3, 4				# limite do contador
 	
 LOOP_CAMBALHOTA_SUBINDO_Scorpion:
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, CONTROLE_SUBINDO_Scorpion	
-	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
-	addi s2, s2, 1
-	blt s2, s3, LOOP_CAMBALHOTA_SUBINDO_Scorpion
+	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
+	addi s4, s4, 1
+	blt s4, s3, LOOP_CAMBALHOTA_SUBINDO_Scorpion
 	
 	lw a3, 4(sp)
 	
-	li s2, 0
+	li s4, 0
 	li s3, 4
 		
 LOOP_CAMBALHOTA_DESCENDO_Scorpion:	
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, CONTROLE_DESCENDO_Scorpion
-	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
-	addi s2, s2, 1
-	blt s2, s3, LOOP_CAMBALHOTA_DESCENDO_Scorpion 
+	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
+	addi s4, s4, 1
+	blt s4, s3, LOOP_CAMBALHOTA_DESCENDO_Scorpion 
 	
 	addi sp, sp, 8
 	j RESET_Scorpion
@@ -392,14 +392,8 @@ PODER_Scorpion:
 	beq t0, s10, Fim_KDInterrupt_Scorpion
 
 	la a0, ScorpionPoder_1			# carrega o sprite do poder
-	li a2, 6				# são 6 frames 
-	jal ra, FRAME_GOLPE
-	
-	#mv t0, a0				# backup de a0
-   	li a0, 50				# DELAY DE 50 MICROSSEGUNDOS
-   	li a7, 32
-   	ecall					# SLEEP
-    	#mv a0, t0
+	li a2, 6				# são 3 frames na ida
+	jal ra, FRAME_GOLPE_VGA
 	
 	j RESET_Scorpion				# reseta ele parado em pé
 ############################################################################################
@@ -412,22 +406,22 @@ PODER_Scorpion:
 ############################################################################################
 CAMINHAR_Scorpion:	
 	li a2, 3				# quantidade de frames
-	jal ra, FRAME_DESLOCAMENTO	
+	jal ra, FRAME_DESLOCAMENTO_VGA	
 	li a2, 1
-	la a0, ScorpionParado_1	
-	jal ra, FRAME_DESLOCAMENTO
+	la a0, ScorpionParado_1
+	jal ra, FRAME_DESLOCAMENTO_VGA
 	j Fim_KDInterrupt_Scorpion
 	
 RESET_Scorpion:	la a0, ScorpionParado_1		# posição padrão
 	li a2, 1				# contagem de frames
-	jal ra, FRAME_GOLPE			# a golpe não desloca o personagem 
+	jal ra, FRAME_GOLPE_VGA			# a golpe não desloca o personagem 
 	j Fim_KDInterrupt_Scorpion
 	
 GOLPE_Scorpion:
-    	jal ra, FRAME_GOLPE			# animação do golpe
+    	jal ra, FRAME_GOLPE_VGA			# animação do golpe
     	la a0, ScorpionParado_1			# reseta ele parado
     	li a2, 1				# 1 frame
-    	jal ra, FRAME_GOLPE		
+    	jal ra, FRAME_GOLPE_VGA		
     	j Fim_KDInterrupt_Scorpion
 	
 Fim_KDInterrupt_Scorpion:

@@ -5,7 +5,7 @@
 #
 #Obs_Raiden: Esse procedimento chama dois outros_Raiden: APAGAR e PERSONAGEM
 #
-#			$$$$$$$$ s0, s1, s2, s3 e s5 são alterados$$$$$$$$
+#			$$$$$$$$ s0, s1, s4, s3 e s5 são alterados$$$$$$$$
 ############################################################################################ 
 
 KDInterrupt_Raiden:  
@@ -98,7 +98,6 @@ RAIDEN_PRA_TRAS_Raiden:
 LIMITE_ESQUERDA_Raiden:
 	#addi t1, t1, 1
 	
-
 	la a0, RaidenAndando_3V		# move pra trás
 	j CAMINHAR_Raiden
 	
@@ -115,19 +114,20 @@ RAIDEN_PARA_CIMA_Raiden:
 	la a0, RaidenPulando_1			# carrega o sprite do pulo
 	li a3, -9600				# desloca 30 pixels para cima
 	li a2, 2				# o pulo são 2 frames
-	jal ra, FRAME_DESLOCAMENTO			# mostra a animação do pulo
+	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação do pulo
 	
 	la a0, RaidenPulando_2			# prepara o reset
 	li a3, 9600				# desloca 30 pixels pra baixo
-	#  a2 = 2				# a2 já é 2 (2 frames")
-	jal ra, FRAME_DESLOCAMENTO			# mostra a animação dele descendo
+	
+	li a2, 2				# a2 já é 2 (2 frames")
+	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação dele descendo
 	j RESET_Raiden
 ###########################################################################################	
 LEVANTAR_Raiden: 
 	la s10, RaidenParado_1			# faz com que s10 tenha ele parado
 	la a0, RaidenAgachando_3V		# carrega o sprite dele agaixado
 	li a2, 1				# 1 frame
-	jal ra, FRAME_GOLPE			# animação
+	jal ra, FRAME_GOLPE_VGA			# animação
 	j RESET_Raiden
 ###########################################################################################
 ABAIXAR_Raiden:
@@ -141,7 +141,7 @@ AGACHAR_Raiden:
 	#li a3, 4800				# desloca 15 pixels para baixo
 	la a0, RaidenAgachando_1		# carrega o sprite abaixando
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE			# animação
+	jal ra, FRAME_GOLPE_VGA			# animação
 	la s10, RaidenAgachando_2		# seta ele a
 	j Fim_KDInterrupt_Raiden
 
@@ -150,7 +150,7 @@ CHUTE_Raiden:
 SWITCH_CASE_PERSONAGEM_CHUTE_Raiden:
 
     	la t0, RaidenParado_1
-   	beq t0, s10, RAIDEN_CHUTE_Raiden      	# se estiver em pé chuta
+   	beq t0, s10, RAIDEN_CHUTE_Raiden      # se estiver em pé chuta
    	
    	la t0, RaidenAgachando_2		# se estiver abaixado dá outro chute
 	beq t0, s10, CHUTE_ABAIXADO_Raiden
@@ -163,11 +163,11 @@ RAIDEN_CHUTE_Raiden:
 CHUTE_ABAIXADO_Raiden:   
 	li a2, 3				# são 3 frames
     	la a0, RaidenChuteAgachado_1			
-    	jal ra, FRAME_GOLPE			# animação
+    	jal ra, FRAME_GOLPE_VGA			# animação
     	
    	mv a0, s10				# reseta ele agachado
    	li a2, 1				# 1 frame
-   	jal ra, FRAME_GOLPE			# animação
+   	jal ra, FRAME_GOLPE_VGA			# animação
     	j Fim_KDInterrupt_Raiden
 SOCO_Raiden:
 SWITCH_CASE_PERSONAGEM_SOCO_Raiden:
@@ -185,11 +185,11 @@ RAIDEN_SOCO_Raiden:
 SOCO_ABAIXADO_Raiden:
 	li a2, 3				# são 3 frames
    	la a0, RaidenSocoAgachado_1
-   	jal ra, FRAME_GOLPE			# animação
+   	jal ra, FRAME_GOLPE_VGA			# animação
    	
    	mv a0, s10				# reseta pra ele
    	li a2, 1
-   	jal ra, FRAME_GOLPE			# animação
+   	jal ra, FRAME_GOLPE_VGA			# animação
     	j Fim_KDInterrupt_Raiden
     	
 CHUTE_ALTO_Raiden:
@@ -208,11 +208,11 @@ RAIDEN_CHUTE_ALTO_Raiden:
 RASTEIRA_Raiden:
 	li a2, 5
        	la a0, RaidenRasteira_1
-       	jal ra, FRAME_GOLPE			# animação
+       	jal ra, FRAME_GOLPE_VGA			# animação
     	
     	la a0, RaidenAgachando_2
    	li a2, 1
-   	jal ra, FRAME_GOLPE			# animação
+   	jal ra, FRAME_GOLPE_VGA			# animação
     	j Fim_KDInterrupt_Raiden
 
 JAB_Raiden:
@@ -231,7 +231,7 @@ RAIDEN_JAB_Raiden:
 ALPISTE_ORH_Raiden: 
        	li a2, 6
        	la a0, RaidenAlpiste_1
-       	jal ra, FRAME_GOLPE			# animação
+       	jal ra, FRAME_GOLPE_VGA			# animação
        	
     	la s10, RaidenParado_1
     	mv a0, s10
@@ -251,14 +251,14 @@ ATIVAR_BLOCK_Raiden:
 	la s10, RaidenBlock_2			# significa que o personagem ficará com escudo ativo
 	la a0, RaidenBlock_1
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE			# animação de block
+	jal ra, FRAME_GOLPE_VGA			# animação de block
 	j Fim_KDInterrupt_Raiden
 	
 BLOCK_CHAO_Raiden:
 	la s10, RaidenBlockAgachado_2		# significa que o personagem ficará com block no chão ativo
 	la a0, RaidenBlockAgachado_1
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE			# animação
+	jal ra, FRAME_GOLPE_VGA			# animação
 	j Fim_KDInterrupt_Raiden
 	
 DESATIVAR_BLOCK_Raiden:
@@ -268,18 +268,18 @@ DESATIVAR_BLOCK_Raiden:
 	mv a0, s10				# se chegou até aqui é porque está em pé
 	la s10, RaidenParado_1			# significa que o personagem ficará em pé
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE			# a0 tem o estado anterior de s10, anima a0
+	jal ra, FRAME_GOLPE_VGA			# a0 tem o estado anterior de s10, anima a0
 	j RESET_Raiden
 			
 DESATIVAR_BLOCK_CHAO_Raiden:
 	mv a0, s10
 	la s10, RaidenAgachando_2
 	li a2, 2
-	jal ra, FRAME_GOLPE
+	jal ra, FRAME_GOLPE_VGA
 	
 	la a0, RaidenAgachando_2
 	li a2, 1
-	jal ra, FRAME_GOLPE
+	jal ra, FRAME_GOLPE_VGA
 	j Fim_KDInterrupt_Raiden
 	
 CAMBALHOTA_PRA_FRENTE_Raiden:	
@@ -310,27 +310,27 @@ CAMBALHOTA_Raiden:
 	la a0, RaidenCambalhota_1		# carrega o sprite da cambalhota
 	lw a3, 0(sp)
 	
-	li s2, 0				# contador
+	li s4, 0				# contador
 	li s3, 4				# limite do contador
 	
 LOOP_CAMBALHOTA_SUBINDO_Raiden:
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, CONTROLE_SUBINDO_Raiden	
-	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
-	addi s2, s2, 1
-	blt s2, s3, LOOP_CAMBALHOTA_SUBINDO_Raiden
+	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
+	addi s4, s4, 1
+	blt s4, s3, LOOP_CAMBALHOTA_SUBINDO_Raiden
 	
 	lw a3, 4(sp)
 	
-	li s2, 0
+	li s4, 0
 	li s3, 4
 		
 LOOP_CAMBALHOTA_DESCENDO_Raiden:	
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, CONTROLE_DESCENDO_Raiden
-	jal ra, FRAME_DESLOCAMENTO		# mostra a animação da cambalhota
-	addi s2, s2, 1
-	blt s2, s3, LOOP_CAMBALHOTA_DESCENDO_Raiden 
+	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
+	addi s4, s4, 1
+	blt s4, s3, LOOP_CAMBALHOTA_DESCENDO_Raiden 
 	
 	addi sp, sp, 8
 	j RESET_Raiden
@@ -392,17 +392,8 @@ PODER_Raiden:
 	beq t0, s10, Fim_KDInterrupt_Raiden
 
 	la a0, RaidenPoder_1			# carrega o sprite do poder
-	li a2, 2				# são 2 frames na ida
-	jal ra, FRAME_GOLPE
-	
-	mv t0, a0				# backup de a0
-   	li a0, 50				# DELAY DE 50 MICROSSEGUNDOS
-   	li a7, 32
-   	ecall					# SLEEP
-    	mv a0, t0
-	
-	li a2, 1				# são 1 frames na volta (desfazer pose)
-	jal ra, FRAME_GOLPE
+	li a2, 2				# são 3 frames na ida
+	jal ra, FRAME_GOLPE_VGA
 	
 	j RESET_Raiden				# reseta ele parado em pé
 ############################################################################################
@@ -415,22 +406,22 @@ PODER_Raiden:
 ############################################################################################
 CAMINHAR_Raiden:	
 	li a2, 3				# quantidade de frames
-	jal ra, FRAME_DESLOCAMENTO	
+	jal ra, FRAME_DESLOCAMENTO_VGA	
 	li a2, 1
-	la a0, RaidenParado_1	
-	jal ra, FRAME_DESLOCAMENTO
+	la a0, RaidenParado_1
+	jal ra, FRAME_DESLOCAMENTO_VGA
 	j Fim_KDInterrupt_Raiden
 	
 RESET_Raiden:	la a0, RaidenParado_1		# posição padrão
 	li a2, 1				# contagem de frames
-	jal ra, FRAME_GOLPE			# a golpe não desloca o personagem 
+	jal ra, FRAME_GOLPE_VGA			# a golpe não desloca o personagem 
 	j Fim_KDInterrupt_Raiden
 	
 GOLPE_Raiden:
-    	jal ra, FRAME_GOLPE			# animação do golpe
+    	jal ra, FRAME_GOLPE_VGA			# animação do golpe
     	la a0, RaidenParado_1			# reseta ele parado
     	li a2, 1				# 1 frame
-    	jal ra, FRAME_GOLPE		
+    	jal ra, FRAME_GOLPE_VGA		
     	j Fim_KDInterrupt_Raiden
 	
 Fim_KDInterrupt_Raiden:
