@@ -156,6 +156,8 @@ SWITCH_CASE_PERSONAGEM_CHUTE_SubZero:
 	
 SUBZERO_CHUTE_SubZero:
 	li a2, 5				# são 3 frames
+	li a1, 2
+    	jal ra, TESTE_GOLPE
     	la a0, SubZeroChuteBaixo_1			
     	j GOLPE_SubZero				# animação
     	
@@ -179,6 +181,8 @@ SWITCH_CASE_PERSONAGEM_SOCO_SubZero:
 SUBZERO_SOCO_SubZero:
 	li a2, 5				# são 2 frames
    	la a0, SubZeroSoco_1
+   	li a1, 0
+    	jal ra, TESTE_GOLPE
    	j GOLPE_SubZero				# animação
  
 SOCO_ABAIXADO_SubZero:
@@ -202,6 +206,8 @@ SWITCH_CASE_PERSONAGEM_CHUTE_ALTO_SubZero:
 SUBZERO_CHUTE_ALTO_SubZero:
 	li a2, 6
        	la a0, SubZeroChuteAlto_1
+       	li a1, 3
+    	jal ra, TESTE_GOLPE
        	j GOLPE_SubZero
 
 RASTEIRA_SubZero:
@@ -225,6 +231,8 @@ SWITCH_CASE_PERSONAGEM_JAB_SubZero:
 SUBZERO_JAB_SubZero:
 	li a2, 5
        	la a0, SubZeroJab_1
+       	li a1, 1
+    	jal ra, TESTE_GOLPE
        	j GOLPE_SubZero
 
 ALPISTE_ORH_SubZero: 
@@ -427,7 +435,6 @@ RESET_SubZero:	la a0, SubZeroParado_1		# posição padrão
 	
 GOLPE_SubZero:
     	jal ra, FRAME_GOLPE_VGA			# animação do golpe
-    	jal ra, TESTE_SOCO
     	la a0, SubZeroParado_1			# reseta ele parado
     	li a2, 1				# 1 frame
     	jal ra, FRAME_GOLPE_VGA		

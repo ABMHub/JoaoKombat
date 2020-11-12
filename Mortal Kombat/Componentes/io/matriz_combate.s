@@ -84,26 +84,78 @@ LOOP_CONTADOR:
 ####### Input ########
 # a0 = jogador (1 ou 2)              ?
 # a1 = tipo de golpe
-# 
+# 	0 - soco		4 - soco agachado
+#	1 - jab			5 - alpiste
+#	2 - chute baixo		6 - chute agachado
+#	3 - chute alto		7 - rasteira
 ####################################################################
 
-TESTE_SOCO:
-	addi sp, sp, -4
+TESTE_GOLPE:
+	addi sp, sp, -16
 	sw ra, 0(sp)
-
+	sw a0, 4(sp)
+	sw a1, 8(sp)
+	sw a2, 12(sp)
+	
+	mv t3, a1
 	jal ra, CALCULA_CONTADOR
 	mv t0, a0
+	mv a1, t3
 	
+	li t1, 0
+	beq t1, a1, TESTE_SOCO
 	
+	li t1, 1
+	beq t1, a1, TESTE_JAB
+	
+	li t1, 2
+	beq t1, a1, TESTE_CHUTE_BAIXO
+	
+	li t1, 3
+	beq t1, a1, TESTE_CHUTE_ALTO
+	
+TESTE_SOCO:
 	addi t0, t0, 1
 	addi t0, t0, -60
+
+	lb t1, 1(t0)
 	
+	bnez t1, HIT
+	j FIM_TESTE_SOCO
+	
+TESTE_JAB:
+	addi t0, t0, 1
+	addi t0, t0, -60
+
+	lb t1, 1(t0)
+	addi t0, t0, -20
+	lb t2, 1(t0)
+	
+	bnez t1, HIT
+	bnez t2, HIT
+	j FIM_TESTE_SOCO
+	
+TESTE_CHUTE_BAIXO:
+	addi t0, t0, 1
+	addi t0, t0, -40
+
 	lb t1, 1(t0)
 	lb t2, 2(t0)
-	li t3, 2
 	
-	beq t1, t3, HIT
-	beq t2, t3, HIT
+	bnez t1, HIT
+	bnez t2, HIT
+	j FIM_TESTE_SOCO
+	
+TESTE_CHUTE_ALTO:	
+	addi t0, t0, 1
+	addi t0, t0, -60
+
+	lb t1, 1(t0)
+	addi t0, t0, -80
+	lb t2, 2(t0)
+	
+	bnez t1, HIT
+	bnez t2, HIT
 	j FIM_TESTE_SOCO
 	
 HIT:	
@@ -116,12 +168,16 @@ HIT:
 	
 FIM_TESTE_SOCO:
 	lw ra, 0(sp)		# restora ra
-	addi sp, sp, 4		# restora sp
+	lw a0, 4(sp)
+	lw a1, 8(sp)
+	lw a2, 12(sp)
+	addi sp, sp, 16		# restora sp
 	
 	ret			# tchauzinho
 	
 ####################################################################
 # Funções de colisão de movimento
+# Altera a1
 ####### Input  ########
 # a0 = 1 (player 1), 2 (player 2)
 ####### Output ########

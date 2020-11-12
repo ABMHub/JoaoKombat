@@ -52,7 +52,7 @@
 	jal ra, ESCREVE_POSICAO_MATRIZ
 	
 	li a0, 2
-	li a1, 5
+	li a1, 4
 	li a2, 2
 	jal ra, ESCREVE_POSICAO_MATRIZ
 	
