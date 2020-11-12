@@ -150,7 +150,8 @@ AGACHAR_SubZero:
 	#li a3, 4800				# desloca 15 pixels para baixo
 	la a0, SubZeroAgachando_1		# carrega o sprite abaixando
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE_VGA			# animação
+	li a3, 0
+	jal ra, FRAME_DESLOCAMENTO_VGA		# animação
 	la s10, SubZeroAgachando_2		# seta ele a
 	
 	la a0, SubZeroAgachando_2
