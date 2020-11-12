@@ -110,18 +110,24 @@ PULAR_CIMA_SubZero:
 	beq t0, s10, LEVANTAR_SubZero
 
 SUBZERO_PARA_CIMA_SubZero:
+	#ebreak
 	la s10, SubZeroParado_1			# garante que em s10 tenha ele parado
 	la a0, SubZeroPulando_1			# carrega o sprite do pulo
 	li a3, -9600				# desloca 30 pixels para cima
 	li a2, 2				# o pulo são 2 frames
-	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação do pulo
+	jal ra, DESLOCAMENTO_INICIO			# mostra a animação do pulo
 	
 	la a0, SubZeroPulando_2			# prepara o reset
 	li a3, 9600				# desloca 30 pixels pra baixo
 	
 	li a2, 2				# a2 já é 2 (2 frames")
-	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação dele descendo
-	j RESET_SubZero
+	jal ra, DESLOCAMENTO_INICIO			# mostra a animação dele descendo
+	
+	li a2, 1
+	li a3, 0
+	la a0, SubZeroDancando_1
+	jal ra, DESLOCAMENTO_INICIO
+	j DANCINHA
 ###########################################################################################	
 LEVANTAR_SubZero: 
 	la s10, SubZeroParado_1			# faz com que s10 tenha ele parado
@@ -335,7 +341,7 @@ CAMBALHOTA_SubZero:
 LOOP_CAMBALHOTA_SUBINDO_SubZero:
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, CONTROLE_SUBINDO_SubZero	
-	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
+	jal ra, DESLOCAMENTO_INICIO		# mostra a animação da cambalhota
 	addi s4, s4, 1
 	blt s4, s3, LOOP_CAMBALHOTA_SUBINDO_SubZero
 	
@@ -347,12 +353,12 @@ LOOP_CAMBALHOTA_SUBINDO_SubZero:
 LOOP_CAMBALHOTA_DESCENDO_SubZero:	
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, CONTROLE_DESCENDO_SubZero
-	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
+	jal ra, DESLOCAMENTO_INICIO		# mostra a animação da cambalhota
 	addi s4, s4, 1
 	blt s4, s3, LOOP_CAMBALHOTA_DESCENDO_SubZero 
 	
 	addi sp, sp, 8
-	j RESET_SubZero
+	j SUBZERO_TOTAL_RESET
 	
 CONTROLE_SUBINDO_SubZero:
 	la t0, CONTADOR1
@@ -423,7 +429,7 @@ PODER_SubZero:
 	li a2, 2				# são 2 frames na volta (desfazer pose)
 	jal ra, FRAME_GOLPE_VGA
 	
-	j RESET_SubZero				# reseta ele parado em pé
+	j SUBZERO_TOTAL_RESET			# reseta ele parado em pé
 ############################################################################################
 #Esse loop é responsável por realizar a animação do personagem se movimentando para frente
 #caso ele esteja virado para a direita.

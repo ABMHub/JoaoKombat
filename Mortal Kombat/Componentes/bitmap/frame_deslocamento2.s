@@ -4,10 +4,20 @@
 # a3 = deslocamento
 #			$$$s0, s1, s2 e s3 são alterados$$$
 #############################################################################################
+DESLOCAMENTO_INICIO:
+	la s0, PERSONAGEM1_INICIO	# Resgata a posição inicial no do personagem
+	lw s1, 0(s0)			# s1 = personagem 1 INICIO
 
+	addi sp, sp, -4
+	sw ra, 0(sp)
+	
+	j DESLOCAMENTO
 FRAME_GOLPE_VGA:
+	addi sp, sp, -4
+	sw ra, 0(sp)
+	
 	mv a3, zero
-
+	j DESLOCAMENTO
 FRAME_DESLOCAMENTO_VGA:
 	la s0, PERSONAGEM1_INICIO	# Resgata a posição inicial no do personagem
 	lw s1, 0(s0)			# s1 = personagem 1 INICIO
@@ -15,11 +25,15 @@ FRAME_DESLOCAMENTO_VGA:
 	addi sp, sp, -4
 	sw ra, 0(sp)
 	
-	la t0, SPRITE_DANCA
-	lw t0, 0(t0)
+	#la t0, SPRITE_DANCA
+	#lw t0, 0(t0)
+	#lw a4, 4(t0)
+	#lw a5, 0(t0)
+	#addi a4, a4, 2
+	
+	la t0, SubZeroDancando_1
 	lw a4, 4(t0)
 	lw a5, 0(t0)
-	addi a4, a4, 2
 	
 	li t2, 0xFF200604
 	lw t2, 0(t2)			# Muda para a frame 0
@@ -34,10 +48,6 @@ DESLOCAMENTO:
 	lw s1, 0(s0)			# s1 = personagem 1 INICIO
 	
 	# Decisão: frame 0 ou frame 1?
-	   
-	li t2, 0x00100000
-	and t2, s1, t2			# mascara o valor da frame
-	# t2 = frame atual
 	
 	li t2, 0xFF200604
 	lw t2, 0(t2)			# Muda para a frame 0
@@ -52,6 +62,7 @@ FRAME0:	# é a frame 0
 	#apagar na frame 0
 	
 	#####################BLOCO QUE APAGA NA FRAME 1#####################################
+	#ebreak
 	la t0, ALTURA1
 	lw a4, 0(t0)			# a4 = altura do personagem
 	
@@ -105,6 +116,7 @@ FRAME1: # É a frame 1
 	# apagar na frame 1
 	
 	#####################BLOCO QUE APAGA NA FRAME 0#####################################
+	#ebreak
 	la t0, ALTURA1
 	lw a4, 0(t0)			# a4 = altura do personagem
 	
