@@ -336,7 +336,11 @@ CAMBALHOTA_SubZero:
 	lw a3, 0(sp)
 	
 	li s4, 0				# contador
-	li s3, 4				# limite do contador
+	li s3, 3				# limite do contador
+	
+	li a2, 1				# a cambalhota são 2 frames
+	jal ra, CONTROLE_SUBINDO_SubZero	
+	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
 	
 LOOP_CAMBALHOTA_SUBINDO_SubZero:
 	li a2, 1				# a cambalhota são 2 frames
@@ -440,10 +444,10 @@ PODER_SubZero:
 ############################################################################################
 CAMINHAR_SubZero:	
 	li a2, 3				# quantidade de frames
-	jal ra, FRAME_DESLOCAMENTO_VGA	
+	jal ra, DESLOCAMENTO_INICIO
 	li a2, 1
 	la a0, SubZeroDancando_1
-	jal ra, FRAME_DESLOCAMENTO_VGA
+	jal ra, DESLOCAMENTO_INICIO
 	j DANCINHA
 	
 RESET_SubZero:	

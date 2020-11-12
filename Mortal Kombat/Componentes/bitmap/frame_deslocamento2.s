@@ -35,6 +35,9 @@ FRAME_DESLOCAMENTO_VGA:
 	lw a4, 4(t0)
 	lw a5, 0(t0)
 	
+	#addi a4, a4, 4
+	#addi a5, a5, 2
+	
 	li t2, 0xFF200604
 	lw t2, 0(t2)			# Muda para a frame 0
 	
