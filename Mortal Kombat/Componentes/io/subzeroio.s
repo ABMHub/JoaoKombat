@@ -62,13 +62,12 @@ AQUI3_SubZero:	li t3, 's'
 DIREITA_SubZero:
 	la t0, SubZeroAgachando_2		# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt_SubZero
-
-	la t0, CONTADOR1			# carrega o contador
+	la t0, CONTADORH1			# carrega o contador
 	lw t1, 0(t0)				
 	li a3, 0				# inicializa o deslocamento em 0
-	li t2, 19				# máximo do contador
 	addi t1, t1, 1				# incrementa o contador
-	bge t1, t2, LIMITE_DIREITA_SubZero	# verifica se o contador atingiu o limite
+	jal ra, VERIFICA_CONTADOR_DIREITA
+	bnez a0, LIMITE_DIREITA_SubZero		# verifica se o contador atingiu o limite
 	
 	sw t1, 0(t0)				# guarda o novo valor do contador somente se não estiver no limite
 	
@@ -85,12 +84,12 @@ ESQUERDA_SubZero:
 	la t0, SubZeroAgachando_2		# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt_SubZero
 
-	la t0, CONTADOR1
+	la t0, CONTADORH1
 	lw t1, 0(t0)
 	li a3, 0
 	addi t1, t1, -1
-	li t2, -1
-	beq t1, t2, LIMITE_ESQUERDA_SubZero
+	jal ra, VERIFICA_CONTADOR_ESQUERDA
+	bnez a0, LIMITE_ESQUERDA_SubZero		# verifica se o contador atingiu o limite
 	sw t1, 0(t0)
 	
 SUBZERO_PRA_TRAS_SubZero: 
@@ -336,7 +335,7 @@ LOOP_CAMBALHOTA_DESCENDO_SubZero:
 	j RESET_SubZero
 	
 CONTROLE_SUBINDO_SubZero:
-	la t0, CONTADOR1
+	la t0, CONTADORH1
 	lw t1, 0(t0)
 	li t2, 19
 	add t1, t1, s5
@@ -348,7 +347,7 @@ NAO_S_SubZero:	sw t1, 0(t0)
 	ret
 
 CONTROLE_DESCENDO_SubZero:
-	la t0, CONTADOR1
+	la t0, CONTADORH1
 	lw t1, 0(t0)
 	li t2, 19
 	add t1, t1, s5
@@ -428,6 +427,7 @@ RESET_SubZero:	la a0, SubZeroParado_1		# posição padrão
 	
 GOLPE_SubZero:
     	jal ra, FRAME_GOLPE_VGA			# animação do golpe
+    	jal ra, TESTE_SOCO
     	la a0, SubZeroParado_1			# reseta ele parado
     	li a2, 1				# 1 frame
     	jal ra, FRAME_GOLPE_VGA		

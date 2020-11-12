@@ -63,7 +63,7 @@ DIREITA_Scorpion:
 	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt_Scorpion
 
-	la t0, CONTADOR1			# carrega o contador
+	la t0, CONTADORH1			# carrega o contador
 	lw t1, 0(t0)				
 	li a3, 0				# inicializa o deslocamento em 0
 	li t2, 19				# máximo do contador
@@ -85,7 +85,7 @@ ESQUERDA_Scorpion:
 	la t0, ScorpionAgachando_2		# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt_Scorpion
 
-	la t0, CONTADOR1
+	la t0, CONTADORH1
 	lw t1, 0(t0)
 	li a3, 0
 	addi t1, t1, -1

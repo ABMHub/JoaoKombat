@@ -1,12 +1,4 @@
-.data
-	.include "Sprites/data/mario.s"
-	.include "Sprites/data/cenarios.s"
-	.include "Sprites/data/subzero.s"
-	.include "Sprites/data/raiden.s"
-	.include "Sprites/data/scorpion.s"
-	.include "Sprites/data/menu.s"
-	.include "Sprites/data/MenuDeEscolha.s"
-	
+.data	
 	VGA1INICIO: 		.word 0xFF000000
 	VGA1FINAL: 		.word 0xFF012C00
 	
@@ -25,8 +17,20 @@
 	LARGURA1ATUAL:		.word 0x0
 	LARGURA1ANTIGA:		.word 0x0
 	
-	CONTADOR1:		.word 0x1
-	CONTADOR2:		.word 0x0
+	CONTADORV1:		.word 0xC
+	CONTADORH1:		.word 0x1
+	CONTADORV2:		.word 0xC
+	CONTADORH2:		.word 0x11
+	
+	MATRIZ_COMBATE:		.space 300
+	
+	.include "Sprites/data/mario.s"
+	.include "Sprites/data/cenarios.s"
+	.include "Sprites/data/subzero.s"
+	.include "Sprites/data/raiden.s"
+	.include "Sprites/data/scorpion.s"
+	.include "Sprites/data/menu.s"
+	.include "Sprites/data/MenuDeEscolha.s"
 	
 #.macro  SLEEP (%x)				#função que faz um delay de x microssegundos
 #    	li a0,%x				#a0=valor de delay passado como parâmetro 
@@ -35,18 +39,29 @@
 #.end_macro
 
 .text
+	
 	jal ra, MENU				#Tela de Abertura
 	
 	jal ra, SELECAO				#Tela de seleção
 	
 	jal ra, CENARIO
-	mv a0, s9
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
 	
 	la t0, VGA1INICIO
 	lw a1, 0(t0)				# ta1 = inicio da memória vga
 	la t0, VGA1FINAL
 	lw a2, 0(t0)				# ta2 = final da memória vga
 	
+	mv a0, s9
 	jal ra, BACKGROUND			# argumento em a0 = fundo
 	
 	mv a0, s9
@@ -71,8 +86,7 @@ INFINITO:
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/subzeroio.s"
-.include "componentes/io/scorpionio.s"
-.include "componentes/io/raidenio.s"
+.include "componentes/io/matriz_combate.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/frame_deslocamento.s"
