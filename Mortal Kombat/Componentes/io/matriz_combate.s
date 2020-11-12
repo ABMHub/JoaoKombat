@@ -102,6 +102,29 @@ TESTE_GOLPE:
 	mv t0, a0
 	mv a1, t3
 	
+	lw t1, CONTADORH1
+	lw t2, CONTADORH2
+	
+	li t3, 2
+	beq t3, a0, TESTE_PER2
+	
+	sub t1, t1, t2
+	bgtz t1, TESTE_INVERTIDO
+	j TESTE_NORMAL
+	
+TESTE_PER2:
+	sub t1, t2, t1
+	bgtz t1, TESTE_INVERTIDO
+	
+TESTE_NORMAL:
+	addi t0, t0, 1
+	li t2, 1
+	j TESTE_CASE
+	
+TESTE_INVERTIDO:
+	li t2, -1
+	
+TESTE_CASE:
 	li t1, 0
 	beq t1, a1, TESTE_SOCO
 	
@@ -115,44 +138,45 @@ TESTE_GOLPE:
 	beq t1, a1, TESTE_CHUTE_ALTO
 	
 TESTE_SOCO:
-	addi t0, t0, 1
 	addi t0, t0, -60
-
-	lb t1, 1(t0)
+	add t0, t0, t2
+	lb t1, 0(t0)
 	
 	bnez t1, HIT
 	j FIM_TESTE_SOCO
 	
 TESTE_JAB:
-	addi t0, t0, 1
 	addi t0, t0, -60
-
-	lb t1, 1(t0)
+	add t0, t0, t2
+	lb t1, 0(t0)
+	
 	addi t0, t0, -20
-	lb t2, 1(t0)
+	lb t2, 0(t0)
 	
 	bnez t1, HIT
 	bnez t2, HIT
 	j FIM_TESTE_SOCO
 	
 TESTE_CHUTE_BAIXO:
-	addi t0, t0, 1
 	addi t0, t0, -40
 
-	lb t1, 1(t0)
-	lb t2, 2(t0)
+	add t0, t0, t2
+	lb t1, 0(t0)
+	add t0, t0, t2
+	lb t2, 0(t0)
 	
 	bnez t1, HIT
 	bnez t2, HIT
 	j FIM_TESTE_SOCO
 	
 TESTE_CHUTE_ALTO:	
-	addi t0, t0, 1
 	addi t0, t0, -60
-
-	lb t1, 1(t0)
+	add t0, t0, t2
+	lb t1, 0(t0)
+	
 	addi t0, t0, -80
-	lb t2, 2(t0)
+	add t0, t0, t2
+	lb t2, 0(t0)
 	
 	bnez t1, HIT
 	bnez t2, HIT

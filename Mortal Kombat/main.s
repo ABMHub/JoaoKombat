@@ -20,7 +20,7 @@
 	CONTADORV1:		.word 0xC
 	CONTADORH1:		.word 0x1
 	CONTADORV2:		.word 0xC
-	CONTADORH2:		.word 0x11
+	CONTADORH2:		.word 0x8
 	
 	MATRIZ_COMBATE:		.space 300
 	
