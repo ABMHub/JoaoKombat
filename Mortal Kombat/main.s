@@ -25,8 +25,16 @@
 	LARGURA1ATUAL:		.word 0x0
 	LARGURA1ANTIGA:		.word 0x0
 	
+	ALTURA_DANCA_0:		.word 0x0
+	LARGURA_DANCA_0:	.word 0x0
+	ALTURA_DANCA_1:		.word 0x0
+	LARGURA_DANCA_1:	.word 0x0
+	
+	SPRITE_DANCA:		.word 0x0
+	
 	CONTADOR1:		.word 0x1
 	CONTADOR2:		.word 0x0
+	
 	
 #.macro  SLEEP (%x)				#função que faz um delay de x microssegundos
 #    	li a0,%x				#a0=valor de delay passado como parâmetro 
@@ -61,13 +69,29 @@
 	
 	#jal ra, CENARIO			#escolhe um cenário de modo pseudoaleatório
 	
-INFINITO:	
-	j INFINITO
+	li s8,0xFF200604	# Escolhe o Frame 0 ou 1
+	li s7,0			# inicio Frame 0
+
+INFINITO:
+	csrr s6,3073 		# le o time atual
+	sw s7,0(s8)		# seleciona a Frame t2
+	xori s7,s7,0x001	# escolhe a outra frame
+LOOOP:
+
+ 	csrr t0,3073 		# le o time atual
+	sub t1,t0,s6 		# calcula o tempo
+	li t0, 300
+	bge t1, t0, INFINITO
+
+	j LOOOP	
+	
+	#j INFINITO
 	
 	li a7, 10
 	ecall
 
 .include "componentes/bitmap/cenario.s"
+.include "componentes/bitmap/dancinha.s"
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/subzeroio.s"
@@ -75,8 +99,8 @@ INFINITO:
 .include "componentes/io/raidenio.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
-.include "componentes/bitmap/frame_deslocamento.s"
-.include "componentes/bitmap/limpar.s"
+.include "componentes/bitmap/frame_deslocamento2.s"
+.include "componentes/bitmap/limpar2.s"
 .include "componentes/bitmap/golpe.s"
 .include "componentes/bitmap/Menu.s"
 .include "componentes/bitmap/selecao.s"

@@ -52,13 +52,16 @@ LK:	#la s10, LiuKangParado_1
 	
 	j FIM
 	
-SZ:	la s10, SubZeroParado_1
-	la a0, SubZeroParado_1
+SZ:	la s10, SubZeroDancando_1
+	la a0, SubZeroDancando_1
 	
 	addi sp, sp, -4
 	sw ra, 0(sp)
 	
 	jal ra, PERSONAGEM
+	
+	la a0, SubZeroDancando_2
+	jal ra, FRAME_DANCINHA
 	
 	lw ra, 0(sp)
 	addi sp, sp, 4
