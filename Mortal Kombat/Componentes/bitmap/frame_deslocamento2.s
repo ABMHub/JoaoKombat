@@ -9,6 +9,9 @@ FRAME_GOLPE_VGA:
 	mv a3, zero
 
 FRAME_DESLOCAMENTO_VGA:
+	la s0, PERSONAGEM1_INICIO	# Resgata a posição inicial no do personagem
+	lw s1, 0(s0)			# s1 = personagem 1 INICIO
+
 	addi sp, sp, -4
 	sw ra, 0(sp)
 	
