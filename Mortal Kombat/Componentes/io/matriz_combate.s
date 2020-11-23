@@ -143,31 +143,35 @@ TESTE_SOCO:
 	lb t1, 0(t0)
 	
 	bnez t1, HIT
-	j FIM_TESTE_SOCO
+	j FIM_TESTE
 	
 TESTE_JAB:
-	addi t0, t0, -60
+	addi t0, t0, -40
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
 	addi t0, t0, -20
 	lb t2, 0(t0)
 	
+	addi t0, t0, -20
+	lb t3, 0(t0)
+	
 	bnez t1, HIT
 	bnez t2, HIT
-	j FIM_TESTE_SOCO
+	bnez t3, HIT
+	j FIM_TESTE
 	
 TESTE_CHUTE_BAIXO:
 	addi t0, t0, -40
-
 	add t0, t0, t2
 	lb t1, 0(t0)
+	
 	add t0, t0, t2
 	lb t2, 0(t0)
 	
 	bnez t1, HIT
 	bnez t2, HIT
-	j FIM_TESTE_SOCO
+	j FIM_TESTE
 	
 TESTE_CHUTE_ALTO:	
 	addi t0, t0, -60
@@ -180,7 +184,66 @@ TESTE_CHUTE_ALTO:
 	
 	bnez t1, HIT
 	bnez t2, HIT
-	j FIM_TESTE_SOCO
+	j FIM_TESTE
+	
+TESTE_SOCO_AGACHADO:
+	addi t0, t0, -40
+	add t0, t0, t2
+	lb t1, 0(t0)
+	
+	bnez t1, HIT
+	j FIM_TESTE
+	
+TESTE_ALPISTE:
+	addi t0, t0, -40
+	add t0, t0, t2
+	lb t1, 0(t0)
+	
+	addi t0, t0, -20
+	lb t2, 0(t0)
+	
+	addi t0, t0, -20
+	lb t3, 0(t0)
+	
+	addi t0, t0, 20
+	add t0, t0, t2
+	lb t4, 0(t4)
+	
+	bnez t1, HIT
+	bnez t2, HIT
+	bnez t3, HIT
+	bnez t4, HIT
+	j FIM_TESTE
+	
+TESTE_CHUTE_AGACHADO:
+	add t0, t0, t2
+	lb t1, 0(t0)
+	
+	addi t0, t0, -20
+	lb t2, 0(t0)
+	
+	add t0, t0, t2
+	lb t3, 0(t0)
+	
+	addi t0, t0, 20
+	lb t4, 0(t0)
+	
+	bnez t1, HIT
+	bnez t2, HIT
+	bnez t3, HIT
+	bnez t4, HIT
+	j FIM_TESTE
+	
+TESTE_RASTEIRA:
+	add t0, t0, t2
+	lb t1, 0(t0)
+	
+	add t0, t0, t2
+	lb t2, 0(t0)
+	
+	bnez t1, HIT
+	bnez t2, HIT
+	j FIM_TESTE
 	
 HIT:	
 	li a0, 60
@@ -190,7 +253,7 @@ HIT:
 	li a7, 31
 	ecall
 	
-FIM_TESTE_SOCO:
+FIM_TESTE:
 	lw ra, 0(sp)		# restora ra
 	lw a0, 4(sp)
 	lw a1, 8(sp)
