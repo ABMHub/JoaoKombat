@@ -25,7 +25,19 @@ FRAME_DANCINHA_0:
 	li t0, 0x00100000
 	or t0, t0, s1
 	sw t0, 0(s0)
-	jal ra, PERSONAGEM
+	
+	mv a6, t0			# a6 = posição inicial do personagem
+	#la a4, LARGURA1			# a4 = endereço da largura
+	#la a5, ALTURA1			# a5 = endereço da altura
+	la a4, LARGURA_FRAME1			# a4 = endereço da largura
+	la a5, ALTURA_FRAME1			# a5 = endereço da altura
+	
+	li a1, -1 			# da esquerda para direita
+	li a3, 0
+	
+	
+	
+	jal ra, PERSONAGEM_V2
 	sw s1, 0(s0)
 	
 	j FIM_DANCINHA
@@ -34,7 +46,15 @@ FRAME_DANCINHA_1:
 	li t0, 0xFF0FFFFF
 	and t0, t0, s1 
 	sw t0, 0(s0)
-	jal ra, PERSONAGEM
+	
+	mv a6, t0			# a6 = posição inicial do personagem
+	#la a4, LARGURA1			# a4 = endereço da largura
+	#la a5, ALTURA1			# a5 = endereço da altura
+	la a4, LARGURA_FRAME0			# a4 = endereço da largura
+	la a5, ALTURA_FRAME0			# a5 = endereço da altura
+	li a1, -1 			# da esquerda para direita
+	li a3, 0
+	jal ra, PERSONAGEM_V2
 	sw s1, 0(s0)
 	
 FIM_DANCINHA: 

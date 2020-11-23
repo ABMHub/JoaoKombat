@@ -1,4 +1,5 @@
 LIMPAR:
+ebreak
 	mv a1, s9
 	la t0, PERSONAGEM1_INICIO_ANTIGO
 	lw t0, 0(t0)

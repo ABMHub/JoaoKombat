@@ -1,22 +1,19 @@
 .data
-	.include "Sprites/data/mario.s"
-	.include "Sprites/data/cenarios.s"
-	.include "Sprites/data/subzero.s"
-	.include "Sprites/data/raiden.s"
-	.include "Sprites/data/scorpion.s"
-	.include "Sprites/data/menu.s"
-	.include "Sprites/data/MenuDeEscolha.s"
-	
 	VGA1INICIO: 		.word 0xFF000000
 	VGA1FINAL: 		.word 0xFF012C00
 	
 	VGA2INICIO:		.word 0xFF100000
 	VGA2FINAL:		.word 0xFF112C00
 
-	PERSONAGEM1: 		.word 0xFF010410
+	PERSONAGEM1: 		.word 0xFF010420
 	PERSONAGEM1_INICIO:	.word 0xFF009158
 	PERSONAGEM1_INICIO_ANTIGO: .word 0x0
 	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
+	
+	ALTURA_FRAME0:		.word 0x0
+	ALTURA_FRAME1:		.word 0x0
+	LARGURA_FRAME0:		.word 0x0
+	LARGURA_FRAME1:		.word 0x0
 	
 	ALTURA1:		.word 0x0
 	LARGURA1:		.word 0x0
@@ -34,6 +31,15 @@
 	
 	CONTADOR1:		.word 0x1
 	CONTADOR2:		.word 0x0
+	
+	.include "Sprites/data/mario.s"
+	.include "Sprites/data/cenarios.s"
+	.include "Sprites/data/subzero.s"
+	.include "Sprites/data/raiden.s"
+	.include "Sprites/data/scorpion.s"
+	.include "Sprites/data/menu.s"
+	.include "Sprites/data/MenuDeEscolha.s"
+	
 	
 	
 #.macro  SLEEP (%x)				#função que faz um delay de x microssegundos
@@ -93,6 +99,7 @@ LOOOP:
 .include "componentes/bitmap/cenario.s"
 .include "componentes/bitmap/dancinha.s"
 .include "componentes/bitmap/background.s"
+.include "componentes/bitmap/personagem_v2.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/subzeroio.s"
 .include "componentes/io/scorpionio.s"
@@ -105,3 +112,5 @@ LOOOP:
 .include "componentes/bitmap/Menu.s"
 .include "componentes/bitmap/selecao.s"
 .include "componentes/bitmap/matriz.s"
+
+

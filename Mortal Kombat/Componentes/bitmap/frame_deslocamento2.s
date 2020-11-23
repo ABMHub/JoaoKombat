@@ -4,7 +4,7 @@
 # a3 = deslocamento
 #			$$$s0, s1, s2 e s3 são alterados$$$
 #############################################################################################
-DESLOCAMENTO_INICIO:
+DESLOCAMENTO_INICIO: 
 	la s0, PERSONAGEM1_INICIO	# Resgata a posição inicial no do personagem
 	lw s1, 0(s0)			# s1 = personagem 1 INICIO
 
@@ -18,7 +18,7 @@ FRAME_GOLPE_VGA:
 	
 	mv a3, zero
 	j DESLOCAMENTO
-FRAME_DESLOCAMENTO_VGA:
+FRAME_DESLOCAMENTO_VGA: #ebreak
 	la s0, PERSONAGEM1_INICIO	# Resgata a posição inicial no do personagem
 	lw s1, 0(s0)			# s1 = personagem 1 INICIO
 
@@ -31,7 +31,7 @@ FRAME_DESLOCAMENTO_VGA:
 	#lw a5, 0(t0)
 	#addi a4, a4, 2
 	
-	la t0, SubZeroDancando_1
+	la t0, SubZeroDancando_2
 	lw a4, 4(t0)
 	lw a5, 0(t0)
 	
@@ -41,11 +41,11 @@ FRAME_DESLOCAMENTO_VGA:
 	li t2, 0xFF200604
 	lw t2, 0(t2)			# Muda para a frame 0
 	
-	bne t2, zero, FIRST_TIME_2
-	j FIRST_TIME_1
+	#bne t2, zero, FIRST_TIME_2
+	#j FIRST_TIME_1
+	#
 	
-	
-DESLOCAMENTO:
+DESLOCAMENTO: #ebreak
 	#ebreak
 	la s0, PERSONAGEM1_INICIO	# Resgata a posição inicial no do personagem
 	lw s1, 0(s0)			# s1 = personagem 1 INICIO
@@ -77,14 +77,38 @@ FIRST_TIME_1:
 	
 	li a6, 0xFF100000		# a6 = inicio da frame 1
 	mv a1, s9			# a1 = background
-	mv a7, s2			# a7 = personagem 1 inicio 
+	mv a7, s2			# a7 = personagem 1 inicio
+	 
+	la a4, ALTURA_FRAME1
+	lw a4, 0(a4)
+	
+	la a5, LARGURA_FRAME1
+	lw a5, 0(a5)
+	
 	jal ra, LIMPAR			# apaga na frame 1
 	#ebreak
 	
 	#####################BLOCO QUE PINTA NA FRAME 1#####################################
 	add s2, s2, a3			# desloca s2 a3 pixels
 	sw s2, 0(s0)
-	jal ra, PERSONAGEM		# pinta o personagem 
+	
+	addi sp, sp, -12
+	sw a4, 0(sp)
+	sw a5, 4(sp)
+	sw a6, 8(sp)
+	
+	mv a6, s2			# a6 = posição inicial do personagem
+	la a4, LARGURA_FRAME1			# a4 = endereço da largura
+	la a5, ALTURA_FRAME1			# a5 = endereço da altura
+	li a1, -1 			# da esquerda para direita
+	
+	jal ra, PERSONAGEM_V2		# pinta o personagem 
+
+	lw a4, 0(sp)
+	lw a5, 4(sp)
+	lw a6, 8(sp)
+	addi sp, sp, 12
+	
 	#ebreak
 	
 	#####################BLOCO QUE MUDA PARA A FRAME 1##################################
@@ -101,6 +125,13 @@ FIRST_TIME_1:
 	li t0, 0xFF0FFFFF
 	and a7, s2, t0			# endereço inicial do personagem na frame 0
 t:	sub a7, a7, a3############################################################
+
+	la a4, ALTURA_FRAME0
+	lw a4, 0(a4)
+	
+	la a5, LARGURA_FRAME0
+	lw a5, 0(a5)
+
 	jal ra, LIMPAR			# apaga na frame 0
 	#ebreak
 	
@@ -120,10 +151,10 @@ FRAME1: # É a frame 1
 	
 	#####################BLOCO QUE APAGA NA FRAME 0#####################################
 	#ebreak
-	la t0, ALTURA1
+	la t0, ALTURA_FRAME0
 	lw a4, 0(t0)			# a4 = altura do personagem
 	
-	la t1, LARGURA1
+	la t1, LARGURA_FRAME0
 	lw a5, 0(t1)			# a5 = largura do personagem
 FIRST_TIME_2:	
 	li t2, 0xFF0FFFFF
@@ -135,6 +166,12 @@ FIRST_TIME_2:
 	
 	mv a7, s2			# a7 = personagem 1 inicio
 	
+	la a4, ALTURA_FRAME0
+	lw a4, 0(a4)
+	
+	la a5, LARGURA_FRAME0
+	lw a5, 0(a5)
+	
 	
 	jal ra, LIMPAR			# apaga na frame 1
 	#ebreak
@@ -142,7 +179,24 @@ FIRST_TIME_2:
 	#####################BLOCO QUE PINTA NA FRAME 0#####################################
 	add s2, s2, a3			# desloca s2 a3 pixels
 	sw s2, 0(s0)
-	jal ra, PERSONAGEM		# pinta o personagem 
+	
+	addi sp, sp, -12
+	sw a4, 0(sp)
+	sw a5, 4(sp)
+	sw a6, 8(sp)
+	
+	
+	mv a6, s2			# a6 = posição inicial do personagem
+	la a4, LARGURA_FRAME0			# a4 = endereço da largura
+	la a5, ALTURA_FRAME0			# a5 = endereço da altura
+	li a1, -1 			# da esquerda para direita
+	
+	jal ra, PERSONAGEM_V2		# pinta o personagem 
+	
+	lw a4, 0(sp)
+	lw a5, 4(sp)
+	lw a6, 8(sp)
+	addi sp, sp, 12
 	#ebreak
 	
 	#####################BLOCO QUE MUDA PARA A FRAME 0##################################
@@ -160,6 +214,13 @@ FIRST_TIME_2:
 	li t0, 0x00100000		
 	or a7, s2, t0			# a7 = endereço inicial do personagem na frame1
 y:	sub a7, a7, a3###########################
+
+	la a4, ALTURA_FRAME1
+	lw a4, 0(a4)
+	
+	la a5, LARGURA_FRAME1
+	lw a5, 0(a5)
+
 	jal ra, LIMPAR			# apaga na frame 1
 	#ebreak
 	

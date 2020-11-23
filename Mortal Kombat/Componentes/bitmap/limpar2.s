@@ -5,10 +5,11 @@
 # a7 = inicio do personagem
 ############################################################################################
 
-LIMPAR:
-	
+LIMPAR:	
+	ebreak
 	mv t0, a7			# t0 = personagem 1 inicio
-	
+	sub t0, t0, a5
+	#ebreak
 	li t2, -320
 	
 	mv t4, a4			# t4 = altura do personagem
@@ -18,6 +19,7 @@ LIMPAR:
 	
 	mv t6, a5			# t6 = largura do personagem
 	
+	#ebreak
 	add t1, t0, t6			# t1 = PERSONAGEM1_FINAL
 	
 		
@@ -39,7 +41,7 @@ LOOP_LIMPAR:
 	addi t2, t2, 4 			# incrementa posição da vga
 	addi a1, a1, 4			# incrementa a imagem
 
-	beq t2, t1, LIMPAR_NOVA_LINHA 	# se chegar no final da linha
+	bgt t2, t1, LIMPAR_NOVA_LINHA 	# se chegar no final da linha
 	j LOOP_LIMPAR
 	
 LIMPAR_NOVA_LINHA:
