@@ -35,3 +35,4 @@ git reset --hard -> reseta suas mudanças para o commit mais recentes
 11. [ ] Criar personagens diferentes
 12. [X] Criar os menus
 13. [ ] Fazer o relatório na madrugada do dia da apresentação
+14. [X] Frames dançantes
