@@ -31,6 +31,12 @@
 	
 	CONTADOR1:		.word 0x1
 	CONTADOR2:		.word 0x0
+	CONTADORV1:		.word 0xC
+	CONTADORH1:		.word 0x1
+	CONTADORV2:		.word 0xC
+	CONTADORH2:		.word 0x8
+	
+	MATRIZ_COMBATE:		.space 300
 	
 	.include "Sprites/data/mario.s"
 	.include "Sprites/data/cenarios.s"
@@ -49,18 +55,29 @@
 #.end_macro
 
 .text
+	
 	jal ra, MENU				#Tela de Abertura
 	
 	jal ra, SELECAO				#Tela de seleção
 	
 	jal ra, CENARIO
-	mv a0, s9
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 4
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
 	
 	la t0, VGA1INICIO
 	lw a1, 0(t0)				# ta1 = inicio da memória vga
 	la t0, VGA1FINAL
 	lw a2, 0(t0)				# ta2 = final da memória vga
 	
+	mv a0, s9
 	jal ra, BACKGROUND			# argumento em a0 = fundo
 	
 	mv a0, s9
@@ -106,8 +123,7 @@ LOOOP:
 .include "componentes/bitmap/personagem_v2.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/subzeroio.s"
-.include "componentes/io/scorpionio.s"
-.include "componentes/io/raidenio.s"
+.include "componentes/io/matriz_combate.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/frame_deslocamento3.s"

@@ -62,13 +62,12 @@ AQUI3_SubZero:	li t3, 's'
 DIREITA_SubZero:
 	la t0, SubZeroAgachando_2		# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt_SubZero
-
-	la t0, CONTADOR1			# carrega o contador
+	la t0, CONTADORH1			# carrega o contador
 	lw t1, 0(t0)				
 	li a3, 0				# inicializa o deslocamento em 0
-	li t2, 19				# máximo do contador
 	addi t1, t1, 1				# incrementa o contador
-	bge t1, t2, LIMITE_DIREITA_SubZero	# verifica se o contador atingiu o limite
+	jal ra, VERIFICA_CONTADOR_DIREITA
+	bnez a0, LIMITE_DIREITA_SubZero		# verifica se o contador atingiu o limite
 	
 	sw t1, 0(t0)				# guarda o novo valor do contador somente se não estiver no limite
 	
@@ -85,12 +84,12 @@ ESQUERDA_SubZero:
 	la t0, SubZeroAgachando_2		# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt_SubZero
 
-	la t0, CONTADOR1
+	la t0, CONTADORH1
 	lw t1, 0(t0)
 	li a3, 0
 	addi t1, t1, -1
-	li t2, -1
-	beq t1, t2, LIMITE_ESQUERDA_SubZero
+	jal ra, VERIFICA_CONTADOR_ESQUERDA
+	bnez a0, LIMITE_ESQUERDA_SubZero		# verifica se o contador atingiu o limite
 	sw t1, 0(t0)
 	
 SUBZERO_PRA_TRAS_SubZero: 
@@ -171,6 +170,8 @@ SWITCH_CASE_PERSONAGEM_CHUTE_SubZero:
 	
 SUBZERO_CHUTE_SubZero:
 	li a2, 5				# são 3 frames
+	li a1, 2
+    	jal ra, TESTE_GOLPE
     	la a0, SubZeroChuteBaixo_1			
     	j GOLPE_SubZero				# animação
     	
@@ -194,6 +195,8 @@ SWITCH_CASE_PERSONAGEM_SOCO_SubZero:
 SUBZERO_SOCO_SubZero:
 	li a2, 5				# são 2 frames
    	la a0, SubZeroSoco_1
+   	li a1, 0
+    	jal ra, TESTE_GOLPE
    	j GOLPE_SubZero				# animação
  
 SOCO_ABAIXADO_SubZero:
@@ -217,6 +220,8 @@ SWITCH_CASE_PERSONAGEM_CHUTE_ALTO_SubZero:
 SUBZERO_CHUTE_ALTO_SubZero:
 	li a2, 6
        	la a0, SubZeroChuteAlto_1
+       	li a1, 3
+    	jal ra, TESTE_GOLPE
        	j GOLPE_SubZero
 
 RASTEIRA_SubZero:
@@ -240,6 +245,8 @@ SWITCH_CASE_PERSONAGEM_JAB_SubZero:
 SUBZERO_JAB_SubZero:
 	li a2, 5
        	la a0, SubZeroJab_1
+       	li a1, 1
+    	jal ra, TESTE_GOLPE
        	j GOLPE_SubZero
 
 ALPISTE_ORH_SubZero: 
@@ -366,7 +373,7 @@ LOOP_CAMBALHOTA_DESCENDO_SubZero:
 	j SUBZERO_TOTAL_RESET
 	
 CONTROLE_SUBINDO_SubZero:
-	la t0, CONTADOR1
+	la t0, CONTADORH1
 	lw t1, 0(t0)
 	li t2, 19
 	add t1, t1, s5
@@ -378,7 +385,7 @@ NAO_S_SubZero:	sw t1, 0(t0)
 	ret
 
 CONTROLE_DESCENDO_SubZero:
-	la t0, CONTADOR1
+	la t0, CONTADORH1
 	lw t1, 0(t0)
 	li t2, 19
 	add t1, t1, s5

@@ -198,24 +198,24 @@ Ki:	#la s10, KitanaParada_1
 	
 	j FIM
 	
-SC:	la s10, ScorpionParado_1
-	la a0, ScorpionParado_1
-	
-	addi sp, sp, -4
-	sw ra, 0(sp)
-	
-	jal ra, PERSONAGEM
-	
-	lw ra, 0(sp)
-	addi sp, sp, 4
-	
-	la tp,KDInterrupt_Scorpion    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
-	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
-	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
-	li tp,0x100
-	csrrw zero,4,tp     	# habilita a interrupção do usuário
-	
-	j FIM
+SC:	#la s10, ScorpionParado_1
+#	la a0, ScorpionParado_1
+#	
+#	addi sp, sp, -4
+#	sw ra, 0(sp)
+#	
+#	jal ra, PERSONAGEM
+#	
+#	lw ra, 0(sp)
+#	addi sp, sp, 4
+#	
+#	la tp,KDInterrupt_Scorpion    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
+#	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
+#	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
+#	li tp,0x100
+#	csrrw zero,4,tp     	# habilita a interrupção do usuário
+#	
+#	j FIM
 	
 Re:	#la s10, ReptileParado_1
 	#la a0, ReptileParado_1
@@ -255,22 +255,22 @@ Ja:	#la s10, JaxParado_1
 	
 	j FIM
 	
-Ra:	la s10, RaidenParado_1
-	la a0, RaidenParado_1
+Ra:	#la s10, RaidenParado_1
+	#la a0, RaidenParado_1
 	
-	addi sp, sp, -4
-	sw ra, 0(sp)
-	
-	jal ra, PERSONAGEM
-	
-	lw ra, 0(sp)
-	addi sp, sp, 4
-	
-	la tp,KDInterrupt_Raiden   	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
-	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
-	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
-	li tp,0x100
-	csrrw zero,4,tp     	# habilita a interrupção do usuário
+#	addi sp, sp, -4
+#	sw ra, 0(sp)
+#	
+#	jal ra, PERSONAGEM
+#	
+#	lw ra, 0(sp)
+#	addi sp, sp, 4
+#	
+#	la tp,KDInterrupt_Raiden   	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
+#	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
+#	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
+#	li tp,0x100
+#	csrrw zero,4,tp     	# habilita a interrupção do usuário
 	#csrrci zero,0,1     		# clear o bit de habilitação de interrupção global em ustatus (reg 0)
 	
 	j FIM
