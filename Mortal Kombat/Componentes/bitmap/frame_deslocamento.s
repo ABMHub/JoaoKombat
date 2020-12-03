@@ -27,23 +27,9 @@ DESLOCAMENTO:
 	
 	bne t2, zero, FRAME1		# se t2!=0 então estamos na frame 1, do contrário estamos na frame 0
 
+
 FRAME0:		
-	la t4, PERSONAGEM1_INICIO
-	lw t4, 0(t4)
-	la t5, PERSONAGEM1_INICIO_ANTIGO
-	sw t4, 0(t5)
-	# Estamos na frame 0, devemos pintar na frame 1
-	li t2, 0x00100000
-	or s2, s1, t2			# s2 = endereço do personagem na frame 1
-	
-	# Então s2 é igual a posição inicial do personagem na frame 1
-	# E s1 é igual a posição inicial do personagem na frame 0
-	
-	# Primeiro devemos deslocar a posição inicial do personagem para frame que ele será 
-	# pintado, isto é, na frame 1
-	add s2, s2, a3			# s2 foi deslocado
-	sw s2, 0(s0)			# PERSONAGEM1_INICIO = s2
-	
+
 	la t4, ALTURA1			# lê a altura atual e salva em ALTURA1ANTIGA
 	la t5, ALTURA1ANTIGA
 	lw t4, 0(t4)
@@ -53,7 +39,37 @@ FRAME0:
 	la t5, LARGURA1ANTIGA
 	lw t4, 0(t4)
 	sw t4, 0(t5)
+
+	li t2, 0x00100000
+	or s2, s1, t2			# s2 = endereço do personagem na frame 1
 	
+	la t5, PERSONAGEM1_INICIO_ANTIGO
+	sw s2, 0(t5)
+	mv a1, s9
+	#ebreak
+	jal ra, LIMPAR			#limpa o personagem na frame 1
+	
+	la t4, PERSONAGEM1_INICIO
+	lw t4, 0(t4)
+	
+	la t5, PERSONAGEM1_INICIO_ANTIGO
+	sw t4, 0(t5)
+	
+	# Estamos na frame 0, devemos pintar na frame 1
+
+	
+	# Então s2 é igual a posição inicial do personagem na frame 1
+	# E s1 é igual a posição inicial do personagem na frame 0
+	
+	# Primeiro devemos deslocar a posição inicial do personagem para frame que ele será 
+	# pintado, isto é, na frame 1
+	add s2, s2, a3			# s2 foi deslocado
+	sw s2, 0(s0)			# PERSONAGEM1_INICIO = s2
+	
+
+	
+	mv a1, s9
+	#ebreak
 	jal ra, PERSONAGEM		# PINTA PERSONAGEM NA FRAME 1
 	
 	# Agora devemos exibir a outra frame
@@ -69,6 +85,7 @@ FRAME0:
 	sw t5, 0(t4)
 	
 	mv a1, s9
+	#ebreak
 apag:	jal ra, LIMPAR			# Apaga o personagem na frame 1
 	
 	sw s2, 0(s0)			# Salva em personagem 1 inicio a posição personagem na frame 1
@@ -78,14 +95,34 @@ apag:	jal ra, LIMPAR			# Apaga o personagem na frame 1
 	j DESLOCAMENTO			# ainda faltam frames a serem pintados
 	
 FRAME1:
+
+
+FRAME1_LOOP:
+	la t4, ALTURA1			# lê o valor de altura1 e salva em ALTURA1ANTIGA
+	la t5, ALTURA1ANTIGA
+	lw t4, 0(t4)
+	sw t4, 0(t5)
+	
+	la t4, LARGURA1			# lê o valor de largura1 e salva em LARGURA1ANTIGA
+	la t5, LARGURA1ANTIGA
+	lw t4, 0(t4)
+	sw t4, 0(t5)
+
+
+	li t2, 0xFF0FFFFF
+	and s2, s1, t2			# s2 = endereço do personagem na frame 0
+	
+	la t5, PERSONAGEM1_INICIO_ANTIGO
+	sw s2, 0(t5)
+	jal ra, LIMPAR			# limpa o personagem na frame 0
+	
 	# Estamos na frame 1, devemos pintar na frame 0
 	la t4, PERSONAGEM1_INICIO
 	lw t4, 0(t4)
 	la t5, PERSONAGEM1_INICIO_ANTIGO
 	sw t4, 0(t5)
 	
-	li t2, 0xFF0FFFFF
-	and s2, s1, t2			# s2 = endereço do personagem na frame 0
+
 	
 	# Então s2 é igual a posição inicial do personagem na frame 0
 	# E s1 é igual a posição inicial do personagem na frame 1
@@ -96,16 +133,9 @@ FRAME1:
 	sw s2, 0(s0)			# PERSONAGEM1_INICIO = s2
 	
 		
-	la t4, ALTURA1			# lê o valor de altura1 e salva em ALTURA1ANTIGA
-	la t5, ALTURA1ANTIGA
-	lw t4, 0(t4)
-	sw t4, 0(t5)
 	
-	la t4, LARGURA1			# lê o valor de largura1 e salva em LARGURA1ANTIGA
-	la t5, LARGURA1ANTIGA
-	lw t4, 0(t4)
-	sw t4, 0(t5)
-				
+	
+	#ebreak			
 	jal ra, PERSONAGEM		# PINTA PERSONAGEM NA FRAME 1
 
 		# Agora devemos exibir a outra frame
@@ -120,8 +150,15 @@ FRAME1:
 	sw t5, 0(t4)
 	
 	mv a1, s9
+	
+	#ebreak
+	
 apag2:	jal ra, LIMPAR			# Apaga o personagem na frame 1
+	
 			
+					
+							
+											
 	sw s2, 0(s0)			# Salva em personagem 1 inicio a posição personagem na frame 0
 	
 	addi a2, a2, -1			# Decrementa a quantidade de Frames a serem pintadas

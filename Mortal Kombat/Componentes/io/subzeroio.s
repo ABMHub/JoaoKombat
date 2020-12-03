@@ -110,6 +110,7 @@ PULAR_CIMA_SubZero:
 	beq t0, s10, LEVANTAR_SubZero
 
 SUBZERO_PARA_CIMA_SubZero:
+	#ebreak
 	la s10, SubZeroParado_1			# garante que em s10 tenha ele parado
 	la a0, SubZeroPulando_1			# carrega o sprite do pulo
 	li a3, -9600				# desloca 30 pixels para cima
@@ -121,14 +122,22 @@ SUBZERO_PARA_CIMA_SubZero:
 	
 	li a2, 2				# a2 já é 2 (2 frames")
 	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação dele descendo
-	j RESET_SubZero
+	
+	li a2, 1
+	li a3, 0
+	la a0, SubZeroDancando_1
+	jal ra, FRAME_DESLOCAMENTO_VGA
+	j DANCINHA
 ###########################################################################################	
 LEVANTAR_SubZero: 
 	la s10, SubZeroParado_1			# faz com que s10 tenha ele parado
 	la a0, SubZeroAgachando_3V		# carrega o sprite dele agaixado
 	li a2, 1				# 1 frame
 	jal ra, FRAME_GOLPE_VGA			# animação
-	j RESET_SubZero
+	
+	
+	
+	j SUBZERO_TOTAL_RESET
 ###########################################################################################
 ABAIXAR_SubZero:
 	la t0, SubZeroAgachando_2		# se já estiver abaixado não faz nada
@@ -141,8 +150,13 @@ AGACHAR_SubZero:
 	#li a3, 4800				# desloca 15 pixels para baixo
 	la a0, SubZeroAgachando_1		# carrega o sprite abaixando
 	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE_VGA			# animação
+	li a3, 0
+	jal ra, FRAME_DESLOCAMENTO_VGA		# animação
 	la s10, SubZeroAgachando_2		# seta ele a
+	
+	la a0, SubZeroAgachando_2
+	jal ra, FRAME_DANCINHA
+	
 	j Fim_KDInterrupt_SubZero
 
 ###########################################################################################
@@ -252,6 +266,10 @@ ATIVAR_BLOCK_SubZero:
 	la a0, SubZeroBlock_1
 	li a2, 2				# são 2 frames
 	jal ra, FRAME_GOLPE_VGA			# animação de block
+	
+	la a0, SubZeroBlock_2
+	jal ra, FRAME_DANCINHA
+	
 	j Fim_KDInterrupt_SubZero
 	
 BLOCK_CHAO_SubZero:
@@ -259,6 +277,10 @@ BLOCK_CHAO_SubZero:
 	la a0, SubZeroBlockAgachado_1
 	li a2, 2				# são 2 frames
 	jal ra, FRAME_GOLPE_VGA			# animação
+	
+	la a0, SubZeroBlockAgachado_2
+	jal ra, FRAME_DANCINHA
+	
 	j Fim_KDInterrupt_SubZero
 	
 DESATIVAR_BLOCK_SubZero:
@@ -269,7 +291,7 @@ DESATIVAR_BLOCK_SubZero:
 	la s10, SubZeroParado_1			# significa que o personagem ficará em pé
 	li a2, 2				# são 2 frames
 	jal ra, FRAME_GOLPE_VGA			# a0 tem o estado anterior de s10, anima a0
-	j RESET_SubZero
+	j SUBZERO_TOTAL_RESET
 			
 DESATIVAR_BLOCK_CHAO_SubZero:
 	mv a0, s10
@@ -280,6 +302,10 @@ DESATIVAR_BLOCK_CHAO_SubZero:
 	la a0, SubZeroAgachando_2
 	li a2, 1
 	jal ra, FRAME_GOLPE_VGA
+	
+	la a0, SubZeroAgachando_2
+	jal ra, FRAME_DANCINHA
+	
 	j Fim_KDInterrupt_SubZero
 	
 CAMBALHOTA_PRA_FRENTE_SubZero:	
@@ -311,7 +337,11 @@ CAMBALHOTA_SubZero:
 	lw a3, 0(sp)
 	
 	li s4, 0				# contador
-	li s3, 4				# limite do contador
+	li s3, 3				# limite do contador
+	
+	li a2, 1				# a cambalhota são 2 frames
+	jal ra, CONTROLE_SUBINDO_SubZero	
+	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
 	
 LOOP_CAMBALHOTA_SUBINDO_SubZero:
 	li a2, 1				# a cambalhota são 2 frames
@@ -333,7 +363,7 @@ LOOP_CAMBALHOTA_DESCENDO_SubZero:
 	blt s4, s3, LOOP_CAMBALHOTA_DESCENDO_SubZero 
 	
 	addi sp, sp, 8
-	j RESET_SubZero
+	j SUBZERO_TOTAL_RESET
 	
 CONTROLE_SUBINDO_SubZero:
 	la t0, CONTADOR1
@@ -404,7 +434,7 @@ PODER_SubZero:
 	li a2, 2				# são 2 frames na volta (desfazer pose)
 	jal ra, FRAME_GOLPE_VGA
 	
-	j RESET_SubZero				# reseta ele parado em pé
+	j SUBZERO_TOTAL_RESET			# reseta ele parado em pé
 ############################################################################################
 #Esse loop é responsável por realizar a animação do personagem se movimentando para frente
 #caso ele esteja virado para a direita.
@@ -415,23 +445,34 @@ PODER_SubZero:
 ############################################################################################
 CAMINHAR_SubZero:	
 	li a2, 3				# quantidade de frames
-	jal ra, FRAME_DESLOCAMENTO_VGA	
-	li a2, 1
-	la a0, SubZeroParado_1
 	jal ra, FRAME_DESLOCAMENTO_VGA
-	j Fim_KDInterrupt_SubZero
+	li a2, 1
+	la a0, SubZeroDancando_1
+	jal ra, FRAME_DESLOCAMENTO_VGA
+	j DANCINHA
 	
-RESET_SubZero:	la a0, SubZeroParado_1		# posição padrão
+RESET_SubZero:	
+	la a0, SubZeroDancando_1		# posição padrão
 	li a2, 1				# contagem de frames
 	jal ra, FRAME_GOLPE_VGA			# a golpe não desloca o personagem 
 	j Fim_KDInterrupt_SubZero
 	
 GOLPE_SubZero:
     	jal ra, FRAME_GOLPE_VGA			# animação do golpe
-    	la a0, SubZeroParado_1			# reseta ele parado
+SUBZERO_TOTAL_RESET:
+
+       	la a0, SubZeroDancando_1			# reseta ele parado
     	li a2, 1				# 1 frame
     	jal ra, FRAME_GOLPE_VGA		
+    	
+    	la a0, SubZeroDancando_2
+	jal ra, FRAME_DANCINHA
+    	
     	j Fim_KDInterrupt_SubZero
+	
+DANCINHA: 
+	la a0, SubZeroDancando_2
+	jal ra, FRAME_DANCINHA
 	
 Fim_KDInterrupt_SubZero:
 	li t1,0xFF200000    			# Endereço de controle do KDMMIO

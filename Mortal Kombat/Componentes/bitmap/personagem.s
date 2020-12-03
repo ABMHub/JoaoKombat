@@ -2,7 +2,7 @@
 #Procedimento responsável por pintar um personagem na tela
 #ENTRADA: a0 = endereço da imagem
 #SAIDA:   a0 = sprite subsequente
-#
+#ENTRADA: 
 #            $$$$$ Nenhum registrador salvo é alterado $$$$$
 ############################################################################################
 

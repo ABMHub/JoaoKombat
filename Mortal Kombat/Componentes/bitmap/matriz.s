@@ -52,13 +52,26 @@ LK:	#la s10, LiuKangParado_1
 	
 	j FIM
 	
-SZ:	la s10, SubZeroParado_1
-	la a0, SubZeroParado_1
+SZ:	la s10, SubZeroDancando_1
+	la a0, SubZeroDancando_1
 	
 	addi sp, sp, -4
 	sw ra, 0(sp)
 	
-	jal ra, PERSONAGEM
+
+	
+	#la a4, ALTURA1			# a4 = endereço da altura
+	#la a5, LARGURA1			# a5 = endereço da largura
+	li a1, -1 			# da esquerda para direita
+	la a6, PERSONAGEM1
+	lw a6, PERSONAGEM1
+	
+	la a4, LARGURA_FRAME_1			# a4 = endereço da largura
+	la a5, ALTURA_FRAME_1			# a5 = endereço da altura
+	jal ra, PERSONAGEM_V2#############################
+	
+	la a0, SubZeroDancando_2
+	jal ra, FRAME_DANCINHA
 	
 	lw ra, 0(sp)
 	addi sp, sp, 4

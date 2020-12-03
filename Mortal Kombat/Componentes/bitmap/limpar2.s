@@ -1,21 +1,27 @@
-LIMPAR:
-ebreak
-	mv a1, s9
-	la t0, PERSONAGEM1_INICIO_ANTIGO
-	lw t0, 0(t0)
-	
+############################################################################################
+# a4 = altura do personagem
+# a5 = largura do personagem
+# a6 = inicio da memória vga
+# a7 = inicio do personagem
+############################################################################################
+
+LIMPAR:	
+	mv t0, a7			# t0 = personagem 1 inicio
+	#sub t0, t0, a5
+	#ebreak
 	li t2, -320
-	la t4, ALTURA1ANTIGA
-	lw t4, 0(t4)			
+	
+	mv t4, a4			# t4 = altura do personagem
+						
 	mul t2, t2, t4			# -320 * altura do personagem
 	add t0, t0, t2			# t0 = canto superior esquerdo do personagem
 	
-	la t6, LARGURA1ANTIGA
-	lw t6, 0(t6)
+	mv t6, a5			# t6 = largura do personagem
+	
+	#ebreak
 	add t1, t0, t6			# t1 = PERSONAGEM1_FINAL
-	
-	
-	lw t2, VGA1INICIO		# t2 = inicio da memória VGA
+		
+	mv t2, a6			# t2 = inicio da memória VGA
 	sub t0, t0, t2			# t0 = diferença entre memória vga e inicio do personagem
 
 	addi a1, a1, 8			# addi mágico no background
@@ -27,13 +33,14 @@ PRE_LOOP_LIMPAR:
 	li t3, 0			# t3 = contador de linhas
 	
 LOOP_LIMPAR:
-	lw t5, 0(a1)			# carrega os pixels da imagem
+	#lw t5, 0(a1)			# carrega os pixels da imagem
+	li t5, 0xFFFFFFFF
 	sw t5, 0(t2)			# pinta a imagem
 	
 	addi t2, t2, 4 			# incrementa posição da vga
 	addi a1, a1, 4			# incrementa a imagem
 
-	beq t2, t1, LIMPAR_NOVA_LINHA 	# se chegar no final da linha
+	bge t2, t1, LIMPAR_NOVA_LINHA 	# se chegar no final da linha
 	j LOOP_LIMPAR
 	
 LIMPAR_NOVA_LINHA:
