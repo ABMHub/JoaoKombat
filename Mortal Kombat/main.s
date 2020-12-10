@@ -82,10 +82,12 @@
 	lw t1, 0(t0)
 	addi t1, t1, -15
 	sw t1, 0(t0)
+	ebreak
 INFINITO:
 	csrr s6,3073 		# le o time atual
 	sw s7,0(s8)		# seleciona a Frame t2
 	xori s7,s7,0x001	# escolhe a outra frame
+	
 LOOOP:
 
  	csrr t0,3073 		# le o time atual
