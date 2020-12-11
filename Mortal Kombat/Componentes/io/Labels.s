@@ -40,7 +40,7 @@
 	MATRIZ_COMBATE:			.space 300
 	
 	#########################################
-	FILA_PERSONAGEM_1:		.space 76
+	FILA_PERSONAGEM_1:		.space 120
 	
 	# Labels 
 	AGACHADO_IO:			.word 0x0

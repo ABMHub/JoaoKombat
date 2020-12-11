@@ -2,33 +2,43 @@
 # a0 sprite a ser pintado
 # a1 = 1 se o personagem está à esquerda e -1 se o personagem está à direita
 # a2 quantidade de frames
-# a3 deslocamento
+# s3 deslocamento
 # a4 posição inicial do personagem
 ################################################################################################
-FRAME_GOLPE_VGA:
-	mv a3, zero
-	
+
 FRAME_DESLOCAMENTO_VGA:
+
 	# backup de registradores
-	addi sp, sp, -16
+	addi sp, sp, -24
 	sw ra, 0(sp)
 	sw s0, 4(sp)
 	sw s1, 8(sp)
 	sw s2, 12(sp)
+	sw s3, 16(sp)
+	sw s4, 20(sp)
 
-DESLOCAMENTO:	
+#DESLOCAMENTO:	
 	# preparação
-	la a4, PERSONAGEM1_INICIO
-	mv s0, a4			# s0 = endereço da posição inicial do personagem
-	lw s1, 0(s0)			# s1 = posição inicial do personagem
+	la s4, FILA_PERSONAGEM_1
 	
+	lw t0, 4(s4)
+	beq t0, zero, FIM_DESLOCAMENTO
+	
+	lw s0, 12(s4)
+	lw s1, 0(s0)			# s1 = posição inicial do personagem
+	addi s4, s4, 16			# endereço do primeiro deslocamento
+	lw t0, 4(s4)
+	lw a1, 8(s4)
+	beq t0, zero, FIM_DESLOCAMENTO
+	
+	
+DESLOCAMENTO:		
 	# Decisão: frame 0 ou frame 1?
-#DESLOCAMENTO:		
 	li t0, 0xFF200604
 	lw t0, 0(t0)			# Descobre em que frame estamos
 	
 	bne t0, zero, FRAME1		# se t2!=0 então estamos na frame 1, do contrário estamos na frame 0
-
+	
 FRAME0: # é a frame 0
 	#Personagem está na frame 0
 	#Apagar na frame 1
@@ -50,7 +60,9 @@ FRAME0: # é a frame 0
 	jal ra, LIMPAR			# apaga na frame 1
 	#ebreak
 	#pintar na frame 1
-	add s2, s1, a3			# desloca s1 a3 pixels
+	lw s3, 0(s4)
+	lw a0, 4(s4)
+	add s2, s1, s3			# desloca s1 s3 pixels
 	sw s2, 0(s0)
 	mv a6, s2
 	# os argumentos são os mesmos da apagar 
@@ -74,8 +86,11 @@ FRAME0: # é a frame 0
 	jal ra, LIMPAR			# apaga na frame 0
 	
 	# FINALIZAÇÃO
-	addi a2, a2, -1			# Decrementa a quantidade de Frames a serem pintadas
-	beq a2, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
+	sw zero, 0(s4)			# zera deslocamento usado 
+	sw zero, 4(s4)			# zera sprite usado
+	addi s4, s4, 8			# Decrementa a quantidade de Frames a serem pintadas
+	lw t0, 4(s4)			# se o sprite a ser printado for 0, encerra
+	beq t0, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
 	j DESLOCAMENTO			# ainda faltam frames a serem pintados
 	
 ############################################################################################
@@ -100,8 +115,9 @@ FRAME1: # É a frame 1
 	jal ra, LIMPAR			# apaga na frame 1
 	
 	#PINTAR NA FRAME 0
-	
-	add s2, s1, a3			# desloca s1 a3 pixels
+	lw s3, 0(s4)
+	lw a0, 4(s4)
+	add s2, s1, s3			# desloca s1 s3 pixels
 	sw s2, 0(s0)
 	mv a6, s2
 	
@@ -123,15 +139,26 @@ FRAME1: # É a frame 1
 	jal ra, LIMPAR			# apaga na frame 1
 	
 	# Finalização
+	sw zero, 0(s4)			# zera deslocamento usado 
+	sw zero, 4(s4)			# zera sprite usado
 	addi a2, a2, -1			# Decrementa a quantidade de Frames a serem pintadas
+	lw t0, 4(s4)			# se o sprite a ser printado for 0, encerra
 	beq a2, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
 	j DESLOCAMENTO			# ainda faltam frames a serem pintados
 	
 FIM_DESLOCAMENTO:
+	la t0, FILA_PERSONAGEM_1
+	sw zero, 0(t0)
+	sw zero, 4(t0)
+	sw zero, 8(t0)
+	sw zero, 12(t0)
+
 	lw ra, 0(sp)
 	lw s0, 4(sp)
 	lw s1, 8(sp)
 	lw s2, 12(sp)
-	addi sp, sp, 16
-	ret
+	lw s3, 16(sp)
+	lw s4, 20(sp)
+	addi sp, sp, 24
 	
+	ret

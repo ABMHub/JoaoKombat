@@ -1,9 +1,10 @@
 
 KDInterrupt:
+	
 
-	addi    sp, sp, -124              # Salva todos os registradores na pilha
+	addi   sp, sp, -124              # Salva todos os registradores na pilha
   	sw     x1,    0(sp)
-   	sw     x2,    4(sp)
+   	#sw     x2,    4(sp)
     	sw     x3,    8(sp)
     	sw     x4,   12(sp)
     	sw     x5,   16(sp)
@@ -33,6 +34,8 @@ KDInterrupt:
     	sw     x29, 112(sp)
     	sw     x30, 116(sp)
     	sw     x31, 120(sp)
+	
+	ebreak
 	
 	csrrci zero,0,1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
 	li t1,0xFF200000    			# Endereço de controle do KDMMIO
@@ -478,7 +481,6 @@ FIM_DIRECAO:
 	
 	#Define a posição inicial
 	la t1, PERSONAGEM1
-	lw t1, 0(t1)
 	sw t1, 12(t0)				# salva a posição inicial na posição 2 da fila
 		
 ###########################################################################################
@@ -490,7 +492,7 @@ FIM_DIRECAO:
 Fim_KDInterrupt:
 	
 	lw    x1,   0(sp)  
-        lw    x2,   4(sp)
+        #lw    x2,   4(sp)
         lw    x3,   8(sp)
         lw    x4,  12(sp)
         lw    x5,  16(sp)
@@ -521,7 +523,12 @@ Fim_KDInterrupt:
         lw     x30, 116(sp)
         lw     x31, 120(sp)
 	addi sp, sp, 124
-	ret
 	
+	li t1,0xFF200000    			# Endereço de controle do KDMMIO
+	li t0,0x02       			# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           			# Habilita interrupção do teclado
+	csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
 	
+	ebreak
 	
+	uret

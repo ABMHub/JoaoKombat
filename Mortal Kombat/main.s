@@ -68,19 +68,19 @@
 	la a7, PERSONAGEM1
 	jal ra, FRAME_DANCINHA
 ###########################################################################################
-	li a1, -1 			# da esquerda para direita
-	la a6, PERSONAGEM2
-	lw a6, PERSONAGEM2
+	#li a1, -1 			# da esquerda para direita
+	#la a6, PERSONAGEM2
+	#lw a6, PERSONAGEM2
 	
-	la a4, LARGURA_FRAME_0			# a4 = endereço da largura
-	la a5, ALTURA_FRAME_0			# a5 = endereço da altura
-	la t0, DANCINHA1_IO
-	lw a0, 0(t0)
-	jal ra, PERSONAGEM_V2#############################
+	#la a4, LARGURA_FRAME_0			# a4 = endereço da largura
+	#la a5, ALTURA_FRAME_0			# a5 = endereço da altura
+	#la t0, DANCINHA1_IO
+	#lw a0, 0(t0)
+	#jal ra, PERSONAGEM_V2#############################
 	
-	la a0, SubZeroDancando_2
-	la a7, PERSONAGEM2
-	jal ra, FRAME_DANCINHA
+	#la a0, SubZeroDancando_2
+	#la a7, PERSONAGEM2
+	#jal ra, FRAME_DANCINHA
 ###########################################################################################			
 	li s8,0xFF200604	# Escolhe o Frame 0 ou 1
 	li s7,0			# inicio Frame 0
@@ -90,6 +90,8 @@ INFINITO:
 	sw s7,0(s8)		# seleciona a Frame t2
 	xori s7,s7,0x001	# escolhe a outra frame
 LOOOP:
+
+	jal ra, FRAME_DESLOCAMENTO_VGA
 
  	csrr t0,3073 		# le o time atual
 	sub t1,t0,s6 		# calcula o tempo
@@ -108,7 +110,7 @@ LOOOP:
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem_v2.s"
 .include "componentes/bitmap/personagem.s"
-.include "componentes/io/subzeroio.s"
+#.include "componentes/io/subzeroio.s"
 .include "componentes/io/Labels.s"
 .include "componentes/io/matriz_combate.s"
 .include "componentes/io/KDinterrupt.s"
