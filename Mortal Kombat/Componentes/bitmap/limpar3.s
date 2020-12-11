@@ -6,7 +6,7 @@
 # a6 = inicio do personagem
 ############################################################################################
 LIMPAR:
-	li a1, 1
+	#li a1, 1
 
 
 	#Primeiro encontramos o canto superior esquerdo do personagem

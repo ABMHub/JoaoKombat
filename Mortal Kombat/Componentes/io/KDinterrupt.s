@@ -56,7 +56,7 @@ SWITCH_CASE_TECLA:
 	
 	li a2, 13				# código de movimento
 	li t3, 's'
-	beq t3, t2, BAIXO
+	beq t3, t2, AGACHAR
 	
 	li a2, 2				# código de movimento
 	li t3, 'x'
@@ -80,11 +80,11 @@ SWITCH_CASE_TECLA:
         
         li a2, 11				# código de movimento
         li t3, 'e'
-        beq t3, t2, CAMBALHOTA_PRA_FRENTE
+        beq t3, t2, CAMBALHOTA_DIREITA
         
         li a2, 10				# código de movimento
         li t3, 'q'
-        beq t3, t2, CAMBALHOTA_PRA_TRAS
+        beq t3, t2, CAMBALHOTA_ESQUERDA
         
         li a2, 15				# código de movimento
         li t3, ' '
@@ -151,14 +151,14 @@ NAO_COLISAO:
 	
 ###########################################################################################
 CIMA:	
-	la t0, PARADO_1					# se estiver parado tem que pular
+	la t0, PARADO_IO					# se estiver parado tem que pular
 	beq t0, s10, PULAR
 	
-	la t0, AGACHADO					# se estiver agachado tem que levantar
+	la t0, AGACHADO_IO				# se estiver agachado tem que levantar
 	beq t0, s10, LEVANTAR
 
 PULAR:
-	la s10, PARADO_1					# garante que em s10 tenha ele parado
+	la s10, PARADO_IO					# garante que em s10 tenha ele parado
 	
 	#Define o sprite
 	la t0, PULAR_IO
@@ -176,7 +176,7 @@ PULAR:
 	j ANIMAR
 		
 LEVANTAR: 
-	la s10, PARADO_1					# garante que em s10 tenha ele parado
+	la s10, PARADO_IO					# garante que em s10 tenha ele parado
 
 	#Define o sprite
 	la t0, LEVANTAR_IO
@@ -214,7 +214,7 @@ AGACHAR:
 ###########################################################################################
 
 CHUTE:
-	la t0, PARADO_1
+	la t0, PARADO_IO
    	beq t0, s10, CHUTE_NORMAL		      # se estiver em pé chuta
    	
    	la t0, AGACHADO_IO
@@ -242,7 +242,7 @@ CHUTE_AGACHADO:
 	
 ##########################################################################################
 SOCO:
-	la t0, PARADO_1
+	la t0, PARADO_IO
    	beq t0, s10, SOCO_NORMAL		      # se estiver em pé chuta
    	
    	la t0, AGACHADO_IO
@@ -270,7 +270,7 @@ SOCO_AGACHADO:
 ##########################################################################################
 
 OUTRO_CHUTE:
-	la t0, PARADO_1
+	la t0, PARADO_IO
    	beq t0, s10, CHUTE_ALTO		      # se estiver em pé chuta
    	
    	la t0, AGACHADO_IO
@@ -298,7 +298,7 @@ RASTEIRA:
 ##########################################################################################
 
 BLOCK:
-	la t0, PARADO_1
+	la t0, PARADO_IO
    	beq t0, s10, BLOCK_EM_PE		      
    	
    	la t0, AGACHADO_IO
@@ -422,7 +422,7 @@ CAMBALHOTA_NAO_COLISAO:
 ###########################################################################################
 
 OUTRO_SOCO:
-	la t0, PARADO_1
+	la t0, PARADO_IO
    	beq t0, s10, JAB	      # se estiver em pé chuta
    	
    	la t0, AGACHADO_IO

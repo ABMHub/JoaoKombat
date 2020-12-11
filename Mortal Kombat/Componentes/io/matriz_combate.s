@@ -66,7 +66,7 @@ LOOP_CONTADOR:
 	sb t1, 0(t0)		# salva n do jogador na posição da matriz
 	addi t2, t2, 1		# aumenta contador
 	addi t0, t0, 1		# itera horizontalmente
-	bne t2, a2, LOOP_		# continua o loop caso precise
+	bne t2, a2, LOOP_CONTADOR # continua o loop caso precise
 	
 	sub t0, t0, t2
 	li t2, 0		# reseta contador interno

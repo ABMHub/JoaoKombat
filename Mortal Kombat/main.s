@@ -53,7 +53,35 @@
 	jal ra, MATRIZ_ESCOLHA			#escolhe o personagem jogável
 	
 	#jal ra, CENARIO			#escolhe um cenário de modo pseudoaleatório
+###########################################################################################
+	li a1, 1 			# da esquerda para direita
+	la a6, PERSONAGEM1
+	lw a6, PERSONAGEM1
 	
+	la a4, LARGURA_FRAME_1			# a4 = endereço da largura
+	la a5, ALTURA_FRAME_1			# a5 = endereço da altura
+	la t0, DANCINHA1_IO
+	lw a0, 0(t0)
+	jal ra, PERSONAGEM_V2#############################
+	
+	la a0, SubZeroDancando_2
+	la a7, PERSONAGEM1
+	jal ra, FRAME_DANCINHA
+###########################################################################################
+	li a1, -1 			# da esquerda para direita
+	la a6, PERSONAGEM2
+	lw a6, PERSONAGEM2
+	
+	la a4, LARGURA_FRAME_0			# a4 = endereço da largura
+	la a5, ALTURA_FRAME_0			# a5 = endereço da altura
+	la t0, DANCINHA1_IO
+	lw a0, 0(t0)
+	jal ra, PERSONAGEM_V2#############################
+	
+	la a0, SubZeroDancando_2
+	la a7, PERSONAGEM2
+	jal ra, FRAME_DANCINHA
+###########################################################################################			
 	li s8,0xFF200604	# Escolhe o Frame 0 ou 1
 	li s7,0			# inicio Frame 0
 
@@ -83,6 +111,8 @@ LOOOP:
 .include "componentes/io/subzeroio.s"
 .include "componentes/io/Labels.s"
 .include "componentes/io/matriz_combate.s"
+.include "componentes/io/KDinterrupt.s"
+.include "componentes/io/preenche_fila.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/frame_deslocamento3.s"

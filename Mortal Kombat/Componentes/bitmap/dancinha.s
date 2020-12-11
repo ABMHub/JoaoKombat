@@ -1,9 +1,13 @@
+#
+# legenda isso dps seu punk
+#
 FRAME_DANCINHA:	
 
 	addi sp, sp, -4
 	sw ra, 0(sp)
-
-	la s0, PERSONAGEM1_INICIO	# Resgata a posição inicial no do personagem
+	
+	mv s0, a7
+	#la s0, PERSONAGEM1_INICIO	# Resgata a posição inicial no do personagem
 	lw s1, 0(s0)			# s1 = personagem 1 INICIO
 	
 	la t0, SPRITE_DANCA
@@ -31,7 +35,7 @@ FRAME_DANCINHA_0:
 	#la a5, ALTURA1			# a5 = endereço da altura
 	la a4, LARGURA_FRAME_0			# a4 = endereço da largura
 	la a5, ALTURA_FRAME_0
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 	li a3, 0
 	
 	
@@ -51,7 +55,7 @@ FRAME_DANCINHA_1:
 	#la a5, ALTURA1			# a5 = endereço da altura
 	la a4, LARGURA_FRAME_1			# a4 = endereço da largura
 	la a5, ALTURA_FRAME_1			# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 	li a3, 0
 	jal ra, PERSONAGEM_V2
 	sw s1, 0(s0)

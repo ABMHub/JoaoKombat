@@ -52,35 +52,101 @@ LK:	#la s10, LiuKangParado_1
 	
 	j FIM
 	
-SZ:	la s10, SubZeroDancando_1
-	la a0, SubZeroDancando_1
+SZ:	
+	la t0, SubZeroAgachando_1
+	la t1, AGACHADO_IO
+	sw t0, 0(t1)
 	
-	addi sp, sp, -4
-	sw ra, 0(sp)
+	la t0, SubZeroAlpiste_1
+	la t1, ALPISTE_ORH_IO
+	sw t0, 0(t1)
 	
+	la t0, SubZeroAndando_1
+	la t1, CAMINHAR_DIREITA_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroAndando_3V
+	la t1, CAMINHAR_ESQUERDA_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroBlockAgachado_1
+	la t1, BLOCK_AGACHADO_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroBlockAgachado_3V
+	la t1, LEVANTAR_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroBlock_1
+	la t1, BLOCK_EM_PE_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroBlock_3V
+	la t1, DESATIVAR_BLOCK_EM_PE_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroCambalhota_1
+	la t1, CAMBALHOTA_FRENTE_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroCambalhota_1
+	la t1, CAMBALHOTA_TRAS_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroChuteAgachado_1
+	la t1, CHUTE_AGACHADO_IO	
+	sw t0, 0(t1)
+	
+	la t0, SubZeroChuteAlto_1
+	la t1, CHUTE_ALTO_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroChuteBaixo_1
+	la t1, CHUTE_NORMAL_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroJab_1
+	la t1, JAB_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroParado_1
+	la t1, PARADO_IO
+	sw t0, 0(t1)
+	
+	#la t0, SubZeroPoder_1
+	#la t1, PODER_IO
+	#sw t0, 0(t1)
+	
+	la t0, SubZeroPulando_1
+	la t1, PULAR_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroRasteira_1
+	la t1, RASTEIRA_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroSocoAgachado_1
+	la t1, SOCO_AGACHADO_IO
+	sw t0, 0(t1)
+	
+	la t0, SubZeroSoco_1
+	la t1, SOCO_NORMAL_IO
+	sw t0, 0(t1)
 
-	
+	la t0, SubZeroDancando_1
+	la t1, DANCINHA1_IO
+	sw t0, 0(t1)
+
+	la t0, SubZeroDancando_2
+	la t1, DANCINHA2_IO
+	sw t0, 0(t1)
+
+	la s10, PARADO_IO
+		
 	#la a4, ALTURA1			# a4 = endereço da altura
-	#la a5, LARGURA1			# a5 = endereço da largura
-	li a1, -1 			# da esquerda para direita
-	la a6, PERSONAGEM1
-	lw a6, PERSONAGEM1
+	#la a5, LARGURA1		# a5 = endereço da largura
 	
-	la a4, LARGURA_FRAME_1			# a4 = endereço da largura
-	la a5, ALTURA_FRAME_1			# a5 = endereço da altura
-	jal ra, PERSONAGEM_V2#############################
 	
-	la a0, SubZeroDancando_2
-	jal ra, FRAME_DANCINHA
-	
-	lw ra, 0(sp)
-	addi sp, sp, 4
-	
-	la tp,KDInterrupt_SubZero    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
-	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
-	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
-	li tp,0x100
-	csrrw zero,4,tp     	# habilita a interrupção do usuário
 	
 	j FIM
 
@@ -275,6 +341,12 @@ Ra:	#la s10, RaidenParado_1
 	
 	j FIM
 FIM:
+	la tp, KDInterrupt    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
+	csrrw zero, 5, tp     	# seta utvec (reg 5) para o endereço tp
+	csrrsi zero, 0, 1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
+	li tp, 0x100
+	csrrw zero, 4, tp     	# habilita a interrupção do usuário
+
 	lw ra, 0(sp)
 	addi sp, sp, 4
 	

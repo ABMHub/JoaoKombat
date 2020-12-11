@@ -8,7 +8,7 @@
 # LABEL PERSONAGEM_INICIO = endereço inicial do personagem
 #############################################################################################
 PERSONAGEM_V2:	
-	li a1, 1
+	#li a1, 1
 	addi sp, sp, -4
 	sw s0, 0(sp)
 	li s0, 0xFFFFFFC7

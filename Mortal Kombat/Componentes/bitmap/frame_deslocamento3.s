@@ -45,7 +45,7 @@ FRAME0: # é a frame 0
 	mv a6, s1			# a6 = posição inicial do personagem
 	la a4, LARGURA_FRAME_0		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_0		# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 	
 	jal ra, LIMPAR			# apaga na frame 1
 	#ebreak
@@ -69,7 +69,7 @@ FRAME0: # é a frame 0
 	and a6, t0, s1
 	la a4, LARGURA_FRAME_1		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_1		# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 
 	jal ra, LIMPAR			# apaga na frame 0
 	
@@ -95,7 +95,7 @@ FRAME1: # É a frame 1
 	mv a6, s1			# a6 = posição inicial do personagem
 	la a4, LARGURA_FRAME_1		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_1		# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 	
 	jal ra, LIMPAR			# apaga na frame 1
 	
@@ -119,7 +119,7 @@ FRAME1: # É a frame 1
 	or a6, t0, s1
 	la a4, LARGURA_FRAME_0		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_0		# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 	jal ra, LIMPAR			# apaga na frame 1
 	
 	# Finalização
