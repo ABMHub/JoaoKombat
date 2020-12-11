@@ -19,22 +19,23 @@ FRAME_DESLOCAMENTO_VGA:
 
 #DESLOCAMENTO:	
 	# preparação
-	la s4, FILA_PERSONAGEM_1
+	la s4, FILA_PERSONAGEM_1	# s4 é o endereço da fila
 	
-	lw t0, 4(s4)
-	beq t0, zero, FIM_DESLOCAMENTO
+	lw t0, 4(s4)			# t0 é a quantidade de frames
+	beq t0, zero, FIM_DESLOCAMENTO	# se t0 for zero não há frames a serem printados
 	
-	lw s0, 12(s4)
-	lw a1, 8(s4)
-	lw s1, 0(s0)			# s1 = posição inicial do personagem
+	lw s0, 12(s4)			# s0 é o endereço da label PERSONAGEM1
+	lw a1, 8(s4)			# a1 é a direcao (1 se for pra direita, -1 se for pra esquerda)
+	#lw s1, 0(s0)			# s1 = posição inicial do personagem
 	addi s4, s4, 16			# endereço do primeiro deslocamento
-	lw t0, 4(s4)
-	beq t0, zero, FIM_DESLOCAMENTO
+	lw t0, 4(s4)			# t0 é o endereço do primeiro sprite
+	beq t0, zero, FIM_DESLOCAMENTO	# se o endereço é 0, a fila está vazia (encerra o programa)
 	
 	
 DESLOCAMENTO:		
 	# Decisão: frame 0 ou frame 1?
-	li t0, 0xFF200604
+	lw s1, 0(s0)			# s1 = posição inicial do personagem
+	li t0, 0xFF200604		# li para verificar qual frame estamos
 	lw t0, 0(t0)			# Descobre em que frame estamos
 	
 	bne t0, zero, FRAME1		# se t2!=0 então estamos na frame 1, do contrário estamos na frame 0
@@ -61,17 +62,18 @@ FRAME0: # é a frame 0
 	jal ra, LIMPAR			# apaga na frame 1
 	#ebreak
 	#pintar na frame 1
-	lw s3, 0(s4)
-	lw a0, 4(s4)
-	add s2, s1, s3			# desloca s1 s3 pixels
-	sw s2, 0(s0)
-	mv a6, s2
+	lw s3, 0(s4)			# s3 é o deslocamento
+	lw a0, 4(s4)			# a0 é o endereço do primeiro sprite
+	add s2, s1, s3			# s2 é o endereço do personagem deslocado
+	sw s2, 0(s0)			# salva esse endereço em PERSONAGEM1
+	mv a6, s2			# mandando a6 para a função PERSONAGEM_V2
 	# os argumentos são os mesmos da apagar 
+	#ebreak
 	jal ra, PERSONAGEM_V2		# pinta o personagem 
 	
 	# MUDA DA FRAME 0 PRA FRAME 1
-	li t0, 0xFF200604
-	li t1, 0x001
+	li t0, 0xFF200604		#
+	li t1, 0x001			#
 	sw t1, 0(t0)			# Muda para a frame 1
 	
 	# Apagar na frame 0
@@ -122,6 +124,7 @@ FRAME1: # É a frame 1
 	sw s2, 0(s0)
 	mv a6, s2
 	
+	#ebreak
 	jal ra, PERSONAGEM_V2		# pinta o personagem
 	
 	# Mudar pra frame 0

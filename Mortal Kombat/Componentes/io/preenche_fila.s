@@ -45,7 +45,7 @@ LOOP_PREENCHE_FILA:
 	mul t2, t2, t3			# Altura x Largura
 	addi t2, t2, 8			# Addi mágico
 	add a1, a1, t2			# Vai para o próximo frame
-		
+	#ebreak
 	j PREENCHE_DESLOCAMENTO		# Continua loop
 	
 PREENCHE_DESLOCAMENTO:
@@ -81,11 +81,11 @@ PREENCHE_DESLOCAMENTO:
 FIM_PREENCHE_FILA:
 	#ebreak					
 	li t0, 8					# Checa se estamos andando para esquerda
-	li t1, -4					# Caso estivermos, deslocamento do 'parado' é -4
+	mv t1, t4					# Caso estivermos, deslocamento do 'parado' é -4
 	beq a2, t0, SALVA_DESLOCAMENTO			# Faz o teste
 	
 	li t0, 9					# Checa se estamos andando para direita
-	li t1, 4					# Caso estivermos, deslocamento do 'parado' é 4
+	mv t1, t4					# Caso estivermos, deslocamento do 'parado' é 4
 	beq a2, t0, SALVA_DESLOCAMENTO			# Faz o teste
 	
 	li t1, 0					# Caso não estivermos andando, o deslocamento é 0

@@ -36,10 +36,13 @@ KDInterrupt:
 	
 	#ebreak
 	
-	csrrci zero, 0, 1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
+	#csrrci zero, 0, 1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
 	li t1,0xFF200000    			# Endereço de controle do KDMMIO
         lw t2,4(t1)             		# le a tecla
         sw t2,12(t1)            		# escreve no display
+        sw zero, 4(t1)
+        beq t2, zero, PAUSA
+VOLTA:
 ###########################################################################################	
 SWITCH_CASE_TECLA: 
 
@@ -501,7 +504,7 @@ FIM_DIRECAO:
 	
 Fim_KDInterrupt:
 	
-	csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
+	#csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
 	
 	lw    x1,   0(sp)  
         #lw    x2,   4(sp)
@@ -539,3 +542,5 @@ Fim_KDInterrupt:
 	#ebreak
 	
 	uret
+PAUSA: 	ebreak
+	j VOLTA
