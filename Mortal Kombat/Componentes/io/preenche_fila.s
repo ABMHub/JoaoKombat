@@ -38,7 +38,7 @@ LOOP_PREENCHE_FILA:
 	sw a1, 4(a0)			# Salva na fila o sprite
 	addi a0, a0, 8			# Avança na fila
 	addi t1, t1, 1 			# Adiciona 1 no contador
-	bne t1, t0, FIM_PREENCHE_FILA	# Caso nós tenhamos salvado todos os frames, encerra
+	beq t1, t0, FIM_PREENCHE_FILA	# Caso nós tenhamos salvado todos os frames, encerra
 	
 	lw t2, 0(a1)			# Carrega largura do frame
 	lw t3, 4(a1)			# Carrega altura do frame
@@ -78,7 +78,8 @@ PREENCHE_DESLOCAMENTO:
 		li t4, 9600				# Caso seja, muda o deslocamento para baixo
 		j LOOP_PREENCHE_FILA			# Volta pro loop
 	
-FIM_PREENCHE_FILA:					
+FIM_PREENCHE_FILA:
+	#ebreak					
 	li t0, 8					# Checa se estamos andando para esquerda
 	li t1, -4					# Caso estivermos, deslocamento do 'parado' é -4
 	beq a2, t0, SALVA_DESLOCAMENTO			# Faz o teste
@@ -113,5 +114,5 @@ FIM_PREENCHE_FILA:
 
 RET_PREENCHE:
 	lw t1, 0(t1)
-	sw t1, 0(a0)
+	sw t1, 4(a0)
 	ret						# Encerra o programa

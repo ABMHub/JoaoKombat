@@ -275,8 +275,9 @@ VERIFICA_CONTADOR_ESQUERDA:
 	mv t3, t0
 	mv t4, t1
 
-	addi sp, sp, -4
+	addi sp, sp, -8
 	sw ra, 0(sp)
+	sw a1, 4(sp)
 	
 	mv t1, a0
 	jal ra, CALCULA_CONTADOR
@@ -296,8 +297,9 @@ VERIFICA_CONTADOR_DIREITA:
 	mv t3, t0
 	mv t4, t1
 
-	addi sp, sp, -4
+	addi sp, sp, -8
 	sw ra, 0(sp)
+	sw a1, 4(sp)
 	
 	mv t1, a0
 	jal ra, CALCULA_CONTADOR
@@ -321,6 +323,7 @@ FIM_VERIFICA_CONTADOR:
 	mv t1, t4
 
 	lw ra, 0(sp)		# restora ra
-	addi sp, sp, 4		# restora sp
+	lw a1, 4(sp)
+	addi sp, sp, 8		# restora sp
 	
 	ret			# tchauzinh

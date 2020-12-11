@@ -25,10 +25,10 @@ FRAME_DESLOCAMENTO_VGA:
 	beq t0, zero, FIM_DESLOCAMENTO
 	
 	lw s0, 12(s4)
+	lw a1, 8(s4)
 	lw s1, 0(s0)			# s1 = posição inicial do personagem
 	addi s4, s4, 16			# endereço do primeiro deslocamento
 	lw t0, 4(s4)
-	lw a1, 8(s4)
 	beq t0, zero, FIM_DESLOCAMENTO
 	
 	
@@ -57,6 +57,7 @@ FRAME0: # é a frame 0
 	la a5, ALTURA_FRAME_0		# a5 = endereço da altura
 	#li a1, -1 			# da esquerda para direita
 	
+	#ebreak
 	jal ra, LIMPAR			# apaga na frame 1
 	#ebreak
 	#pintar na frame 1
@@ -111,7 +112,7 @@ FRAME1: # É a frame 1
 	la a4, LARGURA_FRAME_1		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_1		# a5 = endereço da altura
 	#li a1, -1 			# da esquerda para direita
-	
+	#ebreak
 	jal ra, LIMPAR			# apaga na frame 1
 	
 	#PINTAR NA FRAME 0
@@ -141,9 +142,9 @@ FRAME1: # É a frame 1
 	# Finalização
 	sw zero, 0(s4)			# zera deslocamento usado 
 	sw zero, 4(s4)			# zera sprite usado
-	addi a2, a2, -1			# Decrementa a quantidade de Frames a serem pintadas
+	addi s4, s4, 8			# Decrementa a quantidade de Frames a serem pintadas
 	lw t0, 4(s4)			# se o sprite a ser printado for 0, encerra
-	beq a2, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
+	beq t0, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
 	j DESLOCAMENTO			# ainda faltam frames a serem pintados
 	
 FIM_DESLOCAMENTO:

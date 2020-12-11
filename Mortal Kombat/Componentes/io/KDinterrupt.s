@@ -1,7 +1,6 @@
 
 KDInterrupt:
-	
-
+	#ebreak
 	addi   sp, sp, -124              # Salva todos os registradores na pilha
   	sw     x1,    0(sp)
    	#sw     x2,    4(sp)
@@ -35,9 +34,9 @@ KDInterrupt:
     	sw     x30, 116(sp)
     	sw     x31, 120(sp)
 	
-	ebreak
+	#ebreak
 	
-	csrrci zero,0,1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
+	csrrci zero, 0, 1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
 	li t1,0xFF200000    			# Endereço de controle do KDMMIO
         lw t2,4(t1)             		# le a tecla
         sw t2,12(t1)            		# escreve no display
@@ -92,10 +91,6 @@ SWITCH_CASE_TECLA:
         li a2, 15				# código de movimento
         li t3, ' '
         beq t3, t2, PODER
-        
-        li t1,0xFF200000    			# Endereço de controle do KDMMIO
-	li t0,0x01       			# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           			# Habilita interrupção do teclado
 
 	j Fim_KDInterrupt			# Se não for nenhuma dessas não faz nada
 ###########################################################################################
@@ -189,6 +184,7 @@ LEVANTAR:
 	li t1, 0
 	la t0, FILA_PERSONAGEM_1
 	sw t1, 0(t0)					# Salva o deslocamento na fila
+	la t0, FILA_PERSONAGEM_1
 	
 	#Define a quantidade de frames
 	li t1, 1
@@ -208,6 +204,7 @@ AGACHAR:
 	li t1, 0
 	la t0, FILA_PERSONAGEM_1
 	sw t1, 0(t0)					# Salva o deslocamento na fila
+	la t0, FILA_PERSONAGEM_1
 	
 	#Define a quantidade de frames
 	li t1, 1
@@ -227,6 +224,7 @@ CHUTE_NORMAL:
 	#Define o sprite
 	la t0, CHUTE_NORMAL_IO
 	lw a1, 0(t0)
+	la t0, FILA_PERSONAGEM_1
 
 	#Define a quantidade de frames
 	li t1, 5
@@ -237,6 +235,7 @@ CHUTE_AGACHADO:
 	#Define o sprite
 	la t0, CHUTE_AGACHADO_IO
 	lw a1, 0(t0)
+	la t0, FILA_PERSONAGEM_1
 
 	#Define a quantidade de frames
 	li t1, 5
@@ -255,7 +254,8 @@ SOCO_NORMAL:
 	#Define o sprite
 	la t0, SOCO_NORMAL_IO
 	lw a1, 0(t0)
-
+	la t0, FILA_PERSONAGEM_1
+	
 	#Define a quantidade de frames
 	li t1, 5
 	sw t1, 4(t0)
@@ -265,6 +265,7 @@ SOCO_AGACHADO:
 	#Define o sprite
 	la t0, SOCO_AGACHADO_IO
 	lw a1, 0(t0)
+	la t0, FILA_PERSONAGEM_1
 
 	#Define a quantidade de frames
 	li t1, 3
@@ -283,6 +284,7 @@ CHUTE_ALTO:
 	#Define o sprite
 	la t0, CHUTE_ALTO_IO
 	lw a1, 0(t0)
+	la t0, FILA_PERSONAGEM_1
 
 	#Define a quantidade de frames
 	li t1, 6
@@ -295,6 +297,7 @@ RASTEIRA:
 	lw a1, 0(t0)
 
 	#Define a quantidade de frames
+	la t0, FILA_PERSONAGEM_1
 	li t1, 5
 	sw t1, 4(t0)
 	j GOLPE	
@@ -322,6 +325,7 @@ BLOCK_EM_PE:
 	lw a1, 0(t0)
 
 	#Define a quantidade de frames
+	la t0, FILA_PERSONAGEM_1
 	li t1, 6
 	sw t1, 4(t0)
 	j GOLPE
@@ -335,6 +339,7 @@ BLOCK_AGACHADO:
 	lw a1, 0(t0)
 
 	#Define a quantidade de frames
+	la t0, FILA_PERSONAGEM_1
 	li t1, 5
 	sw t1, 4(t0)
 	j GOLPE	
@@ -348,6 +353,7 @@ DESATIVAR_BLOCK_EM_PE:
 	lw a1, 0(t0)
 
 	#Define a quantidade de frames
+	la t0, FILA_PERSONAGEM_1
 	li t1, 2
 	sw t1, 4(t0)
 	j GOLPE	
@@ -361,6 +367,7 @@ DESATIVAR_BLOCK_AGACHADO:
 	lw a1, 0(t0)
 
 	#Define a quantidade de frames
+	la t0, FILA_PERSONAGEM_1
 	li t1, 2
 	sw t1, 4(t0)
 	j GOLPE	
@@ -417,6 +424,7 @@ CAMBALHOTA_NAO_COLISAO:
 	sw t1, 0(t0)				# Salva o deslocamento na pilha
 	
 	#Define a quantida de frames
+	la t0, FILA_PERSONAGEM_1
 	li t1, 3
 	sw t1, 4(t0)
 	
@@ -437,6 +445,7 @@ JAB:
 	lw a1, 0(t0)
 
 	#Define a quantidade de frames
+	la t0, FILA_PERSONAGEM_1
 	li t1, 5
 	sw t1, 4(t0)
 	j GOLPE
@@ -447,6 +456,7 @@ ALPISTE_ORH:
 	lw a1, 0(t0)
 
 	#Define a quantidade de frames
+	la t0, FILA_PERSONAGEM_1
 	li t1, 6
 	sw t1, 4(t0)
 	j GOLPE	
@@ -491,6 +501,8 @@ FIM_DIRECAO:
 	
 Fim_KDInterrupt:
 	
+	csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
+	
 	lw    x1,   0(sp)  
         #lw    x2,   4(sp)
         lw    x3,   8(sp)
@@ -524,11 +536,6 @@ Fim_KDInterrupt:
         lw     x31, 120(sp)
 	addi sp, sp, 124
 	
-	li t1,0xFF200000    			# Endereço de controle do KDMMIO
-	li t0,0x02       			# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           			# Habilita interrupção do teclado
-	csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
-	
-	ebreak
+	#ebreak
 	
 	uret
