@@ -10,6 +10,8 @@
 
 KDInterrupt:  
 	
+	
+	
 	addi sp, sp, -4				# aloca espaço na pilha
 	sw ra, 0(sp)				# salva ra na pilha
 	
@@ -118,6 +120,8 @@ L_PULAR_IO:
 	lw a0, 0(t0)					# carrega o sprite do pulo
 	li a3, -9600					# desloca 30 pixels para cima
 	li a2, 2					# o pulo são 2 frames
+	
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação do pulo
 	
 	# Descendo
@@ -126,6 +130,7 @@ L_PULAR_IO:
 	li a3, 9600					# desloca 30 pixels pra baixo
 	
 	li a2, 1					# 2 frames para descida
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação dele descendo
 	
 	j L_TOTAL_RESET_EM_PE_IO			# vai para dancinha
@@ -343,11 +348,13 @@ L_CAMBALHOTA_IO:
 	li s3, 3				# limite do contador
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, L_CONTROLE_SUBINDO_IO	
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
 	
 LOOP_CAMBALHOTA_SUBINDO_IO:
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, L_CONTROLE_SUBINDO_IO	
+	#jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
 	addi s4, s4, 1
 	blt s4, s3, LOOP_CAMBALHOTA_SUBINDO_IO
@@ -359,12 +366,52 @@ LOOP_CAMBALHOTA_SUBINDO_IO:
 LOOP_CAMBALHOTA_DESCENDO_IO:	
 	li a2, 1				# a cambalhota são 2 frames
 	jal ra, L_CONTROLE_DESCENDO_IO
+	#jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA		# mostra a animação da cambalhota
 	addi s4, s4, 1
 	blt s4, s3, LOOP_CAMBALHOTA_DESCENDO_IO
 	
 	addi sp, sp, 8
 	mv a3, zero
+	
+	mv t2, a1
+	jal ra, IDENTIFICA_POSICAO
+	beq t2, a1, L_TOTAL_RESET_EM_PE_IO
+	
+	#mudaram de posição
+	#la t0, PERSONAGEM1
+	#lw t1, 0(t0)
+	#li t3, 16
+	#mul t3, t3, t2
+	#add t1, t1, t3
+	#sw t1, 0(t0)
+	#jal ra, IDENTIFICA_POSICA########################################
+	li t0, 0xFF200604
+	lw t0, 0(t0)			# Descobre em que frame estamos
+	
+	bne t0, zero, CAMBALHOTA_FRAME1_IO		
+CAMBALHOTA_FRAME0_IO:
+	la t0, LARGURA_FRAME_0		# a4 = endereço da largura
+	lw t0, 0(t0)
+	
+	la t1, PERSONAGEM1
+	lw t2, 0(t1)
+	
+	mul t0, t0, a1
+	add t2, t2, t0
+	sw t2, 0(t1)
+	j L_TOTAL_RESET_EM_PE_IO
+	  
+CAMBALHOTA_FRAME1_IO:
+	la t0, LARGURA_FRAME_1		# a4 = endereço da largura
+	lw t0, 0(t0)
+	
+	la t1, PERSONAGEM1
+	lw t2, 0(t1)
+	
+	mul t0, t0, a1
+	add t2, t2, t0
+	sw t2, 0(t1)
 	j L_TOTAL_RESET_EM_PE_IO
 	
 L_CONTROLE_SUBINDO_IO:
@@ -427,21 +474,23 @@ L_PODER_IO:
 	la t0, AGACHADO_IO			# se estiver agachado não faz nada
 	beq t0, s10, Fim_KDInterrupt
 
-	la a0, PODER_IO				# carrega o sprite do poder
+	la t0, PODER_IO				# ponteiro do poder
+	lw a0, 0(t0)				# a0 = sprite inicial do poder
 	li a2, 5				# são 5 frames na ida
-	jal ra, FRAME_GOLPE_VGA
-	
+
 	j L_GOLPE_IO
 #######################################################################################################################
 L_CAMINHAR_IO:
 
 	li a2, 3				# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA
 
 L_TOTAL_RESET_EM_PE_IO:	
 	li a2, 1
 	la t0, DANCINHA_1_IO
 	lw a0, 0(t0)
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA
 	
 	la t0, DANCINHA_2_IO
@@ -450,6 +499,7 @@ L_TOTAL_RESET_EM_PE_IO:
 	j Fim_KDInterrupt
 	
 L_GOLPE_IO:
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA			# animação do golpe
 	
 	la t0, DANCINHA_1_IO
@@ -478,6 +528,7 @@ L_TOTAL_RESET_AGACHADO_IO:
 	li a2, 1
 	la t0, AGACHADO_IO
 	lw a0, 0(t0)
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA
 	
 	la t0, AGACHADO_IO

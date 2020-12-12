@@ -118,6 +118,7 @@ LOOOP:
 .include "componentes/bitmap/personagem_v2.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/KDInterrupt.s"
+.include "componentes/io/identifica.s"
 .include "componentes/io/matriz_combate.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"

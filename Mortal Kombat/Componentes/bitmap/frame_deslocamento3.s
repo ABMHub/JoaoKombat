@@ -45,9 +45,10 @@ FRAME0: # é a frame 0
 	mv a6, s1			# a6 = posição inicial do personagem
 	la a4, LARGURA_FRAME_0		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_0		# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 	
 	jal ra, LIMPAR			# apaga na frame 1
+	#jal ra, IDENTIFICA_POSICAO########################################
 	#ebreak
 	#pintar na frame 1
 	add s2, s1, a3			# desloca s1 a3 pixels
@@ -69,10 +70,10 @@ FRAME0: # é a frame 0
 	and a6, t0, s1
 	la a4, LARGURA_FRAME_1		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_1		# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 
 	jal ra, LIMPAR			# apaga na frame 0
-	
+	#jal ra, IDENTIFICA_POSICAO########################################
 	# FINALIZAÇÃO
 	addi a2, a2, -1			# Decrementa a quantidade de Frames a serem pintadas
 	beq a2, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
@@ -95,10 +96,10 @@ FRAME1: # É a frame 1
 	mv a6, s1			# a6 = posição inicial do personagem
 	la a4, LARGURA_FRAME_1		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_1		# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 	
 	jal ra, LIMPAR			# apaga na frame 1
-	
+	#jal ra, IDENTIFICA_POSICAO########################################
 	#PINTAR NA FRAME 0
 	
 	add s2, s1, a3			# desloca s1 a3 pixels
@@ -119,9 +120,9 @@ FRAME1: # É a frame 1
 	or a6, t0, s1
 	la a4, LARGURA_FRAME_0		# a4 = endereço da largura
 	la a5, ALTURA_FRAME_0		# a5 = endereço da altura
-	li a1, -1 			# da esquerda para direita
+	#li a1, -1 			# da esquerda para direita
 	jal ra, LIMPAR			# apaga na frame 1
-	
+	#jal ra, IDENTIFICA_POSICAO########################################
 	# Finalização
 	addi a2, a2, -1			# Decrementa a quantidade de Frames a serem pintadas
 	beq a2, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
