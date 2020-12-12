@@ -267,21 +267,18 @@ L_BLOCK_IO:
 	beq t0, s10, L_DESATIVAR_BLOCK_AGACHADO_IO	# Desativa o block agachado
 	
 	la t0, AGACHADO_IO				# se estiver abaixado ativa block no chao
-	beq t0, s10, BLOCK_CHAO_SubZero
-
-	
+	beq t0, s10, L_BLOCK_AGACHADO_IO
 
 	# Se chegou até aqui ativa o block em pé
-ATIVAR_BLOCK_SubZero:
-	la s10, SubZeroBlock_2			# significa que o personagem ficará com escudo ativo
-	la a0, SubZeroBlock_1
-	li a2, 2				# são 2 frames
-	jal ra, FRAME_GOLPE_VGA			# animação de block
 	
-	la a0, SubZeroBlock_2
-	jal ra, FRAME_DANCINHA
+L_BLOCK_EM_PE_IO:
+	la s10, BLOCK_EM_PE_IO				# significa que o personagem ficará com escudo ativo
 	
-	j Fim_KDInterrupt_SubZero
+	la t0, BLOCK_EM_PE_IO
+	lw a0, 0(t0)
+	li a2, 2					# são 2 frames
+	
+	j GOLPE
 	
 BLOCK_CHAO_SubZero:
 	la s10, SubZeroBlockAgachado_2		# significa que o personagem ficará com block no chão ativo
