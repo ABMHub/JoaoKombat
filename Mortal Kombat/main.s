@@ -8,8 +8,6 @@
 	.include "Sprites/data/menu.s"
 	.include "Sprites/data/MenuDeEscolha.s"
 	
-	
-	
 #.macro  SLEEP (%x)				#função que faz um delay de x microssegundos
 #    	li a0,%x				#a0=valor de delay passado como parâmetro 
 #    	li a7,32				#ecall que chama faz o delay de a0 milisegundos
@@ -59,34 +57,37 @@
 
 
 ###########################################################################################
-    li a1, 1             # da esquerda para direita
-    la a6, PERSONAGEM1
-    lw a6, PERSONAGEM1
+    	li a1, 1             # da esquerda para direita
+    	la a6, PERSONAGEM1
+    	lw a6, PERSONAGEM1
 
-    la a4, LARGURA_FRAME_1            # a4 = endereço da largura
-    la a5, ALTURA_FRAME_1            # a5 = endereço da altura
-    la t0, DANCINHA_1_IO
-    lw a0, 0(t0)
-    jal ra, PERSONAGEM_V2#############################
+    	la a4, LARGURA_FRAME_1            # a4 = endereço da largura
+    	la a5, ALTURA_FRAME_1            # a5 = endereço da altura
+    	la t0, DANCINHA_1_IO
+    	lw a0, 0(t0)
+    	jal ra, PERSONAGEM_V2#############################
 
-    la a0, DANCINHA_2_IO
-    lw a0, 0(a0)
-    la a7, PERSONAGEM1
-    jal ra, FRAME_DANCINHA
+    	la a0, DANCINHA_2_IO
+    	lw a0, 0(a0)
+    	la a7, PERSONAGEM1
+    	jal ra, FRAME_DANCINHA
 ###########################################################################################
-    #li a1, -1             # da esquerda para direita
-    #la a6, PERSONAGEM2
-    #lw a6, PERSONAGEM2
+    	li a1, -1             # da esquerda para direita
+    	la a6, PERSONAGEM2
+    	lw a6, 0(a6)
 
-    #la a4, LARGURA_FRAME_0            # a4 = endereço da largura
-    #la a5, ALTURA_FRAME_0            # a5 = endereço da altura
-    #la t0, DANCINHA1_IO
-    #lw a0, 0(t0)
-    #jal ra, PERSONAGEM_V2#############################
+    	la a4, LARGURA_FRAME_1_IA            # a4 = endereço da largura
+    	la a5, ALTURA_FRAME_1_IA            # a5 = endereço da altura
+    	la t0, DANCINHA_1_IO
+    	lw a0, 0(t0)
+    	jal ra, PERSONAGEM_V2#############################
 
-    #la a0, SubZeroDancando_2
-    #la a7, PERSONAGEM2
-    #jal ra, FRAME_DANCINHA
+	# li a1, -1
+    	la a0, DANCINHA_2_IO
+    	lw a0, 0(a0)
+    	la a7, PERSONAGEM2
+    	li a2, 2
+    	jal ra, FRAME_DANCINHA_IA
 ###########################################################################################
 
 	li s8,0xFF200604    # Escolhe o Frame 0 ou 1
@@ -114,15 +115,18 @@ LOOOP:
 
 .include "componentes/bitmap/cenario.s"
 .include "componentes/bitmap/dancinha.s"
+.include "componentes/bitmap/dancinhaIA.s"
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem_v2.s"
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/KDInterrupt.s"
 .include "componentes/io/identifica.s"
+.include "componentes/io/identificaIA.s"
 .include "componentes/io/matriz_combate.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/frame_deslocamento3.s"
+.include "componentes/bitmap/frame_deslocamento3IA.s"
 .include "componentes/bitmap/limpar3.s"
 .include "componentes/bitmap/golpe.s"
 .include "componentes/bitmap/Menu.s"
