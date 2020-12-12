@@ -93,7 +93,7 @@ FRAME0: # é a frame 0
 	sw zero, 4(s4)			# zera sprite usado
 	addi s4, s4, 8			# Decrementa a quantidade de Frames a serem pintadas
 	lw t0, 4(s4)			# se o sprite a ser printado for 0, encerra
-	beq t0, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
+	beq t0, zero, FIM_DESLOCAMENTO1	# Todos os Frames foram pintados
 	j DESLOCAMENTO			# ainda faltam frames a serem pintados
 	
 ############################################################################################
@@ -147,9 +147,16 @@ FRAME1: # É a frame 1
 	sw zero, 4(s4)			# zera sprite usado
 	addi s4, s4, 8			# Decrementa a quantidade de Frames a serem pintadas
 	lw t0, 4(s4)			# se o sprite a ser printado for 0, encerra
-	beq t0, zero, FIM_DESLOCAMENTO	# Todos os Frames foram pintados
+	beq t0, zero, FIM_DESLOCAMENTO1	# Todos os Frames foram pintados
 	j DESLOCAMENTO			# ainda faltam frames a serem pintados
 	
+FIM_DESLOCAMENTO1:
+
+	la a0, DANCINHA2_IO
+	lw a0, 0(a0)
+	la a7, PERSONAGEM1
+	jal ra, FRAME_DANCINHA
+		
 FIM_DESLOCAMENTO:
 	la t0, FILA_PERSONAGEM_1
 	sw zero, 0(t0)

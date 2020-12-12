@@ -1,5 +1,5 @@
 .data
-	
+	.include "componentes/io/Labels.s"
 	.include "Sprites/data/mario.s"
 	.include "Sprites/data/cenarios.s"
 	.include "Sprites/data/subzero.s"
@@ -64,7 +64,8 @@
 	lw a0, 0(t0)
 	jal ra, PERSONAGEM_V2#############################
 	
-	la a0, SubZeroDancando_2
+	la a0, DANCINHA2_IO
+	lw a0, 0(a0)
 	la a7, PERSONAGEM1
 	jal ra, FRAME_DANCINHA
 ###########################################################################################
@@ -90,7 +91,7 @@ INFINITO:
 	sw s7,0(s8)		# seleciona a Frame t2
 	xori s7,s7,0x001	# escolhe a outra frame
 LOOOP:
-
+	jal ra, KDInterrupt
 	jal ra, FRAME_DESLOCAMENTO_VGA
 
  	csrr t0,3073 		# le o time atual
@@ -111,7 +112,6 @@ LOOOP:
 .include "componentes/bitmap/personagem_v2.s"
 .include "componentes/bitmap/personagem.s"
 #.include "componentes/io/subzeroio.s"
-.include "componentes/io/Labels.s"
 .include "componentes/io/matriz_combate.s"
 .include "componentes/io/KDinterrupt.s"
 .include "componentes/io/preenche_fila.s"

@@ -2,7 +2,7 @@
 # legenda isso dps seu punk
 #
 FRAME_DANCINHA:	
-
+	#ebreak
 	addi sp, sp, -4
 	sw ra, 0(sp)
 	
@@ -35,10 +35,8 @@ FRAME_DANCINHA_0:
 	#la a5, ALTURA1			# a5 = endereço da altura
 	la a4, LARGURA_FRAME_0			# a4 = endereço da largura
 	la a5, ALTURA_FRAME_0
-	#li a1, -1 			# da esquerda para direita
+	li a1, 1 			# da esquerda para direita
 	li a3, 0
-	
-	
 	
 	jal ra, PERSONAGEM_V2
 	sw s1, 0(s0)
@@ -55,7 +53,7 @@ FRAME_DANCINHA_1:
 	#la a5, ALTURA1			# a5 = endereço da altura
 	la a4, LARGURA_FRAME_1			# a4 = endereço da largura
 	la a5, ALTURA_FRAME_1			# a5 = endereço da altura
-	#li a1, -1 			# da esquerda para direita
+	li a1, 1 			# da esquerda para direita
 	li a3, 0
 	jal ra, PERSONAGEM_V2
 	sw s1, 0(s0)

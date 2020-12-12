@@ -9,7 +9,7 @@ SELECAO:
 	li s4, 36		#andar na linha
 	li s5, 15360		#andar na coluna
 	
-	la t0, MenuDeEscolha		#background da sele√ß√£o
+	la t0, MenuDeEscolha		#background da seleÁ„o
 	mv a0, t0
 	
 	la t0, VGA1INICIO		#Inicio da Frame 0
@@ -25,11 +25,11 @@ SELECAO:
 	lw ra, 0(sp)
 	addi sp, sp, 4
 	
-KEY: 	li t1, 0xFF200000		# carrega o endere√ßo de controle do KDMMIO
+KEY: 	li t1, 0xFF200000		# carrega o endereÁo de controle do KDMMIO
 	sw zero, 0(t1)	
 POOL: 	lw t0, 0(t1)			# Le bit de Controle Teclado
    	andi t0, t0, 0x0001		# mascara o bit menos significativo
-   	beq t0, zero, POOL		# n√£o tem tecla pressionada ent√£o volta ao loop
+   	beq t0, zero, POOL		# n„o tem tecla pressionada ent√£o volta ao loop
    	
    	lw t2, 4(t1)			# le o valor da tecla
    	

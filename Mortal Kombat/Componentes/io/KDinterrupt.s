@@ -1,5 +1,6 @@
 
 KDInterrupt:
+	
 	#ebreak
 	addi   sp, sp, -124              # Salva todos os registradores na pilha
   	sw     x1,    0(sp)
@@ -35,13 +36,20 @@ KDInterrupt:
     	sw     x31, 120(sp)
 	
 	#ebreak
-	
+ 	li t1, 0xFF200000		# carrega o endereço de controle do KDMMIO
+		
+	lw t0, 0(t1)			# Le bit de Controle Teclado
+   	andi t0, t0, 0x0001		# mascara o bit menos significativo
+   	beq t0, zero, Fim_KDInterrupt	# não tem tecla pressionada entÃ£o volta ao loop
+   	
+   	lw t2, 4(t1)			# le o valor da tecla
+	sw zero, 0(t1)
 	#csrrci zero, 0, 1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
-	li t1,0xFF200000    			# Endereço de controle do KDMMIO
-        lw t2,4(t1)             		# le a tecla
+	#li t1,0xFF200000    			# Endereço de controle do KDMMIO
+        #lw t2,4(t1)             		# le a tecla
         sw t2,12(t1)            		# escreve no display
-        sw zero, 4(t1)
-        beq t2, zero, PAUSA
+        #sw zero, 4(t1)
+        #beq t2, zero, PAUSA
 VOLTA:
 ###########################################################################################	
 SWITCH_CASE_TECLA: 
@@ -127,7 +135,7 @@ ESQUERDA:
 	
 	la t0, CONTADORH1			# carrega o contador
 	lw t1, 0(t0)				
-	addi t1, t1, 1				# incrementa o contador
+	addi t1, t1, -1				# incrementa o contador
 	jal ra, VERIFICA_CONTADOR_ESQUERDA
 	
 	bne a0, zero, COLISAO_IO	# se a0 não for 0 houve colisão
@@ -541,6 +549,6 @@ Fim_KDInterrupt:
 	
 	#ebreak
 	
-	uret
+	ret
 PAUSA: 	ebreak
 	j VOLTA
