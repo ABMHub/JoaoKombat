@@ -1,42 +1,6 @@
 .data
-	VGA1INICIO: 		.word 0xFF000000
-	VGA1FINAL: 		.word 0xFF012C00
+	.include "componentes/io/labels.s"
 	
-	VGA2INICIO:		.word 0xFF100000
-	VGA2FINAL:		.word 0xFF112C00
-
-	PERSONAGEM1: 		.word 0xFF010420
-	PERSONAGEM1_INICIO:	.word 0xFF009158
-	PERSONAGEM1_INICIO_ANTIGO: .word 0x0
-	PERSONAGEM1_FINAL: 	.word 0xFF00E4D0	#evite usar
-	
-	ALTURA_FRAME_0:		.word 0x0
-	ALTURA_FRAME_1:		.word 0x0
-	LARGURA_FRAME_0:		.word 0x0
-	LARGURA_FRAME_1:		.word 0x0
-	
-	ALTURA1:		.word 0x0
-	LARGURA1:		.word 0x0
-	ALTURA1ATUAL:		.word 0x0
-	ALTURA1ANTIGA:		.word 0x0
-	LARGURA1ATUAL:		.word 0x0
-	LARGURA1ANTIGA:		.word 0x0
-	
-	ALTURA_DANCA_0:		.word 0x0
-	LARGURA_DANCA_0:	.word 0x0
-	ALTURA_DANCA_1:		.word 0x0
-	LARGURA_DANCA_1:	.word 0x0
-	
-	SPRITE_DANCA:		.word 0x0
-	
-	#CONTADOR1:		.word 0x1
-	#CONTADOR2:		.word 0x0
-	CONTADORV1:		.word 0xC
-	CONTADORH1:		.word 0x1
-	CONTADORV2:		.word 0xC
-	CONTADORH2:		.word 0x18
-	
-	MATRIZ_COMBATE:		.space 300
 	
 	.include "Sprites/data/mario.s"
 	.include "Sprites/data/cenarios.s"
@@ -95,6 +59,43 @@
 	li s8,0xFF200604	# Escolhe o Frame 0 ou 1
 	li s7,0			# inicio Frame 0
 
+
+###########################################################################################
+    li a1, 1             # da esquerda para direita
+    la a6, PERSONAGEM1
+    lw a6, PERSONAGEM1
+
+    la a4, LARGURA_FRAME_1            # a4 = endereço da largura
+    la a5, ALTURA_FRAME_1            # a5 = endereço da altura
+    la t0, DANCINHA_1_IO
+    lw a0, 0(t0)
+    jal ra, PERSONAGEM_V2#############################
+
+    la a0, DANCINHA_2_IO
+    lw a0, 0(a0)
+    la a7, PERSONAGEM1
+    jal ra, FRAME_DANCINHA
+###########################################################################################
+    #li a1, -1             # da esquerda para direita
+    #la a6, PERSONAGEM2
+    #lw a6, PERSONAGEM2
+
+    #la a4, LARGURA_FRAME_0            # a4 = endereço da largura
+    #la a5, ALTURA_FRAME_0            # a5 = endereço da altura
+    #la t0, DANCINHA1_IO
+    #lw a0, 0(t0)
+    #jal ra, PERSONAGEM_V2#############################
+
+    #la a0, SubZeroDancando_2
+    #la a7, PERSONAGEM2
+    #jal ra, FRAME_DANCINHA
+###########################################################################################
+
+	li s8,0xFF200604    # Escolhe o Frame 0 ou 1
+   	li s7,0            # inicio Frame 0
+
+
+
 INFINITO:
 	csrr s6,3073 		# le o time atual
 	sw s7,0(s8)		# seleciona a Frame t2
@@ -118,7 +119,7 @@ LOOOP:
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem_v2.s"
 .include "componentes/bitmap/personagem.s"
-.include "componentes/io/subzeroio.s"
+.include "componentes/io/KDInterrupt.s"
 .include "componentes/io/matriz_combate.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"

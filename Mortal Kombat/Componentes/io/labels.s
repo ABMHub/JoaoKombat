@@ -43,62 +43,31 @@
 	FILA_PERSONAGEM_1:		.space 120
 	
 	# Labels 
-	AGACHADO_IO:			.word 0x0	# ELE LITERALMENTE AGACHADO, NÃO É O PRIMEIRO SPRITE DO AGACHAMENTO
-	AGACHANDO_IO:			.word 0x0	# PRIMEIRO SPRITE DELE AGACHANDO
-	PULAR_1_IO:			.word 0x0	# Subindo
-	PULAR_2_IO:			.word 0x0	# Descendo
-	LEVANTAR_IO:			.word 0x0 
-	CAMINHAR_DIREITA_IO:		.word 0x0
-	CAMINHAR_ESQUERDA_IO:		.word 0x0
-	CAMBALHOTA_DIREITA_IO:		.word 0x0
-	CAMBALHOTA_ESQUERDA_IO:		.word 0x0
-	
-	CHUTE_1_EM_PE_IO:		.word 0x0
-	CHUTE_1_AGACHADO_IO:		.word 0x0
-	SOCO_1_EM_PE_IO:		.word 0x0
-	SOCO_1_AGACHADO_IO:		.word 0x0
+    AGACHADO_IO:            .word 0x0    # ELE LITERALMENTE AGACHADO, NÃO É O PRIMEIRO SPRITE DO AGACHAMENTO
+    AGACHANDO_IO:            .word 0x0    # PRIMEIRO SPRITE DELE AGACHANDO
+    PULAR_1_IO:            .word 0x0    # Subindo
+    PULAR_2_IO:            .word 0x0    # Descendo
+    LEVANTAR_IO:            .word 0x0 
+    CAMINHAR_DIREITA_IO:        .word 0x0
+    CAMINHAR_ESQUERDA_IO:        .word 0x0
+    CAMBALHOTA_IO:            .word 0x0
 
-	SOCO_2_EM_PE_IO:		.word 0x0
-	SOCO_2_AGACHADO_IO:		.word 0x0
+    CHUTE_1_EM_PE_IO:        .word 0x0
+    CHUTE_1_AGACHADO_IO:        .word 0x0
 
-	CHUTE_2_EM_PE_IO:		.word 0x0
-	CHUTE_2_AGACHADO_IO:		.word 0x0
-	ALPISTE_ORH_IO:			.word 0x0
-	PODER_IO			.word 0x0
-	JAB_IO:				.word 0x0
-	PARADO_IO:			.word 0x0
-	DANCINHA1_IO:			.word 0x0
-	DANCINHA2_IO:			.word 0x0
-	BLOCK_EM_PE_IO:			.word 0x0
-	BLOCK_AGACHADO_IO:		.word 0x0
-	DESATIVAR_BLOCK_EM_PE_IO:	.word 0x0
-	DESATIVAR_BLOCK_AGACHADO_IO:	.word 0x0
-	CAMBALHOTA_FRENTE_IO:		.word 0x0
-	CAMBALHOTA_TRAS_IO:		.word 0x0
-	
-	AGACHADO_IA:			.word 0x0
-	PULAR_IA:			.word 0x0
-	LEVANTAR_IA:			.word 0x0 
-	CAMINHAR_DIREITA_IA:		.word 0x0
-	CAMINHAR_ESQUERDA_IA:		.word 0x0
-	CAMBALHOTA_DIREITA_IA:		.word 0x0
-	CAMBALHOTA_ESQUERDA_IA:		.word 0x0
-	
-	CHUTE_NORMAL_IA:		.word 0x0
-	CHUTE_AGACHADO_IA:		.word 0x0
-	SOCO_NORMAL_IA:			.word 0x0
-	SOCO_AGACHADO_IA:		.word 0x0
-	CHUTE_ALTO_IA:			.word 0x0
-	RASTEIRA_IA:			.word 0x0
-	ALPISTE_ORH_IA:			.word 0x0
-	PODER_IA			.word 0x0
-	JAB_IA:				.word 0x0
-	PARADO_IA:			.word 0x0
-	DANCINHA1_IA:			.word 0x0
-	DANCINHA2_IA:			.word 0x0
-	BLOCK_EM_PE_IA:			.word 0x0
-	BLOCK_AGACHADO_IA:		.word 0x0
-	DESATIVAR_BLOCK_EM_PE_IA:	.word 0x0
-	DESATIVAR_BLOCK_AGACHADO_IA:	.word 0x0
-	CAMBALHOTA_FRENTE_IA:		.word 0x0
-	CAMBALHOTA_TRAS_IA:		.word 0x0
+    SOCO_1_EM_PE_IO:        .word 0x0
+    SOCO_1_AGACHADO_IO:        .word 0x0
+
+    CHUTE_2_EM_PE_IO:        .word 0x0
+    CHUTE_2_AGACHADO_IO:        .word 0x0
+
+    SOCO_2_EM_PE_IO:        .word 0x0
+    SOCO_2_AGACHADO_IO:        .word 0x0
+
+    PODER_IO:            .word 0x0
+    DANCINHA_1_IO:            .word 0x0
+    DANCINHA_2_IO:            .word 0x0
+    BLOCK_EM_PE_IO:            .word 0x0
+    BLOCK_AGACHADO_IO:        .word 0x0
+    DESATIVAR_BLOCK_EM_PE_IO:    .word 0x0
+    DESATIVAR_BLOCK_AGACHADO_IO:    .word 0x0
