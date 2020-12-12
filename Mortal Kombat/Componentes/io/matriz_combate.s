@@ -357,7 +357,7 @@ FIM_TESTE: # Caso não haja hit ou depois da lógica de hit, encerra o programa
 ###################################################
 
 VERIFICA_CONTADOR_ESQUERDA:
-	addi sp, sp, -16			# faz backups
+	addi sp, sp, -16		# faz backups
 	sw ra, 0(sp)
 	sw a1, 4(sp)
 	sw t0, 8(sp)
@@ -369,7 +369,7 @@ VERIFICA_CONTADOR_ESQUERDA:
 	mv t1, a1			# t1 = CONTADORH
 	
 	li t2, 0			# carrega posição da parede esquerda
-	ble t1, t2, COLISAO		# se t1 <= 0, houve colisão com a parede esquerda
+	blt t1, t2, COLISAO		# se t1 < 0, houve colisão com a parede esquerda
 	
 	lb t1, -1(t0)			# checa posição anterior horizontalmente do personagem
 	bnez t1, COLISAO		# se estiver ocupada com outro personagem, terá colisão
@@ -390,7 +390,7 @@ VERIFICA_CONTADOR_DIREITA:
 	mv t1, a1			# t1 = CONTADORH
 	
 	li t2, 18			# carrega posição da parede direita
-	bge t1, t2, COLISAO		# se t1 <= 0, houve colisão com a parede esquerda
+	bgt t1, t2, COLISAO		# se t1 > 18, houve colisão com a parede esquerda
 	
 	lb t1, 2(t0)			# checa posição posterior horizontalmente do personagem
 	bnez t1, COLISAO		# se estiver ocupada com outro personagem, terá colisão
