@@ -55,16 +55,16 @@
 	
 	CHUTE_1_EM_PE_IO:		.word 0x0
 	CHUTE_1_AGACHADO_IO:		.word 0x0
-	SOCO_1_EM_PE_IO:			.word 0x0
+	SOCO_1_EM_PE_IO:		.word 0x0
 	SOCO_1_AGACHADO_IO:		.word 0x0
 
-	SOCO_2_EM_PE_IO:			.word 0x0
+	SOCO_2_EM_PE_IO:		.word 0x0
 	SOCO_2_AGACHADO_IO:		.word 0x0
 
-	CHUTE_2_EM_PE_IO:			.word 0x0
-	CHUTE_2_AGACHADO_IO:			.word 0x0
+	CHUTE_2_EM_PE_IO:		.word 0x0
+	CHUTE_2_AGACHADO_IO:		.word 0x0
 	ALPISTE_ORH_IO:			.word 0x0
-	#PODER_IO			.word 0x0
+	PODER_IO			.word 0x0
 	JAB_IO:				.word 0x0
 	PARADO_IO:			.word 0x0
 	DANCINHA1_IO:			.word 0x0
@@ -91,7 +91,7 @@
 	CHUTE_ALTO_IA:			.word 0x0
 	RASTEIRA_IA:			.word 0x0
 	ALPISTE_ORH_IA:			.word 0x0
-	#PODER_IA			.word 0x0
+	PODER_IA			.word 0x0
 	JAB_IA:				.word 0x0
 	PARADO_IA:			.word 0x0
 	DANCINHA1_IA:			.word 0x0
