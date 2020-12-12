@@ -341,11 +341,11 @@ Ra:	#la s10, RaidenParado_1
 	
 	j FIM
 FIM:
-	la tp, KDInterrupt    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
-	csrrw zero, 5, tp     	# seta utvec (reg 5) para o endereço tp
-	csrrsi zero, 0, 1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
-	li tp, 0x100
-	csrrw zero, 4, tp     	# habilita a interrupção do usuário
+	la tp,KDInterrupt    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
+	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
+	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
+	li tp,0x100
+	csrrw zero,4,tp     	# habilita a interrupção do usuário
 
 	lw ra, 0(sp)
 	addi sp, sp, 4

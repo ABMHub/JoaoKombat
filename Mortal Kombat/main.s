@@ -92,7 +92,7 @@ INFINITO:
 LOOOP:
 
 	jal ra, FRAME_DESLOCAMENTO_VGA
-
+	ebreak
  	csrr t0,3073 		# le o time atual
 	sub t1,t0,s6 		# calcula o tempo
 	li t0, 300
@@ -105,16 +105,19 @@ LOOOP:
 	li a7, 10
 	ecall
 
-.include "componentes/bitmap/cenario.s"
-.include "componentes/bitmap/dancinha.s"
-.include "componentes/bitmap/background.s"
-.include "componentes/bitmap/personagem_v2.s"
-.include "componentes/bitmap/personagem.s"
 #.include "componentes/io/subzeroio.s"
+.include "componentes/io/preenche_fila.s"
 .include "componentes/io/Labels.s"
 .include "componentes/io/matriz_combate.s"
 .include "componentes/io/KDinterrupt.s"
-.include "componentes/io/preenche_fila.s"
+.include "componentes/bitmap/cenario.s"
+.include "componentes/bitmap/dancinha.s"
+.include "componentes/bitmap/background.s"
+
+.include "componentes/bitmap/personagem.s"
+
+
+
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/frame_deslocamento3.s"
@@ -123,5 +126,5 @@ LOOOP:
 .include "componentes/bitmap/Menu.s"
 .include "componentes/bitmap/selecao.s"
 .include "componentes/bitmap/matriz.s"
-
+.include "componentes/bitmap/personagem_v2.s"
 

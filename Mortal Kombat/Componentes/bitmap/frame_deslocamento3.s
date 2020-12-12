@@ -62,6 +62,7 @@ FRAME0: # é a frame 0
 	#pintar na frame 1
 	lw s3, 0(s4)
 	lw a0, 4(s4)
+	lw a1, 8(s4)
 	add s2, s1, s3			# desloca s1 s3 pixels
 	sw s2, 0(s0)
 	mv a6, s2
@@ -117,6 +118,7 @@ FRAME1: # É a frame 1
 	#PINTAR NA FRAME 0
 	lw s3, 0(s4)
 	lw a0, 4(s4)
+	lw a1, 8(s4)
 	add s2, s1, s3			# desloca s1 s3 pixels
 	sw s2, 0(s0)
 	mv a6, s2

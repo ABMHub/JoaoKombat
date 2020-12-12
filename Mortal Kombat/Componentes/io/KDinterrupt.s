@@ -1,6 +1,5 @@
 
 KDInterrupt:
-	
 
 	addi   sp, sp, -124              # Salva todos os registradores na pilha
   	sw     x1,    0(sp)
@@ -35,7 +34,7 @@ KDInterrupt:
     	sw     x30, 116(sp)
     	sw     x31, 120(sp)
 	
-	ebreak
+	#ebreak
 	
 	csrrci zero,0,1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
 	li t1,0xFF200000    			# Endereço de controle do KDMMIO
@@ -96,7 +95,6 @@ SWITCH_CASE_TECLA:
         li t1,0xFF200000    			# Endereço de controle do KDMMIO
 	li t0,0x01       			# bit 1 habilita/desabilita a interrupção
 	sw t0,0(t1)           			# Habilita interrupção do teclado
-
 	j Fim_KDInterrupt			# Se não for nenhuma dessas não faz nada
 ###########################################################################################
 
@@ -256,6 +254,7 @@ SOCO_NORMAL:
 	la t0, SOCO_NORMAL_IO
 	lw a1, 0(t0)
 
+	la t0, FILA_PERSONAGEM_1
 	#Define a quantidade de frames
 	li t1, 5
 	sw t1, 4(t0)
@@ -524,11 +523,10 @@ Fim_KDInterrupt:
         lw     x31, 120(sp)
 	addi sp, sp, 124
 	
-	li t1,0xFF200000    			# Endereço de controle do KDMMIO
-	li t0,0x02       			# bit 1 habilita/desabilita a interrupção
-	sw t0,0(t1)           			# Habilita interrupção do teclado
+	#li t1,0xFF200000    			# Endereço de controle do KDMMIO
+	#li t0,0x02       			# bit 1 habilita/desabilita a interrupção
+	#sw t0,0(t1)           			# Habilita interrupção do teclado
 	csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
+	uret					# volta ao programa principal
 	
-	ebreak
-	
-	uret
+
