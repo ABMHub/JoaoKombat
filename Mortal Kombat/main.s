@@ -1,7 +1,5 @@
 .data
 	.include "componentes/io/labels.s"
-	
-	
 	.include "Sprites/data/mario.s"
 	.include "Sprites/data/cenarios.s"
 	.include "Sprites/data/subzero.s"
