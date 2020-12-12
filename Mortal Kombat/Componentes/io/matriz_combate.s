@@ -99,8 +99,11 @@ TESTE_GOLPE:
 	sw a1, 8(sp)
 	sw a2, 12(sp)
 	
+	
+	mv a0, s8
 	mv t3, a1		# temp: t3 é tipo de golpe
 	jal ra, CALCULA_CONTADOR 
+	
 	mv t0, a0		# t0 é endereço do index inferior esquerdo do personagem na matriz
 	mv a1, t3		# a1 é o tipo de golpe
 	
@@ -111,6 +114,7 @@ TESTE_GOLPE:
 	beq t3, a0, TESTE_PER2	# se for player 2, branch
 	
 	sub t1, t1, t2		# t1 é negativo se o player 1 estiver na esquerda
+	mv a0, s8
 	bgtz t1, TESTE_INVERTIDO # pula para teste invertido se player 1 estiver na direita
 	j TESTE_NORMAL		# caso esteja na esquerda, faz teste normal
 	
@@ -331,13 +335,208 @@ TESTE_RASTEIRA:
 	bnez t2, HIT
 	j FIM_TESTE
 	
-HIT: # Quando houver hit, pulamos para cá. Por enquanto toca apenas um som
+HIT: 	# Quando houver hit, pulamos para cá. Por enquanto toca apenas um som
+	# a1 = golpe sofrido
+	# a0 = 1 se é IO, a0 = 2 se é IA
+	
+	
+	li t0, 1
+	beq a0, t0, COLISAO_IA
+	
+COLISAO_IO:	
+	# Socos
+	li t0, 0
+	beq a1, t0, L_RECUADA_LEVE_IO
+	li t0, 1
+	beq a1, t0, L_RECUADA_LEVE_IO
+	
+	# Chutes
+	li t0, 2
+	beq a1, t0, L_RECUADA_PESADA_IO
+	li t0, 3
+	beq a1, t0, L_RECUADA_PESADA_IO
+	
+	# Agachados
+	li t0, 4 						# soco
+	beq a1, t0, L_RECUADA_LEVE_AGACHADO_IO
+	li t0, 6						# chute
+	beq a1, t0, L_RECUADA_LEVE_AGACHADO_IO
+	
+	li t0, 5						# alpiste
+	beq a1, t0, L_TOMOU_ALPISTE_IO
+	
+	li t0, 7						# rasteira
+	beq a1, t0, L_LEVOU_RASTEIRA_IO
+	
+COLISAO_IA:	
+		# Socos
+	li t0, 0
+	beq a1, t0, L_RECUADA_LEVE_IA
+	li t0, 1
+	beq a1, t0, L_RECUADA_LEVE_IA
+	
+	# Chutes
+	li t0, 2
+	beq a1, t0, L_RECUADA_PESADA_IA
+	li t0, 3
+	beq a1, t0, L_RECUADA_PESADA_IA
+	
+	# Agachados
+	li t0, 4 						# soco
+	beq a1, t0, L_RECUADA_LEVE_AGACHADO_IA
+	li t0, 6						# chute
+	beq a1, t0, L_RECUADA_LEVE_AGACHADO_IA
+	
+	li t0, 5						# alpiste
+	beq a1, t0, L_TOMOU_ALPISTE_IA
+	
+	li t0, 7						# rasteira
+	beq a1, t0, L_LEVOU_RASTEIRA_IA
+
+#######################################################################################################################
+#							IO
+#######################################################################################################################
+L_RECUADA_LEVE_IO:	
+	la t0, RECUADA_LEVE_IO
+	lw a0, 0(t0)
+	
+	li a2, 2						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA					# animação do golpe
+	
+	j FIM_EFETUA_COLISAO_IO
+	
+L_RECUADA_PESADA_IO:
+	la t0, RECUADA_PESADA_IO
+	lw a0, 0(t0)
+	
+	li a2, 3						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA					# animação do golpe
+	
+	j FIM_EFETUA_COLISAO_IO
+L_RECUADA_LEVE_AGACHADO_IO:
+	la t0, RECUADA_LEVE_AGACHADO_IO
+	lw a0, 0(t0)
+	
+	li a2, 2						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA					# animação do golpe
+	
+	j FIM_EFETUA_COLISAO_IO
+L_TOMOU_ALPISTE_IO:	
+	la t0, TOMOU_ALPISTE_IO
+	lw a0, 0(t0)
+	
+	li a2, 7						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA					# animação do golpe
+
+	j FIM_EFETUA_COLISAO_IO
+	
+L_LEVOU_RASTEIRA_IO:
+	la t0, LEVOU_RASTEIRA_IO
+	lw a0, 0(t0)
+	
+	li a2, 7						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA					# animação do golpe
+
+	j FIM_EFETUA_COLISAO_IO
+	
+#######################################################################################################################
+#							IA
+#######################################################################################################################
+L_RECUADA_LEVE_IA:	
+	la t0, RECUADA_LEVE_IA
+	lw a0, 0(t0)
+	
+	li a2, 2						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
+	
+	j FIM_EFETUA_COLISAO_IA
+	
+L_RECUADA_PESADA_IA:
+	la t0, RECUADA_PESADA_IA
+	lw a0, 0(t0)
+	
+	li a2, 3						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
+	
+	j FIM_EFETUA_COLISAO_IA
+L_RECUADA_LEVE_AGACHADO_IA:
+	la t0, RECUADA_LEVE_AGACHADO_IA
+	lw a0, 0(t0)
+	
+	li a2, 2						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
+	
+	j FIM_EFETUA_COLISAO_IA
+L_TOMOU_ALPISTE_IA:	
+	la t0, TOMOU_ALPISTE_IA
+	lw a0, 0(t0)
+	
+	li a2, 7						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
+
+	j FIM_EFETUA_COLISAO_IA
+	
+L_LEVOU_RASTEIRA_IA:
+	la t0, LEVOU_RASTEIRA_IA
+	lw a0, 0(t0)
+	
+	li a2, 7						# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
+
+	j FIM_EFETUA_COLISAO_IA
+#######################################################################################################################
+
+
+FIM_EFETUA_COLISAO_IO:
+	li a2, 1
+	la t0, DANCINHA_1_IO
+	lw a0, 0(t0)
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
+	jal ra, FRAME_DESLOCAMENTO_VGA
+	
+	la t0, DANCINHA_2_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	
 	li a0, 60  
 	li a1, 500
 	li a2, 0
 	li a3, 50
 	li a7, 31
 	ecall
+	
+	j FIM_TESTE
+	
+FIM_EFETUA_COLISAO_IA:	
+	li a2, 1
+	la t0, DANCINHA_1_IA
+	lw a0, 0(t0)
+	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
+	jal ra, FRAME_DESLOCAMENTO_VGA_IA
+	
+	la t0, DANCINHA_2_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA
+	
+	li a0, 60  
+	li a1, 500
+	li a2, 0
+	li a3, 50
+	li a7, 31
+	ecall
+	
+	j FIM_TESTE
+	
 	
 FIM_TESTE: # Caso não haja hit ou depois da lógica de hit, encerra o programa
 	lw ra, 0(sp)		# restora ra

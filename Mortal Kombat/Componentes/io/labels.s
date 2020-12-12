@@ -110,3 +110,18 @@
     	BLOQUEANDO_AGACHADO_IA:		.word 0x0
     	DESATIVAR_BLOCK_EM_PE_IA:    	.word 0x0
     	DESATIVAR_BLOCK_AGACHADO_IA:    .word 0x0
+    	
+    	# APANHAR
+    	# IO
+    	RECUADA_LEVE_IO:		.word 0x0
+    	RECUADA_PESADA_IO:		.word 0x0
+    	RECUADA_LEVE_AGACHADO_IO:	.word 0x0
+    	TOMOU_ALPISTE_IO:		.word 0x0
+    	LEVOU_RASTEIRA_IO:		.word 0x0
+
+	# IA
+	RECUADA_LEVE_IA:		.word 0x0
+    	RECUADA_PESADA_IA:		.word 0x0
+    	RECUADA_LEVE_AGACHADO_IA:	.word 0x0
+    	TOMOU_ALPISTE_IA:		.word 0x0
+    	LEVOU_RASTEIRA_IA:		.word 0x0
