@@ -34,7 +34,7 @@
 	CONTADORV1:		.word 0xC
 	CONTADORH1:		.word 0x1
 	CONTADORV2:		.word 0xC
-	CONTADORH2:		.word 0x18
+	CONTADORH2:		.word 0x12
 	
 	MATRIZ_COMBATE:		.space 300
 	
