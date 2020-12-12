@@ -144,6 +144,16 @@ SZ:
  	la t0, SubZeroBlockAgachado_3V
     	la t1, DESATIVAR_BLOCK_AGACHADO_IO
     	sw t0, 0(t1)
+    	
+    	la t0, SubZeroBlockAgachado_2
+    	la t1, BLOQUEANDO_AGACHADO_IO
+    	sw t0, 0(t1)    
+    	
+    	la t0, SubZeroBlock_2
+    	la t1, BLOQUEANDO_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la s10, DANCINHA_1_IO
 
 	j FIM
     #la a4, ALTURA1            # a4 = endereço da altura

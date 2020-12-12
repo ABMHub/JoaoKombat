@@ -42,7 +42,7 @@ SWITCH_CASE_TECLA:
         
         li t3, 'v'
         beq t3, t2, L_SOCO_2_IO
-        
+  
         li t3, 'f'
         beq t3, t2, L_BLOCK_IO
         
@@ -71,7 +71,7 @@ L_DIREITA_IO:
 	addi t1, t1, 1				# incrementa o contador
 	jal ra, VERIFICA_CONTADOR_DIREITA	# verifica se houve colisão
 	
-	beq a0, zero, L_LIMITE_DIREITA_IO	# a0 != 0 => houve colisão
+	bne a0, zero, L_LIMITE_DIREITA_IO	# a0 != 0 => houve colisão
 	sw t1, 0(t0)				# guarda o novo valor do contador somente se não houve colisão
 	
 	# Se não houve colisão
@@ -94,7 +94,7 @@ L_ESQUERDA_IO:
 	li a3, 0				# deslocamento = 0
 	addi t1, t1, -1				# subtrai um do contador
 	jal ra, VERIFICA_CONTADOR_ESQUERDA	# verifica se houve colisão
-	beq a0, zero L_LIMITE_ESQUERDA_IO		# se a0 = 1 => houve colisão
+	bne a0, zero L_LIMITE_ESQUERDA_IO		# se a0 = 1 => houve colisão
 	sw t1, 0(t0)				# salva o novo contador somente se não houve colisão
 	
 	#Se não houve colisão
@@ -132,7 +132,7 @@ L_PULAR_IO:
 	
 	# Levantar
 L_LEVANTAR_IO: 
-	la s10, SubZeroParado_1				# faz com que s10 tenha ele em pé
+	la s10, DANCINHA_1_IO				# faz com que s10 tenha ele em pé
 	la t0, LEVANTAR_IO
 	lw a0, 0(t0)					# carrega o sprite dele agaixado
 	li a2, 1					# 1 frame
@@ -140,14 +140,18 @@ L_LEVANTAR_IO:
 	j L_GOLPE_IO
 #######################################################################################################################
 L_BAIXO_IO:
-	la t0, AGACHADO_IO					# Ponteiro para agachado
+	la t0, AGACHADO_IO				# Ponteiro para agachado
 	beq t0, s10, Fim_KDInterrupt			# Se já estiver agachado não faz nada			
 	
 	la t0, DANCINHA_1_IO				# Ponteiro para dancinha
 	beq t0, s10, L_AGACHAR_IO			# se estiver em pé tem que abaixar
 
+	j Fim_KDInterrupt
+
 L_AGACHAR_IO:
+	la s10, AGACHADO_IO
 	la t0, AGACHANDO_IO				# carrega o sprite abaixando
+	lw a0, 0(t0)
 	li a2, 2					# são 2 frames
 	#li a3, 0					# deslocamento 0
 	#jal ra, FRAME_DESLOCAMENTO_VGA			# animação
@@ -180,7 +184,7 @@ L_CHUTE_1_EM_PE:
     	
 L_CHUTE_1_AGACHADO:   
 	li a2, 5					# são 5 frames
-    	la t0, CHUTE_2_AGACHADO_IO			# ponteiro do chute 1 agachado
+    	la t0, CHUTE_1_AGACHADO_IO			# ponteiro do chute 1 agachado
     	lw a0, 0(t0)					# a0 = chute 1 agachado	
     	
     	j L_GOLPE_IO
@@ -254,16 +258,17 @@ L_SOCO_2_EM_PE_IO:
    	j L_GOLPE_IO						# animação
  
 L_SOCO_2_AGACHADO_IO:
+	la s10, DANCINHA_1_IO				# muda o estado para em pé
 	li a2, 6					# são 6 frames
    	la t0, SOCO_2_AGACHADO_IO			# ponteiro do soco 1 agachado
    	lw a0, 0(t0)					# sprite do soco 1 agachado
    	j L_GOLPE_IO			
 #######################################################################################################################
 L_BLOCK_IO:
-	la t0, BLOCK_EM_PE_IO				# block ativo em pé
+	la t0, BLOQUEANDO_EM_PE_IO			# block ativo em pé
 	beq t0, s10, L_DESATIVAR_BLOCK_EM_PE_IO		# Desativa o block
 	
-	la t0, BLOCK_AGACHADO_IO			# block ativo agachado
+	la t0, BLOQUEANDO_AGACHADO_IO			# block ativo agachado
 	beq t0, s10, L_DESATIVAR_BLOCK_AGACHADO_IO	# Desativa o block agachado
 	
 	la t0, AGACHADO_IO				# se estiver abaixado ativa block no chao
@@ -272,7 +277,7 @@ L_BLOCK_IO:
 	# Se chegou até aqui ativa o block em pé
 	
 L_BLOCK_EM_PE_IO:
-	la s10, BLOCK_EM_PE_IO				# significa que o personagem ficará com escudo ativo
+	la s10, BLOQUEANDO_EM_PE_IO				# significa que o personagem ficará com escudo ativo
 	
 	la t0, BLOCK_EM_PE_IO
 	lw a0, 0(t0)
@@ -281,7 +286,7 @@ L_BLOCK_EM_PE_IO:
 	j L_GOLPE_IO
 	
 L_BLOCK_AGACHADO_IO:
-	la s10, BLOCK_AGACHADO_IO		# significa que o personagem ficará com block no chão ativo
+	la s10, BLOQUEANDO_AGACHADO_IO		# significa que o personagem ficará com block no chão ativo
 	la t0, BLOCK_AGACHADO_IO		
 	lw a0, 0(t0)				# a0 = sprite do bloco agachado
 	li a2, 2				# são 2 frames
@@ -291,9 +296,9 @@ L_BLOCK_AGACHADO_IO:
 L_DESATIVAR_BLOCK_EM_PE_IO:
 	la s10, DANCINHA_1_IO
 	
-	la t0, BLOCK_EM_PE_IO
+	la t0, DESATIVAR_BLOCK_EM_PE_IO
 	lw a0, 0(t0)				# a0 = sprite dele com block
-	li a2, 2				# são 2 frames
+	li a2, 1				# são 2 frames
 	j L_GOLPE_IO
 			
 L_DESATIVAR_BLOCK_AGACHADO_IO:
@@ -359,6 +364,7 @@ LOOP_CAMBALHOTA_DESCENDO_IO:
 	blt s4, s3, LOOP_CAMBALHOTA_DESCENDO_IO
 	
 	addi sp, sp, 8
+	mv a3, zero
 	j L_TOTAL_RESET_EM_PE_IO
 	
 L_CONTROLE_SUBINDO_IO:
@@ -445,9 +451,29 @@ L_TOTAL_RESET_EM_PE_IO:
 	
 L_GOLPE_IO:
 	jal ra, FRAME_GOLPE_VGA			# animação do golpe
-	la t0, DANCINHA_1_IO
-	beq t0, s10, L_TOTAL_RESET_EM_PE_IO
 	
+	la t0, DANCINHA_1_IO
+	beq t0, s10, L_TOTAL_RESET_EM_PE_IO	# verifica se está em pé
+	
+	la t0, AGACHADO_IO
+	beq t0, s10, L_TOTAL_RESET_AGACHADO_IO
+	
+	la t0, BLOQUEANDO_EM_PE_IO
+	beq t0, s10, L_RESET_BLOCK_EM_PE_IO 
+
+L_RESET_BLOCK_AGACHADO_IO:	
+	# se chegou até aqui significa que é o block agachado
+	la t0, BLOQUEANDO_AGACHADO_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	j Fim_KDInterrupt
+	
+L_RESET_BLOCK_EM_PE_IO: 
+	la t0, BLOQUEANDO_EM_PE_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	j Fim_KDInterrupt				
+													
 L_TOTAL_RESET_AGACHADO_IO:	
 	li a2, 1
 	la t0, AGACHADO_IO

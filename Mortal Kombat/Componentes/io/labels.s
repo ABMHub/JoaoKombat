@@ -60,14 +60,15 @@
 
     CHUTE_2_EM_PE_IO:        .word 0x0
     CHUTE_2_AGACHADO_IO:        .word 0x0
-
+	AGACHADO_1_IO: .word 0x0
     SOCO_2_EM_PE_IO:        .word 0x0
     SOCO_2_AGACHADO_IO:        .word 0x0
-
     PODER_IO:            .word 0x0
     DANCINHA_1_IO:            .word 0x0
     DANCINHA_2_IO:            .word 0x0
     BLOCK_EM_PE_IO:            .word 0x0
+    BLOQUEANDO_EM_PE_IO:	.word 0x0
     BLOCK_AGACHADO_IO:        .word 0x0
+    BLOQUEANDO_AGACHADO_IO:	.word 0x0
     DESATIVAR_BLOCK_EM_PE_IO:    .word 0x0
     DESATIVAR_BLOCK_AGACHADO_IO:    .word 0x0
