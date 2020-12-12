@@ -259,8 +259,67 @@ L_SOCO_2_AGACHADO:
    	lw a0, 0(t0)					# sprite do soco 1 agachado
    	j GOLPE			
 #######################################################################################################################
+L_BLOCK_IO:
+	la t0, BLOCK_EM_PE_IO				# block ativo em pé
+	beq t0, s10, L_DESATIVAR_BLOCK_IO		# Desativa o block
+	
+	la t0, BLOCK_AGACHADO_IO			# block ativo agachado
+	beq t0, s10, L_DESATIVAR_BLOCK_AGACHADO_IO	# Desativa o block agachado
+	
+	la t0, AGACHADO_IO				# se estiver abaixado ativa block no chao
+	beq t0, s10, BLOCK_CHAO_SubZero
 
-L_BLCOK_IO:
+	
+
+	# Se chegou até aqui ativa o block em pé
+ATIVAR_BLOCK_SubZero:
+	la s10, SubZeroBlock_2			# significa que o personagem ficará com escudo ativo
+	la a0, SubZeroBlock_1
+	li a2, 2				# são 2 frames
+	jal ra, FRAME_GOLPE_VGA			# animação de block
+	
+	la a0, SubZeroBlock_2
+	jal ra, FRAME_DANCINHA
+	
+	j Fim_KDInterrupt_SubZero
+	
+BLOCK_CHAO_SubZero:
+	la s10, SubZeroBlockAgachado_2		# significa que o personagem ficará com block no chão ativo
+	la a0, SubZeroBlockAgachado_1
+	li a2, 2				# são 2 frames
+	jal ra, FRAME_GOLPE_VGA			# animação
+	
+	la a0, SubZeroBlockAgachado_2
+	jal ra, FRAME_DANCINHA
+	
+	j Fim_KDInterrupt_SubZero
+	
+DESATIVAR_BLOCK_SubZero:
+	la t0, SubZeroBlockAgachado_2
+	beq t0, s10, DESATIVAR_BLOCK_CHAO_SubZero	#block chao ativo
+	
+	mv a0, s10				# se chegou até aqui é porque está em pé
+	la s10, SubZeroParado_1			# significa que o personagem ficará em pé
+	li a2, 2				# são 2 frames
+	jal ra, FRAME_GOLPE_VGA			# a0 tem o estado anterior de s10, anima a0
+	j SUBZERO_TOTAL_RESET
+			
+DESATIVAR_BLOCK_CHAO_SubZero:
+	mv a0, s10
+	la s10, SubZeroAgachando_2
+	li a2, 2
+	jal ra, FRAME_GOLPE_VGA
+	
+	la a0, SubZeroAgachando_2
+	li a2, 1
+	jal ra, FRAME_GOLPE_VGA
+	
+	la a0, SubZeroAgachando_2
+	jal ra, FRAME_DANCINHA
+	
+	j Fim_KDInterrupt_SubZero
+
+#######################################################################################################################
 L_CAMBALHOTA_PRA_FRENTE_IO:
 L_CAMBALHOTA_PRA_TRAS_IO:
 L_PODER_IO:
