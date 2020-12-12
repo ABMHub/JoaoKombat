@@ -1,7 +1,7 @@
 import os
 import subprocess
-FOLDER_PATH = 'C:/Users/lucas/Documents/Programação/JoaoKombat/Mortal Kombat/Sprites/ferramentas/bunker'
-
+FOLDER_PATH = dir_path = os.path.dirname(os.path.realpath(__file__))
+print(FOLDER_PATH)
 os.chdir(FOLDER_PATH)
 imgNames = os.listdir(FOLDER_PATH)
 
