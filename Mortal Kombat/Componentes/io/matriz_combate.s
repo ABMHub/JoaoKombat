@@ -272,7 +272,7 @@ TESTE_ALPISTE:
 	lb t1, 0(t0)
 	
 	addi t0, t0, -20
-	lb t2, 0(t0)
+	lb t5, 0(t0)
 	
 	addi t0, t0, -20
 	lb t3, 0(t0)
@@ -282,7 +282,7 @@ TESTE_ALPISTE:
 	lb t4, 0(t4)
 	
 	bnez t1, HIT
-	bnez t2, HIT
+	bnez t5, HIT
 	bnez t3, HIT
 	bnez t4, HIT
 	j FIM_TESTE
