@@ -518,10 +518,10 @@ L_TOMOU_ALPISTE_IO:
 	
 L_LEVOU_RASTEIRA_IO:
 	la t0, AGACHADO_IO
-	beq s11, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
+	beq s10, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
 	
 	la t0, BLOQUEANDO_AGACHADO_IO
-	beq s11, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
+	beq s10, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
 
 	la s10, DANCINHA_1_IO
 
