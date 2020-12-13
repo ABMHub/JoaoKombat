@@ -78,12 +78,12 @@
 
     	la a4, LARGURA_FRAME_1_IA            # a4 = endereço da largura
     	la a5, ALTURA_FRAME_1_IA            # a5 = endereço da altura
-    	la t0, DANCINHA_1_IO
+    	la t0, DANCINHA_1_IA
     	lw a0, 0(t0)
     	jal ra, PERSONAGEM_V2#############################
 
 	# li a1, -1
-    	la a0, DANCINHA_2_IO
+    	la a0, DANCINHA_2_IA
     	lw a0, 0(a0)
     	la a7, PERSONAGEM2
     	li a2, 2

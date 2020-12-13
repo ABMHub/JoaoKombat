@@ -141,9 +141,11 @@ L_LEVANTAR_IO:
 	la s10, DANCINHA_1_IO				# faz com que s10 tenha ele em pé
 	la t0, LEVANTAR_IO
 	lw a0, 0(t0)					# carrega o sprite dele agaixado
-	li a2, 1					# 1 frame
+	li a2, 1
 	
-	j L_GOLPE_IO
+	jal ra, FRAME_GOLPE_VGA				# 1 frame
+	
+	j L_TOTAL_RESET_EM_PE_IO
 #######################################################################################################################
 L_BAIXO_IO:
 	la t0, AGACHADO_IO				# Ponteiro para agachado
@@ -158,7 +160,7 @@ L_AGACHAR_IO:
 	la s10, AGACHADO_IO
 	la t0, AGACHANDO_IO				# carrega o sprite abaixando
 	lw a0, 0(t0)
-	li a2, 2					# são 2 frames
+	li a2, 1					# são 2 frames
 	#li a3, 0					# deslocamento 0
 	#jal ra, FRAME_DESLOCAMENTO_VGA			# animação
 	#la s10, AGACHADO_IO				# coloca "agachado" no estado atual
@@ -166,7 +168,9 @@ L_AGACHAR_IO:
 	#lw a0, 0(s10)					# a0 = sprite dele agachado 
 	#jal ra, FRAME_DANCINHA				# pinta esse sprite na outra frame
 	
-	j L_GOLPE_IO
+	jal ra, FRAME_GOLPE_VGA
+	
+	j L_TOTAL_RESET_AGACHADO_IO
 	
 	#j Fim_KDInterrupt_SubZero
 #######################################################################################################################
@@ -297,7 +301,9 @@ L_BLOCK_EM_PE_IO:
 	lw a0, 0(t0)
 	li a2, 2					# são 2 frames
 	
-	j L_GOLPE_IO
+	jal ra, FRAME_GOLPE_VGA
+	
+	j L_RESET_BLOCK_EM_PE_IO
 	
 L_BLOCK_AGACHADO_IO:
 	la s10, BLOQUEANDO_AGACHADO_IO		# significa que o personagem ficará com block no chão ativo
@@ -305,7 +311,9 @@ L_BLOCK_AGACHADO_IO:
 	lw a0, 0(t0)				# a0 = sprite do bloco agachado
 	li a2, 2				# são 2 frames
 	
-	j L_GOLPE_IO
+	jal ra, FRAME_GOLPE_VGA
+	
+	j L_RESET_BLOCK_AGACHADO_IO
 	
 L_DESATIVAR_BLOCK_EM_PE_IO:
 	la s10, DANCINHA_1_IO
@@ -313,7 +321,10 @@ L_DESATIVAR_BLOCK_EM_PE_IO:
 	la t0, DESATIVAR_BLOCK_EM_PE_IO
 	lw a0, 0(t0)				# a0 = sprite dele com block
 	li a2, 1				# são 2 frames
-	j L_GOLPE_IO
+	
+	jal ra, FRAME_GOLPE_VGA
+	
+	j L_TOTAL_RESET_EM_PE_IO
 			
 L_DESATIVAR_BLOCK_AGACHADO_IO:
 	la s10, AGACHADO_IO
@@ -321,7 +332,10 @@ L_DESATIVAR_BLOCK_AGACHADO_IO:
 	la t0, DESATIVAR_BLOCK_AGACHADO_IO
 	lw a0, 0(t0)				# a0 = sprite dele com block
 	li a2, 1				# são 2 frames
-	j L_GOLPE_IO
+	
+	jal ra, FRAME_GOLPE_VGA
+	
+	j L_TOTAL_RESET_AGACHADO_IO
 
 #######################################################################################################################
 L_CAMBALHOTA_PRA_FRENTE_IO:	
