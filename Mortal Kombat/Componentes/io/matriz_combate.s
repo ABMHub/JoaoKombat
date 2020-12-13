@@ -62,6 +62,11 @@ ESCREVE_POSICAO_MATRIZ:
 	li t2, 0		# contador de loop interno
 	li t3, 0		# contador de loop externo
 		
+	li t1, 0
+LOOP_EXTERNO_CONTADOR:
+	addi t1, t1, 1
+	li t4, 3
+	beq t4, a0, FIM_LOOP_CONTADOR
 LOOP_CONTADOR:
 	sb t1, 0(t0)		# salva n do jogador na posição da matriz
 	addi t2, t2, 1		# aumenta contador
@@ -75,7 +80,9 @@ LOOP_CONTADOR:
 	addi t0, t0, -20	# sobe uma posição verticalmente
 	bne t3, a1, LOOP_CONTADOR 	# continua loop caso precise
 	
+	j LOOP_EXTERNO_CONTADOR
 	# caso loop externo (loop vertical) acabe
+FIM_LOOP_CONTADOR:
 	lw ra, 0(sp)		# restora ra
 	addi sp, sp, 4		# restora sp
 	
