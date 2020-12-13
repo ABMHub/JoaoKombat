@@ -451,6 +451,7 @@ L_RECUADA_PESADA_IO:
 	jal ra, FRAME_GOLPE_VGA					# animação do golpe
 	
 	j FIM_EFETUA_COLISAO_IO
+	
 L_RECUADA_LEVE_AGACHADO_IO:
 	la t0, BLOQUEANDO_AGACHADO_IO
 	beq s11, t0, FIM_BLOQUEANDO_IO
@@ -463,6 +464,7 @@ L_RECUADA_LEVE_AGACHADO_IO:
 	jal ra, FRAME_GOLPE_VGA					# animação do golpe
 	
 	j FIM_EFETUA_COLISAO_IO
+	
 L_TOMOU_ALPISTE_IO:
 	la t0, BLOQUEANDO_EM_PE_IO
 	beq s10, t0, FIM_BLOQUEANDO_IO	
@@ -470,12 +472,42 @@ L_TOMOU_ALPISTE_IO:
 	la t0, TOMOU_ALPISTE_IO
 	lw a0, 0(t0)
 	
+	# Subindo
+	li a3, -9600					# desloca 30 pixels para cima
+	li a2, 2					# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
+	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação do pulo
 	
-	li a2, 7						# quantidade de frames
-	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
-	jal ra, FRAME_DESLOCAMENTO_VGA				# animação do golpe
+	mv t0, a0
+	li a7, 32
+	li a0, 100
+	ecall
+	mv a0, t0
+	
+	# Descendo
+	li a3, 9600					# desloca 30 pixels pra baixo
+	li a2, 2					# 2 frames para descida
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
+	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação dele descendo
+	
+	mv t0, a0
+	li a7, 32
+	li a0, 100
+	ecall
+	mv a0, t0
+	
+	# Levantando
+	li a2, 3
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA			# mostra a animação dele descendo
 
-	la s11, DANCINHA_1_IA
+	mv t0, a0
+	li a7, 32
+	li a0, 100
+	ecall
+	mv a0, t0
+
+	la s11, DANCINHA_1_IO
 
 	j FIM_EFETUA_COLISAO_IO
 	
@@ -543,11 +575,38 @@ L_TOMOU_ALPISTE_IA:
 	la t0, TOMOU_ALPISTE_IA
 	lw a0, 0(t0)
 	
-	li a2, 7						# quantidade de frames
-	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
-	jal ra, FRAME_GOLPE_VGA_IA				# animação do golpe
+	# Subindo
+	li a3, -9600					# desloca 30 pixels para cima
+	li a2, 2					# quantidade de frames
+	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
+	jal ra, FRAME_DESLOCAMENTO_VGA_IA		# mostra a animação do pulo
+	
+	mv t0, a0
+	li a7, 32
+	li a0, 50
+	ecall
+	mv a0, t0
+	
+	# Descendo
+	li a3, 9600					# desloca 30 pixels pra baixo
+	li a2, 2					# 2 frames para descida
+	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
+	jal ra, FRAME_DESLOCAMENTO_VGA_IA		# mostra a animação dele descendo
+	
+	
+	
+	# Levantando
+	li a2, 3
+	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA_IA			# mostra a animação dele descendo
 	
 	la s11, DANCINHA_1_IA					# Se tomou alpiste deve ficar em pé
+	
+	mv t0, a0
+	li a7, 32
+	li a0, 400
+	ecall
+	mv a0, t0
 
 	j FIM_EFETUA_COLISAO_IA
 	

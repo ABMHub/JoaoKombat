@@ -183,7 +183,7 @@ L_PULAR_IO:
 	la t0, PULAR_2_IO				# ponteiro do sprite da descida do pulo
 	lw a0, 0(t0)					# pulo descendo
 	li a3, 9600					# desloca 30 pixels pra baixo
-	
+		
 	li a2, 1					# 2 frames para descida
 	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA			# mostra a animação dele descendo
