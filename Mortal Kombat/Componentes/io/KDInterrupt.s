@@ -21,6 +21,8 @@
 	
 	la t0, AGACHADO_IO		
 	beq s10, t0, AGACHADO_MACRO_P1	# Checa se player 1 esta agachado
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq s10, t0, AGACHADO_MACRO_P1
 					
 	li a1, 5			# se nao estiver, sua altura eh 5
 AGACHADO_MACRO_P1:			# Se estiver, sua altura eh 3
@@ -35,6 +37,8 @@ AGACHADO_MACRO_P1:			# Se estiver, sua altura eh 3
 	
 	la t0, AGACHADO_IA
 	beq s11, t0, AGACHADO_MACRO_P2	# Checa se player 2 esta agachado
+	la t0, BLOQUEANDO_AGACHADO_IA
+	beq s11, t0, AGACHADO_MACRO_P2
 	
 	li a1, 5			# se nao estiver, sua altura eh 5	
 AGACHADO_MACRO_P2:			# Se estiver, sua altura eh 3
@@ -503,6 +507,9 @@ CAMBALHOTA_FRAME0_IO:
 	mul t0, t0, a1
 	add t2, t2, t0
 	sw t2, 0(t1)
+	
+	UPDATE_MATRIZ
+	
 	j L_TOTAL_RESET_EM_PE_IO
 	  
 CAMBALHOTA_FRAME1_IO:
@@ -515,6 +522,9 @@ CAMBALHOTA_FRAME1_IO:
 	mul t0, t0, a1
 	add t2, t2, t0
 	sw t2, 0(t1)
+	
+	UPDATE_MATRIZ
+	
 	j L_TOTAL_RESET_EM_PE_IO
 	
 L_CONTROLE_SUBINDO_IO:
@@ -528,7 +538,7 @@ L_CONTROLE_SUBINDO_IO:
 	
 L_NAO_S_IO:	
 	sw t1, 0(t0)	
-	UPDATE_MATRIZ
+	
 	ret
 
 L_CONTROLE_DESCENDO_IO:
@@ -542,7 +552,7 @@ L_CONTROLE_DESCENDO_IO:
 	
 L_NAO_D_IO:
 	sw t1, 0(t0)	
-	UPDATE_MATRIZ
+	
 	ret	
 			
 L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IO:

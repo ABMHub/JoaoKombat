@@ -141,10 +141,10 @@ TESTE_GOLPE:
 	lw t2, CONTADORH2	# t2 é o contador horizontal do player 1
 	
 	li t3, 2		# t3 é 2 para teste de player
+	mv a0, s8
 	beq t3, a0, TESTE_PER2	# se for player 2, branch
 	
 	sub t1, t1, t2		# t1 é negativo se o player 1 estiver na esquerda
-	mv a0, s8
 	bgtz t1, TESTE_INVERTIDO # pula para teste invertido se player 1 estiver na direita
 	j TESTE_NORMAL		# caso esteja na esquerda, faz teste normal
 	
@@ -302,7 +302,7 @@ TESTE_ALPISTE:
 	
 	addi t0, t0, 20
 	add t0, t0, t2
-	lb t4, 0(t4)
+	lb t4, 0(t0)
 	
 	bnez t1, HIT
 	bnez t5, HIT
