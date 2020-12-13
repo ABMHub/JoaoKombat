@@ -41,6 +41,30 @@ POS_BEQ_CONTADOR:
 	
 	ret			# volta
 
+##
+ZERA_MATRIZ:
+	addi sp, sp, -12
+	sw t0, 0(sp)
+	sw t1, 4(sp)
+	sw t2, 8(sp)
+
+	la t2, MATRIZ_COMBATE
+	li t1, 0
+	li t0, 300
+	
+LOOP_ZERA_MATRIZ:
+	sw zero, 0(t2)
+	addi t1, t1, 4
+	addi t2, t2, 4
+	bne t0, t1, LOOP_ZERA_MATRIZ
+	
+	lw t0, 0(sp)
+	lw t1, 4(sp)
+	lw t2, 8(sp)
+	addi sp, sp, 12
+	
+	ret
+##
 ####################################################################
 # Função de escrever na matriz de combate a posição do personagem  #
 ####### Input ########                                             #
@@ -61,7 +85,7 @@ ESCREVE_POSICAO_MATRIZ:
 
 	li t2, 0		# contador de loop interno
 	li t3, 0		# contador de loop externo
-		
+			
 LOOP_CONTADOR:
 	sb t1, 0(t0)		# salva n do jogador na posição da matriz
 	addi t2, t2, 1		# aumenta contador

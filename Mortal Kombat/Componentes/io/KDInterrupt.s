@@ -78,7 +78,28 @@ L_DIREITA_IO:
 	jal ra, VERIFICA_CONTADOR_DIREITA	# verifica se houve colisão
 	
 	bne a0, zero, L_LIMITE_DIREITA_IO	# a0 != 0 => houve colisão
-	sw t1, 0(t0)				# guarda o novo valor do contador somente se não houve colisão
+	sw t1, 0(t0)
+					# guarda o novo valor do contador somente se não houve colisão
+	jal ra, ZERA_MATRIZ	
+	addi sp, sp, -12
+	sw a0, 0(sp)
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	addi sp, sp, 12
 	
 	# Se não houve colisão
 	li a3, 4				# deslocamento da caminhada
@@ -106,6 +127,26 @@ L_ESQUERDA_IO:
 	bne a0, zero L_LIMITE_ESQUERDA_IO		# se a0 = 1 => houve colisão
 	sw t1, 0(t0)				# salva o novo contador somente se não houve colisão
 	
+	jal ra, ZERA_MATRIZ	
+	addi sp, sp, -12
+	sw a0, 0(sp)
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	addi sp, sp, 12
 	#Se não houve colisão
 	li a3, -4					# deslocamento da caminhada
 
@@ -480,6 +521,29 @@ L_CONTROLE_SUBINDO_IO:
 	
 L_NAO_S_IO:	
 	sw t1, 0(t0)	
+	addi sp, sp, -16
+	sw a0, 0(sp)
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	sw ra, 12(sp)
+	
+	jal ra, ZERA_MATRIZ
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	lw ra, 12(sp)
+	addi sp, sp, 16	
 	ret
 
 L_CONTROLE_DESCENDO_IO:
@@ -493,6 +557,29 @@ L_CONTROLE_DESCENDO_IO:
 	
 L_NAO_D_IO:
 	sw t1, 0(t0)	
+	addi sp, sp, -16
+	sw a0, 0(sp)
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	sw ra, 12(sp)
+	
+	jal ra, ZERA_MATRIZ
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	lw ra, 12(sp)
+	addi sp, sp, 16	
 	ret	
 			
 L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IO:
