@@ -256,7 +256,7 @@ TESTE_CHUTE_ALTO:
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
-	addi t0, t0, -80
+	addi t0, t0, -20
 	add t0, t0, t2
 	lb t2, 0(t0)
 	

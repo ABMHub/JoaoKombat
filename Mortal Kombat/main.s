@@ -101,7 +101,7 @@ INFINITO:
 	csrr t0, 3073
 	#la t1, DIFICULDADE_IA
 	#lw t1, 0(t1)
-	li t1, 1000
+	li t1, 2000
 	sub t0, t0, s8
 	bge t0, t1, LOOP_IA
 	

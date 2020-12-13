@@ -34,7 +34,7 @@
 	CONTADORH1:			.word 0x1
 	CONTADORV2:			.word 0xC
 	CONTADORH2:			.word 0x11
-	HP_IA:				.word 45
+	HP_IA:				.word 100
 	HP_IO:				.word 100		
 	MATRIZ_COMBATE:			.space 300
 	#########################################
@@ -109,4 +109,4 @@
     	# IA DIFICULDADE
     	DIFICULDADE_IA:			.word 1000
     	TEMPO50_IA:			.word 0x1
-    	HITS_IA:			.word 0x4
+    	HITS_IA:			.word 0x0

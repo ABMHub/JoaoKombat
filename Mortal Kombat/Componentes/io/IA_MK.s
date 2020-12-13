@@ -45,7 +45,7 @@ VIDA_OK_IA:	csrr t2, 3073			#Le o tempo atual
 		bge t3, zero, DISTANCIA_OK
 		sub t3, zero, t3
 DISTANCIA_OK:
-		li t0, 1			#Se a distância entre os dois for < ou = 2, ataca ou defender (área de combate)
+		li t0, 2			#Se a distância entre os dois for < ou = 2, ataca ou defender (área de combate)
 		bge t0, t3, ATK_DEF_IA		#Pula para o caso de ataque e defesa
 		
 		la t5, AGACHADO_IA
@@ -172,12 +172,12 @@ IA_BAIXA:	j L_BLOCK_IA
 ############################## MOVIMENTAÇÃO DA IA ################################################################
 L_DIREITA_IA:
 	#la t0, AGACHADO_IA			# Carrega o endereço do ponteiro para agachado
-	#beq t0, s10, IA_FIM			# Se estiver agachado não faz nada
+	#beq t0, s11, IA_FIM			# Se estiver agachado não faz nada
 	
 	#la t0, BLOQUEANDO_AGACHADO_IA
-	#beq t0, s10, IA_FIM			# Se estiver agachado não faz nada
+	#beq t0, s11, IA_FIM			# Se estiver agachado não faz nada
 	
-	la s10, DANCINHA_1_IA			# Coloca em s10 o estado atual
+	la s11, DANCINHA_1_IA			# Coloca em s11 o estado atual
 	la t0, CONTADORH2			# carrega o contador
 	lw t1, 0(t0)				# t1 = contador
 	li a3, 0				# inicializa o deslocamento em 0
@@ -186,6 +186,30 @@ L_DIREITA_IA:
 	
 	bne a0, zero, L_LIMITE_DIREITA_IA	# a0 != 0 => houve colisão
 	sw t1, 0(t0)				# guarda o novo valor do contador somente se não houve colisão
+	
+	addi sp, sp, -16
+	sw a0, 0(sp)
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	sw ra, 12(sp)
+	
+	jal ra, ZERA_MATRIZ
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	lw ra, 12(sp)
+	addi sp, sp, 16	
 	
 	# Se não houve colisão
 	li a3, 4				# deslocamento da caminhada
@@ -199,12 +223,12 @@ L_LIMITE_DIREITA_IA:
 L_ESQUERDA_IA:
 
 	#la t0, AGACHADO_IA					
-	#beq t0, s10, IA_FIM			# se estiver agachado não faz nada
+	#beq t0, s11, IA_FIM			# se estiver agachado não faz nada
 	
 	#la t0, BLOQUEANDO_AGACHADO_IA
-	#beq t0, s10, IA_FIM			# Se estiver agachado não faz nada
+	#beq t0, s11, IA_FIM			# Se estiver agachado não faz nada
 
-	la s10, DANCINHA_1_IA			# Coloca em s10 o estado atual
+	la s11, DANCINHA_1_IA			# Coloca em s11 o estado atual
 	la t0, CONTADORH2			# carrega o contador
 	lw t1, 0(t0)				# t1 = valor do contador
 	li a3, 0				# deslocamento = 0
@@ -212,6 +236,30 @@ L_ESQUERDA_IA:
 	jal ra, VERIFICA_CONTADOR_ESQUERDA	# verifica se houve colisão
 	bne a0, zero L_LIMITE_ESQUERDA_IA	# se a0 = 1 => houve colisão
 	sw t1, 0(t0)				# salva o novo contador somente se não houve colisão
+	
+	addi sp, sp, -16
+	sw a0, 0(sp)
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	sw ra, 12(sp)
+	
+	jal ra, ZERA_MATRIZ
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	lw ra, 12(sp)
+	addi sp, sp, 16	
 	
 	#Se não houve colisão
 	li a3, -4				# deslocamento da caminhada
@@ -223,10 +271,10 @@ L_LIMITE_ESQUERDA_IA:				# Se houve colisão
 #######################################################################################################################
 L_CIMA_IA:	
 	la t0, DANCINHA_1_IA				# Se estiver em pé tem que pular
-	beq t0, s10, L_PULAR_IA
+	beq t0, s11, L_PULAR_IA
 	
 	la t0, AGACHADO_IA				# se estiver agachado tem que levantar
-	beq t0, s10, L_LEVANTAR_IA
+	beq t0, s11, L_LEVANTAR_IA
 	
 	j IA_FIM
 	
@@ -253,7 +301,7 @@ L_PULAR_IA:
 	
 	# Levantar
 L_LEVANTAR_IA: 
-	la s10, DANCINHA_1_IA				# faz com que s10 tenha ele em pé
+	la s11, DANCINHA_1_IA				# faz com que s11 tenha ele em pé
 	la t0, LEVANTAR_IA
 	lw a0, 0(t0)					# carrega o sprite dele agaixado
 	li a2, 1
@@ -264,23 +312,23 @@ L_LEVANTAR_IA:
 #######################################################################################################################
 L_BAIXO_IA:
 	la t0, AGACHADO_IA				# Ponteiro para agachado
-	beq t0, s10, IA_FIM			# Se já estiver agachado não faz nada			
+	beq t0, s11, IA_FIM			# Se já estiver agachado não faz nada			
 	
 	la t0, DANCINHA_1_IA				# Ponteiro para dancinha
-	beq t0, s10, L_AGACHAR_IA			# se estiver em pé tem que abaixar
+	beq t0, s11, L_AGACHAR_IA			# se estiver em pé tem que abaixar
 
 	j IA_FIM
 
 L_AGACHAR_IA:
-	la s10, AGACHADO_IA
+	la s11, AGACHADO_IA
 	la t0, AGACHANDO_IA				# carrega o sprite abaixando
 	lw a0, 0(t0)
 	li a2, 1					# são 2 frames
 	#li a3, 0					# deslocamento 0
 	#jal ra, FRAME_DESLOCAMENTO_VGA_IA			# animação
-	#la s10, AGACHADO_IA				# coloca "agachado" no estado atual
+	#la s11, AGACHADO_IA				# coloca "agachado" no estado atual
 	
-	#lw a0, 0(s10)					# a0 = sprite dele agachado 
+	#lw a0, 0(s11)					# a0 = sprite dele agachado 
 	#jal ra, FRAME_DANCINHA_IA				# pinta esse sprite na outra frame
 	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA_IA
@@ -291,10 +339,10 @@ L_AGACHAR_IA:
 #######################################################################################################################
 L_CHUTE_1_IA:
     	la t0, DANCINHA_1_IA
-   	beq t0, s10, L_CHUTE_1_EM_PE_IA	     	 	# se estiver em pé chuta
+   	beq t0, s11, L_CHUTE_1_EM_PE_IA	     	 	# se estiver em pé chuta
    	
    	la t0, AGACHADO_IA				# se estiver abaixado dá outro tipo de chute
-	beq t0, s10, L_CHUTE_1_AGACHADO_IA
+	beq t0, s11, L_CHUTE_1_AGACHADO_IA
 	
 	j IA_FIM
 	
@@ -320,10 +368,10 @@ L_CHUTE_1_AGACHADO_IA:
 #######################################################################################################################
 L_SOCO_1_IA:
     	la t0, DANCINHA_1_IA				# ponteiro da dancinha
-    	beq t0, s10, L_SOCO_1_EM_PE_IA		       	# Se estiver em pé dá um soco
+    	beq t0, s11, L_SOCO_1_EM_PE_IA		       	# Se estiver em pé dá um soco
     	
     	la t0, AGACHADO_IA				# Se estiver abaixado dá outro tipo de soco
-	beq t0, s10, L_SOCO_1_AGACHADO_IA
+	beq t0, s11, L_SOCO_1_AGACHADO_IA
 	
 	j IA_FIM
 
@@ -349,10 +397,10 @@ L_SOCO_1_AGACHADO_IA:
 #######################################################################################################################
 L_CHUTE_2_IA:
         la t0, DANCINHA_1_IA				# Ponteiro da dancinha	
-        beq t0, s10, L_CHUTE_2_EM_PE_IA		        # Se estiver em pé dá um tipo de soco
+        beq t0, s11, L_CHUTE_2_EM_PE_IA		        # Se estiver em pé dá um tipo de soco
         
         la t0, AGACHADO_IA				# Ponteiro agachado				
-	beq t0, s10, L_CHUTE_2_AGACHADO_IA		# Se estiver abaixado dá outro tipo de soco
+	beq t0, s11, L_CHUTE_2_AGACHADO_IA		# Se estiver abaixado dá outro tipo de soco
 	
 	j IA_FIM
 
@@ -378,10 +426,10 @@ L_CHUTE_2_AGACHADO_IA:
 #######################################################################################################################
 L_SOCO_2_IA:
     	la t0, DANCINHA_1_IA				# ponteiro da dancinha
-    	beq t0, s10, L_SOCO_2_EM_PE_IA		       	# Se estiver em pé dá um soco
+    	beq t0, s11, L_SOCO_2_EM_PE_IA		       	# Se estiver em pé dá um soco
     	
     	la t0, AGACHADO_IA				# Se estiver abaixado dá outro tipo de soco
-	beq t0, s10, L_SOCO_2_AGACHADO_IA
+	beq t0, s11, L_SOCO_2_AGACHADO_IA
 	
 	j IA_FIM
 
@@ -399,7 +447,7 @@ L_SOCO_2_EM_PE_IA:
  
 L_SOCO_2_AGACHADO_IA:
 	li s6, 5
-	la s10, DANCINHA_1_IA				# muda o estado para em pé
+	la s11, DANCINHA_1_IA				# muda o estado para em pé
 	li a2, 5					# são 6 frames
    	la t0, SOCO_2_AGACHADO_IA			# ponteiro do soco 1 agachado
    	lw a0, 0(t0)					# sprite do soco 1 agachado
@@ -407,23 +455,23 @@ L_SOCO_2_AGACHADO_IA:
 #######################################################################################################################
 L_BLOCK_IA:
 	la t0, BLOQUEANDO_EM_PE_IA			# block ativo em pé
-	beq t0, s10, L_DESATIVAR_BLOCK_EM_PE_IA		# Desativa o block
+	beq t0, s11, L_DESATIVAR_BLOCK_EM_PE_IA		# Desativa o block
 	
 	la t0, BLOQUEANDO_AGACHADO_IA			# block ativo agachado
-	beq t0, s10, L_DESATIVAR_BLOCK_AGACHADO_IA	# Desativa o block agachado
+	beq t0, s11, L_DESATIVAR_BLOCK_AGACHADO_IA	# Desativa o block agachado
 	
 	la t0, AGACHADO_IA				# se estiver abaixado ativa block no chao
-	beq t0, s10, L_BLOCK_AGACHADO_IA
+	beq t0, s11, L_BLOCK_AGACHADO_IA
 	
 	la t0, DANCINHA_1_IA
-	beq t0, s10, L_BLOCK_EM_PE_IA
+	beq t0, s11, L_BLOCK_EM_PE_IA
 	
 	j IA_FIM
 
 	# Se chegou até aqui ativa o block em pé
 	
 L_BLOCK_EM_PE_IA:
-	la s10, BLOQUEANDO_EM_PE_IA				# significa que o personagem ficará com escudo ativo
+	la s11, BLOQUEANDO_EM_PE_IA				# significa que o personagem ficará com escudo ativo
 	
 	la t0, BLOCK_EM_PE_IA
 	lw a0, 0(t0)
@@ -435,7 +483,7 @@ L_BLOCK_EM_PE_IA:
 	j L_RESET_BLOCK_EM_PE_IA
 	
 L_BLOCK_AGACHADO_IA:
-	la s10, BLOQUEANDO_AGACHADO_IA		# significa que o personagem ficará com block no chão ativo
+	la s11, BLOQUEANDO_AGACHADO_IA		# significa que o personagem ficará com block no chão ativo
 	la t0, BLOCK_AGACHADO_IA		
 	lw a0, 0(t0)				# a0 = sprite do bloco agachado
 	li a2, 2				# são 2 frames
@@ -446,7 +494,7 @@ L_BLOCK_AGACHADO_IA:
 	j L_RESET_BLOCK_AGACHADO_IA
 	
 L_DESATIVAR_BLOCK_EM_PE_IA:
-	la s10, DANCINHA_1_IA
+	la s11, DANCINHA_1_IA
 	
 	la t0, DESATIVAR_BLOCK_EM_PE_IA
 	lw a0, 0(t0)				# a0 = sprite dele com block
@@ -458,7 +506,7 @@ L_DESATIVAR_BLOCK_EM_PE_IA:
 	j L_TOTAL_RESET_EM_PE_IA
 			
 L_DESATIVAR_BLOCK_AGACHADO_IA:
-	la s10, AGACHADO_IA
+	la s11, AGACHADO_IA
 	
 	la t0, DESATIVAR_BLOCK_AGACHADO_IA
 	lw a0, 0(t0)				# a0 = sprite dele com block
@@ -472,10 +520,10 @@ L_DESATIVAR_BLOCK_AGACHADO_IA:
 #######################################################################################################################
 L_CAMBALHOTA_PRA_FRENTE_IA:	
 	la t0, AGACHADO_IA			# Carrega o endereço do ponteiro para agachado
-	beq t0, s10, IA_FIM		# Se estiver agachado não faz nada
+	beq t0, s11, IA_FIM		# Se estiver agachado não faz nada
 	
 	la t0, BLOQUEANDO_AGACHADO_IA
-	beq t0, s10, IA_FIM		# Se estiver agachado não faz nada
+	beq t0, s11, IA_FIM		# Se estiver agachado não faz nada
 
 	
 	# preparação
@@ -489,10 +537,10 @@ L_CAMBALHOTA_PRA_FRENTE_IA:
 	
 L_CAMBALHOTA_PRA_TRAS_IA: 
 	la t0, AGACHADO_IA			# Carrega o endereço do ponteiro para agachado
-	beq t0, s10, IA_FIM		# Se estiver agachado não faz nada
+	beq t0, s11, IA_FIM		# Se estiver agachado não faz nada
 	
 	la t0, BLOQUEANDO_AGACHADO_IA
-	beq t0, s10, IA_FIM		# Se estiver agachado não faz nada
+	beq t0, s11, IA_FIM		# Se estiver agachado não faz nada
 	
 	# Preparação
 	addi sp, sp, -8				# aloca 2 words
@@ -587,6 +635,31 @@ L_CONTROLE_SUBINDO_IA:
 	
 L_NAO_S_IA:	
 	sw t1, 0(t0)	
+	
+	addi sp, sp, -16
+	sw a0, 0(sp)
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	sw ra, 12(sp)
+	
+	jal ra, ZERA_MATRIZ
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	lw ra, 12(sp)
+	addi sp, sp, 16	
+	
 	ret
 
 L_CONTROLE_DESCENDO_IA:
@@ -599,7 +672,32 @@ L_CONTROLE_DESCENDO_IA:
 	beq t1, t2, L_LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_IA
 	
 L_NAO_D_IA:
-	sw t1, 0(t0)	
+	sw t1, 0(t0)
+	
+	addi sp, sp, -16
+	sw a0, 0(sp)
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	sw ra, 12(sp)
+	
+	jal ra, ZERA_MATRIZ
+	
+	li a0, 1
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	li a0, 2
+	li a1, 5
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	lw ra, 12(sp)
+	addi sp, sp, 16	
+			
 	ret	
 			
 L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IA:
@@ -634,10 +732,10 @@ L_LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_IA:
 L_PODER_IA:
 
 	la t0, AGACHADO_IA			# Carrega o endereço do ponteiro para agachado
-	beq t0, s10, IA_FIM		# Se estiver agachado não faz nada
+	beq t0, s11, IA_FIM		# Se estiver agachado não faz nada
 	
 	la t0, BLOQUEANDO_AGACHADO_IA
-	beq t0, s10, IA_FIM		# Se estiver agachado não faz nada
+	beq t0, s11, IA_FIM		# Se estiver agachado não faz nada
 	
 	la t0, PODER_IA				# ponteiro do poder
 	lw a0, 0(t0)				# a0 = sprite inicial do poder
@@ -686,13 +784,13 @@ L_GOLPE_IA:
 	
 	li a3, 0
 	la t0, DANCINHA_1_IA
-	beq t0, s10, L_TOTAL_RESET_EM_PE_IA	# verifica se está em pé
+	beq t0, s11, L_TOTAL_RESET_EM_PE_IA	# verifica se está em pé
 	
 	la t0, AGACHADO_IA
-	beq t0, s10, L_TOTAL_RESET_AGACHADO_IA
+	beq t0, s11, L_TOTAL_RESET_AGACHADO_IA
 	
 	la t0, BLOQUEANDO_EM_PE_IA
-	beq t0, s10, L_RESET_BLOCK_EM_PE_IA 
+	beq t0, s11, L_RESET_BLOCK_EM_PE_IA 
 
 L_RESET_BLOCK_AGACHADO_IA:	
 	# se chegou até aqui significa que é o block agachado
