@@ -1,5 +1,3 @@
-.text
-
 ####################################################################
 # Função para uso interno. Retorna em a0 o endereço do canto       #
 # inferior esquerdo do personagem na matriz de combate             #
@@ -140,6 +138,13 @@ TESTE_GOLPE:
 	lw t1, CONTADORH1	# t1 é o contador horizontal do player 1
 	lw t2, CONTADORH2	# t2 é o contador horizontal do player 1
 	
+	sub t3, t1, t2		# 
+	sub t4, t2, t1		#
+	li t5, 3		# faz os testes para se 'a distancia entre os personagens for menor que t5'
+	slt t3, t3, t5		#
+	slt t4, t4, t5		#
+	and t6, t3, t4		# t6 eh 1 se a distancia entre os pesonagens for menor que 3
+	
 	li t3, 2		# t3 é 2 para teste de player
 	mv a0, s8
 	beq t3, a0, TESTE_PER2	# se for player 2, branch
@@ -200,6 +205,7 @@ TESTE_SOCO:
 	lb t1, 0(t0)
 	
 	bnez t1, HIT
+	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
 ######## JAB #########################
@@ -221,6 +227,7 @@ TESTE_JAB:
 	
 	bnez t1, HIT
 	bnez t2, HIT
+	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
 ######## CHUTE BAIXO #################
@@ -242,6 +249,7 @@ TESTE_CHUTE_BAIXO:
 	
 	bnez t1, HIT
 	bnez t2, HIT
+	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
 ######## CHUTE ALTO ##################
@@ -264,6 +272,7 @@ TESTE_CHUTE_ALTO:
 	
 	bnez t1, HIT
 	bnez t2, HIT
+	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
 ######## SOCO AGACHADO ###############
@@ -281,6 +290,7 @@ TESTE_SOCO_AGACHADO:
 	lb t1, 0(t0)
 	
 	bnez t1, HIT
+	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
 ######## ALPISTE #####################
@@ -307,6 +317,7 @@ TESTE_ALPISTE:
 	bnez t1, HIT
 	bnez t5, HIT
 	bnez t4, HIT
+	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
 ######## CHUTE AGACHADO ##############
@@ -335,6 +346,7 @@ TESTE_CHUTE_AGACHADO:
 	bnez t5, HIT
 	bnez t3, HIT
 	bnez t4, HIT
+	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
 ######## RASTEIRA ####################
@@ -355,6 +367,7 @@ TESTE_RASTEIRA:
 	
 	bnez t1, HIT
 	bnez t2, HIT
+	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
 HIT: 	# Quando houver hit, pulamos para cá. Por enquanto toca apenas um som
@@ -420,7 +433,7 @@ COLISAO_IA:
 #######################################################################################################################
 L_RECUADA_LEVE_IO:	
 	la t0, BLOQUEANDO_EM_PE_IO
-	beq s11, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
+	beq s10, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
 	
 	la t0, RECUADA_LEVE_IO
 	lw a0, 0(t0)
@@ -446,7 +459,7 @@ L_RECUADA_PESADA_IO:
 	
 L_RECUADA_LEVE_AGACHADO_IO:
 	la t0, BLOQUEANDO_AGACHADO_IO
-	beq s11, t0, FIM_BLOQUEANDO_IO
+	beq s10, t0, FIM_BLOQUEANDO_IO
 
 	la t0, RECUADA_LEVE_AGACHADO_IO
 	lw a0, 0(t0)
@@ -499,7 +512,7 @@ L_TOMOU_ALPISTE_IO:
 	ecall
 	mv a0, t0
 
-	la s11, DANCINHA_1_IO
+	la s10, DANCINHA_1_IO
 
 	j FIM_EFETUA_COLISAO_IO
 	
@@ -703,6 +716,13 @@ FIM_EFETUA_COLISAO_IA:
 	
 	j FIM_TESTE
 	
+LABEL_DO_JOAO:
+	li a0, 60  
+	li a1, 500
+	li a2, 40
+	li a3, 50
+	li a7, 31
+	ecall
 	
 FIM_TESTE: # Caso não haja hit ou depois da lógica de hit, encerra o programa
 	lw ra, 0(sp)		# restora ra
