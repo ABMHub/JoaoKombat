@@ -206,25 +206,21 @@ TESTE_SOCO:
 #  PLAYER			     #
 #   # # *			     #
 #   # # *			     #
-#   # # *			     #
+#   # # 			     #
 #   # # 			     #
 #   # # 			     #
 # A hitbox do golpe é indicada por * #
 ######################################
 TESTE_JAB:
-	addi t0, t0, -40
+	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
 	addi t0, t0, -20
 	lb t2, 0(t0)
 	
-	addi t0, t0, -20
-	lb t3, 0(t0)
-	
 	bnez t1, HIT
 	bnez t2, HIT
-	bnez t3, HIT
 	j FIM_TESTE
 	
 ######## CHUTE BAIXO #################
@@ -291,21 +287,18 @@ TESTE_SOCO_AGACHADO:
 #  PLAYER			     #
 #   # # *			     #
 #   # # * *			     #
-#   # # *			     #
+#   # #				     #
 #   # # 			     #
 #   # # 			     #
 # A hitbox do golpe é indicada por * #
 ######################################	
 TESTE_ALPISTE:
-	addi t0, t0, -40
+	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
 	addi t0, t0, -20
 	lb t5, 0(t0)
-	
-	addi t0, t0, -20
-	lb t3, 0(t0)
 	
 	addi t0, t0, 20
 	add t0, t0, t2
@@ -313,7 +306,6 @@ TESTE_ALPISTE:
 	
 	bnez t1, HIT
 	bnez t5, HIT
-	bnez t3, HIT
 	bnez t4, HIT
 	j FIM_TESTE
 	
@@ -331,7 +323,7 @@ TESTE_CHUTE_AGACHADO:
 	lb t1, 0(t0)
 	
 	addi t0, t0, -20
-	lb t2, 0(t0)
+	lb t5, 0(t0)
 	
 	add t0, t0, t2
 	lb t3, 0(t0)
@@ -340,7 +332,7 @@ TESTE_CHUTE_AGACHADO:
 	lb t4, 0(t0)
 	
 	bnez t1, HIT
-	bnez t2, HIT
+	bnez t5, HIT
 	bnez t3, HIT
 	bnez t4, HIT
 	j FIM_TESTE

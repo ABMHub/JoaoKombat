@@ -2,11 +2,13 @@ IA_BOT:		li t1,0xFF200000    			# Endereço de controle do KDMMIO
 		li t0,0x01       			# bit 1 habilita/desabilita a interrupção
 		sw t0,0(t1)           			# Habilita interrupção do teclado
 	
-		addi sp, sp, -16		#Salva valores na pilha
+		addi sp, sp, -24		#Salva valores na pilha
 		sw s0, 0(sp)
 		sw ra, 4(sp)
 		sw a0, 8(sp)
 		sw a7, 12(sp)
+		sw s6, 16(sp)
+		sw s7, 20(sp)
 		
 		la t6, DIFICULDADE_IA		#Pega o endereço com a dificuldade (tempo ocioso)
 		lw t1, 0(t6)			#Pega o tempo max que fica sem fazer ação
@@ -736,7 +738,9 @@ IA_FIM:
 	lw ra, 4(sp)
 	lw a0, 8(sp)
 	lw a7, 12(sp)
-	addi sp, sp, 16			#Recupera valores da pilha
+	lw s6, 16(sp)
+	lw s7, 20(sp)
+	addi sp, sp, 24			#Recupera valores da pilha
 	
 	li t1,0xFF200000    			# Endereço de controle do KDMMIO
 	li t0,0x02       			# bit 1 habilita/desabilita a interrupção
