@@ -140,7 +140,7 @@ TESTE_GOLPE:
 	
 	sub t3, t1, t2		# 
 	sub t4, t2, t1		#
-	li t5, 3		# faz os testes para se 'a distancia entre os personagens for menor que t5'
+	li t5, 4		# faz os testes para se 'a distancia entre os personagens for menor que t5'
 	slt t3, t3, t5		#
 	slt t4, t4, t5		#
 	and t6, t3, t4		# t6 eh 1 se a distancia entre os pesonagens for menor que 3
@@ -468,7 +468,7 @@ L_RECUADA_LEVE_AGACHADO_IO:
 	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA					# animação do golpe
 	
-	j FIM_EFETUA_COLISAO_IO
+	j FIM_EFETUA_COLISAO_AGACHADO_IO
 	
 L_TOMOU_ALPISTE_IO:
 	la t0, BLOQUEANDO_EM_PE_IO
@@ -523,6 +523,8 @@ L_LEVOU_RASTEIRA_IO:
 	la t0, BLOQUEANDO_AGACHADO_IO
 	beq s11, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
 
+	la s10, DANCINHA_1_IO
+
 	la t0, LEVOU_RASTEIRA_IO
 	lw a0, 0(t0)
 	
@@ -572,7 +574,7 @@ L_RECUADA_LEVE_AGACHADO_IA:
 	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
 	
-	j FIM_EFETUA_COLISAO_IA
+	j FIM_EFETUA_COLISAO_AGACHADO_IA	
 L_TOMOU_ALPISTE_IA:	
 	la t0, BLOQUEANDO_EM_PE_IA
 	beq s11, t0, FIM_BLOQUEANDO_IA
@@ -625,6 +627,8 @@ L_LEVOU_RASTEIRA_IA:
 	la t0, LEVOU_RASTEIRA_IA
 	lw a0, 0(t0)
 	
+	la s11, DANCINHA_1_IA
+	
 	li a2, 7						# quantidade de frames
 	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
@@ -673,6 +677,26 @@ FIM_BLOQUEANDO_IA:
 	
 	j FIM_TESTE
 	
+FIM_EFETUA_COLISAO_AGACHADO_IA:	
+	li a2, 1
+	lw a0, 0(s11)
+	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA_IA
+
+	lw a0, 0(s11)
+	jal ra, FRAME_DANCINHA_IA
+	j FINALIZAR
+	
+FIM_EFETUA_COLISAO_AGACHADO_IO:	
+	li a2, 1
+	lw a0, 0(s10)
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
+	jal ra, FRAME_GOLPE_VGA
+
+	lw a0, 0(s10)
+	jal ra, FRAME_DANCINHA
+	j FINALIZAR
+	
 FIM_EFETUA_COLISAO_IO:
 	li a2, 1
 	la t0, DANCINHA_1_IO
@@ -685,7 +709,7 @@ FIM_EFETUA_COLISAO_IO:
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA
 	
-	
+FINALIZAR:	
 
 	li a0, 60  
 	li a1, 500
@@ -717,6 +741,52 @@ FIM_EFETUA_COLISAO_IA:
 	j FIM_TESTE
 	
 LABEL_DO_JOAO:
+	#ebreak
+	li t0, 2
+	bne a0, t0 CONSERTAR_IA
+	
+CONSERTAR_IO:
+ 	lw a0, 0(s10)
+	la t0, DANCINHA_1_IO
+	
+	li a2, 1 
+	jal ra, IDENTIFICA_POSICAO	
+	jal ra, FRAME_GOLPE_VGA
+	
+	beq a0, t0, IO_EM_PE
+
+# não está em pé
+	lw a0, 0(s10)
+	jal ra, FRAME_DANCINHA
+	j FIM_TESTE
+
+IO_EM_PE:
+	la t0, DANCINHA_2_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	j FIM_TESTE
+
+CONSERTAR_IA:	
+	la t0, DANCINHA_1_IA
+	lw a0, 0(t0)
+	li a2, 1 
+	jal ra, IDENTIFICA_POSICAO_IA	
+	jal ra, FRAME_GOLPE_VGA_IA
+	
+	beq a0, t0, IA_EM_PE
+
+# não está em pé
+	lw a0, 0(s11)
+	jal ra, FRAME_DANCINHA_IA
+	j FIM_TESTE
+
+IA_EM_PE:
+	la t0, DANCINHA_2_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA
+	
+	j FIM_TESTE
+
 	li a0, 60  
 	li a1, 500
 	li a2, 40
