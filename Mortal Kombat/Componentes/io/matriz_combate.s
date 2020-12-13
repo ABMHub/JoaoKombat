@@ -121,12 +121,13 @@ LOOP_CONTADOR:
 #	3 - chute alto		7 - rasteira		###
 ############################################################
 TESTE_GOLPE:
-	addi sp, sp, -20	# faz backup em ra e nos registradores a's
+	addi sp, sp, -24	# faz backup em ra e nos registradores a's
 	sw ra, 0(sp)
 	sw a0, 4(sp)
 	sw a1, 8(sp)
 	sw a2, 12(sp)
 	sw s7, 16(sp)
+	sw s0, 20(sp)
 	
 	mv a0, s8
 	mv t3, a1		# temp: t3 é tipo de golpe
@@ -166,6 +167,7 @@ TESTE_INVERTIDO:
 	li t2, -1		# indica a direção do teste. os testes serão feitos para a equerda
 	
 TESTE_CASE:
+
 	li t1, 0		
 	beq t1, a1, TESTE_SOCO	
 	
@@ -190,7 +192,7 @@ TESTE_CASE:
 	li t1, 7
 	beq t1, a1, TESTE_RASTEIRA
 	
-#########SOCO NORMAL##################
+######## SOCO NORMAL # 5 hp ##########
 #  PLAYER  			     #
 #   # # 			     #
 #   # # *			     #
@@ -200,15 +202,18 @@ TESTE_CASE:
 # A hitbox do golpe é indicada por * #
 ######################################
 TESTE_SOCO:
+	li s0, 5
+	
 	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
 	bnez t1, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
-######## JAB #########################
+######## JAB # 15 hp #################
 #  PLAYER			     #
 #   # # *			     #
 #   # # *			     #
@@ -218,6 +223,8 @@ TESTE_SOCO:
 # A hitbox do golpe é indicada por * #
 ######################################
 TESTE_JAB:
+	li s0, 15
+	
 	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
@@ -227,10 +234,11 @@ TESTE_JAB:
 	
 	bnez t1, HIT
 	bnez t2, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
-######## CHUTE BAIXO #################
+######## CHUTE BAIXO # 8 hp ##########
 #  PLAYER			     #
 #   # # 			     #
 #   # # * *			     #
@@ -240,6 +248,8 @@ TESTE_JAB:
 # A hitbox do golpe é indicada por * #
 ######################################
 TESTE_CHUTE_BAIXO:
+	li s0, 8
+	
 	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
@@ -249,10 +259,11 @@ TESTE_CHUTE_BAIXO:
 	
 	bnez t1, HIT
 	bnez t2, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
-######## CHUTE ALTO ##################
+######## CHUTE ALTO # 15 hp ##########
 #  PLAYER			     #
 #   # #   *			     #
 #   # # *			     #
@@ -261,7 +272,9 @@ TESTE_CHUTE_BAIXO:
 #   # # 			     #
 # A hitbox do golpe é indicada por * #
 ######################################	
-TESTE_CHUTE_ALTO:	
+TESTE_CHUTE_ALTO:
+	li s0, 15
+		
 	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
@@ -272,10 +285,11 @@ TESTE_CHUTE_ALTO:
 	
 	bnez t1, HIT
 	bnez t2, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
-######## SOCO AGACHADO ###############
+######## SOCO AGACHADO # 5 hp ########
 #  PLAYER			     #
 #   	 			     #
 #   				     #
@@ -285,15 +299,18 @@ TESTE_CHUTE_ALTO:
 # A hitbox do golpe é indicada por * #
 ######################################	
 TESTE_SOCO_AGACHADO:
+	li s0, 5
+	
 	addi t0, t0, -40
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
 	bnez t1, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
-######## ALPISTE #####################
+######## ALPISTE # 25 hp #############
 #  PLAYER			     #
 #   # # *			     #
 #   # # * *			     #
@@ -303,6 +320,8 @@ TESTE_SOCO_AGACHADO:
 # A hitbox do golpe é indicada por * #
 ######################################	
 TESTE_ALPISTE:
+	li s0, 25
+	
 	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
@@ -317,10 +336,11 @@ TESTE_ALPISTE:
 	bnez t1, HIT
 	bnez t5, HIT
 	bnez t4, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
-######## CHUTE AGACHADO ##############
+######## CHUTE AGACHADO # 8 hp #######
 #  PLAYER			     #
 #   # # 			     #
 #   # # 			     #
@@ -330,6 +350,8 @@ TESTE_ALPISTE:
 # A hitbox do golpe é indicada por * #
 ######################################
 TESTE_CHUTE_AGACHADO:
+	li s0, 8
+	
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
@@ -349,7 +371,7 @@ TESTE_CHUTE_AGACHADO:
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
-######## RASTEIRA ####################
+######## RASTEIRA # 20 hp ############
 #  PLAYER			     #
 #   # # 			     #
 #   # # 			     #
@@ -359,6 +381,8 @@ TESTE_CHUTE_AGACHADO:
 # A hitbox do golpe é indicada por * #
 ######################################
 TESTE_RASTEIRA:
+	li s0, 20
+	
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
@@ -634,6 +658,8 @@ L_LEVOU_RASTEIRA_IA:
 
 #######################################################################################################################
 FIM_BLOQUEANDO_IO:
+	li s0, 0
+
 	addi sp, sp -4					# aloca uma word na pilha
 	lw a0, 0(t0)					# a0 = sprite do estado atual
 	sw a0, 0(sp)					# salva o sprite atual na pilha
@@ -654,6 +680,8 @@ FIM_BLOQUEANDO_IO:
 	j FIM_TESTE
 	
 FIM_BLOQUEANDO_IA:
+	li s0, 0
+
 	addi sp, sp -4					# aloca uma word na pilha
 	lw a0, 0(t0)					# a0 = sprite do estado atual
 	sw a0, 0(sp)					# salva o sprite atual na pilha
@@ -680,12 +708,9 @@ FIM_EFETUA_COLISAO_IO:
 	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA
 	
-	
 	la t0, DANCINHA_2_IO
 	lw a0, 0(t0)
-	jal ra, FRAME_DANCINHA
-	
-	
+	jal ra, FRAME_DANCINHA	
 
 	li a0, 60  
 	li a1, 500
@@ -725,12 +750,16 @@ LABEL_DO_JOAO:
 	ecall
 	
 FIM_TESTE: # Caso não haja hit ou depois da lógica de hit, encerra o programa
+	beq s0, zero, SEM_DANO
+	jal ra, APLICA_DANO
+SEM_DANO:
 	lw ra, 0(sp)		# restora ra
 	lw a0, 4(sp)
 	lw a1, 8(sp)
 	lw a2, 12(sp)
 	lw s7, 16(sp)
-	addi sp, sp, 20		# restora sp
+	lw s0, 20(sp)
+	addi sp, sp, 24		# restora sp
 	
 	ret			# tchauzinho
 	

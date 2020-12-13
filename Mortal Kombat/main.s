@@ -129,6 +129,7 @@ LOOOP:
 .include "componentes/bitmap/background.s"
 .include "componentes/bitmap/personagem_v2.s"
 .include "componentes/bitmap/personagem.s"
+.include "componentes/io/vida.s"
 .include "componentes/io/KDInterrupt.s"
 .include "componentes/io/identifica.s"
 .include "componentes/io/identificaIA.s"
