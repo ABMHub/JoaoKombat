@@ -2,6 +2,7 @@
 	.include "componentes/io/labels.s"
 	.include "Sprites/data/mario.s"
 	.include "Sprites/data/cenarios.s"
+	.include "Sprites/data/BarraDeVida.s"
 	.include "Sprites/data/subzero.s"
 	.include "Sprites/data/raiden.s"
 	.include "Sprites/data/scorpion.s"
@@ -89,6 +90,8 @@
     	li a2, 2
     	jal ra, FRAME_DANCINHA_IA
 ###########################################################################################
+
+	jal ra, INICIALIZA_VIDA
 
 	li t0,0xFF200604    # Escolhe o Frame 0 ou 1
    	li s7,0            # inicio Frame 0
