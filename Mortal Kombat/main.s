@@ -90,14 +90,24 @@
     	jal ra, FRAME_DANCINHA_IA
 ###########################################################################################
 
-	li s8,0xFF200604    # Escolhe o Frame 0 ou 1
+	li t0,0xFF200604    # Escolhe o Frame 0 ou 1
    	li s7,0            # inicio Frame 0
-
-
+	csrr s8, 3073
+	
+LOOP_IA:
+	jal ra, IA_BOT
 
 INFINITO:
+	csrr t0, 3073
+	#la t1, DIFICULDADE_IA
+	#lw t1, 0(t1)
+	li t1, 1000
+	sub t0, t0, s8
+	bge t0, t1, LOOP_IA
+	
 	csrr s6,3073 		# le o time atual
-	sw s7,0(s8)		# seleciona a Frame t2
+	li t0,0xFF200604   	 # Escolhe o Frame 0 ou 1
+	sw s7,0(t0)		# seleciona a Frame t2
 	xori s7,s7,0x001	# escolhe a outra frame
 LOOOP:
 
@@ -123,6 +133,7 @@ LOOOP:
 .include "componentes/io/identifica.s"
 .include "componentes/io/identificaIA.s"
 .include "componentes/io/matriz_combate.s"
+.include "componentes/io/IA_MK.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
 .include "componentes/bitmap/frame_deslocamento3.s"
