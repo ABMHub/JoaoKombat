@@ -297,9 +297,11 @@ SZ:
     	sw t0, 0(t1)
     	
     	la s11, DANCINHA_1_IA
+    	
+    	j FIM
 ##########
 
-	j FIM
+	
     #la a4, ALTURA1            # a4 = endereço da altura
     #la a5, LARGURA1        # a5 = endereço da largura
 

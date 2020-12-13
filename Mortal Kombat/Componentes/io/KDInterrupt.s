@@ -67,6 +67,9 @@ L_DIREITA_IO:
 	la t0, AGACHADO_IO			# Carrega o endereço do ponteiro para agachado
 	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
 	
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
 	la s10, DANCINHA_1_IO			# Coloca em s10 o estado atual
 	la t0, CONTADORH1			# carrega o contador
 	lw t1, 0(t0)				# t1 = contador
@@ -83,13 +86,16 @@ L_DIREITA_IO:
 L_LIMITE_DIREITA_IO:
 	la t0, CAMINHAR_DIREITA_IO 		# se houve colisão
 	lw a0, 0(t0)				# a0 = sprite da caminhada
-	
+
 	j L_CAMINHAR_IO
 ########################################################################################################################
 L_ESQUERDA_IO:
 
 	la t0, AGACHADO_IO					
 	beq t0, s10, Fim_KDInterrupt		# se estiver agachado não faz nada
+	
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
 
 	la s10, DANCINHA_1_IO			# Coloca em s10 o estado atual
 	la t0, CONTADORH1			# carrega o contador
@@ -114,6 +120,8 @@ L_CIMA_IO:
 	
 	la t0, AGACHADO_IO				# se estiver agachado tem que levantar
 	beq t0, s10, L_LEVANTAR_IO
+	
+	j Fim_KDInterrupt
 	
 L_PULAR_IO:
 	# Subindo
@@ -142,7 +150,7 @@ L_LEVANTAR_IO:
 	la t0, LEVANTAR_IO
 	lw a0, 0(t0)					# carrega o sprite dele agaixado
 	li a2, 1
-	
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA				# 1 frame
 	
 	j L_TOTAL_RESET_EM_PE_IO
@@ -167,7 +175,7 @@ L_AGACHAR_IO:
 	
 	#lw a0, 0(s10)					# a0 = sprite dele agachado 
 	#jal ra, FRAME_DANCINHA				# pinta esse sprite na outra frame
-	
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA
 	
 	j L_TOTAL_RESET_AGACHADO_IO
@@ -180,6 +188,8 @@ L_CHUTE_1_IO:
    	
    	la t0, AGACHADO_IO				# se estiver abaixado dá outro tipo de chute
 	beq t0, s10, L_CHUTE_1_AGACHADO
+	
+	j Fim_KDInterrupt
 	
 L_CHUTE_1_EM_PE:
 	li a2, 4					# são 5 frames
@@ -207,6 +217,8 @@ L_SOCO_1_IO:
     	
     	la t0, AGACHADO_IO				# Se estiver abaixado dá outro tipo de soco
 	beq t0, s10, L_SOCO_1_AGACHADO_IO
+	
+	j Fim_KDInterrupt
 
 L_SOCO_1_EM_PE_IO:
 	li s6, 0
@@ -234,6 +246,8 @@ L_CHUTE_2_IO:
         
         la t0, AGACHADO_IO				# Ponteiro agachado				
 	beq t0, s10, L_CHUTE_2_AGACHADO_IO		# Se estiver abaixado dá outro tipo de soco
+	
+	j Fim_KDInterrupt
 
 L_CHUTE_2_EM_PE_IO:
 	li s6, 3
@@ -261,6 +275,8 @@ L_SOCO_2_IO:
     	
     	la t0, AGACHADO_IO				# Se estiver abaixado dá outro tipo de soco
 	beq t0, s10, L_SOCO_2_AGACHADO_IO
+	
+	j Fim_KDInterrupt
 
 L_SOCO_2_EM_PE_IO:
 	li s6, 1
@@ -291,6 +307,11 @@ L_BLOCK_IO:
 	
 	la t0, AGACHADO_IO				# se estiver abaixado ativa block no chao
 	beq t0, s10, L_BLOCK_AGACHADO_IO
+	
+	la t0, DANCINHA_1_IO
+	beq t0, s10, L_BLOCK_EM_PE_IO
+	
+	j Fim_KDInterrupt
 
 	# Se chegou até aqui ativa o block em pé
 	
@@ -301,6 +322,7 @@ L_BLOCK_EM_PE_IO:
 	lw a0, 0(t0)
 	li a2, 2					# são 2 frames
 	
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA
 	
 	j L_RESET_BLOCK_EM_PE_IO
@@ -311,6 +333,7 @@ L_BLOCK_AGACHADO_IO:
 	lw a0, 0(t0)				# a0 = sprite do bloco agachado
 	li a2, 2				# são 2 frames
 	
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA
 	
 	j L_RESET_BLOCK_AGACHADO_IO
@@ -322,6 +345,7 @@ L_DESATIVAR_BLOCK_EM_PE_IO:
 	lw a0, 0(t0)				# a0 = sprite dele com block
 	li a2, 1				# são 2 frames
 	
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA
 	
 	j L_TOTAL_RESET_EM_PE_IO
@@ -333,15 +357,20 @@ L_DESATIVAR_BLOCK_AGACHADO_IO:
 	lw a0, 0(t0)				# a0 = sprite dele com block
 	li a2, 1				# são 2 frames
 	
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA
 	
 	j L_TOTAL_RESET_AGACHADO_IO
 
 #######################################################################################################################
 L_CAMBALHOTA_PRA_FRENTE_IO:	
-	la t0, AGACHADO_IO			# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt
+	la t0, AGACHADO_IO			# Carrega o endereço do ponteiro para agachado
+	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
 
+	
 	# preparação
 	addi sp, sp, -8				# aloca 2 words
 	li t0, -7664				# desloca 28 pixels para cima e 32 pra frente
@@ -352,9 +381,12 @@ L_CAMBALHOTA_PRA_FRENTE_IO:
 	j L_CAMBALHOTA_IO
 	
 L_CAMBALHOTA_PRA_TRAS_IO: 
-	la t0, AGACHADO_IO			# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt
-
+	la t0, AGACHADO_IO			# Carrega o endereço do ponteiro para agachado
+	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
 	# Preparação
 	addi sp, sp, -8				# aloca 2 words
 	li t0, -7696				# desloca 28 pixels para cima e 32 pra trás
@@ -494,14 +526,19 @@ L_LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_IO:
 ###########################################################################################
 L_PODER_IO:
 
-	la t0, AGACHADO_IO			# se estiver agachado não faz nada
-	beq t0, s10, Fim_KDInterrupt
-
+	la t0, AGACHADO_IO			# Carrega o endereço do ponteiro para agachado
+	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
 	la t0, PODER_IO				# ponteiro do poder
 	lw a0, 0(t0)				# a0 = sprite inicial do poder
 	li a2, 5				# são 5 frames na ida
 
-	j L_GOLPE_IO
+	jal ra, IDENTIFICA_POSICAO
+	jal ra, FRAME_GOLPE_VGA
+	j L_TOTAL_RESET_EM_PE_IO
 #######################################################################################################################
 L_CAMINHAR_IO:
 
@@ -568,7 +605,7 @@ L_TOTAL_RESET_AGACHADO_IO:
 	la t0, AGACHADO_IO
 	lw a0, 0(t0)
 	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
-	jal ra, FRAME_DESLOCAMENTO_VGA
+	jal ra, FRAME_GOLPE_VGA
 	
 	la t0, AGACHADO_IO
 	lw a0, 0(t0)
