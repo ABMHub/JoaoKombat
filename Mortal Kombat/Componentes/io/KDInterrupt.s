@@ -8,6 +8,49 @@
 #			$$$$$$$$ s0, s1, s4, s3, s5 e s8 são alterados$$$$$$$$
 ######################################################################################################################## 
 
+.macro UPDATE_MATRIZ
+	addi sp, sp, -16		# Faz backups dos a's para nao zoar a KDInterrupt
+	sw a0, 0(sp)			
+	sw a1, 4(sp)
+	sw a2, 8(sp)
+	sw ra, 12(sp)
+	
+	jal ra, ZERA_MATRIZ		# Chama funcao de zerar matriz
+		
+	li a1, 3			# Altura do novo personagem na matriz eh temporariamente 3
+	
+	la t0, AGACHADO_IO		
+	beq s10, t0, AGACHADO_MACRO_P1	# Checa se player 1 esta agachado
+					
+	li a1, 5			# se nao estiver, sua altura eh 5
+AGACHADO_MACRO_P1:			# Se estiver, sua altura eh 3
+
+	li a0, 1			# informa o procedimento que eh o player 1
+	li a2, 2			# largura do personagem na matriz sera 2
+	jal ra, ESCREVE_POSICAO_MATRIZ	# escreve personagem 1
+	
+################ player 2 ##############
+	
+	li a1, 3			# Altura do novo personagem na matriz eh temporariamente 3
+	
+	la t0, AGACHADO_IA
+	beq s11, t0, AGACHADO_MACRO_P2	# Checa se player 2 esta agachado
+	
+	li a1, 5			# se nao estiver, sua altura eh 5	
+AGACHADO_MACRO_P2:			# Se estiver, sua altura eh 3
+
+	li a0, 2			# informa o procedimento que eh o player 2
+	li a2, 2
+	jal ra, ESCREVE_POSICAO_MATRIZ	# escreve personagem 2
+	
+	lw a0, 0(sp)
+	lw a1, 4(sp)
+	lw a2, 8(sp)
+	lw ra, 12(sp)
+	addi sp, sp, 16			# restora sp
+.end_macro
+
+.text
 KDInterrupt:  
 	addi sp, sp, -16			# aloca espaço na pilha
 	sw ra, 0(sp)				# salva ra na pilha
@@ -80,26 +123,7 @@ L_DIREITA_IO:
 	bne a0, zero, L_LIMITE_DIREITA_IO	# a0 != 0 => houve colisão
 	sw t1, 0(t0)
 					# guarda o novo valor do contador somente se não houve colisão
-	jal ra, ZERA_MATRIZ	
-	addi sp, sp, -12
-	sw a0, 0(sp)
-	sw a1, 4(sp)
-	sw a2, 8(sp)
-	
-	li a0, 1
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	li a0, 2
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	lw a0, 0(sp)
-	lw a1, 4(sp)
-	lw a2, 8(sp)
-	addi sp, sp, 12
+	UPDATE_MATRIZ
 	
 	# Se não houve colisão
 	li a3, 4				# deslocamento da caminhada
@@ -127,26 +151,7 @@ L_ESQUERDA_IO:
 	bne a0, zero L_LIMITE_ESQUERDA_IO		# se a0 = 1 => houve colisão
 	sw t1, 0(t0)				# salva o novo contador somente se não houve colisão
 	
-	jal ra, ZERA_MATRIZ	
-	addi sp, sp, -12
-	sw a0, 0(sp)
-	sw a1, 4(sp)
-	sw a2, 8(sp)
-	
-	li a0, 1
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	li a0, 2
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	lw a0, 0(sp)
-	lw a1, 4(sp)
-	lw a2, 8(sp)
-	addi sp, sp, 12
+	UPDATE_MATRIZ
 	#Se não houve colisão
 	li a3, -4					# deslocamento da caminhada
 
@@ -218,6 +223,8 @@ L_AGACHAR_IO:
 	#jal ra, FRAME_DANCINHA				# pinta esse sprite na outra frame
 	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA
+	
+	UPDATE_MATRIZ
 	
 	j L_TOTAL_RESET_AGACHADO_IO
 	
@@ -521,29 +528,7 @@ L_CONTROLE_SUBINDO_IO:
 	
 L_NAO_S_IO:	
 	sw t1, 0(t0)	
-	addi sp, sp, -16
-	sw a0, 0(sp)
-	sw a1, 4(sp)
-	sw a2, 8(sp)
-	sw ra, 12(sp)
-	
-	jal ra, ZERA_MATRIZ
-	
-	li a0, 1
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	li a0, 2
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	lw a0, 0(sp)
-	lw a1, 4(sp)
-	lw a2, 8(sp)
-	lw ra, 12(sp)
-	addi sp, sp, 16	
+	UPDATE_MATRIZ
 	ret
 
 L_CONTROLE_DESCENDO_IO:
@@ -557,29 +542,7 @@ L_CONTROLE_DESCENDO_IO:
 	
 L_NAO_D_IO:
 	sw t1, 0(t0)	
-	addi sp, sp, -16
-	sw a0, 0(sp)
-	sw a1, 4(sp)
-	sw a2, 8(sp)
-	sw ra, 12(sp)
-	
-	jal ra, ZERA_MATRIZ
-	
-	li a0, 1
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	li a0, 2
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	lw a0, 0(sp)
-	lw a1, 4(sp)
-	lw a2, 8(sp)
-	lw ra, 12(sp)
-	addi sp, sp, 16	
+	UPDATE_MATRIZ
 	ret	
 			
 L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IO:

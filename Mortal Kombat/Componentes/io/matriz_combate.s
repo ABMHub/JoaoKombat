@@ -41,7 +41,14 @@ POS_BEQ_CONTADOR:
 	
 	ret			# volta
 
-##
+########## ZERA MATRIZ #########################
+# Funcao de zerar a matriz de combate          #
+# Chame ela antes de atualizar a matriz, para  #
+# evitar problemas de duplicacao de personagem #
+# ##					       #
+# Nao precisa de parametros		       #
+################################################
+
 ZERA_MATRIZ:
 	addi sp, sp, -12
 	sw t0, 0(sp)
@@ -64,10 +71,10 @@ LOOP_ZERA_MATRIZ:
 	addi sp, sp, 12
 	
 	ret
-##
+	
 ####################################################################
 # Função de escrever na matriz de combate a posição do personagem  #
-####### Input ########                                             #
+####### Inputs ########                                            #
 # a0 = jogador (1 ou 2)                                            #
 # a1 = altura (em blocos da matriz)                                #
 # a2 = largura (em blocos da matriz)                               #
@@ -105,17 +112,16 @@ LOOP_CONTADOR:
 	
 	ret			# tchauzinho
 	
-####################################################################
-# Função de testar soco
-####### Input ########
-# a0 = jogador (1 ou 2)              ?
-# a1 = tipo de golpe
-# 	0 - soco		4 - soco agachado
-#	1 - jab			5 - alpiste
-#	2 - chute baixo		6 - chute agachado
-#	3 - chute alto		7 - rasteira
-####################################################################
-
+#############################################################
+# Função de testar soco					####
+####### Input ########					###
+# a0 = jogador (1 ou 2)              ?			##
+# a1 = tipo de golpe					###
+# 	0 - soco		4 - soco agachado	####
+#	1 - jab			5 - alpiste		###
+#	2 - chute baixo		6 - chute agachado	##
+#	3 - chute alto		7 - rasteira		###
+############################################################
 TESTE_GOLPE:
 	addi sp, sp, -20	# faz backup em ra e nos registradores a's
 	sw ra, 0(sp)

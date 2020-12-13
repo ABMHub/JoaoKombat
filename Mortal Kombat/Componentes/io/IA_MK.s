@@ -187,29 +187,7 @@ L_DIREITA_IA:
 	bne a0, zero, L_LIMITE_DIREITA_IA	# a0 != 0 => houve colisão
 	sw t1, 0(t0)				# guarda o novo valor do contador somente se não houve colisão
 	
-	addi sp, sp, -16
-	sw a0, 0(sp)
-	sw a1, 4(sp)
-	sw a2, 8(sp)
-	sw ra, 12(sp)
-	
-	jal ra, ZERA_MATRIZ
-	
-	li a0, 1
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	li a0, 2
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	lw a0, 0(sp)
-	lw a1, 4(sp)
-	lw a2, 8(sp)
-	lw ra, 12(sp)
-	addi sp, sp, 16	
+	UPDATE_MATRIZ
 	
 	# Se não houve colisão
 	li a3, 4				# deslocamento da caminhada
@@ -237,29 +215,7 @@ L_ESQUERDA_IA:
 	bne a0, zero L_LIMITE_ESQUERDA_IA	# se a0 = 1 => houve colisão
 	sw t1, 0(t0)				# salva o novo contador somente se não houve colisão
 	
-	addi sp, sp, -16
-	sw a0, 0(sp)
-	sw a1, 4(sp)
-	sw a2, 8(sp)
-	sw ra, 12(sp)
-	
-	jal ra, ZERA_MATRIZ
-	
-	li a0, 1
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	li a0, 2
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	lw a0, 0(sp)
-	lw a1, 4(sp)
-	lw a2, 8(sp)
-	lw ra, 12(sp)
-	addi sp, sp, 16	
+	UPDATE_MATRIZ
 	
 	#Se não houve colisão
 	li a3, -4				# deslocamento da caminhada
@@ -332,6 +288,8 @@ L_AGACHAR_IA:
 	#jal ra, FRAME_DANCINHA_IA				# pinta esse sprite na outra frame
 	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
 	jal ra, FRAME_GOLPE_VGA_IA
+	
+	UPDATE_MATRIZ
 	
 	j L_TOTAL_RESET_AGACHADO_IA
 	
@@ -636,29 +594,7 @@ L_CONTROLE_SUBINDO_IA:
 L_NAO_S_IA:	
 	sw t1, 0(t0)	
 	
-	addi sp, sp, -16
-	sw a0, 0(sp)
-	sw a1, 4(sp)
-	sw a2, 8(sp)
-	sw ra, 12(sp)
-	
-	jal ra, ZERA_MATRIZ
-	
-	li a0, 1
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	li a0, 2
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	lw a0, 0(sp)
-	lw a1, 4(sp)
-	lw a2, 8(sp)
-	lw ra, 12(sp)
-	addi sp, sp, 16	
+	UPDATE_MATRIZ
 	
 	ret
 
@@ -674,29 +610,7 @@ L_CONTROLE_DESCENDO_IA:
 L_NAO_D_IA:
 	sw t1, 0(t0)
 	
-	addi sp, sp, -16
-	sw a0, 0(sp)
-	sw a1, 4(sp)
-	sw a2, 8(sp)
-	sw ra, 12(sp)
-	
-	jal ra, ZERA_MATRIZ
-	
-	li a0, 1
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	li a0, 2
-	li a1, 5
-	li a2, 2
-	jal ra, ESCREVE_POSICAO_MATRIZ
-	
-	lw a0, 0(sp)
-	lw a1, 4(sp)
-	lw a2, 8(sp)
-	lw ra, 12(sp)
-	addi sp, sp, 16	
+	UPDATE_MATRIZ
 			
 	ret	
 			
