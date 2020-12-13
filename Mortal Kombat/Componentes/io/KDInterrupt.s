@@ -421,7 +421,6 @@ L_CAMBALHOTA_PRA_FRENTE_IO:
 	
 	la t0, BLOQUEANDO_AGACHADO_IO
 	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
-
 	
 	# preparação
 	addi sp, sp, -8				# aloca 2 words
@@ -607,6 +606,7 @@ L_CAMINHAR_IO:
 	jal ra, FRAME_DESLOCAMENTO_VGA
 
 L_TOTAL_RESET_EM_PE_IO:	
+	la s10, DANCINHA_1_IO
 	li a2, 1
 	la t0, DANCINHA_1_IO
 	lw a0, 0(t0)
