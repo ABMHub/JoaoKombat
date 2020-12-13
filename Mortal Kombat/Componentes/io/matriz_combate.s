@@ -430,7 +430,7 @@ L_TOMOU_ALPISTE_IO:
 	
 	li a2, 7						# quantidade de frames
 	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
-	jal ra, FRAME_GOLPE_VGA					# animação do golpe
+	jal ra, FRAME_DESLOCAMENTO_VGA					# animação do golpe
 
 	j FIM_EFETUA_COLISAO_IO
 	
