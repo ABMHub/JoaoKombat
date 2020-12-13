@@ -597,6 +597,13 @@ L_PODER_IO:
 
 	jal ra, IDENTIFICA_POSICAO
 	jal ra, FRAME_GOLPE_VGA
+	
+	jal ra, IDENTIFICA_POSICAO
+	la a0, ScorpionProjetil_1
+	li a2, 4
+	li a3, 0
+	jal ra, P_PODER
+		
 	j L_TOTAL_RESET_EM_PE_IO
 #######################################################################################################################
 L_CAMINHAR_IO:

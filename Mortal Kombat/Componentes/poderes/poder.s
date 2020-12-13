@@ -4,8 +4,13 @@
 # a3 = alcance máximo
 # a4 = altura em colunas
 #########################################################################################################################
-
-	addi sp, sp, -4
+PINTA_PODER:
+	addi sp, sp, -16
+	sw ra, 0(sp)
+	sw s0, 4(sp)
+	sw s1, 8(sp)
+	sw s2, 12(sp)
+	
 	jal ra, IDENTIFICA_POSICAO				# a1 = 1 se personagem 1 está olhando pra direita
 	
 	bgt a1, zero, P_PODER_PARA_DIREITA
@@ -54,7 +59,7 @@ P_END_FRAME1:
 	li t0, 0xFF100000
 	add t0, t0, t1			# t0 = endereço inicial a ser pintado
 	
-P_L_PREPARAR:	
+P_PREPARAR:	
 	la s0, P_END_PODER
 	sw t0, 0(s0)	
 	lw s1, 0(s0)	

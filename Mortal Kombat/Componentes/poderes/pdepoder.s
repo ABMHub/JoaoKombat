@@ -1,66 +1,23 @@
-#########################################################################################################################
-# a0 = sprite do poder
-# a2 = quantidade de frames 
-# a3 = alcance máximo
-# a4 = altura em colunas
-#########################################################################################################################
+P_PODER:
+	# backup de registradores
+	addi sp, sp, -16
+	sw ra, 0(sp)
+	sw s0, 4(sp)
+	sw s1, 8(sp)
+	sw s2, 12(sp)
 
-	addi sp, sp, -4
-	jal ra, IDENTIFICA_POSICAO				# a1 = 1 se personagem 1 está olhando pra direita
+	# preparação
+	la a4, PERSONAGEM1_INICIO
+	mv s0, a4			# s0 = endereço da posição inicial do personagem
+	lw s1, 0(s0)			# s1 = posição inicial do personagem
 	
-	bgt a1, zero, P_PODER_PARA_DIREITA
-	
-P_PODER_PARA_ESQUERDA:
-	
-P_PODER_PARA_DIREITA:
-	la t0, CONTADORH2
-	lw t0, 0(t0)
-	
-	la t1, CONTADORH1
-	lw t1, 0(t1)
-	
-	sub t0, t0, t1						# t0 = distância entre os personagens
-
-	mv t1, a3						# t1 = alcance máximo
-	
-	ble t0, t1, P_DISPARAR
-	mv t0, t1						# 
-	
-P_DISPARAR:	
-	# t0 = alcance do projétil
-	li t1, 320
-	mul t1, t1, a4
-	li t0, 17
-	mul t1, t1, t0						
-	# t1 = canto inferior esquerdo da coluna do poder
-	
-	la t0, CONTADORH1
-	lw t0, 0(t0)
-	li t2, 16
-	mul t0, t0, t2
-	add t1, t1, t0
-	
-	li t0, 0xFF200604
-	lw t0, 0(t0)			# Descobre em que frame estamos
+	li t1, -19200
+	add s1, s1, t1
 	
 	
-	bne t0, zero, P_FRAME1		# se t2!=0 então estamos na frame 1, do contrário estamos na frame 0
+	la s0, P_PODER_INICIO
 	
-P_END_FRAME0:
-	li t0, 0xFF000000
-	add t0, t0, t1			# t0 = endereço inicial a ser pintado
-	j P_PREPARAR
-P_END_FRAME1:
-	li t0, 0xFF100000
-	add t0, t0, t1			# t0 = endereço inicial a ser pintado
-	
-P_L_PREPARAR:	
-	la s0, P_END_PODER
-	sw t0, 0(s0)	
-	lw s1, 0(s0)	
-	
-				
-						
+	sw s1, 0(s0)
 P_DESLOCAMENTO:		
 	# Decisão: frame 0 ou frame 1?
 	
@@ -87,7 +44,7 @@ P_FRAME0: # é a frame 0
 	la a5, P_ALTURA_FRAME_0		# a5 = endereço da altura
 	#li a1, -1 			# da esquerda para direita
 	
-	jal ra, LIMPAR			# apaga na frame 1
+	#jal ra, LIMPAR			# apaga na frame 1
 	#jal ra, IDENTIFICA_POSICAO########################################
 	#ebreak
 	#pintar na frame 1
@@ -138,7 +95,7 @@ P_FRAME1: # É a frame 1
 	la a5, P_ALTURA_FRAME_1		# a5 = endereço da altura
 	#li a1, -1 			# da esquerda para direita
 	
-	jal ra, LIMPAR			# apaga na frame 1
+	#jal ra, LIMPAR			# apaga na frame 1
 	#jal ra, IDENTIFICA_POSICAO########################################
 	#PINTAR NA FRAME 0
 	
@@ -169,6 +126,42 @@ P_FRAME1: # É a frame 1
 	j P_DESLOCAMENTO			# ainda faltam frames a serem pintados
 	
 P_FIM_DESLOCAMENTO:
+
+	li t0, 0xFF200604
+	lw t0, 0(t0)			# Descobre em que frame estamos
+	
+	bne t0, zero, AP_FRAME1		# se t2!=0 então estamos na frame 1, do contrário estamos na frame 0
+
+	li a7, 0xFF000000		# a6 = inicio da frame 1
+	mv a6, s1			# a6 = posição inicial do personagem
+	lw a6, 0(s0)
+	la a4, P_LARGURA_FRAME_1		# a4 = endereço da largura
+	la a5, P_ALTURA_FRAME_1		# a5 = endereço da altura
+	#li a1, -1 			# da esquerda para direita
+	
+	jal ra, LIMPAR			# apaga na frame 1
+	
+	j AP_FIM
+
+AP_FRAME1:
+	li a7, 0xFF100000		# a6 = inicio da frame 1
+	mv a6, s1			# a6 = posição inicial do personagem
+	lw a6, 0(s0)
+	la a4, P_LARGURA_FRAME_0		# a4 = endereço da largura
+	la a5, P_ALTURA_FRAME_0		# a5 = endereço da altura
+	#li a1, -1 			# da esquerda para direita
+	
+	jal ra, LIMPAR			# apaga na frame 1
+	
+AP_FIM:
+	mv t0, a0
+	mv t1, a7
+	li a7, 32
+	li a0 100
+	ecall
+	mv a0, t0
+	mv a7, t1
+
 	lw ra, 0(sp)
 	lw s0, 4(sp)
 	lw s1, 8(sp)

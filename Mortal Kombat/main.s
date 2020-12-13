@@ -131,6 +131,7 @@ LOOOP:
 .include "componentes/bitmap/personagem.s"
 .include "componentes/io/KDInterrupt.s"
 .include "componentes/io/identifica.s"
+.include "componentes/poderes/pdepoder.s"
 .include "componentes/io/identificaIA.s"
 .include "componentes/io/matriz_combate.s"
 .include "componentes/io/IA_MK.s"
