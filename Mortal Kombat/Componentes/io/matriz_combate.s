@@ -93,12 +93,12 @@ LOOP_CONTADOR:
 ####################################################################
 
 TESTE_GOLPE:
-	addi sp, sp, -16	# faz backup em ra e nos registradores a's
+	addi sp, sp, -20	# faz backup em ra e nos registradores a's
 	sw ra, 0(sp)
 	sw a0, 4(sp)
 	sw a1, 8(sp)
 	sw a2, 12(sp)
-	
+	sw s7, 16(sp)
 	
 	mv a0, s8
 	mv t3, a1		# temp: t3 é tipo de golpe
@@ -452,9 +452,10 @@ L_RECUADA_LEVE_IA:
 	lw a0, 0(t0)
 	
 	li a2, 2						# quantidade de frames
-	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
-	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
+	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem 
+	jal ra, FRAME_GOLPE_VGA_IA				# animação do golpe
 	
+		
 	j FIM_EFETUA_COLISAO_IA
 	
 L_RECUADA_PESADA_IA:
@@ -502,12 +503,15 @@ FIM_EFETUA_COLISAO_IO:
 	la t0, DANCINHA_1_IO
 	lw a0, 0(t0)
 	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
-	jal ra, FRAME_DESLOCAMENTO_VGA
+	jal ra, FRAME_GOLPE_VGA
+	
 	
 	la t0, DANCINHA_2_IO
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA
 	
+	
+
 	li a0, 60  
 	li a1, 500
 	li a2, 0
@@ -522,7 +526,7 @@ FIM_EFETUA_COLISAO_IA:
 	la t0, DANCINHA_1_IA
 	lw a0, 0(t0)
 	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
-	jal ra, FRAME_DESLOCAMENTO_VGA_IA
+	jal ra, FRAME_GOLPE_VGA_IA
 	
 	la t0, DANCINHA_2_IA
 	lw a0, 0(t0)
@@ -543,7 +547,8 @@ FIM_TESTE: # Caso não haja hit ou depois da lógica de hit, encerra o programa
 	lw a0, 4(sp)
 	lw a1, 8(sp)
 	lw a2, 12(sp)
-	addi sp, sp, 16		# restora sp
+	lw s7, 16(sp)
+	addi sp, sp, 20		# restora sp
 	
 	ret			# tchauzinho
 	

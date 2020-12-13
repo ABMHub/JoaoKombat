@@ -9,10 +9,10 @@
 ######################################################################################################################## 
 
 KDInterrupt:  
-	addi sp, sp, -8				# aloca espaço na pilha
+	addi sp, sp, -12			# aloca espaço na pilha
 	sw ra, 0(sp)				# salva ra na pilha
 	sw s8, 4(sp)
-	
+	sw s7, 8(sp)
 	li s8,1					# define que é o personagem 1 quem está agindo
 	
 	csrrci zero,0,1     			# clear o bit de habilitação de interrupção global em ustatus (reg 0)
@@ -202,7 +202,7 @@ L_SOCO_1_IO:
 	beq t0, s10, L_SOCO_1_AGACHADO_IO
 
 L_SOCO_1_EM_PE_IO:
-	li a2, 5					# são 2 frames
+	li a2, 4					# são 2 frames##############
    	la t0, SOCO_1_EM_PE_IO				# ponteiro do soco 1 em pé
    	lw a0, 0(t0)
    	
@@ -490,7 +490,6 @@ L_TOTAL_RESET_EM_PE_IO:
 	li a2, 1
 	la t0, DANCINHA_1_IO
 	lw a0, 0(t0)
-	ebreak
 	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
 	jal ra, FRAME_DESLOCAMENTO_VGA
 	
@@ -501,12 +500,24 @@ L_TOTAL_RESET_EM_PE_IO:
 	
 L_GOLPE_IO:
 	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
-	jal ra, FRAME_GOLPE_VGA			# animação do golpe
+	jal ra, FRAME_GOLPE_VGA				# animação do golpe
 	
-	ebreak
+	mv  s7, a0
+	li  a2, 1
+	jal ra, FRAME_GOLPE_VGA				# animação do golpe
+	
+	mv  a0, s7
+	jal ra, FRAME_DANCINHA
+	
+	li t0,0xFF200604    # Escolhe o Frame 0 ou 1
+   	lw t1, 0(t0)            # inicio Frame 0
+	xori t1, t1, 0x001
+	sw t1, 0(t0)
+	
 	li a1, 0					#???????????????????????????????????????
     	jal ra, TESTE_GOLPE				#???????????????????????????????????????
 	
+	li a3, 0
 	la t0, DANCINHA_1_IO
 	beq t0, s10, L_TOTAL_RESET_EM_PE_IO	# verifica se está em pé
 	
@@ -548,7 +559,8 @@ Fim_KDInterrupt:
 	
 	lw ra, 0(sp)				# recupera ra
 	lw s8, 4(sp)
-	addi sp, sp, 8				# libera espaço na pilha
+	lw s7, 8(sp)
+	addi sp, sp, 12				# libera espaço na pilha
 	csrrsi zero,0,0x10 			# seta o bit de habilitação de interrupção em ustatus 
 	uret					# volta ao programa principal
 	
