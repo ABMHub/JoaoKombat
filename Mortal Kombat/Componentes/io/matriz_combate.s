@@ -224,14 +224,14 @@ TESTE_JAB:
 ######## CHUTE BAIXO #################
 #  PLAYER			     #
 #   # # 			     #
-#   # # 			     #
 #   # # * *			     #
+#   # # 			     #
 #   # # 			     #
 #   # # 			     #
 # A hitbox do golpe é indicada por * #
 ######################################
 TESTE_CHUTE_BAIXO:
-	addi t0, t0, -40
+	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
@@ -393,7 +393,7 @@ COLISAO_IO:
 	beq a1, t0, L_LEVOU_RASTEIRA_IO
 	
 COLISAO_IA:	
-		# Socos
+	# Socos
 	li t0, 0
 	beq a1, t0, L_RECUADA_LEVE_IA
 	li t0, 1
@@ -421,6 +421,9 @@ COLISAO_IA:
 #							IO
 #######################################################################################################################
 L_RECUADA_LEVE_IO:	
+	la t0, BLOQUEANDO_EM_PE_IO
+	beq s11, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
+	
 	la t0, RECUADA_LEVE_IO
 	lw a0, 0(t0)
 	
@@ -431,6 +434,9 @@ L_RECUADA_LEVE_IO:
 	j FIM_EFETUA_COLISAO_IO
 	
 L_RECUADA_PESADA_IO:
+	la t0, BLOQUEANDO_EM_PE_IO
+	beq s10, t0, FIM_BLOQUEANDO_IO 
+
 	la t0, RECUADA_PESADA_IO
 	lw a0, 0(t0)
 	
@@ -440,6 +446,9 @@ L_RECUADA_PESADA_IO:
 	
 	j FIM_EFETUA_COLISAO_IO
 L_RECUADA_LEVE_AGACHADO_IO:
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq s11, t0, FIM_BLOQUEANDO_IO
+
 	la t0, RECUADA_LEVE_AGACHADO_IO
 	lw a0, 0(t0)
 	
@@ -448,17 +457,29 @@ L_RECUADA_LEVE_AGACHADO_IO:
 	jal ra, FRAME_GOLPE_VGA					# animação do golpe
 	
 	j FIM_EFETUA_COLISAO_IO
-L_TOMOU_ALPISTE_IO:	
+L_TOMOU_ALPISTE_IO:
+	la t0, BLOQUEANDO_EM_PE_IO
+	beq s10, t0, FIM_BLOQUEANDO_IO	
+	
 	la t0, TOMOU_ALPISTE_IO
 	lw a0, 0(t0)
 	
+	
 	li a2, 7						# quantidade de frames
 	jal ra, IDENTIFICA_POSICAO				# a1 é a direção do personagem
-	jal ra, FRAME_DESLOCAMENTO_VGA					# animação do golpe
+	jal ra, FRAME_DESLOCAMENTO_VGA				# animação do golpe
+
+	la s11, DANCINHA_1_IA
 
 	j FIM_EFETUA_COLISAO_IO
 	
 L_LEVOU_RASTEIRA_IO:
+	la t0, AGACHADO_IO
+	beq s11, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
+	
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq s11, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
+
 	la t0, LEVOU_RASTEIRA_IO
 	lw a0, 0(t0)
 	
@@ -472,6 +493,9 @@ L_LEVOU_RASTEIRA_IO:
 #							IA
 #######################################################################################################################
 L_RECUADA_LEVE_IA:	
+	la t0, BLOQUEANDO_EM_PE_IA
+	beq s11, t0, FIM_BLOQUEANDO_IA
+
 	la t0, RECUADA_LEVE_IA
 	lw a0, 0(t0)
 	
@@ -483,6 +507,9 @@ L_RECUADA_LEVE_IA:
 	j FIM_EFETUA_COLISAO_IA
 	
 L_RECUADA_PESADA_IA:
+	la t0, BLOQUEANDO_EM_PE_IA
+	beq s11, t0, FIM_BLOQUEANDO_IA
+
 	la t0, RECUADA_PESADA_IA
 	lw a0, 0(t0)
 	
@@ -492,6 +519,9 @@ L_RECUADA_PESADA_IA:
 	
 	j FIM_EFETUA_COLISAO_IA
 L_RECUADA_LEVE_AGACHADO_IA:
+	la t0, BLOQUEANDO_AGACHADO_IA
+	beq s11, t0, FIM_BLOQUEANDO_IA
+	
 	la t0, RECUADA_LEVE_AGACHADO_IA
 	lw a0, 0(t0)
 	
@@ -501,16 +531,27 @@ L_RECUADA_LEVE_AGACHADO_IA:
 	
 	j FIM_EFETUA_COLISAO_IA
 L_TOMOU_ALPISTE_IA:	
+	la t0, BLOQUEANDO_EM_PE_IA
+	beq s11, t0, FIM_BLOQUEANDO_IA
+
 	la t0, TOMOU_ALPISTE_IA
 	lw a0, 0(t0)
 	
 	li a2, 7						# quantidade de frames
 	jal ra, IDENTIFICA_POSICAO_IA				# a1 é a direção do personagem
-	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
+	jal ra, FRAME_GOLPE_VGA_IA				# animação do golpe
+	
+	la s11, DANCINHA_1_IA					# Se tomou alpiste deve ficar em pé
 
 	j FIM_EFETUA_COLISAO_IA
 	
 L_LEVOU_RASTEIRA_IA:
+	la t0, AGACHADO_IA
+	beq s11, t0, FIM_BLOQUEANDO_IA			# se a IA estiver agachada na verdade ela não tomou
+	
+	la t0, BLOQUEANDO_AGACHADO_IA
+	beq s11, t0, FIM_BLOQUEANDO_IA			# se a IA estiver agachada na verdade ela não tomou
+	
 	la t0, LEVOU_RASTEIRA_IA
 	lw a0, 0(t0)
 	
@@ -519,9 +560,49 @@ L_LEVOU_RASTEIRA_IA:
 	jal ra, FRAME_GOLPE_VGA_IA					# animação do golpe
 
 	j FIM_EFETUA_COLISAO_IA
+	
+
 #######################################################################################################################
-
-
+FIM_BLOQUEANDO_IO:
+	addi sp, sp -4					# aloca uma word na pilha
+	lw a0, 0(t0)					# a0 = sprite do estado atual
+	sw a0, 0(sp)					# salva o sprite atual na pilha
+	jal ra, IDENTIFICA_POSICAO			# a1 é a direção do personagem
+	li a2, 1					# 1 frame
+	jal ra, FRAME_GOLPE_VGA				# pinta o personagem no estado atual em uma das frames
+	lw a0, 0(sp)					# recupera o sprite
+	jal ra, FRAME_DANCINHA				# pinta o personagem no estado atual na outra frame
+	addi sp, sp, 4					# recupera a pilha
+	
+	li a0, 60  
+	li a1, 500
+	li a2, 120
+	li a3, 50
+	li a7, 31
+	ecall
+	
+	j FIM_TESTE
+	
+FIM_BLOQUEANDO_IA:
+	addi sp, sp -4					# aloca uma word na pilha
+	lw a0, 0(t0)					# a0 = sprite do estado atual
+	sw a0, 0(sp)					# salva o sprite atual na pilha
+	jal ra, IDENTIFICA_POSICAO_IA			# a1 é a direção do personagem
+	li a2, 1					# 1 frame
+	jal ra, FRAME_GOLPE_VGA_IA			# pinta o personagem no estado atual em uma das frames
+	lw a0, 0(sp)					# recupera o sprite
+	jal ra, FRAME_DANCINHA_IA			# pinta o personagem no estado atual na outra frame
+	addi sp, sp, 4					# recupera a pilha
+	
+	li a0, 60  
+	li a1, 500
+	li a2, 120
+	li a3, 50
+	li a7, 31
+	ecall
+	
+	j FIM_TESTE
+	
 FIM_EFETUA_COLISAO_IO:
 	li a2, 1
 	la t0, DANCINHA_1_IO
