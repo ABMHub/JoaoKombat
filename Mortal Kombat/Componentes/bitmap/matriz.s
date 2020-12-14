@@ -173,6 +173,14 @@ SZ:
     	la t1, RECUADA_LEVE_AGACHADO_IO
     	sw t0, 0(t1)
     	
+    	la t0, SubZeroFinish_1
+    	la t1, TONTO_1_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, SubZeroFinish_3
+    	la t1, TONTO_2_IO
+    	sw t0, 0(t1)
+    	
     	la s10, DANCINHA_1_IO
 
 ############################################ IA	
@@ -294,6 +302,14 @@ SZ:
     	
     	la t0, ScorpionTomouAgachado_1
     	la t1, RECUADA_LEVE_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionFinish_1
+    	la t1, TONTO_1_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionFinish_3
+    	la t1, TONTO_2_IA
     	sw t0, 0(t1)
     	
     	la s11, DANCINHA_1_IA

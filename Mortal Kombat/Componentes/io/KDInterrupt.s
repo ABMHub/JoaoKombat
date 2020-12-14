@@ -68,6 +68,9 @@ KDInterrupt:
         lw t2,4(t1)             		# le a tecla
         sw t2,12(t1)            		# escreve no display
         
+        la t0, TONTO_1_IO
+	beq t0, s10, Fim_KDInterrupt
+        
 SWITCH_CASE_TECLA: 			
 	li t3, 'd'
 	beq t3, t2, L_DIREITA_IO		# verifica se a tecla pressionada é 'd'
@@ -117,6 +120,9 @@ L_DIREITA_IO:
 	la t0, BLOQUEANDO_AGACHADO_IO
 	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
 	
+	la t0, TONTO_1_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver tonto não faz nada
+	
 	la s10, DANCINHA_1_IO			# Coloca em s10 o estado atual
 	la t0, CONTADORH1			# carrega o contador
 	lw t1, 0(t0)				# t1 = contador
@@ -145,6 +151,9 @@ L_ESQUERDA_IO:
 	
 	la t0, BLOQUEANDO_AGACHADO_IO
 	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
+	la t0, TONTO_1_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver tonto não faz nada
 
 	la s10, DANCINHA_1_IO			# Coloca em s10 o estado atual
 	la t0, CONTADORH1			# carrega o contador
@@ -422,6 +431,9 @@ L_CAMBALHOTA_PRA_FRENTE_IO:
 	la t0, BLOQUEANDO_AGACHADO_IO
 	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
 	
+	la t0, TONTO_1_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver tonto não faz nada
+	
 	# preparação
 	addi sp, sp, -8				# aloca 2 words
 	li t0, -7664				# desloca 28 pixels para cima e 32 pra frente
@@ -437,6 +449,9 @@ L_CAMBALHOTA_PRA_TRAS_IO:
 	
 	la t0, BLOQUEANDO_AGACHADO_IO
 	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
+	la t0, TONTO_1_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver tonto não faz nada
 	
 	# Preparação
 	addi sp, sp, -8				# aloca 2 words
@@ -590,6 +605,9 @@ L_PODER_IO:
 	
 	la t0, BLOQUEANDO_AGACHADO_IO
 	beq t0, s10, Fim_KDInterrupt		# Se estiver agachado não faz nada
+	
+	la t0, TONTO_1_IO
+	beq t0, s10, Fim_KDInterrupt		# Se estiver tonto não faz nada
 	
 	la t0, PODER_IO				# ponteiro do poder
 	lw a0, 0(t0)				# a0 = sprite inicial do poder

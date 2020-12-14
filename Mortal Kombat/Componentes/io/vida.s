@@ -7,12 +7,12 @@ INICIALIZA_VIDA:
 	sw a5, 16(sp)
 	sw a6, 20(sp)
 
-	li t0, 100
-	
-	la t1, HP_IO
-	sw t0, 0(t1)
+	li t0, 20
 	
 	la t1, HP_IA
+	sw t0, 0(t1)
+	
+	la t1, HP_IO
 	sw t0, 0(t1)
 
 	la a0, BarraDeVida
@@ -46,18 +46,19 @@ INICIALIZA_VIDA:
 	ret
 
 APLICA_DANO:
-	addi sp, sp, -4			# empilha o s1
+	addi sp, sp, -8			# empilha o s1
 	sw s1, 0(sp)
+	sw ra, 4(sp)
 	
 	li t0, 1			#
 	beq t0, s8, DANO_P2		# teste para ver quem *deu* dano
 DANO_P1:				
-	la t0, HP_IA			# se for p1, carrega hp de p2
+	la t0, HP_IO			# se for p1, carrega hp de p2
 	li t3, 0xFF001E80		# posicao da barra
 	li s1, -1			# alguns valores serão invertidos em relacao ao p2
 	j POS_DANO
 DANO_P2:
-	la t0, HP_IO			# se for p2, carrega hp de p1
+	la t0, HP_IA			# se for p2, carrega hp de p1
 	li t3, 0xFF001ec0
 	addi t3, t3, -1			# posicao da barra
 	li s1, 1			# alguns valores serão invertidos em relacao ao p1			# alguns valores podem inv
@@ -113,7 +114,54 @@ LOOP_VERMELHO:
 	bne t2, s0, LOOP_VERMELHO	# se o contador externo nao acabou, volta pro loop interno
 
 FIM_VERMELHO:	
+	#ebreak
+	li t0, 1
+	beq t0, s8, MORREU_P2
+	
+MORREU_P1:
+	la t0, HP_IO
+	j POS_MORREU
+MORREU_P2:
+	la t0, HP_IA
+POS_MORREU:
+	lw t1, 0(t0)			# carrega hp do jogador
+	beq t1, zero, MORREU
+	j FIM_VERMELHO_DE_VERDADE
+
+MORREU:
+	#ebreak
+	li t2, 1
+	beq t2, s8, TONTO_P2
+	
+TONTO_P1:
+	la s10, TONTO_1_IO
+	lw a0, 0(s10)
+	li a2, 1
+	jal ra, IDENTIFICA_POSICAO
+	jal ra, FRAME_GOLPE_VGA
+	
+	la t0, TONTO_2_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	
+	j FIM_VERMELHO_DE_VERDADE
+	
+TONTO_P2:
+	la s11, TONTO_1_IA
+	lw a0, 0(s11)
+	li a2, 1
+	jal ra, IDENTIFICA_POSICAO_IA
+	jal ra, FRAME_GOLPE_VGA_IA
+	
+	la t0, TONTO_2_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA
+	
+FIM_VERMELHO_DE_VERDADE:
 	lw s1, 0(sp)
-	addi sp, sp, 4
+	lw ra, 4(sp)
+	addi sp, sp, 8
 	
 	ret
+
+
