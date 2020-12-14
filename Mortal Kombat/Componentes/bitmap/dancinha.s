@@ -1,7 +1,7 @@
 FRAME_DANCINHA:	
-
-	addi sp, sp, -4
+	addi sp, sp, -8
 	sw ra, 0(sp)
+	sw s0, 4(sp)
 
 	la s0, PERSONAGEM1_INICIO
 	lw s1, 0(s0)			# s1 = personagem 1 INICIO
@@ -56,5 +56,6 @@ FRAME_DANCINHA_1:
 FIM_DANCINHA: 
 
 	lw ra, 0(sp)
-	addi sp, sp, 4
+	lw s0, 4(sp)
+	addi sp, sp, 8
 	ret

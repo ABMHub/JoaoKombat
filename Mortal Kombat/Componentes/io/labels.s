@@ -36,7 +36,7 @@
 	CONTADORV2:			.word 0xC
 	CONTADORH2:			.word 0x11
 	HP_IA:				.word 100
-	HP_IO:				.word 100		
+	HP_IO:				.word 100
 	MATRIZ_COMBATE:			.space 300
 	#########################################
 	FILA_PERSONAGEM_1:		.space 120
