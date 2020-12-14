@@ -197,10 +197,6 @@ SZ:
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroSemCabeca_6
-    	la t1, ULTIMO_MORREU_IO
-    	sw t0, 0(t1)
-    	
     	la t0, SubZeroCabeca_1
     	la t1, CABECA_IO
     	sw t0, 0(t1)
@@ -348,10 +344,6 @@ SZ:
     	la t1, FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, ScorpionSemCabeca_6
-    	la t1, ULTIMO_FATALITY_IA
-    	sw t0, 0(t1)
-    	
     	la t0, ScorpionRound_1
     	la t1, MORREU_IA
     	sw t0, 0(t1)
@@ -361,7 +353,7 @@ SZ:
     	sw t0, 0(t1)
     	
     	la t0, ScorpionSemCabeca_6
-    	la t1, ULTIMO_MORREU_IA
+    	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
     	la t0, ScorpionCabeca_1

@@ -405,7 +405,7 @@ HIT: 	# Quando houver hit, pulamos para cá. Por enquanto toca apenas um som
 COLISAO_IO:	
 #ebreak
 	la t0, TONTO_1_IO
-	beq s11, t0, ULTIMO_GOLPE_IO				# O COMBATE DEVE ACABAR 
+	beq s10, t0, ULTIMO_GOLPE_IO				# O COMBATE DEVE ACABAR 
 	
 	# Socos
 	li t0, 0
@@ -432,7 +432,7 @@ COLISAO_IO:
 	beq a1, t0, L_LEVOU_RASTEIRA_IO
 	
 COLISAO_IA:
-ebreak
+#ebreak
 	la t0, TONTO_1_IA
 	beq s11, t0, ULTIMO_GOLPE_IA				# O COMBATE DEVE ACABAR 
 		
@@ -465,6 +465,8 @@ ebreak
 #######################################################################################################################
 ULTIMO_GOLPE_IO:
 	# se a1 == 5 então tomou alpiste
+	
+	ebreak
 	li t1, 5
 	beq t1, a1, L_FATALITY_IO
 	
@@ -495,18 +497,13 @@ L_FATALITY_IO:
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA
 	
-	
-	la t0, PERSONAGEM2
-	lw a4, 0(t0)
-	jal ra, P_PODER
-	
 VITORIA_IA:
 	la t0, VITORIA_1_IA
 	lw a0, 0(t0)
 	
 	li a2, 2
-	jal ra, IDENTIFICA_POSICAO
-	jal ra, FRAME_GOLPE_VGA
+	jal ra, IDENTIFICA_POSICAO_IA
+	jal ra, FRAME_GOLPE_VGA_IA
 
 	la t0, VITORIA_2_IA
 	lw a0, 0(t0)
