@@ -110,16 +110,18 @@ LOOP_CONTADOR:
 	
 	ret			# tchauzinho
 	
-#############################################################
-# Função de testar soco					####
-####### Input ########					###
-# a0 = jogador (1 ou 2)              ?			##
-# a1 = tipo de golpe					###
-# 	0 - soco		4 - soco agachado	####
-#	1 - jab			5 - alpiste		###
-#	2 - chute baixo		6 - chute agachado	##
-#	3 - chute alto		7 - rasteira		###
 ############################################################
+# Função de testar soco					###
+####### Input ########					##
+# a0 = jogador (1 ou 2)              ?			###
+# a1 = tipo de golpe					####
+# 	0 - soco		4 - soco agachado	###
+#	1 - jab			5 - alpiste		##
+#	2 - chute baixo		6 - chute agachado	###
+#	3 - chute alto		7 - rasteira		####
+#							###
+#	8 - poder					##
+#########################################################
 TESTE_GOLPE:
 	addi sp, sp, -24	# faz backup em ra e nos registradores a's
 	sw ra, 0(sp)
@@ -191,6 +193,9 @@ TESTE_CASE:
 	
 	li t1, 7
 	beq t1, a1, TESTE_RASTEIRA
+	
+	li t1, 8
+	beq t1, a1, TESTE_PODER
 	
 ######## SOCO NORMAL # 5 hp ##########
 #  PLAYER  			     #
@@ -394,6 +399,37 @@ TESTE_RASTEIRA:
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
+######## Poder # 15 hp ###############
+#  PLAYER			     #
+#   # # 			     #
+#   # # * * * *			     #
+#   # # 			     #
+#   # # 			     #
+#   # # 			     #
+# A hitbox do golpe é indicada por * #
+######################################
+TESTE_PODER:
+	li s0, 15
+	
+	add t0, t0, t2
+	lb t1, 0(t0)
+	
+	add t0, t0, t2
+	lb t3, 0(t0)
+	
+	add t0, t0, t2
+	lb t4, 0(t0)
+	
+	add t0, t0, t2
+	lb t5, 0(t0)
+	
+	bnez t1, HIT
+	bnez t3, HIT
+	bnez t4, HIT
+	bnez t5, HIT
+	bnez t6, LABEL_DO_JOAO
+	j FIM_TESTE
+	
 HIT: 	# Quando houver hit, pulamos para cá. Por enquanto toca apenas um som
 	# a1 = golpe sofrido
 	# a0 = 1 se é IO, a0 = 2 se é IA
@@ -413,6 +449,8 @@ COLISAO_IO:
 	li t0, 2
 	beq a1, t0, L_RECUADA_PESADA_IO
 	li t0, 3
+	beq a1, t0, L_RECUADA_PESADA_IO
+	li t0, 8
 	beq a1, t0, L_RECUADA_PESADA_IO
 	
 	# Agachados
@@ -439,6 +477,8 @@ COLISAO_IA:
 	beq a1, t0, L_RECUADA_PESADA_IA
 	li t0, 3
 	beq a1, t0, L_RECUADA_PESADA_IA
+	li t0, 8
+	beq a1, t0, L_RECUADA_PESADA_IO
 	
 	# Agachados
 	li t0, 4 						# soco

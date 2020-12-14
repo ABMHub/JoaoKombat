@@ -612,6 +612,7 @@ L_PODER_IO:
 	la t0, PODER_IO				# ponteiro do poder
 	lw a0, 0(t0)				# a0 = sprite inicial do poder
 	li a2, 5				# são 5 frames na ida
+	li s6, 8
 
 	jal ra, IDENTIFICA_POSICAO
 	jal ra, FRAME_GOLPE_VGA
