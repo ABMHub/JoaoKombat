@@ -181,6 +181,38 @@ SZ:
     	la t1, TONTO_2_IO
     	sw t0, 0(t1)
     	
+    	la t0, SubZeroSemCabeca_1
+    	la t1, FATALITY_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, SubZeroSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, SubZeroRound_1
+    	la t1, MORREU_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, SubZeroRound_6
+    	la t1, ULTIMO_MORREU_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, SubZeroSemCabeca_6
+    	la t1, ULTIMO_MORREU_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, SubZeroCabeca_1
+    	la t1, CABECA_IO
+    	sw t0, 0(t1)
+ 
+    	la t0, SubZeroVitoria_1
+    	la t1, VITORIA_1_IO 
+    	sw t0, 0(t1)   	
+    	
+    	la t0, SubZeroVitoria_2
+    	la t1, VITORIA_2_IO 
+    	sw t0, 0(t1)  
+    	
     	la s10, DANCINHA_1_IO
 
 ############################################ IA	
@@ -311,6 +343,38 @@ SZ:
     	la t0, ScorpionFinish_3
     	la t1, TONTO_2_IA
     	sw t0, 0(t1)
+    	
+    	la t0, ScorpionSemCabeca_1
+    	la t1, FATALITY_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionRound_1
+    	la t1, MORREU_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionRound_6
+    	la t1, ULTIMO_MORREU_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionSemCabeca_6
+    	la t1, ULTIMO_MORREU_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionCabeca_1
+    	la t1, CABECA_IA
+    	sw t0, 0(t1)
+ 
+    	#la t0, ScorpionVitoria_1
+    	#la t1, VITORIA_1_IA 
+    	#sw t0, 0(t1)   	
+    	
+    	#la t0, ScorpionVitoria_2
+    	#la t1, VITORIA_2_IA 
+    	#sw t0, 0(t1)  
     	
     	la s11, DANCINHA_1_IA
     	

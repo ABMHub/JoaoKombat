@@ -116,9 +116,25 @@
     	TEMPO50_IA:			.word 0x0
     	HITS_IA:			.word 0x0
     	
-    	###########
+    	########### lEMBRAR DE INICIALIZAR COM OS VALORES ADEQUADOS JUNTO COM A INICIALIZAÇÃO DAS LABELS DO PERSONAGEM
     	P_END_PODER: 			.word 0x0
     	P_LARGURA_FRAME_0:		.word 0x20	
 	P_ALTURA_FRAME_0:		.word 0x6
 	P_LARGURA_FRAME_1:		.word 0x20
 	P_ALTURA_FRAME_1:		.word 0x6
+	
+	MORREU_IA: 			.word 0x0				# primeiro sprite da morte normal
+	FATALITY_IA: 			.word 0x0				# primeiro sprite do fatality 
+	ULTIMO_FATALITY_IA:		.word 0x0				# último sprite do fatality
+	VITORIA_1_IA: 			.word 0X0				# primeiro sprite da vitória
+	VITORIA_2_IA: 			.word 0X0				# primeiro sprite da vitória
+	ULTIMO_MORREU_IA:		.word 0x0
+	CABECA_IA:			.word 0x0
+	
+	MORREU_IO: 			.word 0x0				# primeiro sprite da morte norma	l
+	FATALITY_IO: 			.word 0x0				# primeiro sprite do fatality 
+	ULTIMO_FATALITY_IO:		.word 0x0				# último sprite do fatality
+	VITORIA_1_IO: 			.word 0X0				# primeiro sprite da vitória
+	VITORIA_2_IO: 			.word 0X0				# primeiro sprite da vitória
+	ULTIMO_MORREU_IO:		.word 0x0
+	CABECA_IO:			.word 0x0
