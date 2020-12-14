@@ -1,175 +1,215 @@
-IA_BOT:		li t1,0xFF200000    			# Endereço de controle do KDMMIO
-		li t0,0x01       			# bit 1 habilita/desabilita a interrupção
-		sw t0,0(t1)           			# Habilita interrupção do teclado
+IA_BOT:	
+	li t1,0xFF200000    		# Endereço de controle do KDMMIO
+	li t0,0x01       		# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           		# Habilita interrupção do teclado
 	
-		addi sp, sp, -24		#Salva valores na pilha
-		sw s0, 0(sp)
-		sw ra, 4(sp)
-		sw a0, 8(sp)
-		sw a7, 12(sp)
-		sw s6, 16(sp)
-		sw s7, 20(sp)
+	addi sp, sp, -24		#Salva valores na pilha
+	sw ra, 0(sp)
+	sw s0, 4(sp)
+	sw s1, 8(sp)
+	sw s2, 12(sp)
+	sw a0, 16(sp)
+	sw a7, 20(sp)
+	
+	la t6, DIFICULDADE_IA		#Pega o endereço com a dificuldade (tempo ocioso)
+	lw t1, 0(t6)			#Pega o tempo max que fica sem fazer ação
+	
+	la t5, TEMPO50_IA		#Endereço que guarda se já houve redução do tempo no round
+	lw t2, 0(t5)
+	
+	la s0, HP_IA			#Endereço para a barra de vida da IA
+	lw s0, 0(s0)			#Quantidade de vida da IA
+	
+	la s1, HP_IO			#Endereço para a barra de vidad do jogador
+	lw s1, 0(s1)			#Quantidade de vida do jogador
 		
-		la t6, DIFICULDADE_IA		#Pega o endereço com a dificuldade (tempo ocioso)
-		lw t1, 0(t6)			#Pega o tempo max que fica sem fazer ação
+	li t3, 50			
+	blt t3, s0, VIDA_OK_IA		#Verifica se a vida da IA está abaixo de 50%
+	bne t2, zero, VIDA_OK_IA	#Verifica se o tempo já foi reduzido nesse round
 		
-		la t5, TEMPO50_IA		#Endereço que guarda se já houve redução do tempo no round
-		lw t2, 0(t5)
+	srai t1, t1, 1			#Se sim, o tempo que ela fica ociosa é reduzida pela metade, ficando mais dificil
+	li t2, 1			#Valor = 1, houve redução
+		
+	sw t2, 0(t5)			#Coloca 1 indicando que houve redução
+	sw t1, 0(t6)			#Salva o novo tempo ocioso no endereço da dificuldade
 
-		la s0, HP_IA			#Endereço para a barra de vida da IA
-		lw s0, 0(s0)			#Quantidade de vida da IA
+VIDA_OK_IA:	
+	la t3, CONTADORH1		#Pega o endereço da posição do personagem 1
+	lw t3, 0(t3)			#Qual coluna o player está
+	la t4, CONTADORH2		#Pega o endereço da posição do personagem 2
+	lw t4, 0(t4)			#Qual coluna a IA está
 		
-		li t3, 50			
-		blt t3, s0, VIDA_OK_IA		#Verifica se a vida da IA está abaixo de 50%
-		bne t2, zero, VIDA_OK_IA	#Verifica se o tempo já foi reduzido nesse round
-		
-		srai t1, t1, 1			#Se sim, o tempo que ela fica ociosa é reduzida pela metade, ficando mais dificil
-		li t2, 1			#Valor = 1, houve redução
-		
-		sw t2, 0(t5)			#Coloca 1 indicando que houve redução
-		sw t1, 0(t6)			#Salva o novo tempo ocioso no endereço da dificuldade
-		
-VIDA_OK_IA:	csrr t2, 3073			#Le o tempo atual
-		sub t2, t2, s8			#Calcula o tempo que ficou para
-		csrr s8, 3073
-		blt t2, t1, IA_FIM		#Se for menor que o tempo max ocioso, não faz nada
-		
-############################### VERIFICA A DISTÂNCIA ENTRE OS PERSONAGENS #######################################################
-		
-		la t3, CONTADORH1		#Pega o endereço da posição do personagem 1
-		lw t3, 0(t3)			#Qual coluna o player está
-		la t4, CONTADORH2		#Pega o endereço da posição do personagem 2
-		lw t4, 0(t4)			#Qual coluna a IA está
-		
-		sub t3, t4, t3			#Descobre a quantidade de colunas entre o player e o bot
-		addi t3, t3, -1			#Ajusta para o valor correto de colunas entre os dois
-		
-		bge t3, zero, DISTANCIA_OK
-		sub t3, zero, t3
-DISTANCIA_OK:
-		li t0, 2			#Se a distância entre os dois for < ou = 2, ataca ou defender (área de combate)
-		bge t0, t3, ATK_DEF_IA		#Pula para o caso de ataque e defesa
-		
-		la t5, AGACHADO_IA
-		beq t5, s11, L_CIMA_IA		#Se tiver agachado levanta :D
-		
-		li t0, 6			#Se a distância entre os dois for < ou = 7, tenta fazer o poder
-		bge t0, t3, ESPECIAL_IA		#Vai para o caso de especial
+	sub s2, t4, t3			#Descobre a quantidade de colunas entre o player e o bot
+	addi s2, s2, -1			#Ajusta para o valor correto de colunas entre os dois
+	
+	la t0, BLOQUEANDO_AGACHADO_IA		
+	beq t0, s11, BLOCK_BAIXO_IA		#Ve se está agachado e defendendo
+	
+	la t0, BLOQUEANDO_EM_PE_IA
+	beq t0, s11, BLOCK_ALTO_IA		#Ve se está em pé e defendendo
+	
+	la t0, AGACHADO_IA
+	beq t0, s11, BAIXO_IA			#Ve se está agachado
+	
+	j EM_PE_IA
 
-VOLTA_IA:	li t0, 16			#Se a distância entre os dois for < ou = 16 (default), se movimenta
-		bge t0, t3, L_ESQUERDA_IA	#Se aproxima
-		
-		li t0, 20				#Se a distância entre os dois for < 20, dá uma cambalhota
-		bge t0, t3, L_CAMBALHOTA_PRA_TRAS_IA	#Se aproxima
-		
-		j IA_FIM
-		
-############################### COMPORTAMENTOS DA IA #########################################################################
+############################################# DEFESAS ####################################################################
+BLOCK_ALTO_IA:
+	li t1, 4
+	bge s2, t1, PARA_DEFESA_IA	#Se estiver longe desativa a defesa
+	
+	la t3,  HITS_IA			#Endereço que guarda quantos hits a IA tomou consecutivamente
+	lw t3, 0(t3)			#Pega a quantidade de hits tomados
+	
+	li t1, 5
+	bge t1, t3, IA_FIM		#Se levou menos de 5 hits defendendo e o jogador está próximo, faz nada
+	
+	bge s1, s0, L_CAMBALHOTA_PRA_FRENTE_IA
+	j L_DIREITA_IA
+	
+PARA_DEFESA_IA:
+	bge s1, s0, L_BLOCK_IA			#Se o jogador tem mais vida, só desativa a defesa
+	
+	li t1, 9				#Vida da IA é maior
+	bge s2, t1, L_CAMBALHOTA_PRA_TRAS_IA	#Se o jogador estiver muito longe, dá cambalhota
+	j L_ESQUERDA_IA				#Se o jogador estiver relativamente próximo, avança
 
-ESPECIAL_IA:	li a7, 41			#Gera um número aleatório
-		ecall
-		
-		li t1, 10			
-		remu a0, a0, t1			#Faz o mod 4 do número aleatório (usado como probabilidade)
-		
-		beq a0, zero, L_PODER_IA	#Tem 10% de chance de fazer o poder
-		jal zero, VOLTA_IA		#Caso não faça, ele se movimenta
-		
-ATK_DEF_IA:	la t3,  HITS_IA			#Endereço que guarda quantos hits a IA tomou consecutivamente
-		lw t3, 0(t3)			#Pega a quantidade de hits tomados
-		
-		li t1, 3			#Quantidade de hits mínimos para que a IA fuja
-		blt t3, t1, ACAO_IA		#Se a quantidade de hits é >= 3
-		
-		li a7, 41			#Gera um número aleatório
-		ecall
-		
-		li t1, 3			
-		remu a0, a0, t1			#Faz o mod 3 do número aleatório (usado como probabilidade)
-		
-		li t1, 2
-		beq a0, t1, ACAO_IA		#Se o resto for igual a 2 (33,33%) não recua
-		
-		li t1, 50
-		blt s0, t1, L_CAMBALHOTA_PRA_FRENTE_IA	#Se tiver menos da metade da vida, dá uma cambalhota para trás
-		bge s0, t1, L_DIREITA_IA		#Se tiver mais da metade, só avança para atrás
-		
-ACAO_IA:	li t2, 7			#Valor referente a 70%
 
-		li a7, 41			#Gera um número aleatório
-		ecall
-		
-		li t1, 10						
-		remu a0, a0, t1			#Faz o mod 10 do número aleatório (usado como probabilidade)
-		
-		li t1, 50			
-		bge s0, t1, ATACA_MAIS_IA	#Se tiver com mais de 50% de vida, ela age mais agressivamente
-		blt a0, t2, DEFESA_IA		#Caso contrário, ela age mais defensivamente, com 70% de chance de defender
-		j ATAQUE_IA			#30% de chance de atacar
-		
-		
-ATACA_MAIS_IA:	blt a0, t2, ATAQUE_IA		#Se age agressivamente, com 70% de chance de atacar
-		j DEFESA_IA			#30% de chance de defender
-		
-		
-ATAQUE_IA:	li a7, 41			#Gera um número aleatório
-		ecall
-		
-		li t1, 4			
-		remu a0, a0, t1			#Faz o mod 4 do número aleatório (usado como probabilidade)
-		
-		la t5, AGACHADO_IA		#Carrega o endereço do estado do personagem
-		bne t5, s11, EM_PE_IA		#Se está agachado realiza os golpes agachados, se está em pé, realiza os golpes em pé
-		
-		beq a0, zero, L_CHUTE_2_IA	#Se resto = 0, faz a rasteira
-		
-		li t1, 1
-		beq a0, t1, L_CHUTE_1_IA	#Se resto = 1, faz o chute agachado
-		
-		li t1, 2
-		beq a0, t1, L_SOCO_1_IA		#Se resto = 2, faz o soco abaixado
-		
-		li t1, 3
-		beq a0, t1, L_SOCO_2_IA		#Se resto = 3, faz o alpiste
-		
-		
+			
+BLOCK_BAIXO_IA:
+	li t1, 4
+	bge s2, t1, L_BLOCK_IA		#Se o jogador estiver longe desativa a defesa
+	j IA_FIM			#Se não, não faz nada
+	
+	
+########################################### CASO AGACHADO ###################################################################
+BAIXO_IA:	
+	li t1, 4
+	bge s2, t1, L_CIMA_IA		#Se estiver distante levanta
+
+	la t3,  HITS_IA			#Endereço que guarda quantos hits a IA tomou consecutivamente
+	lw t3, 0(t3)			#Pega a quantidade de hits tomados
+	
+	li t1, 10
+	bge t3, t1, L_BLOCK_IA		#Sofreu 5 hits abertos seguidos, ela bloqueia
+	
+	li a7, 41			#Gera um número aleatório
+	ecall
+	
+	li t1, 100			
+	remu a0, a0, t1			#Faz um mod 100
+	addi a0, a0, 1			#Um número entre 1 e 100
+	
+	li t1, 2
+	bge t1, s2, ATAQUE_ABAIXADO_IA	#Se a distância é a distância de combate, ela tenta atacar
+	j IA_FIM
+	
+ATAQUE_ABAIXADO_IA:
+	li t1, 6
+	blt a0, t1, IA_FIM		#Tem 5% de não atacar
+	
+	li t1, 1
+	bge t1, s2, L_SOCO_1_IA		#Se a distância é de no máximo 1, ele só soca
+	
+	li t1, 35
+	blt a0, t1, L_CHUTE_1_IA	#Com 34% de chance, ele dá um chute
+	
+	li t1, 68
+	blt a0, t1, L_CHUTE_2_IA	#Com 33% de chance, ele dá rasteira
+	
+	j L_SOCO_2_IA			#Com 33% de chance, ele dá o alpiste
+	
+	
+########################################### CASOS EM PÉ ##################################################################
 EM_PE_IA:
-		beq a0, zero, L_CHUTE_2_IA	#Se resto = 0, faz o chute alto
-		
-		li t1, 1
-		beq a0, t1, L_CHUTE_1_IA	#Se resto = 1, faz o chute baixo
-		
-		li t1, 2
-		beq a0, t1, L_SOCO_1_IA		#Se resto = 2, faz o soco
-		
-		li t1, 3
-		beq a0, t1, L_SOCO_2_IA		#Se resto = 3, faz o jab
-		
+	li a7, 41			#Gera um número aleatório
+	ecall
+	
+	li t1, 100			
+	remu a0, a0, t1			#Faz um mod 100
+	addi a0, a0, 1			#Um número entre 1 e 100
 
-DEFESA_IA:	li a7, 41			#Gera um número aleatório
-		ecall
+	li t1, 2
+	bge t1, s2, ACAO_IA		#Vê se está na distância de batalha
+	
+	li t1, 10
+	bge t1, s2, ESPECIAL_IA		#Tenta dar o especial nessa distância
 
-		la t5, AGACHADO_IA		#Endereço do sprite da IA_agachada
-		la t6, AGACHADO_IO		#Endereço do sprite da IO_agachada
-		
-		beq t5, s11, IA_BAIXA		#Vê se a IA está agachada
-		beq t6, s10, IO_BAIXA		#Vê se o Player está agachado
-		
-		li t1, 3			
-		remu a0, a0, t1			#Faz o mod 3 do número aleatório (usado como probabilidade)
-		
-		li t1, 2
-		blt t1, a0, L_BLOCK_IA		#Realiza a defesa com 66,66% de chance
-		j L_BAIXO_IA			#Se não abaixa
-		
-IO_BAIXA:	li t1, 3			
-		remu a0, a0, t1			#Faz o mod 3 do número aleatório (usado como probabilidade)
-		
-		li t1, 2
-		blt t1, a0, L_BLOCK_IA		#Realiza a defesa com 66,66% de chance
-		j L_CIMA_IA			#Se não pula
+VOLTA_IA:
+	li t1, 18
+	bge t1, s2, L_ESQUERDA_IA	#Avança para frente se estiver longe
+	
+	j L_CAMBALHOTA_PRA_TRAS_IA	#Dá cambalhota se estiver muito longe
+	
+	
+################################## ESPECIAL DA IA ##########################################################
+ESPECIAL_IA:
+	li t1, 50			
+	blt s0, t1, SUPER_IA		#Se a vida estiver com menos com 50 pontos, tem mais chance de dar especial
+	
+	li t1, 6			
+	bge a0, t1, VOLTA_IA		#5% de chance de fazer o especial
+	j L_PODER_IA
+	
+SUPER_IA:
+	li t1 31
+	bge a0, t1, VOLTA_IA		#30% de chance de fazer o especial
+	j L_PODER_IA
+	
+############################### AÇÃO DA IA ##############################################################
+ACAO_IA:
+	la t3, HITS_IA
+	lw t3, 0(t3)
+	
+	li t1, 10
+	blt t3, t1, CONTINUA_ACAO_IA	#Sofreu 5 hits abertos seguidos, ela tenta bloquea ou recua
+	
+	li t1, 21
+	blt a0, t1, CONTINUA_ACAO_IA	#Com 20% continua seu comportamento normal
+	
+	li t1, 61			#Com 40% faz a defesa
+	blt a0, t1, L_BLOCK_IA
+	
+	li t1, 51
+	blt s0, t1, L_CAMBALHOTA_PRA_FRENTE_IA	#Com 40% faz a defesa e se vida está baixa faz cambalhota
+	j L_DIREITA_IA				#Se a vida está alta anda para trás
 
-IA_BAIXA:	j L_BLOCK_IA
+		
+CONTINUA_ACAO_IA:
+	la t3, BLOQUEANDO_AGACHADO_IO		
+	beq t3, s10, L_BAIXO_IA			#Se o jogador estiver abaixado, a IA abaixa
+	
+	la t3, AGACHADO_IO
+	bne t3, s10, ATAQUE_IA			#Se estiver em é, vai para os ataques
+	
+	li t1, 11
+	blt a0, t1, ATAQUE_IA			#10% de chance de tentar atacar
+	
+	li t1, 31
+	blt a0, t1, L_CIMA_IA			#20% de chance de pular
+	
+	li t1, 61				
+	blt a0, t1, L_BAIXO_IA			#30% de chance de abaixar
+	
+	j L_DIREITA_IA				#40% de chance de andar para trás
+	
+ATAQUE_IA:
+	li t1, 2
+	beq s2, t1, ATAQUES_LONGOS_IA		#Vai para o caso dos chutes
+	
+	li t1, 51
+	blt a0, t1, L_SOCO_1_IA			#50% de fazer um soco
+	j L_SOCO_2_IA				#50% de fazer um jab
+	
+ATAQUES_LONGOS_IA:
+	li t1, 31
+	blt a0, t1, L_CHUTE_1_IA		#30% de tentar fazer o chute longo
+	
+	li t1, 61	
+	blt a0, t1, L_CHUTE_2_IA		#30% de tentar fazer o chute alto
+	
+	j L_ESQUERDA_IA				#Ele volta a andar
+	
 
 ############################## MOVIMENTAÇÃO DA IA ################################################################
 L_DIREITA_IA:
@@ -695,17 +735,8 @@ L_GOLPE_IA:
 	xori t1, t1, 0x001
 	sw t1, 0(t0)
 	
-	addi sp, sp, -8
-	sw s8, 0(sp)
-	sw ra, 4(sp)
-	
-	li s8, 2
 	mv a1, s6					#???????????????????????????????????????
     	jal ra, TESTE_GOLPE				#???????????????????????????????????????
-    	
-    	lw s8, 0(sp)
-    	lw ra, 4(sp)
-	addi sp, sp, 8
 	
 	li a3, 0
 	la t0, DANCINHA_1_IA
@@ -743,12 +774,12 @@ L_TOTAL_RESET_AGACHADO_IA:
 	j IA_FIM
 
 IA_FIM: 	
-	lw s0, 0(sp)
-	lw ra, 4(sp)
-	lw a0, 8(sp)
-	lw a7, 12(sp)
-	lw s6, 16(sp)
-	lw s7, 20(sp)
+	lw ra, 0(sp)
+	lw s0, 4(sp)
+	lw s1, 8(sp)
+	lw s2, 12(sp)
+	lw a0, 16(sp)
+	lw a7, 20(sp)
 	addi sp, sp, 24			#Recupera valores da pilha
 	
 	li t1,0xFF200000    			# Endereço de controle do KDMMIO

@@ -98,20 +98,20 @@
 	csrr s8, 3073
 	
 LOOP_IA:
-	jal ra, IA_BOT
+    	jal ra, IA_BOT
+    	csrr s8, 3073
 
 INFINITO:
-	csrr t0, 3073
-	#la t1, DIFICULDADE_IA
-	#lw t1, 0(t1)
-	li t1, 2000
-	sub t0, t0, s8
-	bge t0, t1, LOOP_IA
-	
-	csrr s6,3073 		# le o time atual
-	li t0,0xFF200604   	 # Escolhe o Frame 0 ou 1
-	sw s7,0(t0)		# seleciona a Frame t2
-	xori s7,s7,0x001	# escolhe a outra frame
+    	csrr t0, 3073
+    	la t1, DIFICULDADE_IA
+    	lw t1, 0(t1)
+    	sub t0, t0, s8
+    	bge t0, t1, LOOP_IA
+
+    	csrr s6,3073         # le o time atual
+    	li t0,0xFF200604        # Escolhe o Frame 0 ou 1
+    	sw s7,0(t0)        # seleciona a Frame t2
+    	xori s7,s7,0x001    # escolhe a outra frame
 LOOOP:
 
  	csrr t0,3073 		# le o time atual

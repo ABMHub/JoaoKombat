@@ -108,12 +108,12 @@
     	TOMOU_ALPISTE_IA:		.word 0x0
     	LEVOU_RASTEIRA_IA:		.word 0x0
     	# IA DIFICULDADE
-    	DIFICULDADE_IA:			.word 1000
-    	TEMPO50_IA:			.word 0x1
+    	DIFICULDADE_IA:			.word 2000
+    	TEMPO50_IA:			.word 0x0
     	HITS_IA:			.word 0x0
     	
     	###########
-    	P_END_PODER: .word 0x0
+    	P_END_PODER: 			.word 0x0
     	P_LARGURA_FRAME_0:		.word 0x20	
 	P_ALTURA_FRAME_0:		.word 0x6
 	P_LARGURA_FRAME_1:		.word 0x20
