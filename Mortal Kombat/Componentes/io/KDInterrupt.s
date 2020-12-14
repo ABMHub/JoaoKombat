@@ -549,29 +549,20 @@ CAMBALHOTA_FRAME1_IO:
 	j L_TOTAL_RESET_EM_PE_IO
 	
 L_CONTROLE_SUBINDO_IO:
-
-	la t0, CONTADORH1					# t0 eh o endereco do contador horizontal
-	lw t1, 0(t0)						# t1 e o contador horizontal do p1
-	li t2, 19						# t2 eh o limite da direita
-	add t1, t1, s5						# desloca contador pra direcao certa
-	bge t1, t2, L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IO	# se passou do limite direita, branch
-	li t2, -1						
+	la t0, CONTADORH1
+	lw t1, 0(t0)
+	li t2, 19
+	add t1, t1, s5
+	bge t1, t2, L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IO
+	li t2, -1
 	beq t1, t2, L_LIMITE_ESQUERDA_CAMBALHOTA_SUBINDO_IO
 	
-	la t0, CONTADORH2					# 
-	lw t2, 0(t0)						# t2 eh o contador horizontal de p2
-	sub t3, t2, t1						# t1 eh a diferenca de t2 e t1
-	li t2, 1						# 
-	beq t2, t3, L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IO	# se a diferenca for 1, branch
-	
-L_NAO_S_IO:
-	la t0, CONTADORH1	
+L_NAO_S_IO:	
 	sw t1, 0(t0)	
 	
 	ret
 
 L_CONTROLE_DESCENDO_IO:
-
 	la t0, CONTADORH1
 	lw t1, 0(t0)
 	li t2, 19
@@ -579,15 +570,8 @@ L_CONTROLE_DESCENDO_IO:
 	bge t1, t2, L_LIMITE_DIREITA_CAMBALHOTA_DESCENDO_IO
 	li t2, -1
 	beq t1, t2, L_LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_IO
-							# t1 eh o contador horizontal do p1
-	la t0, CONTADORH2					# 
-	lw t2, 0(t0)						# t2 eh o contador horizontal de p2
-	sub t3, t2, t1						# t1 eh a diferenca de t2 e t1
-	li t2, 1						# 
-	beq t2, t3, L_LIMITE_DIREITA_CAMBALHOTA_DESCENDO_IO	# se a diferenca for 1, branch
 	
 L_NAO_D_IO:
-	la t0, CONTADORH1
 	sw t1, 0(t0)	
 	
 	ret	

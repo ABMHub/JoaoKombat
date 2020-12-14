@@ -3,13 +3,16 @@ IA_BOT:
 	li t0,0x01       		# bit 1 habilita/desabilita a interrupção
 	sw t0,0(t1)           		# Habilita interrupção do teclado
 	
-	addi sp, sp, -24		#Salva valores na pilha
+	addi sp, sp, -36		#Salva valores na pilha
 	sw ra, 0(sp)
 	sw s0, 4(sp)
 	sw s1, 8(sp)
 	sw s2, 12(sp)
 	sw a0, 16(sp)
 	sw a7, 20(sp)
+	sw s6, 24(sp)
+	sw s7, 28(sp)
+	sw s8, 32(sp)
 	
 	la t0, TONTO_1_IA
 	beq t0, s11, IA_FIM
@@ -788,7 +791,10 @@ IA_FIM:
 	lw s2, 12(sp)
 	lw a0, 16(sp)
 	lw a7, 20(sp)
-	addi sp, sp, 24			#Recupera valores da pilha
+	lw s6, 24(sp)
+	lw s7, 28(sp)
+	lw s8, 32(sp)
+	addi sp, sp, 36			#Recupera valores da pilha
 	
 	li t1,0xFF200000    			# Endereço de controle do KDMMIO
 	li t0,0x02       			# bit 1 habilita/desabilita a interrupção
