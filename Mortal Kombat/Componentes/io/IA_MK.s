@@ -64,7 +64,7 @@ BLOCK_ALTO_IA:
 	la t3,  HITS_IA			#Endereço que guarda quantos hits a IA tomou consecutivamente
 	lw t3, 0(t3)			#Pega a quantidade de hits tomados
 	
-	li t1, 5
+	li t1, 3
 	bge t1, t3, IA_FIM		#Se levou menos de 5 hits defendendo e o jogador está próximo, faz nada
 	
 	bge s1, s0, L_CAMBALHOTA_PRA_FRENTE_IA
@@ -93,7 +93,7 @@ BAIXO_IA:
 	la t3,  HITS_IA			#Endereço que guarda quantos hits a IA tomou consecutivamente
 	lw t3, 0(t3)			#Pega a quantidade de hits tomados
 	
-	li t1, 10
+	li t1, 6
 	bge t3, t1, L_BLOCK_IA		#Sofreu 5 hits abertos seguidos, ela bloqueia
 	
 	li a7, 41			#Gera um número aleatório
@@ -164,7 +164,7 @@ ACAO_IA:
 	la t3, HITS_IA
 	lw t3, 0(t3)
 	
-	li t1, 10
+	li t1, 6
 	blt t3, t1, CONTINUA_ACAO_IA	#Sofreu 5 hits abertos seguidos, ela tenta bloquea ou recua
 	
 	li t1, 21

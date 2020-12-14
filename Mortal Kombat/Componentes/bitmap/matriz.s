@@ -181,139 +181,40 @@ SZ:
     	la t1, TONTO_2_IO
     	sw t0, 0(t1)
     	
+    	la t0, FATALITY_IO
+    	la t1, SubZeroSemCabeca_1
+    	sw t0, 0(t1)
+    	
+    	la t0, ULTIMO_FATALITY_IO
+    	la t1, SubZeroSemCabeca_6
+    	sw t0, 0(t1)
+    	
+    	la t0, MORREU_IO
+    	la t1, SubZeroRound_1
+    	sw t0, 0(t1)
+    	
+    	la t0, ULTIMO_MORREU_IO
+    	la t1, SubZeroRound_6
+    	sw t0, 0(t1)
+    	
+    	la t0, ULTIMO_MORREU_IO
+    	la t1, SubZeroSemCabeca_6
+    	sw t0, 0(t1)
+    	
+    	la t0, CABECA_IO
+    	la t1, SubZeroCabeca_1
+    	sw t0, 0(t1)
+ 
+    	la t0, VITORIA_1_IO
+    	la t1, SubZeroVitoria_1
+    	sw t0, 0(t1)   	
+    	
+    	la t0, VITORIA_2_IO
+    	la t1, SubZeroVitoria_2
+    	sw t0, 0(t1)  
+    	
     	la s10, DANCINHA_1_IO
 
-############################################ IA	
-	la t0, ScorpionAgachando_2
-    	la t1, AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-	la t0, ScorpionAgachando_1
-    	la t1, AGACHANDO_IA
-    	sw t0, 0(t1)
-    	
-  	la t0, ScorpionPulando_1
-    	la t1, PULAR_1_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionPulando_3V
-    	la t1, PULAR_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionAgachando_3V
-    	la t1, LEVANTAR_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionAndando_1
-    	la t1, CAMINHAR_DIREITA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionAndando_3V
-    	la t1, CAMINHAR_ESQUERDA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionCambalhota_1
-    	la t1, CAMBALHOTA_IA
-    	sw t0, 0(t1)
-
-	la t0, ScorpionChuteBaixo_1
-   	la t1, CHUTE_1_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionChuteAgachado_1
-   	la t1, CHUTE_1_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionSoco_1
-   	la t1, SOCO_1_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionSocoAgachado_1
-   	la t1, SOCO_1_AGACHADO_IA
-    	sw t0, 0(t1)
-
-  	la t0, ScorpionChuteAlto_1
-   	la t1, CHUTE_2_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionRasteira_1
-   	la t1, CHUTE_2_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionJab_1
-   	la t1, SOCO_2_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionAlpiste_1
-   	la t1, SOCO_2_AGACHADO_IA
-    	sw t0, 0(t1)  
-  
-  	la t0, ScorpionPoder_1
-    	la t1, PODER_IA
-    	sw t0, 0(t1)
-  
-  	la t0, ScorpionDancando_1
-    	la t1, DANCINHA_1_IA
-    	sw t0, 0(t1)
-
-    	la t0, ScorpionDancando_2
-    	la t1, DANCINHA_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionBlock_1
-    	la t1, BLOCK_EM_PE_IA
-    	sw t0, 0(t1)
-
-    	la t0, ScorpionBlock_3V
-    	la t1, DESATIVAR_BLOCK_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionBlockAgachado_1
-    	la t1, BLOCK_AGACHADO_IA
-    	sw t0, 0(t1)
-
- 	la t0, ScorpionBlockAgachado_3V
-    	la t1, DESATIVAR_BLOCK_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionBlockAgachado_2
-    	la t1, BLOQUEANDO_AGACHADO_IA
-    	sw t0, 0(t1)    
-    	
-    	la t0, ScorpionBlock_2
-    	la t1, BLOQUEANDO_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionTomou_1
-    	la t1, RECUADA_LEVE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionHelicoptero_1
-    	la t1, RECUADA_PESADA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionCaiu_1
-    	la t1, LEVOU_RASTEIRA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionVoando_1
-    	la t1, TOMOU_ALPISTE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionTomouAgachado_1
-    	la t1, RECUADA_LEVE_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionFinish_1
-    	la t1, TONTO_1_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionFinish_3
-    	la t1, TONTO_2_IA
-    	sw t0, 0(t1)
-    	
-    	la s11, DANCINHA_1_IA
-    	
     	j FIM
 ##########
 
@@ -435,24 +336,170 @@ Ki:	#la s10, KitanaParada_1
 	
 	j FIM
 	
-SC:	#la s10, ScorpionParado_1
-#	la a0, ScorpionParado_1
-#	
-#	addi sp, sp, -4
-#	sw ra, 0(sp)
-#	
-#	jal ra, PERSONAGEM
-#	
-#	lw ra, 0(sp)
-#	addi sp, sp, 4
-#	
-#	la tp,KDInterrupt_Scorpion    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
-#	csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
-#	csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
-#	li tp,0x100
-#	csrrw zero,4,tp     	# habilita a interrupção do usuário
-#	
-#	j FIM
+SC:		
+	la t0, ScorpionAgachando_2
+    	la t1, AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+	la t0, ScorpionAgachando_1
+    	la t1, AGACHANDO_IO
+    	sw t0, 0(t1)
+    	
+  	la t0, ScorpionPulando_1
+    	la t1, PULAR_1_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionPulando_3V
+    	la t1, PULAR_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionAgachando_3V
+    	la t1, LEVANTAR_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionAndando_1
+    	la t1, CAMINHAR_DIREITA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionAndando_3V
+    	la t1, CAMINHAR_ESQUERDA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionCambalhota_1
+    	la t1, CAMBALHOTA_IO
+    	sw t0, 0(t1)
+
+	la t0, ScorpionChuteBaixo_1
+   	la t1, CHUTE_1_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionChuteAgachado_1
+   	la t1, CHUTE_1_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionSoco_1
+   	la t1, SOCO_1_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionSocoAgachado_1
+   	la t1, SOCO_1_AGACHADO_IO
+    	sw t0, 0(t1)
+
+  	la t0, ScorpionChuteAlto_1
+   	la t1, CHUTE_2_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionRasteira_1
+   	la t1, CHUTE_2_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionJab_1
+   	la t1, SOCO_2_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionAlpiste_1
+   	la t1, SOCO_2_AGACHADO_IO
+    	sw t0, 0(t1)  
+  
+  	la t0, ScorpionPoder_1
+    	la t1, PODER_IO
+    	sw t0, 0(t1)
+  
+  	la t0, ScorpionDancando_1
+    	la t1, DANCINHA_1_IO
+    	sw t0, 0(t1)
+
+    	la t0, ScorpionDancando_2
+    	la t1, DANCINHA_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionBlock_1
+    	la t1, BLOCK_EM_PE_IO
+    	sw t0, 0(t1)
+
+    	la t0, ScorpionBlock_3V
+    	la t1, DESATIVAR_BLOCK_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionBlockAgachado_1
+    	la t1, BLOCK_AGACHADO_IO
+    	sw t0, 0(t1)
+
+ 	la t0, ScorpionBlockAgachado_3V
+    	la t1, DESATIVAR_BLOCK_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionBlockAgachado_2
+    	la t1, BLOQUEANDO_AGACHADO_IO
+    	sw t0, 0(t1)    
+    	
+    	la t0, ScorpionBlock_2
+    	la t1, BLOQUEANDO_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionTomou_1
+    	la t1, RECUADA_LEVE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionHelicoptero_1
+    	la t1, RECUADA_PESADA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionCaiu_1
+    	la t1, LEVOU_RASTEIRA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionVoando_1
+    	la t1, TOMOU_ALPISTE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionTomouAgachado_1
+    	la t1, RECUADA_LEVE_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionFinish_1
+    	la t1, TONTO_1_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, ScorpionFinish_3
+    	la t1, TONTO_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, FATALITY_IO
+    	la t1, ScorpionSemCabeca_1
+    	sw t0, 0(t1)
+    	
+    	la t0, ULTIMO_FATALITY_IO
+    	la t1, ScorpionSemCabeca_6
+    	sw t0, 0(t1)
+    	
+    	la t0, MORREU_IO
+    	la t1, ScorpionRound_1
+    	sw t0, 0(t1)
+    	
+    	la t0, ULTIMO_MORREU_IO
+    	la t1, ScorpionRound_6
+    	sw t0, 0(t1)
+    	
+    	la t0, ULTIMO_MORREU_IO
+    	la t1, ScorpionSemCabeca_6
+    	sw t0, 0(t1)
+    	
+    	la t0, CABECA_IO
+    	la t1, ScorpionCabeca_1
+    	sw t0, 0(t1)
+ 
+    	la t0, VITORIA_1_IO
+    	la t1, ScorpionVitoria_1
+    	sw t0, 0(t1)   	
+    	
+    	la t0, VITORIA_2_IO
+    	la t1, ScorpionVitoria_2
+    	sw t0, 0(t1)  
+    	
+    	la s10, DANCINHA_1_IO
+
+    	j FIM
 	
 Re:	#la s10, ReptileParado_1
 	#la a0, ReptileParado_1

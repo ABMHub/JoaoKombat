@@ -612,7 +612,6 @@ L_PODER_IO:
 	la t0, PODER_IO				# ponteiro do poder
 	lw a0, 0(t0)				# a0 = sprite inicial do poder
 	li a2, 5				# são 5 frames na ida
-	li s6, 8
 
 	jal ra, IDENTIFICA_POSICAO
 	jal ra, FRAME_GOLPE_VGA
@@ -622,6 +621,16 @@ L_PODER_IO:
 	li a2, 4
 	li a3, 0
 	jal ra, P_PODER
+		
+	la t0, PERSONAGEM1_INICIO
+	lw t0, 0(t0)
+	li a1, 8
+	li s8, 1
+	jal ra, TESTE_GOLPE
+	la t0, PERSONAGEM1_INICIO
+	lw t0, 0(t0)
+		
+	li a3, 0
 		
 	j L_TOTAL_RESET_EM_PE_IO
 #######################################################################################################################

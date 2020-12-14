@@ -131,7 +131,6 @@ TESTE_GOLPE:
 	sw s7, 16(sp)
 	sw s0, 20(sp)
 	
-	mv a0, s8
 	mv t3, a1		# temp: t3 é tipo de golpe
 	jal ra, CALCULA_CONTADOR 
 	
@@ -410,7 +409,7 @@ TESTE_RASTEIRA:
 ######################################
 TESTE_PODER:
 	li s0, 15
-	
+	addi t0, t0, -60
 	add t0, t0, t2
 	lb t1, 0(t0)
 	
@@ -478,7 +477,7 @@ COLISAO_IA:
 	li t0, 3
 	beq a1, t0, L_RECUADA_PESADA_IA
 	li t0, 8
-	beq a1, t0, L_RECUADA_PESADA_IO
+	beq a1, t0, L_RECUADA_PESADA_IA
 	
 	# Agachados
 	li t0, 4 						# soco

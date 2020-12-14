@@ -51,6 +51,8 @@
 
 	jal ra, MATRIZ_ESCOLHA			#escolhe o personagem jogável
 	
+	jal ra, ESCOLHENDO_BOT
+	
 	#jal ra, CENARIO			#escolhe um cenário de modo pseudoaleatório
 	
 	li s8,0xFF200604	# Escolhe o Frame 0 ou 1
@@ -148,5 +150,6 @@ LOOOP:
 .include "componentes/bitmap/Menu.s"
 .include "componentes/bitmap/selecao.s"
 .include "componentes/bitmap/matriz.s"
+.include "componentes/bitmap/bot_matriz.s"
 
 
