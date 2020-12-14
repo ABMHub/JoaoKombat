@@ -438,6 +438,10 @@ HIT: 	# Quando houver hit, pulamos para cá. Por enquanto toca apenas um som
 	beq a0, t0, COLISAO_IA
 	
 COLISAO_IO:	
+#ebreak
+	la t0, TONTO_1_IO
+	beq s10, t0, ULTIMO_GOLPE_IO				# O COMBATE DEVE ACABAR 
+	
 	# Socos
 	li t0, 0
 	beq a1, t0, L_RECUADA_LEVE_IO
@@ -464,7 +468,11 @@ COLISAO_IO:
 	li t0, 7						# rasteira
 	beq a1, t0, L_LEVOU_RASTEIRA_IO
 	
-COLISAO_IA:	
+COLISAO_IA:
+#ebreak
+	la t0, TONTO_1_IA
+	beq s11, t0, ULTIMO_GOLPE_IA				# O COMBATE DEVE ACABAR 
+		
 	# Socos
 	li t0, 0
 	beq a1, t0, L_RECUADA_LEVE_IA
@@ -494,6 +502,54 @@ COLISAO_IA:
 #######################################################################################################################
 #							IO
 #######################################################################################################################
+ULTIMO_GOLPE_IO:
+	# se a1 == 5 então tomou alpiste
+	
+	ebreak
+	li t1, 5
+	beq t1, a1, L_FATALITY_IO
+	
+SO_MORREU_IO:
+	
+	la t0, MORREU_IO
+	lw a0, 0(t0)
+	
+	li a2, 6
+	jal ra, IDENTIFICA_POSICAO
+	jal ra, FRAME_GOLPE_VGA
+	
+	la t0, ULTIMO_MORREU_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	
+	j VITORIA_IA
+	
+L_FATALITY_IO:	
+	la t0, FATALITY_IO
+	lw a0, 0(t0)
+	
+	li a2, 6
+	jal ra, IDENTIFICA_POSICAO
+	jal ra, FRAME_GOLPE_VGA
+	
+	la t0, ULTIMO_FATALITY_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	
+VITORIA_IA:
+	la t0, VITORIA_1_IA
+	lw a0, 0(t0)
+	
+	li a2, 2
+	jal ra, IDENTIFICA_POSICAO_IA
+	jal ra, FRAME_GOLPE_VGA_IA
+
+	la t0, VITORIA_2_IA
+	lw a0, 0(t0)
+	
+	la s11, VITORIA_2_IA
+	jal ra, FRAME_DANCINHA_IA
+	j ACABOU_LUTA
 L_RECUADA_LEVE_IO:	
 	la t0, BLOQUEANDO_EM_PE_IO
 	beq s10, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
@@ -600,6 +656,54 @@ L_LEVOU_RASTEIRA_IO:
 #######################################################################################################################
 #							IA
 #######################################################################################################################
+ULTIMO_GOLPE_IA:
+	# se a1 == 5 então tomou alpiste
+	li t1, 5
+	beq t1, a1, L_FATALITY_IA
+	
+SO_MORREU_IA:
+	
+	la t0, MORREU_IA
+	lw a0, 0(t0)
+	
+	li a2, 6
+	jal ra, IDENTIFICA_POSICAO_IA
+	jal ra, FRAME_GOLPE_VGA_IA
+	
+	la t0, ULTIMO_MORREU_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA
+	
+	j VITORIA_IO
+	
+L_FATALITY_IA:	
+	la t0, FATALITY_IA
+	lw a0, 0(t0)
+	
+	li a2, 6
+	jal ra, IDENTIFICA_POSICAO_IA
+	jal ra, FRAME_GOLPE_VGA_IA
+	
+	la t0, ULTIMO_FATALITY_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA
+	
+VITORIA_IO:
+	la t0, VITORIA_1_IO
+	lw a0, 0(t0)
+	
+	li a2, 2
+	jal ra, IDENTIFICA_POSICAO
+	jal ra, FRAME_GOLPE_VGA
+
+	la t0, VITORIA_2_IO
+	lw a0, 0(t0)
+
+	jal ra, FRAME_DANCINHA
+	
+	la s10, VITORIA_2_IO	
+	j ACABOU_LUTA
+
 L_RECUADA_LEVE_IA:	
 	la t0, BLOQUEANDO_EM_PE_IA
 	beq s11, t0, FIM_BLOQUEANDO_IA
@@ -775,7 +879,7 @@ FIM_EFETUA_COLISAO_IO:
 	lw a0, 0(t0)
 
 	jal ra, FRAME_DANCINHA
-	
+
 FINALIZAR:	
 	li a0, 60  
 	li a1, 500
@@ -863,6 +967,8 @@ IA_EM_PE:
 FIM_TESTE: # Caso não haja hit ou depois da lógica de hit, encerra o programa
 	beq s0, zero, SEM_DANO
 	jal ra, APLICA_DANO
+
+ACABOU_LUTA:
 SEM_DANO:
 	lw ra, 0(sp)		# restora ra
 	lw a0, 4(sp)

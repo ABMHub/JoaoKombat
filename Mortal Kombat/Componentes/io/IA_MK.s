@@ -14,6 +14,10 @@ IA_BOT:
 	la t0, TONTO_1_IA
 	beq t0, s11, IA_FIM
 	
+	la t0, VITORIA_2_IA
+	beq t0, s11, IA_FIM
+	
+	
 	la t6, DIFICULDADE_IA		#Pega o endereço com a dificuldade (tempo ocioso)
 	lw t1, 0(t6)			#Pega o tempo max que fica sem fazer ação
 	

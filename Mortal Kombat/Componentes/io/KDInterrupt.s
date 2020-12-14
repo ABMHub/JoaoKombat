@@ -71,6 +71,9 @@ KDInterrupt:
         la t0, TONTO_1_IO
 	beq t0, s10, Fim_KDInterrupt
         
+        la t0, VITORIA_2_IO
+        beq t0, s10, Fim_KDInterrupt
+        
 SWITCH_CASE_TECLA: 			
 	li t3, 'd'
 	beq t3, t2, L_DIREITA_IO		# verifica se a tecla pressionada é 'd'
@@ -352,12 +355,16 @@ L_SOCO_2_EM_PE_IO:
    	j L_GOLPE_IO						# animação
  
 L_SOCO_2_AGACHADO_IO:
+	#la t0, TONTO_1_IA
+	#beq s11, t0, FATALITY_IA
+
 	li s6, 5
 	la s10, DANCINHA_1_IO				# muda o estado para em pé
 	li a2, 5					# são 6 frames
-   	la t0, SOCO_2_AGACHADO_IO			# ponteiro do soco 1 agachado
-   	lw a0, 0(t0)					# sprite do soco 1 agachado
-   	j L_GOLPE_IO			
+   	la t0, SOCO_2_AGACHADO_IO			# ponteiro do soco 2 agachado
+   	lw a0, 0(t0)					# sprite do soco 2 agachado
+   	j L_GOLPE_IO		
+			
 #######################################################################################################################
 L_BLOCK_IO:
 	la t0, BLOQUEANDO_EM_PE_IO			# block ativo em pé
@@ -673,6 +680,10 @@ L_GOLPE_IO:
     	jal ra, TESTE_GOLPE				#???????????????????????????????????????
 	
 	li a3, 0
+	
+	la t0, VITORIA_2_IO
+	beq t0, s10, Fim_KDInterrupt
+	
 	la t0, DANCINHA_1_IO
 	beq t0, s10, L_TOTAL_RESET_EM_PE_IO	# verifica se está em pé
 	
