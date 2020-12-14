@@ -69,6 +69,7 @@
     	DESATIVAR_BLOCK_AGACHADO_IO:    .word 0x0
     	TONTO_1_IO:			.word 0x0
     	TONTO_2_IO:			.word 0x0
+    	PROJETIL_IO:			.word 0x0
     	# Labels da IA 
     	AGACHADO_IA:            	.word 0x0    # ELE LITERALMENTE AGACHADO, NÃO É O PRIMEIRO SPRITE DO AGACHAMENTO
     	AGACHANDO_IA:            	.word 0x0    # PRIMEIRO SPRITE DELE AGACHANDO
@@ -98,6 +99,7 @@
     	DESATIVAR_BLOCK_AGACHADO_IA:    .word 0x0
     	TONTO_1_IA:			.word 0x0
     	TONTO_2_IA:			.word 0x0
+    	PROJETIL_IA:			.word 0x0
     	# APANHAR
     	# IO
     	RECUADA_LEVE_IO:		.word 0x0

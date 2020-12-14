@@ -624,7 +624,8 @@ L_PODER_IO:
 	jal ra, FRAME_GOLPE_VGA
 	
 	jal ra, IDENTIFICA_POSICAO
-	la a0, ScorpionProjetil_1
+	la t0, PROJETIL_IO
+	lw a0, 0(t0)
 	li a2, 4
 	li a3, 0
 	jal ra, P_PODER
@@ -692,6 +693,11 @@ L_GOLPE_IO:
 	
 	la t0, BLOQUEANDO_EM_PE_IO
 	beq t0, s10, L_RESET_BLOCK_EM_PE_IO 
+	
+	la t0, BLOQUEANDO_AGACHADO_IO
+	beq t0, s10, L_RESET_BLOCK_AGACHADO_IO
+	
+	j Fim_KDInterrupt
 
 L_RESET_BLOCK_AGACHADO_IO:	
 	# se chegou até aqui significa que é o block agachado

@@ -662,7 +662,7 @@ ULTIMO_GOLPE_IA:
 	beq t1, a1, L_FATALITY_IA
 	
 SO_MORREU_IA:
-	
+	ebreak
 	la t0, MORREU_IA
 	lw a0, 0(t0)
 	

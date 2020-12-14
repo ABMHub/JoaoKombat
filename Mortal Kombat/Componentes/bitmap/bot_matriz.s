@@ -119,6 +119,10 @@ BOT_SZ:
   	la t0, SubZeroPoder_1
     	la t1, PODER_IA
     	sw t0, 0(t1)
+    	
+    	la t0, SubZeroProjetil_1
+    	la t1, PROJETIL_IA
+    	sw t0, 0(t1)
   
   	la t0, SubZeroDancando_1
     	la t1, DANCINHA_1_IA
@@ -180,39 +184,35 @@ BOT_SZ:
     	la t1, TONTO_2_IA
     	sw t0, 0(t1)
     	
-    	la t0, FATALITY_IA
-    	la t1, SubZeroSemCabeca_1
+    	la t0, SubZeroSemCabeca_1
+    	la t1, FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_FATALITY_IA
-    	la t1, SubZeroSemCabeca_6
+    	la t0, SubZeroRound_1
+    	la t1, MORREU_IA
     	sw t0, 0(t1)
     	
-    	la t0, MORREU_IA
-    	la t1, SubZeroRound_1
+    	la t0, SubZeroRound_6
+    	la t1, ULTIMO_MORREU_IA
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_MORREU_IA
-    	la t1, SubZeroRound_6
+    	la t0, SubZeroSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_MORREU_IA
-    	la t1, SubZeroSemCabeca_6
-    	sw t0, 0(t1)
-    	
-    	la t0, CABECA_IA
-    	la t1, SubZeroCabeca_1
+    	la t0, SubZeroCabeca_1
+    	la t1, CABECA_IA
     	sw t0, 0(t1)
  
-    	la t0, VITORIA_1_IA
-    	la t1, SubZeroVitoria_1
-    	sw t0, 0(t1)   	
+    	#la t0, SubZeroVitoria_1
+    	#la t1, VITORIA_1_IA 
+    	#sw t0, 0(t1)   	
     	
-    	la t0, VITORIA_2_IA
-    	la t1, SubZeroVitoria_2
-    	sw t0, 0(t1)  
+    	#la t0, SubZeroVitoria_2
+    	#la t1, VITORIA_2_IA 
+    	#sw t0, 0(t1)  
     	
-    	la s10, DANCINHA_1_IA
+    	la s11, DANCINHA_1_IA
     	
     	j FIM_ESCOLHENDO_BOT
 
@@ -302,6 +302,10 @@ BOT_SC:
   	la t0, ScorpionPoder_1
     	la t1, PODER_IA
     	sw t0, 0(t1)
+    	
+    	la t0, ScorpionProjetil_1
+    	la t1, PROJETIL_IA
+    	sw t0, 0(t1)
   
   	la t0, ScorpionDancando_1
     	la t1, DANCINHA_1_IA
@@ -363,39 +367,35 @@ BOT_SC:
     	la t1, TONTO_2_IA
     	sw t0, 0(t1)
     	
-    	la t0, FATALITY_IA
-    	la t1, ScorpionSemCabeca_1
+    	la t0, ScorpionSemCabeca_1
+    	la t1, FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_FATALITY_IA
-    	la t1, ScorpionSemCabeca_6
+    	la t0, ScorpionRound_1
+    	la t1, MORREU_IA
     	sw t0, 0(t1)
     	
-    	la t0, MORREU_IA
-    	la t1, ScorpionRound_1
+    	la t0, ScorpionRound_6
+    	la t1, ULTIMO_MORREU_IA
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_MORREU_IA
-    	la t1, ScorpionRound_6
+    	la t0, ScorpionSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_MORREU_IA
-    	la t1, ScorpionSemCabeca_6
-    	sw t0, 0(t1)
-    	
-    	la t0, CABECA_IA
-    	la t1, ScorpionCabeca_1
+    	la t0, ScorpionCabeca_1
+    	la t1, CABECA_IA
     	sw t0, 0(t1)
  
-    	la t0, VITORIA_1_IA
-    	la t1, ScorpionVitoria_1
-    	sw t0, 0(t1)   	
+    	#la t0, ScorpionVitoria_1
+    	#la t1, VITORIA_1_IA 
+    	#sw t0, 0(t1)   	
     	
-    	la t0, VITORIA_2_IA
-    	la t1, ScorpionVitoria_2
-    	sw t0, 0(t1)  
+    	#la t0, ScorpionVitoria_2
+    	#la t1, VITORIA_2_IA 
+    	#sw t0, 0(t1)  
     	
-    	la s10, DANCINHA_1_IA
+    	la s11, DANCINHA_1_IA
     	
     	j FIM_ESCOLHENDO_BOT
     	

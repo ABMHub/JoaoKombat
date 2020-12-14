@@ -7,7 +7,7 @@ INICIALIZA_VIDA:
 	sw a5, 16(sp)
 	sw a6, 20(sp)
 
-	li t0, 100
+	li t0, 30
 	
 	la t1, HP_IA
 	sw t0, 0(t1)

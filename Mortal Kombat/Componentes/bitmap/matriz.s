@@ -120,6 +120,10 @@ SZ:
   	la t0, SubZeroPoder_1
     	la t1, PODER_IO
     	sw t0, 0(t1)
+    	
+    	la t0, SubZeroProjetil_1
+    	la t1, PROJETIL_IO
+    	sw t0, 0(t1)
   
   	la t0, SubZeroDancando_1
     	la t1, DANCINHA_1_IO
@@ -212,118 +216,6 @@ SZ:
     	la s10, DANCINHA_1_IO
 
 ############################################ IA	
-	la t0, ScorpionAgachando_2
-    	la t1, AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-	la t0, ScorpionAgachando_1
-    	la t1, AGACHANDO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ULTIMO_FATALITY_IO
-    	la t1, SubZeroSemCabeca_6
-    	sw t0, 0(t1)
-    	
-    	la t0, MORREU_IO
-    	la t1, SubZeroRound_1
-    	sw t0, 0(t1)
-    	
-    	la t0, ULTIMO_MORREU_IO
-    	la t1, SubZeroRound_6
-    	sw t0, 0(t1)
-    	
-    	la t0, ULTIMO_MORREU_IO
-    	la t1, SubZeroSemCabeca_6
-    	sw t0, 0(t1)
-    	
-    	la t0, CABECA_IO
-    	la t1, SubZeroCabeca_1
-    	sw t0, 0(t1)
- 
-    	la t0, VITORIA_1_IO
-    	la t1, SubZeroVitoria_1
-    	sw t0, 0(t1)   	
-    	
-    	la t0, VITORIA_2_IO
-    	la t1, SubZeroVitoria_2
-    	sw t0, 0(t1)  
-    	
-    	la s10, DANCINHA_1_IO
-
-
- 	la t0, ScorpionBlockAgachado_3V
-    	la t1, DESATIVAR_BLOCK_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionBlockAgachado_2
-    	la t1, BLOQUEANDO_AGACHADO_IA
-    	sw t0, 0(t1)    
-    	
-    	la t0, ScorpionBlock_2
-    	la t1, BLOQUEANDO_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionTomou_1
-    	la t1, RECUADA_LEVE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionHelicoptero_1
-    	la t1, RECUADA_PESADA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionCaiu_1
-    	la t1, LEVOU_RASTEIRA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionVoando_1
-    	la t1, TOMOU_ALPISTE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionTomouAgachado_1
-    	la t1, RECUADA_LEVE_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionFinish_1
-    	la t1, TONTO_1_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionFinish_3
-    	la t1, TONTO_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionSemCabeca_1
-    	la t1, FATALITY_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionRound_1
-    	la t1, MORREU_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionRound_6
-    	la t1, ULTIMO_MORREU_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionSemCabeca_6
-    	la t1, ULTIMO_FATALITY_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, ScorpionCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
- 
-    	#la t0, ScorpionVitoria_1
-    	#la t1, VITORIA_1_IA 
-    	#sw t0, 0(t1)   	
-    	
-    	#la t0, ScorpionVitoria_2
-    	#la t1, VITORIA_2_IA 
-    	#sw t0, 0(t1)  
-    	
-    	la s11, DANCINHA_1_IA
-    	
-    	j FIM
-##########
-
 	
     #la a4, ALTURA1            # a4 = endereço da altura
     #la a5, LARGURA1        # a5 = endereço da largura
@@ -510,6 +402,10 @@ SC:
   	la t0, ScorpionPoder_1
     	la t1, PODER_IO
     	sw t0, 0(t1)
+    	
+    	la t0, ScorpionProjetil_1
+    	la t1, PROJETIL_IO
+    	sw t0, 0(t1)
   
   	la t0, ScorpionDancando_1
     	la t1, DANCINHA_1_IO
@@ -571,36 +467,32 @@ SC:
     	la t1, TONTO_2_IO
     	sw t0, 0(t1)
     	
-    	la t0, FATALITY_IO
-    	la t1, ScorpionSemCabeca_1
+    	la t0, ScorpionSemCabeca_1
+    	la t1, FATALITY_IO
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_FATALITY_IO
-    	la t1, ScorpionSemCabeca_6
+    	la t0, ScorpionSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IO
     	sw t0, 0(t1)
     	
-    	la t0, MORREU_IO
-    	la t1, ScorpionRound_1
+    	la t0, ScorpionRound_1
+    	la t1, MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_MORREU_IO
-    	la t1, ScorpionRound_6
+    	la t0, ScorpionRound_6
+    	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, ULTIMO_MORREU_IO
-    	la t1, ScorpionSemCabeca_6
-    	sw t0, 0(t1)
-    	
-    	la t0, CABECA_IO
-    	la t1, ScorpionCabeca_1
+    	la t0, ScorpionCabeca_1
+    	la t1, CABECA_IO
     	sw t0, 0(t1)
  
-    	la t0, VITORIA_1_IO
-    	la t1, ScorpionVitoria_1
+    	la t0, ScorpionVitoria_1
+    	la t1, VITORIA_1_IO 
     	sw t0, 0(t1)   	
     	
-    	la t0, VITORIA_2_IO
-    	la t1, ScorpionVitoria_2
+    	la t0, ScorpionVitoria_2
+    	la t1, VITORIA_2_IO 
     	sw t0, 0(t1)  
     	
     	la s10, DANCINHA_1_IO
