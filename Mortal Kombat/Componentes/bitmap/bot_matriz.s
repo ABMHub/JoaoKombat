@@ -204,13 +204,13 @@ BOT_SZ:
     	la t1, CABECA_IA
     	sw t0, 0(t1)
  
-    	#la t0, SubZeroVitoria_1
-    	#la t1, VITORIA_1_IA 
-    	#sw t0, 0(t1)   	
+    	la t0, SubZeroVitoria_1
+    	la t1, VITORIA_1_IA 
+    	sw t0, 0(t1)   	
     	
-    	#la t0, SubZeroVitoria_2
-    	#la t1, VITORIA_2_IA 
-    	#sw t0, 0(t1)  
+    	la t0, SubZeroVitoria_2
+    	la t1, VITORIA_2_IA 
+    	sw t0, 0(t1)  
     	
     	la s11, DANCINHA_1_IA
     	
@@ -387,13 +387,13 @@ BOT_SC:
     	la t1, CABECA_IA
     	sw t0, 0(t1)
  
-    	#la t0, ScorpionVitoria_1
-    	#la t1, VITORIA_1_IA 
-    	#sw t0, 0(t1)   	
+    	la t0, ScorpionVitoria_1
+    	la t1, VITORIA_1_IA 
+    	sw t0, 0(t1)   	
     	
-    	#la t0, ScorpionVitoria_2
-    	#la t1, VITORIA_2_IA 
-    	#sw t0, 0(t1)  
+    	la t0, ScorpionVitoria_2
+    	la t1, VITORIA_2_IA 
+    	sw t0, 0(t1)  
     	
     	la s11, DANCINHA_1_IA
     	
