@@ -113,7 +113,7 @@ LOOP_CONTADOR:
 ############################################################
 # Função de testar soco					###
 ####### Input ########					##
-# a0 = jogador (1 ou 2)              ?			###
+# s8 = jogador (1 ou 2)              ?			###
 # a1 = tipo de golpe					####
 # 	0 - soco		4 - soco agachado	###
 #	1 - jab			5 - alpiste		##
@@ -911,7 +911,13 @@ FIM_EFETUA_COLISAO_IA:
 	j FIM_TESTE
 	
 LABEL_DO_JOAO:
-	#ebreak
+	#$$$$$$$$$$$
+	la t0, TONTO_1_IO
+	beq s10, t0, FIM_TESTE
+	
+	la t0, TONTO_1_IA
+	beq s11, t0, FIM_TESTE
+  
 	li t0, 2
 	bne a0, t0 CONSERTAR_IA
 	

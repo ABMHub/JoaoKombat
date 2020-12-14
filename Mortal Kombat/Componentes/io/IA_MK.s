@@ -221,14 +221,9 @@ ATAQUES_LONGOS_IA:
 	j L_ESQUERDA_IA				#Ele volta a andar
 	
 
-############################## MOVIMENTAÇÃO DA IA ################################################################
+###############################################################################################################
+########################################################################################################################
 L_DIREITA_IA:
-	#la t0, AGACHADO_IA			# Carrega o endereço do ponteiro para agachado
-	#beq t0, s11, IA_FIM			# Se estiver agachado não faz nada
-	
-	#la t0, BLOQUEANDO_AGACHADO_IA
-	#beq t0, s11, IA_FIM			# Se estiver agachado não faz nada
-	
 	la s11, DANCINHA_1_IA			# Coloca em s11 o estado atual
 	la t0, CONTADORH2			# carrega o contador
 	lw t1, 0(t0)				# t1 = contador
@@ -614,55 +609,76 @@ CAMBALHOTA_FRAME0_IA:
 	la t0, LARGURA_FRAME_0		# a4 = endereço da largura
 	lw t0, 0(t0)
 	
-	la t1, PERSONAGEM1
+	la t1, PERSONAGEM2
 	lw t2, 0(t1)
 	
 	mul t0, t0, a1
 	add t2, t2, t0
 	sw t2, 0(t1)
+	
+	UPDATE_MATRIZ
+	
 	j L_TOTAL_RESET_EM_PE_IA
 	  
 CAMBALHOTA_FRAME1_IA:
 	la t0, LARGURA_FRAME_1		# a4 = endereço da largura
 	lw t0, 0(t0)
 	
-	la t1, PERSONAGEM1
+	la t1, PERSONAGEM2
 	lw t2, 0(t1)
 	
 	mul t0, t0, a1
 	add t2, t2, t0
 	sw t2, 0(t1)
+	
+	UPDATE_MATRIZ
+	
 	j L_TOTAL_RESET_EM_PE_IA
 	
 L_CONTROLE_SUBINDO_IA:
-	la t0, CONTADORH2
-	lw t1, 0(t0)
-	li t2, 19
-	add t1, t1, s5
-	bge t1, t2, L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IA
-	li t2, -1
-	beq t1, t2, L_LIMITE_ESQUERDA_CAMBALHOTA_SUBINDO_IA
+	la t0, CONTADORH2                    # t0 eh o endereco do contador horizontal
+    	lw t1, 0(t0)                        # t1 e o contador horizontal do p1
+    	li t2, 19                        # t2 eh o limite da direita
+    	add t1, t1, s5                        # desloca contador pra direcao certa
+    	bge t1, t2, L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IA    # se passou do limite direita, branch
+    	li t2, -1
+    	beq t1, t2, L_LIMITE_ESQUERDA_CAMBALHOTA_SUBINDO_IA
+
+    	la t0, CONTADORH1                    # 
+    	lw t2, 0(t0)                        # t2 eh o contador horizontal de p2
+    	sub t3, t2, t1                        # t1 eh a diferenca de t2 e t1
+    	li t2, 1                        # 
+    	beq t2, t3, L_LIMITE_DIREITA_CAMBALHOTA_SUBINDO_IA    # se a diferenca for 1, branch
 	
 L_NAO_S_IA:	
+	la t0, CONTADORH2
 	sw t1, 0(t0)	
 	
-	UPDATE_MATRIZ
+	#UPDATE_MATRIZ
 	
 	ret
 
 L_CONTROLE_DESCENDO_IA:
 	la t0, CONTADORH2
-	lw t1, 0(t0)
-	li t2, 19
-	add t1, t1, s5
-	bge t1, t2, L_LIMITE_DIREITA_CAMBALHOTA_DESCENDO_IA
-	li t2, -1
-	beq t1, t2, L_LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_IA
+ 	lw t1, 0(t0)
+  	li t2, 19
+    	add t1, t1, s5
+    	bge t1, t2, L_LIMITE_DIREITA_CAMBALHOTA_DESCENDO_IA
+    	li t2, -1
+    	beq t1, t2, L_LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_IA
+                            # t1 eh o contador horizontal do p1
+    	la t0, CONTADORH1                    # 
+    	lw t2, 0(t0)                        # t2 eh o contador horizontal de p2
+   	sub t3, t2, t1                        # t1 eh a diferenca de t2 e t1
+   	li t2, 1                        # 
+    	beq t2, t3, L_LIMITE_DIREITA_CAMBALHOTA_DESCENDO_IA    # se a diferenca for 1, branch
+
 	
 L_NAO_D_IA:
+	la t0, CONTADORH2
 	sw t1, 0(t0)
 	
-	UPDATE_MATRIZ
+	#UPDATE_MATRIZ
 			
 	ret	
 			
@@ -697,20 +713,43 @@ L_LIMITE_ESQUERDA_CAMBALHOTA_DESCENDO_IA:
 ###########################################################################################
 L_PODER_IA:
 
-	la t0, AGACHADO_IA			# Carrega o endereço do ponteiro para agachado
-	beq t0, s11, IA_FIM		# Se estiver agachado não faz nada
-	
-	la t0, BLOQUEANDO_AGACHADO_IA
-	beq t0, s11, IA_FIM		# Se estiver agachado não faz nada
-	
-	la t0, PODER_IA				# ponteiro do poder
-	lw a0, 0(t0)				# a0 = sprite inicial do poder
-	li a2, 5				# são 5 frames na ida
-	li s6, 8
+    	la t0, AGACHADO_IA            # Carrega o endereço do ponteiro para agachado
+    	beq t0, s11, IA_FIM        # Se estiver agachado não faz nada
 
-	jal ra, IDENTIFICA_POSICAO_IA
-	jal ra, FRAME_GOLPE_VGA_IA
-	j L_TOTAL_RESET_EM_PE_IA
+    	la t0, BLOQUEANDO_AGACHADO_IA
+    	beq t0, s11, IA_FIM        # Se estiver agachado não faz nada
+
+    	la t0, TONTO_1_IA
+    	beq t0, s11, IA_FIM        # Se estiver tonto não faz nada
+
+    	la t0, PODER_IA                # ponteiro do poder
+    	lw a0, 0(t0)                # a0 = sprite inicial do poder
+    	li a2, 5                # são 5 frames na ida
+
+    	jal ra, IDENTIFICA_POSICAO_IA
+   	jal ra, FRAME_GOLPE_VGA_IA
+
+    	jal ra, IDENTIFICA_POSICAO_IA
+    	la t0, PROJETIL_IA
+    	lw a0, 0(t0)
+   	li a2, 4
+    	li a3, 0
+    	
+    	la a4, PERSONAGEM2
+    	li a5, -36
+    	jal ra, P_PODER
+
+    	la t0, PERSONAGEM2
+    	lw t0, 0(t0)
+    	li a1, 8
+    	li s8, 2
+    	jal ra, TESTE_GOLPE
+    	la t0, PERSONAGEM2
+    	lw t0, 0(t0)
+
+    	li a3, 0
+
+    	j L_TOTAL_RESET_EM_PE_IA
 #######################################################################################################################
 L_CAMINHAR_IA:
 
@@ -719,6 +758,7 @@ L_CAMINHAR_IA:
 	jal ra, FRAME_DESLOCAMENTO_VGA_IA
 
 L_TOTAL_RESET_EM_PE_IA:	
+	la s11, DANCINHA_1_IA
 	li a2, 1
 	la t0, DANCINHA_1_IA
 	lw a0, 0(t0)
@@ -749,15 +789,24 @@ L_GOLPE_IA:
 	mv a1, s6					#???????????????????????????????????????
     	jal ra, TESTE_GOLPE				#???????????????????????????????????????
 	
+	#
 	li a3, 0
-	la t0, DANCINHA_1_IA
-	beq t0, s11, L_TOTAL_RESET_EM_PE_IA	# verifica se está em pé
-	
-	la t0, AGACHADO_IA
-	beq t0, s11, L_TOTAL_RESET_AGACHADO_IA
-	
-	la t0, BLOQUEANDO_EM_PE_IA
-	beq t0, s11, L_RESET_BLOCK_EM_PE_IA 
+    	la t0, VITORIA_2_IA
+    	beq t0, s11, IA_FIM
+
+    	la t0, DANCINHA_1_IA
+    	beq t0, s11, L_TOTAL_RESET_EM_PE_IA    # verifica se está em pé
+
+    	la t0, AGACHADO_IA
+    	beq t0, s11, L_TOTAL_RESET_AGACHADO_IA
+
+    	la t0, BLOQUEANDO_EM_PE_IA
+    	beq t0, s11, L_RESET_BLOCK_EM_PE_IA 
+
+    	la t0, BLOQUEANDO_AGACHADO_IA
+    	beq t0, s11, L_RESET_BLOCK_AGACHADO_IA
+
+    	j IA_FIM
 
 L_RESET_BLOCK_AGACHADO_IA:	
 	# se chegou até aqui significa que é o block agachado
@@ -783,6 +832,7 @@ L_TOTAL_RESET_AGACHADO_IA:
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA_IA
 	j IA_FIM
+
 
 IA_FIM: 	
 	lw ra, 0(sp)
