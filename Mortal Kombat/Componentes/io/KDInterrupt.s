@@ -644,6 +644,9 @@ L_PODER_IO:
 	lw a0, 0(t0)
 	li a2, 4
 	li a3, 0
+	
+	li a5, 36
+	la a4, PERSONAGEM1_INICIO
 	jal ra, P_PODER
 		
 	la t0, PERSONAGEM1_INICIO

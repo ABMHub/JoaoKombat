@@ -1,3 +1,5 @@
+# A4 = PONTEIRO DA POSIÇÃO INICIAL DO PERSONAGEM
+
 P_PODER:
 	# backup de registradores
 	addi sp, sp, -16
@@ -7,12 +9,13 @@ P_PODER:
 	sw s2, 12(sp)
 
 	# preparação
-	la a4, PERSONAGEM1_INICIO
+	#la a4, PERSONAGEM1_INICIO
 	mv s0, a4			# s0 = endereço da posição inicial do personagem
 	lw s1, 0(s0)			# s1 = posição inicial do personagem
 	
 	li t1, -19200
 	add s1, s1, t1
+	add s1, s1, a5
 	
 	
 	la s0, P_PODER_INICIO
