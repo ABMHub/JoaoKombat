@@ -78,4 +78,6 @@ CENARIO2:
 #	la s9, cenario9			# carrega pra s9 o cenário
 
 FIM_CENARIO:
+	la t0, CENARIO_ATUAL
+	sw s9, 0(t0)
 	ret				# retorna para o procedimento chamador

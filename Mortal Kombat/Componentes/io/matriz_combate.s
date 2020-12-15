@@ -505,7 +505,7 @@ COLISAO_IA:
 ULTIMO_GOLPE_IO:
 	# se a1 == 5 então tomou alpiste
 	
-	ebreak
+	#ebreak
 	li t1, 5
 	beq t1, a1, L_FATALITY_IO
 	
@@ -569,7 +569,7 @@ VITORIA_IA:
 	la t0, VITORIA_2_IA
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA
-	la s10, VITORIA_2_IA
+	la s11, VITORIA_2_IA
 	
 	
 	
@@ -1018,7 +1018,7 @@ FIM_TESTE: # Caso não haja hit ou depois da lógica de hit, encerra o programa
 	beq s0, zero, SEM_DANO
 	jal ra, APLICA_DANO
 
-ACABOU_LUTA:
+
 SEM_DANO:
 	lw ra, 0(sp)		# restora ra
 	lw a0, 4(sp)
@@ -1029,7 +1029,18 @@ SEM_DANO:
 	addi sp, sp, 24		# restora sp
 	
 	ret			# tchauzinho
+
+ACABOU_LUTA:
 	
+	# Reativa a interrupção
+#li t1,0xFF200000    			# Endereço de controle do KDMMIO
+#li t0,0x02       			# bit 1 habilita/desabilita a interrupção
+	#sw t0,0(t1)           			# Habilita interrupção do teclado
+	
+	
+	li s9, 0
+	ebreak
+	j SEM_DANO		
 ###################################################
 # Funções de colisão de movimento		  #
 ####### Input  ########                           #

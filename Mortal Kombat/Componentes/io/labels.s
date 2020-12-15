@@ -1,5 +1,23 @@
 .data
-	#Labels básicas
+	# BATALHA
+	CENARIO_ATUAL:			.word 0x0
+	ROUND_ATUAL:			.word 0x0
+	HP_IA:				.word 100
+	HP_IO:				.word 100
+	MENSAGEM_POS:			.word 0xFF007228
+	PARTIDA:			.word 0x0
+	VETOR_INIMIGOS:			.space 48
+	VITORIAS_1:			.word 0x0
+	VITORIAS_2:			.word 0x0
+	
+	
+	M_LARGURA_FRAME_0:		.word 0x0AC			
+	M_ALTURA_FRAME_0:		.word 0x01C
+	M_LARGURA_FRAME_1:		.word 0x0AC			
+	M_ALTURA_FRAME_1:		.word 0x01C
+	
+	
+	# Labels básicas
 	P_PODER_INICIO:			.word 0x0
 	VGA1INICIO: 			.word 0xFF000000
 	VGA1FINAL: 			.word 0xFF012C00
@@ -35,8 +53,7 @@
 	CONTADORH1:			.word 0x1
 	CONTADORV2:			.word 0xC
 	CONTADORH2:			.word 0x11
-	HP_IA:				.word 100
-	HP_IO:				.word 100
+
 	MATRIZ_COMBATE:			.space 300
 	#########################################
 	FILA_PERSONAGEM_1:		.space 120
