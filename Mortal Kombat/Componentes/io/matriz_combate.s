@@ -544,11 +544,35 @@ VITORIA_IA:
 	jal ra, IDENTIFICA_POSICAO_IA
 	jal ra, FRAME_GOLPE_VGA_IA
 
+	
+	
+	############# IO MORREU ##############################################
+	la t0, ULTIMO_MORREU_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	
 	la t0, VITORIA_2_IA
 	lw a0, 0(t0)
-	
 	la s11, VITORIA_2_IA
 	jal ra, FRAME_DANCINHA_IA
+	
+	li t0, 0xFF200604
+	lw t1, 0(t0)
+	xori t1, t1, 0x001
+	sw t2, 0(t0)			# Muda para a outra frame
+	
+	la t0, ULTIMO_MORREU_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA	
+	
+
+	la t0, VITORIA_2_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	la s10, VITORIA_2_IA
+	
+	
+	
 	j ACABOU_LUTA
 L_RECUADA_LEVE_IO:	
 	la t0, BLOQUEANDO_EM_PE_IO
@@ -696,12 +720,32 @@ VITORIA_IO:
 	jal ra, IDENTIFICA_POSICAO
 	jal ra, FRAME_GOLPE_VGA
 
+
+		
+	############IA MORREU ###############################################
+	la t0, ULTIMO_MORREU_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA
+	
 	la t0, VITORIA_2_IO
 	lw a0, 0(t0)
-
 	jal ra, FRAME_DANCINHA
+	la s10, VITORIA_2_IO
 	
-	la s10, VITORIA_2_IO	
+	li t0, 0xFF200604
+	lw t1, 0(t0)
+	xori t1, t1, 0x001
+	sw t2, 0(t0)			# Muda para a outra frame
+	
+	la t0, ULTIMO_MORREU_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA	
+	
+	la t0, VITORIA_2_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	la s10, VITORIA_2_IO
+	
 	j ACABOU_LUTA
 
 L_RECUADA_LEVE_IA:	
