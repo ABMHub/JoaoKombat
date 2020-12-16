@@ -13,8 +13,8 @@
 	HP_IO:				.word 100
 	MENSAGEM_POS:			.word 0xFF007228
 	
-	VITORIAS_1:			.word 0x0
-	VITORIAS_2:			.word 0x0
+	VITORIAS_1:			.word 0x0	# VITÓRIAS DA IO
+	VITORIAS_2:			.word 0x0	# VITÓRIAS DA IA
 	PLAYER_1_WINS:			.word 0x0
 	PLAYER_2_WINS:			.word 0x0
 	

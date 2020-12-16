@@ -658,7 +658,10 @@ L_PODER_IO:
 	lw t0, 0(t0)
 		
 	li a3, 0
-		
+	
+	la t0, VITORIA_2_IO
+	beq t0, s10, Fim_KDInterrupt	
+				
 	j L_TOTAL_RESET_EM_PE_IO
 #######################################################################################################################
 L_CAMINHAR_IO:

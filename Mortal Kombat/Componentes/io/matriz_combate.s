@@ -504,10 +504,14 @@ COLISAO_IA:
 	beq a1, t0, L_LEVOU_RASTEIRA_IA
 
 #######################################################################################################################
-#							IO
+#							IO está morrendo
 #######################################################################################################################
 ULTIMO_GOLPE_IO:
 	# se a1 == 5 então tomou alpiste
+	
+	la t0, VITORIAS_2
+	lw t1, 0(t0)
+	beq t1, zero, SO_MORREU_IO			# Primeira vitória da IA
 	
 	#ebreak
 	li t1, 5
@@ -732,12 +736,17 @@ L_LEVOU_RASTEIRA_IO:
 #							IA
 #######################################################################################################################
 ULTIMO_GOLPE_IA:
+	
+	la t0, VITORIAS_1
+	lw t1, 0(t0)
+	beq t1, zero, SO_MORREU_IA			# Primeira vitória da IO
+
 	# se a1 == 5 então tomou alpiste
 	li t1, 5
 	beq t1, a1, L_FATALITY_IA
 	
 SO_MORREU_IA:
-	#ebreak
+	ebreak
 	la t0, MORREU_IA
 	lw a0, 0(t0)
 	
