@@ -173,6 +173,10 @@ LAST_STAGE:
 	jal ra, PERSONAGEM_V2
 	
 FIM_TORRE:
+	li a7, 32
+	li a0, 1500
+	ecall 
+
 	lw ra, 0(sp)
 	lw s0, 4(sp)
 	lw s1, 8(sp)
@@ -337,6 +341,10 @@ FIM_CASE_FOTINHA:
 
 #################################################################################################################################
 MOSTRA_TUDO:
+	li t1,0xFF200000    		# Endereço de controle do KDMMIO
+	li t0,0x01       		# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           		# Habilita interrupção do teclado
+
 	addi sp, sp, -16
 	sw ra, 0(sp)
 	sw s0, 4(sp)
@@ -362,7 +370,7 @@ MOSTRA_TUDO:
 	jal ra, PERSONAGEM_V2
 	
 	li a7, 32
-	li a0, 1000
+	li a0, 1500
 	ecall
 	
 	#ebreak
@@ -391,7 +399,7 @@ TORRE1:
 	bne t1, s0, TORRE1
 	
 	li a7, 32
-	li a0, 1000
+	li a0, 1500
 	ecall
 	
 	#ebreak
@@ -418,7 +426,7 @@ TORRE2:
 	bne t1, s0, TORRE2
 	
 	li a7, 32
-	li a0, 1000
+	li a0, 1500
 	ecall
 	
 	#ebreak
@@ -459,7 +467,7 @@ TORRE3:
 	jal ra, PERSONAGEM_V2
 	
 	li a7, 32
-	li a0, 1000
+	li a0, 1500
 	ecall
 	
 	lw ra, 0(sp)
@@ -467,6 +475,10 @@ TORRE3:
 	lw s1, 8(sp)
 	lw s2, 12(sp)
 	addi sp, sp, 4
+	
+	li t1,0xFF200000    			# Endereço de controle do KDMMIO
+	li t0,0x02       			# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           			# Habilita interrupção do teclado
 	
 	ret
 	

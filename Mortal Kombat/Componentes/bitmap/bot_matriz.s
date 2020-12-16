@@ -1763,7 +1763,7 @@ BOT_Re:
     	j FIM_ESCOLHENDO_BOT
     	
 BOT_Ja:
-		la t0, Wins_Jax
+	la t0, Wins_Jax
 	la t1, PLAYER_2_WINS
 	sw t0, 0(t1)
 

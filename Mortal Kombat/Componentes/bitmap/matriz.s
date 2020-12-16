@@ -2132,16 +2132,15 @@ FIM:
 	lw ra, 0(sp)
 	addi sp, sp, 4
 	
-	csrr t0, 3073
-    	la t1, DIFICULDADE_IA
-    	lw t1, 0(t1)
-    	sub t0, t0, s8
-    	bge t0, t1, LOOP_IA
+	la tp,KDInterrupt    # carrega em tp o endereço base das rotinas de Tratamento da Interrupção
+        csrrw zero,5,tp     # seta utvec (reg 5) para o endereço tp
+        csrrsi zero,0,1     # seta o bit de habilitação de interrupção global em ustatus (reg 0)
+        li tp,0x100
+        csrrw zero,4,tp        # habilita a interrupção do usuário
 
-    	csrr s6,3073         # le o time atual
-    	li t0,0xFF200604        # Escolhe o Frame 0 ou 1
-    	sw s7,0(t0)        # seleciona a Frame t2
-    	xori s7,s7,0x001    # escolhe a outra frame
+        li t1,0xFF200000    # Endereço de controle do KDMMIO
+        li t0,0x02        # bit 1 habilita/desabilita a interrupção
+        sw t0,0(t1)           # Habilita interrupção do
 	
 	
 	ret

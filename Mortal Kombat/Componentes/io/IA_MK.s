@@ -144,7 +144,7 @@ EM_PE_IA:
 	li t1, 2
 	bge t1, s2, ACAO_IA		#Vê se está na distância de batalha
 	
-	li t1, 10
+	li t1, 5
 	bge t1, s2, ESPECIAL_IA		#Tenta dar o especial nessa distância
 
 VOLTA_IA:

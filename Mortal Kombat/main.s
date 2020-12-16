@@ -10,7 +10,7 @@
 	.include "Sprites/data/cenarios.s"
 	
 	#Personagens
-	#.include "Sprites/data/jax.s"
+	.include "Sprites/data/jax.s"
 	.include "Sprites/data/liukang.s"
     	.include "Sprites/data/kunglao.s"
     	.include "Sprites/data/reptile.s"
@@ -40,9 +40,9 @@
 	
 	jal ra, MATRIZ_ESCOLHA			#escolhe o personagem jogável
 	
-	jal ra, ESCOLHENDO_BOT
-	
 	jal ra, MONTA_VETOR			# escolhe os inimigos aleatoriamente
+	
+	jal ra, ESCOLHENDO_BOT
 			
 	jal ra, MOSTRA_TUDO			# mostra a torre inteira
 	
@@ -65,11 +65,10 @@ RESTART:
 
 FIM_RESTART:
 	
-########
 	li t0,0xFF200604    # Escolhe o Frame 0 ou 1
-	mv a7, zero
+   	li s7,0            # inicio Frame 0
 	csrr s8, 3073
-
+	
 LOOP_IA:
     	jal ra, IA_BOT
     	csrr s8, 3073
@@ -77,7 +76,16 @@ LOOP_IA:
 INFINITO:
 	beq zero, s9, RESTART
 
+    	csrr t0, 3073
+    	la t1, DIFICULDADE_IA
+    	lw t1, 0(t1)
+    	sub t0, t0, s8
+    	bge t0, t1, LOOP_IA
 
+    	csrr s6,3073         # le o time atual
+    	li t0,0xFF200604        # Escolhe o Frame 0 ou 1
+    	sw s7,0(t0)        # seleciona a Frame t2
+    	xori s7,s7,0x001    # escolhe a outra frame
 LOOOP:
 
  	csrr t0,3073 		# le o time atual
@@ -86,8 +94,8 @@ LOOOP:
 	bge t1, t0, INFINITO
 
 	j LOOOP	
-	
-	#j INFINITO
+    	
+########
 	
 	li a7, 10
 	ecall

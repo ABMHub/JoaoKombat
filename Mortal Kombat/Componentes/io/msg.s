@@ -1,4 +1,10 @@
 NOVO_ROUND:
+	# Desativa a interrupção
+
+        li t1,0xFF200000    		# Endereço de controle do KDMMIO
+	li t0,0x01       		# bit 1 habilita/desabilita a interrupção
+	sw t0,0(t1)           		# Habilita interrupção do teclado
+	#
 
 	la t0, VITORIAS_1
 	lw t1, 0(t0)
@@ -313,6 +319,14 @@ L_FIM_MENSAGEM_FIGHT:
 L_FIM_ACABOU:	
 	li sp, 0x7fffeffc	# reseta a pilha
 	# ret
+	
+	# Reativa a interrupçãos
+
+        li t1,0xFF200000    	# Endereço de controle do KDMMIO
+        li t0,0x02        	# bit 1 habilita/desabilita a interrupção
+        sw t0,0(t1)          	# Habilita interrupção do
+	
+	
 	j FIM_RESTART
 
     	
