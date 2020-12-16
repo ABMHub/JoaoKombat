@@ -928,7 +928,7 @@ Ba:
 	la t1, PLAYER_1_WINS
 	sw t0, 0(t1)
 	
-	la t0, Fotinha_LK
+	la t0, Fotinha_BA
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
