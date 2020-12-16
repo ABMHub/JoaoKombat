@@ -10,19 +10,19 @@
 	.include "Sprites/data/cenarios.s"
 	
 	#Personagens
-	.include "Sprites/data/jax.s"
-	.include "Sprites/data/liukang.s"
-    	.include "Sprites/data/kunglao.s"
-    	.include "Sprites/data/reptile.s"
-    	.include "Sprites/data/johnnycage.s"
-    	.include "Sprites/data/shangtsung.s"
-	.include "Sprites/data/kitana.s"
-	.include "Sprites/data/subzero.s"
-	.include "Sprites/data/scorpion.s"
-	.include "Sprites/data/mileena.s"
-	#.include "Sprites/data/raiden.s"
-	#.include "Sprites/data/baraka.s"
-	
+	#.include "Sprites/data/jax.s"
+	#.include "Sprites/data/liukang.s"
+    	#.include "Sprites/data/kunglao.s"
+    	#.include "Sprites/data/reptile.s"
+    	#.include "Sprites/data/johnnycage.s"
+    	#.include "Sprites/data/shangtsung.s"
+	#.include "Sprites/data/kitana.s"
+	#.include "Sprites/data/subzero.s"
+	#.include "Sprites/data/scorpion.s"
+	#.include "Sprites/data/mileena.s"
+	.include "Sprites/data/raiden.s"
+	.include "Sprites/data/baraka.s"
+	.include "Sprites/data/sprites.s"
 	
 	
 	

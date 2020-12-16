@@ -225,9 +225,9 @@ BOT_LK:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, LiuKangCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, LiuKangVitoria_1
     	la t1, VITORIA_1_IA 
@@ -394,9 +394,9 @@ BOT_SZ:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, SubZeroCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, SubZeroVitoria_1
     	la t1, VITORIA_1_IA 
@@ -563,9 +563,9 @@ BOT_Mi:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, MileenaCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, MileenaCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, MileenaVitoria_1
     	la t1, VITORIA_1_IA 
@@ -732,9 +732,9 @@ BOT_KL:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, KungLaoCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, KungLaoCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, KungLaoVitoria_1
     	la t1, VITORIA_1_IA 
@@ -901,9 +901,9 @@ BOT_ST:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, ShangTsungCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, ShangTsungCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, ShangTsungVitoria_1
     	la t1, VITORIA_1_IA 
@@ -918,6 +918,174 @@ BOT_ST:
     	j FIM_ESCOLHENDO_BOT
     		
 BOT_Ba:
+
+	la t0, Wins_Baraka
+	la t1, PLAYER_2_WINS
+	sw t0, 0(t1)
+
+	la t0, BarakaAgachando_2
+    	la t1, AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+	la t0, BarakaAgachando_1
+    	la t1, AGACHANDO_IA
+    	sw t0, 0(t1)
+    	
+  	la t0, BarakaPulando_1
+    	la t1, PULAR_1_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaPulando_3V
+    	la t1, PULAR_2_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaAgachando_3V
+    	la t1, LEVANTAR_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaAndando_1
+    	la t1, CAMINHAR_DIREITA_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaAndando_3V
+    	la t1, CAMINHAR_ESQUERDA_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaCambalhota_1
+    	la t1, CAMBALHOTA_IA
+    	sw t0, 0(t1)
+
+	la t0, BarakaChuteBaixo_1
+   	la t1, CHUTE_1_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaChuteAgachado_1
+   	la t1, CHUTE_1_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaSoco_1
+   	la t1, SOCO_1_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaSocoAgachado_1
+   	la t1, SOCO_1_AGACHADO_IA
+    	sw t0, 0(t1)
+
+  	la t0, BarakaChuteAlto_1
+   	la t1, CHUTE_2_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaRasteira_1
+   	la t1, CHUTE_2_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaJab_1
+   	la t1, SOCO_2_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaAlpiste_1
+   	la t1, SOCO_2_AGACHADO_IA
+    	sw t0, 0(t1)  
+  
+  	la t0, BarakaPoder_1
+    	la t1, PODER_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaProjetil_1
+    	la t1, PROJETIL_IA
+    	sw t0, 0(t1)
+  
+  	la t0, BarakaDancando_1
+    	la t1, DANCINHA_1_IA
+    	sw t0, 0(t1)
+
+    	la t0, BarakaDancando_2
+    	la t1, DANCINHA_2_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaBlock_1
+    	la t1, BLOCK_EM_PE_IA
+    	sw t0, 0(t1)
+
+    	la t0, BarakaBlock_3V
+    	la t1, DESATIVAR_BLOCK_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaBlockAgachado_1
+    	la t1, BLOCK_AGACHADO_IA
+    	sw t0, 0(t1)
+
+ 	la t0, BarakaBlockAgachado_3V
+    	la t1, DESATIVAR_BLOCK_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaBlockAgachado_2
+    	la t1, BLOQUEANDO_AGACHADO_IA
+    	sw t0, 0(t1)    
+    	
+    	la t0, BarakaBlock_2
+    	la t1, BLOQUEANDO_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaTomou_1
+    	la t1, RECUADA_LEVE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaHelicoptero_1
+    	la t1, RECUADA_PESADA_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaCaiu_1
+    	la t1, LEVOU_RASTEIRA_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaVoando_1
+    	la t1, TOMOU_ALPISTE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaTomouAgachado_1
+    	la t1, RECUADA_LEVE_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaFinish_1
+    	la t1, TONTO_1_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaFinish_3
+    	la t1, TONTO_2_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaSemCabeca_1
+    	la t1, FATALITY_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaRound_1
+    	la t1, MORREU_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaRound_6
+    	la t1, ULTIMO_MORREU_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IA
+    	sw t0, 0(t1)
+    	
+    	#la t0, BarakaCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
+ 
+    	la t0, BarakaVitoria_1
+    	la t1, VITORIA_1_IA 
+    	sw t0, 0(t1)   	
+    	
+    	la t0, BarakaVitoria_2
+    	la t1, VITORIA_2_IA 
+    	sw t0, 0(t1)  
+    	
+    	la s11, DANCINHA_1_IA
+    	
+    	j FIM_ESCOLHENDO_BOT
 	
 BOT_JC:
 		la t0, Wins_JohnnyCage
@@ -1072,9 +1240,9 @@ BOT_JC:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, JohnnyCageCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, JohnnyCageCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, JohnnyCageVitoria_1
     	la t1, VITORIA_1_IA 
@@ -1241,9 +1409,9 @@ BOT_Ki:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, KitanaCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, KitanaCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, KitanaVitoria_1
     	la t1, VITORIA_1_IA 
@@ -1410,9 +1578,9 @@ BOT_SC:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, ScorpionCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, ScorpionCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, ScorpionVitoria_1
     	la t1, VITORIA_1_IA 
@@ -1579,9 +1747,9 @@ BOT_Re:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, ReptileCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, ReptileCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, ReptileVitoria_1
     	la t1, VITORIA_1_IA 
@@ -1748,9 +1916,9 @@ BOT_Ja:
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, JaxCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
+    	#la t0, JaxCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
  
     	la t0, JaxVitoria_1
     	la t1, VITORIA_1_IA 
@@ -1765,7 +1933,173 @@ BOT_Ja:
     	j FIM_ESCOLHENDO_BOT
 	
 BOT_Ra:
-	
+	la t0, Wins_Rayden
+	la t1, PLAYER_2_WINS
+	sw t0, 0(t1)
+
+	la t0, RaidenAgachando_2
+    	la t1, AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+	la t0, RaidenAgachando_1
+    	la t1, AGACHANDO_IA
+    	sw t0, 0(t1)
+    	
+  	la t0, RaidenPulando_1
+    	la t1, PULAR_1_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenPulando_3
+    	la t1, PULAR_2_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenAgachando_3V
+    	la t1, LEVANTAR_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenAndando_1
+    	la t1, CAMINHAR_DIREITA_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenAndando_3V
+    	la t1, CAMINHAR_ESQUERDA_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenCambalhota_1
+    	la t1, CAMBALHOTA_IA
+    	sw t0, 0(t1)
+
+	la t0, RaidenChuteBaixo_1
+   	la t1, CHUTE_1_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenChuteAgachado_1
+   	la t1, CHUTE_1_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenSoco_1
+   	la t1, SOCO_1_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenSocoAgachado_1
+   	la t1, SOCO_1_AGACHADO_IA
+    	sw t0, 0(t1)
+
+  	la t0, RaidenChuteAlto_1
+   	la t1, CHUTE_2_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenRasteira_1
+   	la t1, CHUTE_2_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenJab_1
+   	la t1, SOCO_2_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenAlpiste_1
+   	la t1, SOCO_2_AGACHADO_IA
+    	sw t0, 0(t1)  
+  
+  	la t0, RaidenPoder_1
+    	la t1, PODER_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenProjetil_1
+    	la t1, PROJETIL_IA
+    	sw t0, 0(t1)
+  
+  	la t0, RaidenDancando_1
+    	la t1, DANCINHA_1_IA
+    	sw t0, 0(t1)
+
+    	la t0, RaidenDancando_2
+    	la t1, DANCINHA_2_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenBlock_1
+    	la t1, BLOCK_EM_PE_IA
+    	sw t0, 0(t1)
+
+    	la t0, RaidenBlock_3V
+    	la t1, DESATIVAR_BLOCK_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenBlockAgachado_1
+    	la t1, BLOCK_AGACHADO_IA
+    	sw t0, 0(t1)
+
+ 	la t0, RaidenBlockAgachado_3V
+    	la t1, DESATIVAR_BLOCK_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenBlockAgachado_2
+    	la t1, BLOQUEANDO_AGACHADO_IA
+    	sw t0, 0(t1)    
+    	
+    	la t0, RaidenBlock_2
+    	la t1, BLOQUEANDO_EM_PE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenTomou_1
+    	la t1, RECUADA_LEVE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenHelicoptero_1
+    	la t1, RECUADA_PESADA_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenCaiu_1
+    	la t1, LEVOU_RASTEIRA_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenVoando_1
+    	la t1, TOMOU_ALPISTE_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenTomouAgachado_1
+    	la t1, RECUADA_LEVE_AGACHADO_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenFinish_1
+    	la t1, TONTO_1_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenFinish_3
+    	la t1, TONTO_2_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenSemCabeca_1
+    	la t1, FATALITY_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenRound_1
+    	la t1, MORREU_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenRound_6
+    	la t1, ULTIMO_MORREU_IA
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IA
+    	sw t0, 0(t1)
+    	
+    	#la t0, RaidenCabeca_1
+    	#la t1, CABECA_IA
+    	#sw t0, 0(t1)
+ 
+    	la t0, RaidenVitoria_1
+    	la t1, VITORIA_1_IA 
+    	sw t0, 0(t1)   	
+    	
+    	la t0, RaidenVitoria_2
+    	la t1, VITORIA_2_IA 
+    	sw t0, 0(t1)  
+    	
+    	la s11, DANCINHA_1_IA
+    	
+    	j FIM_ESCOLHENDO_BOT
     	j FIM_ESCOLHENDO_BOT
 
 FIM_ESCOLHENDO_BOT:

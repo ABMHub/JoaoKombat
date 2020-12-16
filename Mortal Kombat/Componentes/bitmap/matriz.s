@@ -214,9 +214,9 @@ LK:
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, LiuKangCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, LiuKangVitoria_1
     	la t1, VITORIA_1_IO 
@@ -386,7 +386,7 @@ SZ:	la t0, Wins_SubZero
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroCabeca_1
+    	#la t0, SubZeroCabeca_1
     	la t1, CABECA_IO
     	sw t0, 0(t1)
  
@@ -563,9 +563,9 @@ Mi:		la t0, Wins_Mileena
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, MileenaCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, MileenaCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, MileenaVitoria_1
     	la t1, VITORIA_1_IO 
@@ -735,9 +735,9 @@ KL:	la t0, Wins_KungLao
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, KungLaoCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, KungLaoCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, KungLaoVitoria_1
     	la t1, VITORIA_1_IO 
@@ -907,9 +907,9 @@ ST:	la t0, Wins_ShangTsung
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, ShangTsungCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, ShangTsungCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, ShangTsungVitoria_1
     	la t1, VITORIA_1_IO 
@@ -1082,9 +1082,9 @@ JC:	la t0, Wins_JohnnyCage
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, JohnnyCageCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, JohnnyCageCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, JohnnyCageVitoria_1
     	la t1, VITORIA_1_IO 
@@ -1255,9 +1255,9 @@ Ki:
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, KitanaCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, KitanaVitoria_1
     	la t1, VITORIA_1_IO 
@@ -1427,9 +1427,9 @@ SC:	la t0, Wins_Scorpion
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, ScorpionCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, ScorpionCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, ScorpionVitoria_1
     	la t1, VITORIA_1_IO 
@@ -1599,9 +1599,9 @@ Re:	la t0, Wins_Reptile
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, ReptileCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, ReptileCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, ReptileVitoria_1
     	la t1, VITORIA_1_IO 
@@ -1771,9 +1771,9 @@ Ja:	la t0, Wins_Jax
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, JaxCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
+    	#la t0, JaxCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
  
     	la t0, JaxVitoria_1
     	la t1, VITORIA_1_IO 
@@ -1788,6 +1788,179 @@ Ja:	la t0, Wins_Jax
     	j FIM
 	
 Ra:	
+	la t0, Wins_Rayden
+	la t1, PLAYER_1_WINS
+	sw t0, 0(t1)
+
+	la t0, Fotinha_JA
+    	la t1, FOTINHA_IO
+    	sw t0, 0(t1)
+
+	la t0, RaidenAgachando_2
+    	la t1, AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+	la t0, RaidenAgachando_1
+    	la t1, AGACHANDO_IO
+    	sw t0, 0(t1)
+    	
+  	la t0, RaidenPulando_1
+    	la t1, PULAR_1_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenPulando_3
+    	la t1, PULAR_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenAgachando_3V
+    	la t1, LEVANTAR_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenAndando_1
+    	la t1, CAMINHAR_DIREITA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenAndando_3V
+    	la t1, CAMINHAR_ESQUERDA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenCambalhota_1
+    	la t1, CAMBALHOTA_IO
+    	sw t0, 0(t1)
+
+	la t0, RaidenChuteBaixo_1
+   	la t1, CHUTE_1_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenChuteAgachado_1
+   	la t1, CHUTE_1_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenSoco_1
+   	la t1, SOCO_1_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenSocoAgachado_1
+   	la t1, SOCO_1_AGACHADO_IO
+    	sw t0, 0(t1)
+
+  	la t0, RaidenChuteAlto_1
+   	la t1, CHUTE_2_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenRasteira_1
+   	la t1, CHUTE_2_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenJab_1
+   	la t1, SOCO_2_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenAlpiste_1
+   	la t1, SOCO_2_AGACHADO_IO
+    	sw t0, 0(t1)  
+  
+  	la t0, RaidenPoder_1
+    	la t1, PODER_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenProjetil_1
+    	la t1, PROJETIL_IO
+    	sw t0, 0(t1)
+  
+  	la t0, RaidenDancando_1
+    	la t1, DANCINHA_1_IO
+    	sw t0, 0(t1)
+
+    	la t0, RaidenDancando_2
+    	la t1, DANCINHA_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenBlock_1
+    	la t1, BLOCK_EM_PE_IO
+    	sw t0, 0(t1)
+
+    	la t0, RaidenBlock_3V
+    	la t1, DESATIVAR_BLOCK_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenBlockAgachado_1
+    	la t1, BLOCK_AGACHADO_IO
+    	sw t0, 0(t1)
+
+ 	la t0, RaidenBlockAgachado_3V
+    	la t1, DESATIVAR_BLOCK_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenBlockAgachado_2
+    	la t1, BLOQUEANDO_AGACHADO_IO
+    	sw t0, 0(t1)    
+    	
+    	la t0, RaidenBlock_2
+    	la t1, BLOQUEANDO_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenTomou_1
+    	la t1, RECUADA_LEVE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenHelicoptero_1
+    	la t1, RECUADA_PESADA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenCaiu_1
+    	la t1, LEVOU_RASTEIRA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenVoando_1
+    	la t1, TOMOU_ALPISTE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenTomouAgachado_1
+    	la t1, RECUADA_LEVE_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenFinish_1
+    	la t1, TONTO_1_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenFinish_3
+    	la t1, TONTO_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenSemCabeca_1
+    	la t1, FATALITY_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenRound_1
+    	la t1, MORREU_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, RaidenRound_6
+    	la t1, ULTIMO_MORREU_IO
+    	sw t0, 0(t1)
+    	
+    	#la t0, RaidenCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
+ 
+    	la t0, RaidenVitoria_1
+    	la t1, VITORIA_1_IO 
+    	sw t0, 0(t1)   	
+    	
+    	la t0, RaidenVitoria_2
+    	la t1, VITORIA_2_IO 
+    	sw t0, 0(t1)  
+    	
+    	la s10, DANCINHA_1_IO
+    	
+    	j FIM
+
+
 	j FIM
 
 FIM:
