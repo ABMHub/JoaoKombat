@@ -121,9 +121,15 @@ NEXT_GAME_OVER:
 	j DE_FATO_E_O_FIM
 	
 L_FIM_MENSAGEM_WINS:
-	ebreak
+	#ebreak
 	jal ra, ESCOLHENDO_BOT			# Escolhe o novo personagem
 	jal ra, TORRE_MK			# Mostra a animação da torre
+	
+	# Se já tiver ganhado acaba
+	la t0, PARTIDAS
+	lw t0, 0(t0)
+	li t1, 11
+	beq t0, t1, NEXT_GAME_OVER
 	
 	li t1, 1
 	la t0, ROUND_ATUAL
