@@ -19,6 +19,9 @@
 	.include "Sprites/data/kitana.s"
 	.include "Sprites/data/subzero.s"
 	.include "Sprites/data/scorpion.s"
+	.include "Sprites/data/mileena.s"
+	#.include "Sprites/data/raiden.s"
+	#.include "Sprites/data/baraka.s"
 	
 	
 	
@@ -96,7 +99,7 @@ LOOOP:
 	j LOOOP	
     	
 ########
-	
+DE_FATO_E_O_FIM:	
 	li a7, 10
 	ecall
 

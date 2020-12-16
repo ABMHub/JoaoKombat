@@ -73,7 +73,7 @@ BOT_Ja1: 	j BOT_Ja
 BOT_Ra1: 	j BOT_Ra
 	
 BOT_LK:	
-		la t0, Wins_LiuKang
+	la t0, Wins_LiuKang
 	la t1, PLAYER_2_WINS
 	sw t0, 0(t1)
 
@@ -411,167 +411,167 @@ BOT_SZ:
     	j FIM_ESCOLHENDO_BOT
 
 BOT_Mi:
-	la t0, Wins_SubZero
+	la t0, Wins_Mileena
 	la t1, PLAYER_2_WINS
 	sw t0, 0(t1)
 
-	la t0, SubZeroAgachando_2
+	la t0, MileenaAgachando_2
     	la t1, AGACHADO_IA
     	sw t0, 0(t1)
     	
-	la t0, SubZeroAgachando_1
+	la t0, MileenaAgachando_1
     	la t1, AGACHANDO_IA
     	sw t0, 0(t1)
     	
-  	la t0, SubZeroPulando_1
+  	la t0, MileenaPulando_1
     	la t1, PULAR_1_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroPulando_3V
+    	la t0, MileenaPulando_3V
     	la t1, PULAR_2_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroAgachando_3V
+    	la t0, MileenaAgachando_3V
     	la t1, LEVANTAR_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroAndando_1
+    	la t0, MileenaAndando_1
     	la t1, CAMINHAR_DIREITA_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroAndando_3V
+    	la t0, MileenaAndando_3V
     	la t1, CAMINHAR_ESQUERDA_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroCambalhota_1
+    	la t0, MileenaCambalhota_1
     	la t1, CAMBALHOTA_IA
     	sw t0, 0(t1)
 
-	la t0, SubZeroChuteBaixo_1
+	la t0, MileenaChuteBaixo_1
    	la t1, CHUTE_1_EM_PE_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroChuteAgachado_1
+    	la t0, MileenaChuteAgachado_1
    	la t1, CHUTE_1_AGACHADO_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroSoco_1
+    	la t0, MileenaSoco_1
    	la t1, SOCO_1_EM_PE_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroSocoAgachado_1
+    	la t0, MileenaSocoAgachado_1
    	la t1, SOCO_1_AGACHADO_IA
     	sw t0, 0(t1)
 
-  	la t0, SubZeroChuteAlto_1
+  	la t0, MileenaChuteAlto_1
    	la t1, CHUTE_2_EM_PE_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroRasteira_1
+    	la t0, MileenaRasteira_1
    	la t1, CHUTE_2_AGACHADO_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroJab_1
+    	la t0, MileenaJab_1
    	la t1, SOCO_2_EM_PE_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroAlpiste_1
+    	la t0, MileenaAlpiste_1
    	la t1, SOCO_2_AGACHADO_IA
     	sw t0, 0(t1)  
   
-  	la t0, SubZeroPoder_1
+  	la t0, MileenaPoder_1
     	la t1, PODER_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroProjetil_1
+    	la t0, MileenaProjetil_1
     	la t1, PROJETIL_IA
     	sw t0, 0(t1)
   
-  	la t0, SubZeroDancando_1
+  	la t0, MileenaDancando_1
     	la t1, DANCINHA_1_IA
     	sw t0, 0(t1)
 
-    	la t0, SubZeroDancando_2
+    	la t0, MileenaDancando_2
     	la t1, DANCINHA_2_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroBlock_1
+    	la t0, MileenaBlock_1
     	la t1, BLOCK_EM_PE_IA
     	sw t0, 0(t1)
 
-    	la t0, SubZeroBlock_3V
+    	la t0, MileenaBlock_3V
     	la t1, DESATIVAR_BLOCK_EM_PE_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroBlockAgachado_1
+    	la t0, MileenaBlockAgachado_1
     	la t1, BLOCK_AGACHADO_IA
     	sw t0, 0(t1)
 
- 	la t0, SubZeroBlockAgachado_3V
+ 	la t0, MileenaBlockAgachado_3V
     	la t1, DESATIVAR_BLOCK_AGACHADO_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroBlockAgachado_2
+    	la t0, MileenaBlockAgachado_2
     	la t1, BLOQUEANDO_AGACHADO_IA
     	sw t0, 0(t1)    
     	
-    	la t0, SubZeroBlock_2
+    	la t0, MileenaBlock_2
     	la t1, BLOQUEANDO_EM_PE_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroTomou_1
+    	la t0, MileenaTomou_1
     	la t1, RECUADA_LEVE_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroHelicoptero_1
+    	la t0, MileenaHelicoptero_1
     	la t1, RECUADA_PESADA_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroCaiu_1
+    	la t0, MileenaCaiu_1
     	la t1, LEVOU_RASTEIRA_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroVoando_1
+    	la t0, MileenaVoando_1
     	la t1, TOMOU_ALPISTE_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroTomouAgachado_1
+    	la t0, MileenaTomouAgachado_1
     	la t1, RECUADA_LEVE_AGACHADO_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroFinish_1
+    	la t0, MileenaFinish_1
     	la t1, TONTO_1_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroFinish_3
+    	la t0, MileenaFinish_3
     	la t1, TONTO_2_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroSemCabeca_1
+    	la t0, MileenaSemCabeca_1
     	la t1, FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroRound_1
+    	la t0, MileenaRound_1
     	la t1, MORREU_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroRound_6
+    	la t0, MileenaRound_6
     	la t1, ULTIMO_MORREU_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroSemCabeca_6
+    	la t0, MileenaSemCabeca_6
     	la t1, ULTIMO_FATALITY_IA
     	sw t0, 0(t1)
     	
-    	la t0, SubZeroCabeca_1
+    	la t0, MileenaCabeca_1
     	la t1, CABECA_IA
     	sw t0, 0(t1)
  
-    	la t0, SubZeroVitoria_1
+    	la t0, MileenaVitoria_1
     	la t1, VITORIA_1_IA 
     	sw t0, 0(t1)   	
     	
-    	la t0, SubZeroVitoria_2
+    	la t0, MileenaVitoria_2
     	la t1, VITORIA_2_IA 
     	sw t0, 0(t1)  
     	
@@ -749,7 +749,7 @@ BOT_KL:
     	j FIM_ESCOLHENDO_BOT
     		
 BOT_ST:
-		la t0, Wins_ShangTsung
+	la t0, Wins_ShangTsung
 	la t1, PLAYER_2_WINS
 	sw t0, 0(t1)
 
@@ -918,173 +918,6 @@ BOT_ST:
     	j FIM_ESCOLHENDO_BOT
     		
 BOT_Ba:
-	la t0, Wins_SubZero
-	la t1, PLAYER_2_WINS
-	sw t0, 0(t1)
-
-	la t0, SubZeroAgachando_2
-    	la t1, AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-	la t0, SubZeroAgachando_1
-    	la t1, AGACHANDO_IA
-    	sw t0, 0(t1)
-    	
-  	la t0, SubZeroPulando_1
-    	la t1, PULAR_1_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroPulando_3V
-    	la t1, PULAR_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroAgachando_3V
-    	la t1, LEVANTAR_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroAndando_1
-    	la t1, CAMINHAR_DIREITA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroAndando_3V
-    	la t1, CAMINHAR_ESQUERDA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroCambalhota_1
-    	la t1, CAMBALHOTA_IA
-    	sw t0, 0(t1)
-
-	la t0, SubZeroChuteBaixo_1
-   	la t1, CHUTE_1_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroChuteAgachado_1
-   	la t1, CHUTE_1_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroSoco_1
-   	la t1, SOCO_1_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroSocoAgachado_1
-   	la t1, SOCO_1_AGACHADO_IA
-    	sw t0, 0(t1)
-
-  	la t0, SubZeroChuteAlto_1
-   	la t1, CHUTE_2_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroRasteira_1
-   	la t1, CHUTE_2_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroJab_1
-   	la t1, SOCO_2_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroAlpiste_1
-   	la t1, SOCO_2_AGACHADO_IA
-    	sw t0, 0(t1)  
-  
-  	la t0, SubZeroPoder_1
-    	la t1, PODER_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroProjetil_1
-    	la t1, PROJETIL_IA
-    	sw t0, 0(t1)
-  
-  	la t0, SubZeroDancando_1
-    	la t1, DANCINHA_1_IA
-    	sw t0, 0(t1)
-
-    	la t0, SubZeroDancando_2
-    	la t1, DANCINHA_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroBlock_1
-    	la t1, BLOCK_EM_PE_IA
-    	sw t0, 0(t1)
-
-    	la t0, SubZeroBlock_3V
-    	la t1, DESATIVAR_BLOCK_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroBlockAgachado_1
-    	la t1, BLOCK_AGACHADO_IA
-    	sw t0, 0(t1)
-
- 	la t0, SubZeroBlockAgachado_3V
-    	la t1, DESATIVAR_BLOCK_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroBlockAgachado_2
-    	la t1, BLOQUEANDO_AGACHADO_IA
-    	sw t0, 0(t1)    
-    	
-    	la t0, SubZeroBlock_2
-    	la t1, BLOQUEANDO_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroTomou_1
-    	la t1, RECUADA_LEVE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroHelicoptero_1
-    	la t1, RECUADA_PESADA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroCaiu_1
-    	la t1, LEVOU_RASTEIRA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroVoando_1
-    	la t1, TOMOU_ALPISTE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroTomouAgachado_1
-    	la t1, RECUADA_LEVE_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroFinish_1
-    	la t1, TONTO_1_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroFinish_3
-    	la t1, TONTO_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroSemCabeca_1
-    	la t1, FATALITY_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroRound_1
-    	la t1, MORREU_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroRound_6
-    	la t1, ULTIMO_MORREU_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroSemCabeca_6
-    	la t1, ULTIMO_FATALITY_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
- 
-    	la t0, SubZeroVitoria_1
-    	la t1, VITORIA_1_IA 
-    	sw t0, 0(t1)   	
-    	
-    	la t0, SubZeroVitoria_2
-    	la t1, VITORIA_2_IA 
-    	sw t0, 0(t1)  
-    	
-    	la s11, DANCINHA_1_IA
-    	
-    	j FIM_ESCOLHENDO_BOT
 	
 BOT_JC:
 		la t0, Wins_JohnnyCage
@@ -1932,174 +1765,8 @@ BOT_Ja:
     	j FIM_ESCOLHENDO_BOT
 	
 BOT_Ra:
-	la t0, Wins_SubZero
-	la t1, PLAYER_2_WINS
-	sw t0, 0(t1)
-
-	la t0, SubZeroAgachando_2
-    	la t1, AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-	la t0, SubZeroAgachando_1
-    	la t1, AGACHANDO_IA
-    	sw t0, 0(t1)
-    	
-  	la t0, SubZeroPulando_1
-    	la t1, PULAR_1_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroPulando_3V
-    	la t1, PULAR_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroAgachando_3V
-    	la t1, LEVANTAR_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroAndando_1
-    	la t1, CAMINHAR_DIREITA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroAndando_3V
-    	la t1, CAMINHAR_ESQUERDA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroCambalhota_1
-    	la t1, CAMBALHOTA_IA
-    	sw t0, 0(t1)
-
-	la t0, SubZeroChuteBaixo_1
-   	la t1, CHUTE_1_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroChuteAgachado_1
-   	la t1, CHUTE_1_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroSoco_1
-   	la t1, SOCO_1_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroSocoAgachado_1
-   	la t1, SOCO_1_AGACHADO_IA
-    	sw t0, 0(t1)
-
-  	la t0, SubZeroChuteAlto_1
-   	la t1, CHUTE_2_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroRasteira_1
-   	la t1, CHUTE_2_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroJab_1
-   	la t1, SOCO_2_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroAlpiste_1
-   	la t1, SOCO_2_AGACHADO_IA
-    	sw t0, 0(t1)  
-  
-  	la t0, SubZeroPoder_1
-    	la t1, PODER_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroProjetil_1
-    	la t1, PROJETIL_IA
-    	sw t0, 0(t1)
-  
-  	la t0, SubZeroDancando_1
-    	la t1, DANCINHA_1_IA
-    	sw t0, 0(t1)
-
-    	la t0, SubZeroDancando_2
-    	la t1, DANCINHA_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroBlock_1
-    	la t1, BLOCK_EM_PE_IA
-    	sw t0, 0(t1)
-
-    	la t0, SubZeroBlock_3V
-    	la t1, DESATIVAR_BLOCK_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroBlockAgachado_1
-    	la t1, BLOCK_AGACHADO_IA
-    	sw t0, 0(t1)
-
- 	la t0, SubZeroBlockAgachado_3V
-    	la t1, DESATIVAR_BLOCK_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroBlockAgachado_2
-    	la t1, BLOQUEANDO_AGACHADO_IA
-    	sw t0, 0(t1)    
-    	
-    	la t0, SubZeroBlock_2
-    	la t1, BLOQUEANDO_EM_PE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroTomou_1
-    	la t1, RECUADA_LEVE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroHelicoptero_1
-    	la t1, RECUADA_PESADA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroCaiu_1
-    	la t1, LEVOU_RASTEIRA_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroVoando_1
-    	la t1, TOMOU_ALPISTE_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroTomouAgachado_1
-    	la t1, RECUADA_LEVE_AGACHADO_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroFinish_1
-    	la t1, TONTO_1_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroFinish_3
-    	la t1, TONTO_2_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroSemCabeca_1
-    	la t1, FATALITY_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroRound_1
-    	la t1, MORREU_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroRound_6
-    	la t1, ULTIMO_MORREU_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroSemCabeca_6
-    	la t1, ULTIMO_FATALITY_IA
-    	sw t0, 0(t1)
-    	
-    	la t0, SubZeroCabeca_1
-    	la t1, CABECA_IA
-    	sw t0, 0(t1)
- 
-    	la t0, SubZeroVitoria_1
-    	la t1, VITORIA_1_IA 
-    	sw t0, 0(t1)   	
-    	
-    	la t0, SubZeroVitoria_2
-    	la t1, VITORIA_2_IA 
-    	sw t0, 0(t1)  
-    	
-    	la s11, DANCINHA_1_IA
-    	
+	
     	j FIM_ESCOLHENDO_BOT
-
 
 FIM_ESCOLHENDO_BOT:
 	lw ra, 0(sp)

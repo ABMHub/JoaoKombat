@@ -9,10 +9,6 @@
 BACKGROUND:
 	mv t3, a1
 	mv t4, a2
-	#la t3, VGA1INICIO
-	#lw t3, 0(t3)			# t3 = inicio da memória vga
-	#la t4, VGA1FINAL
-	#lw t4, 0(t4)			# t4 = final da memória vga
 
 	addi a0, a0, 8			# addi mágico no background
 

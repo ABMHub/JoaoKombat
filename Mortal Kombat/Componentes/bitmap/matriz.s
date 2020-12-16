@@ -407,7 +407,7 @@ SZ:	la t0, Wins_SubZero
     #la a4, ALTURA1            # a4 = endereço da altura
     #la a5, LARGURA1        # a5 = endereço da largura
 
-Mi:	la t0, Wins_LiuKang
+Mi:		la t0, Wins_Mileena
 	la t1, PLAYER_1_WINS
 	sw t0, 0(t1)
 
@@ -415,163 +415,163 @@ Mi:	la t0, Wins_LiuKang
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
-	la t0, LiuKangAgachando_2
+	la t0, MileenaAgachando_2
     	la t1, AGACHADO_IO
     	sw t0, 0(t1)
     	
-	la t0, LiuKangAgachando_1
+	la t0, MileenaAgachando_1
     	la t1, AGACHANDO_IO
     	sw t0, 0(t1)
     	
-  	la t0, LiuKangPulando_1
+  	la t0, MileenaPulando_1
     	la t1, PULAR_1_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangPulando_3V
+    	la t0, MileenaPulando_3V
     	la t1, PULAR_2_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangAgachando_3V
+    	la t0, MileenaAgachando_3V
     	la t1, LEVANTAR_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangAndando_1
+    	la t0, MileenaAndando_1
     	la t1, CAMINHAR_DIREITA_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangAndando_3V
+    	la t0, MileenaAndando_3V
     	la t1, CAMINHAR_ESQUERDA_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangCambalhota_1
+    	la t0, MileenaCambalhota_1
     	la t1, CAMBALHOTA_IO
     	sw t0, 0(t1)
 
-	la t0, LiuKangChuteBaixo_1
+	la t0, MileenaChuteBaixo_1
    	la t1, CHUTE_1_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangChuteAgachado_1
+    	la t0, MileenaChuteAgachado_1
    	la t1, CHUTE_1_AGACHADO_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangSoco_1
+    	la t0, MileenaSoco_1
    	la t1, SOCO_1_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangSocoAgachado_1
+    	la t0, MileenaSocoAgachado_1
    	la t1, SOCO_1_AGACHADO_IO
     	sw t0, 0(t1)
 
-  	la t0, LiuKangChuteAlto_1
+  	la t0, MileenaChuteAlto_1
    	la t1, CHUTE_2_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangRasteira_1
+    	la t0, MileenaRasteira_1
    	la t1, CHUTE_2_AGACHADO_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangJab_1
+    	la t0, MileenaJab_1
    	la t1, SOCO_2_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangAlpiste_1
+    	la t0, MileenaAlpiste_1
    	la t1, SOCO_2_AGACHADO_IO
     	sw t0, 0(t1)  
   
-  	la t0, LiuKangPoder_1
+  	la t0, MileenaPoder_1
     	la t1, PODER_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangProjetil_1
+    	la t0, MileenaProjetil_1
     	la t1, PROJETIL_IO
     	sw t0, 0(t1)
   
-  	la t0, LiuKangDancando_1
+  	la t0, MileenaDancando_1
     	la t1, DANCINHA_1_IO
     	sw t0, 0(t1)
 
-    	la t0, LiuKangDancando_2
+    	la t0, MileenaDancando_2
     	la t1, DANCINHA_2_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangBlock_1
+    	la t0, MileenaBlock_1
     	la t1, BLOCK_EM_PE_IO
     	sw t0, 0(t1)
 
-    	la t0, LiuKangBlock_3V
+    	la t0, MileenaBlock_3V
     	la t1, DESATIVAR_BLOCK_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangBlockAgachado_1
+    	la t0, MileenaBlockAgachado_1
     	la t1, BLOCK_AGACHADO_IO
     	sw t0, 0(t1)
 
- 	la t0, LiuKangBlockAgachado_3V
+ 	la t0, MileenaBlockAgachado_3V
     	la t1, DESATIVAR_BLOCK_AGACHADO_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangBlockAgachado_2
+    	la t0, MileenaBlockAgachado_2
     	la t1, BLOQUEANDO_AGACHADO_IO
     	sw t0, 0(t1)    
     	
-    	la t0, LiuKangBlock_2
+    	la t0, MileenaBlock_2
     	la t1, BLOQUEANDO_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangTomou_1
+    	la t0, MileenaTomou_1
     	la t1, RECUADA_LEVE_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangHelicoptero_1
+    	la t0, MileenaHelicoptero_1
     	la t1, RECUADA_PESADA_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangCaiu_1
+    	la t0, MileenaCaiu_1
     	la t1, LEVOU_RASTEIRA_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangVoando_1
+    	la t0, MileenaVoando_1
     	la t1, TOMOU_ALPISTE_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangTomouAgachado_1
+    	la t0, MileenaTomouAgachado_1
     	la t1, RECUADA_LEVE_AGACHADO_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangFinish_1
+    	la t0, MileenaFinish_1
     	la t1, TONTO_1_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangFinish_3
+    	la t0, MileenaFinish_3
     	la t1, TONTO_2_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangSemCabeca_1
+    	la t0, MileenaSemCabeca_1
     	la t1, FATALITY_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangSemCabeca_6
+    	la t0, MileenaSemCabeca_6
     	la t1, ULTIMO_FATALITY_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangRound_1
+    	la t0, MileenaRound_1
     	la t1, MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangRound_6
+    	la t0, MileenaRound_6
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, LiuKangCabeca_1
+    	la t0, MileenaCabeca_1
     	la t1, CABECA_IO
     	sw t0, 0(t1)
  
-    	la t0, LiuKangVitoria_1
+    	la t0, MileenaVitoria_1
     	la t1, VITORIA_1_IO 
     	sw t0, 0(t1)   	
     	
-    	la t0, LiuKangVitoria_2
+    	la t0, MileenaVitoria_2
     	la t1, VITORIA_2_IO 
     	sw t0, 0(t1)  
     	
@@ -923,176 +923,7 @@ ST:	la t0, Wins_ShangTsung
 	
 	j FIM
 	
-Ba:	la t0, Wins_LiuKang
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_BA
-    	la t1, FOTINHA_IO
-    	sw t0, 0(t1)
-
-	la t0, LiuKangAgachando_2
-    	la t1, AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-	la t0, LiuKangAgachando_1
-    	la t1, AGACHANDO_IO
-    	sw t0, 0(t1)
-    	
-  	la t0, LiuKangPulando_1
-    	la t1, PULAR_1_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangPulando_3V
-    	la t1, PULAR_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangAgachando_3V
-    	la t1, LEVANTAR_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangAndando_1
-    	la t1, CAMINHAR_DIREITA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangAndando_3V
-    	la t1, CAMINHAR_ESQUERDA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangCambalhota_1
-    	la t1, CAMBALHOTA_IO
-    	sw t0, 0(t1)
-
-	la t0, LiuKangChuteBaixo_1
-   	la t1, CHUTE_1_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangChuteAgachado_1
-   	la t1, CHUTE_1_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangSoco_1
-   	la t1, SOCO_1_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangSocoAgachado_1
-   	la t1, SOCO_1_AGACHADO_IO
-    	sw t0, 0(t1)
-
-  	la t0, LiuKangChuteAlto_1
-   	la t1, CHUTE_2_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangRasteira_1
-   	la t1, CHUTE_2_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangJab_1
-   	la t1, SOCO_2_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangAlpiste_1
-   	la t1, SOCO_2_AGACHADO_IO
-    	sw t0, 0(t1)  
-  
-  	la t0, LiuKangPoder_1
-    	la t1, PODER_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangProjetil_1
-    	la t1, PROJETIL_IO
-    	sw t0, 0(t1)
-  
-  	la t0, LiuKangDancando_1
-    	la t1, DANCINHA_1_IO
-    	sw t0, 0(t1)
-
-    	la t0, LiuKangDancando_2
-    	la t1, DANCINHA_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangBlock_1
-    	la t1, BLOCK_EM_PE_IO
-    	sw t0, 0(t1)
-
-    	la t0, LiuKangBlock_3V
-    	la t1, DESATIVAR_BLOCK_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangBlockAgachado_1
-    	la t1, BLOCK_AGACHADO_IO
-    	sw t0, 0(t1)
-
- 	la t0, LiuKangBlockAgachado_3V
-    	la t1, DESATIVAR_BLOCK_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangBlockAgachado_2
-    	la t1, BLOQUEANDO_AGACHADO_IO
-    	sw t0, 0(t1)    
-    	
-    	la t0, LiuKangBlock_2
-    	la t1, BLOQUEANDO_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangTomou_1
-    	la t1, RECUADA_LEVE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangHelicoptero_1
-    	la t1, RECUADA_PESADA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangCaiu_1
-    	la t1, LEVOU_RASTEIRA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangVoando_1
-    	la t1, TOMOU_ALPISTE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangTomouAgachado_1
-    	la t1, RECUADA_LEVE_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangFinish_1
-    	la t1, TONTO_1_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangFinish_3
-    	la t1, TONTO_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangSemCabeca_1
-    	la t1, FATALITY_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangSemCabeca_6
-    	la t1, ULTIMO_FATALITY_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangRound_1
-    	la t1, MORREU_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangRound_6
-    	la t1, ULTIMO_MORREU_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
- 
-    	la t0, LiuKangVitoria_1
-    	la t1, VITORIA_1_IO 
-    	sw t0, 0(t1)   	
-    	
-    	la t0, LiuKangVitoria_2
-    	la t1, VITORIA_2_IO 
-    	sw t0, 0(t1)  
-    	
-    	la s10, DANCINHA_1_IO
-	
+Ba:	
 	j FIM
 	
 JC:	la t0, Wins_JohnnyCage
@@ -1956,176 +1787,7 @@ Ja:	la t0, Wins_Jax
     	
     	j FIM
 	
-Ra:	la t0, Wins_LiuKang
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_RA
-    	la t1, FOTINHA_IO
-    	sw t0, 0(t1)
-
-	la t0, LiuKangAgachando_2
-    	la t1, AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-	la t0, LiuKangAgachando_1
-    	la t1, AGACHANDO_IO
-    	sw t0, 0(t1)
-    	
-  	la t0, LiuKangPulando_1
-    	la t1, PULAR_1_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangPulando_3V
-    	la t1, PULAR_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangAgachando_3V
-    	la t1, LEVANTAR_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangAndando_1
-    	la t1, CAMINHAR_DIREITA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangAndando_3V
-    	la t1, CAMINHAR_ESQUERDA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangCambalhota_1
-    	la t1, CAMBALHOTA_IO
-    	sw t0, 0(t1)
-
-	la t0, LiuKangChuteBaixo_1
-   	la t1, CHUTE_1_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangChuteAgachado_1
-   	la t1, CHUTE_1_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangSoco_1
-   	la t1, SOCO_1_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangSocoAgachado_1
-   	la t1, SOCO_1_AGACHADO_IO
-    	sw t0, 0(t1)
-
-  	la t0, LiuKangChuteAlto_1
-   	la t1, CHUTE_2_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangRasteira_1
-   	la t1, CHUTE_2_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangJab_1
-   	la t1, SOCO_2_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangAlpiste_1
-   	la t1, SOCO_2_AGACHADO_IO
-    	sw t0, 0(t1)  
-  
-  	la t0, LiuKangPoder_1
-    	la t1, PODER_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangProjetil_1
-    	la t1, PROJETIL_IO
-    	sw t0, 0(t1)
-  
-  	la t0, LiuKangDancando_1
-    	la t1, DANCINHA_1_IO
-    	sw t0, 0(t1)
-
-    	la t0, LiuKangDancando_2
-    	la t1, DANCINHA_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangBlock_1
-    	la t1, BLOCK_EM_PE_IO
-    	sw t0, 0(t1)
-
-    	la t0, LiuKangBlock_3V
-    	la t1, DESATIVAR_BLOCK_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangBlockAgachado_1
-    	la t1, BLOCK_AGACHADO_IO
-    	sw t0, 0(t1)
-
- 	la t0, LiuKangBlockAgachado_3V
-    	la t1, DESATIVAR_BLOCK_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangBlockAgachado_2
-    	la t1, BLOQUEANDO_AGACHADO_IO
-    	sw t0, 0(t1)    
-    	
-    	la t0, LiuKangBlock_2
-    	la t1, BLOQUEANDO_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangTomou_1
-    	la t1, RECUADA_LEVE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangHelicoptero_1
-    	la t1, RECUADA_PESADA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangCaiu_1
-    	la t1, LEVOU_RASTEIRA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangVoando_1
-    	la t1, TOMOU_ALPISTE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangTomouAgachado_1
-    	la t1, RECUADA_LEVE_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangFinish_1
-    	la t1, TONTO_1_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangFinish_3
-    	la t1, TONTO_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangSemCabeca_1
-    	la t1, FATALITY_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangSemCabeca_6
-    	la t1, ULTIMO_FATALITY_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangRound_1
-    	la t1, MORREU_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangRound_6
-    	la t1, ULTIMO_MORREU_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, LiuKangCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
- 
-    	la t0, LiuKangVitoria_1
-    	la t1, VITORIA_1_IO 
-    	sw t0, 0(t1)   	
-    	
-    	la t0, LiuKangVitoria_2
-    	la t1, VITORIA_2_IO 
-    	sw t0, 0(t1)  
-    	
-    	la s10, DANCINHA_1_IO
-	
+Ra:	
 	j FIM
 
 FIM:

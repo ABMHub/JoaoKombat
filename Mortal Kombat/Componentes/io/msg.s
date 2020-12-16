@@ -77,7 +77,7 @@ L_PLAYER_2_WINS:
     	li t3, 0xFF200604	
 	
 L_LOOP_MENSAGEM_FIGHT_2_WINS:
-  	beq t0, t4, L_FIM_MENSAGEM_WINS
+  	beq t0, t4, L_GAME_OVER
     	addi t0, t0, 1
     	
     	lw t1, 0(t3)
@@ -87,6 +87,36 @@ L_LOOP_MENSAGEM_FIGHT_2_WINS:
     	ecall					# SLEEP
 	j L_LOOP_MENSAGEM_FIGHT_2_WINS	
 
+L_GAME_OVER:
+	la a0, GameOver
+	li t0, 0xFF200604        		
+	lw t1, 0(t0)				# Descobre a tela 
+
+	beq t1, zero, L_GO_1
+L_GO_0:
+	la t0, VGA1INICIO
+	lw a1, 0(t0)
+	
+	la t0, VGA1FINAL
+	lw a2, 0(t0)
+	j NEXT_GAME_OVER
+L_GO_1:
+	la t0, VGA2INICIO
+	lw a1, 0(t0)
+	
+	la t0, VGA2FINAL
+	lw a2, 0(t0)
+NEXT_GAME_OVER:	
+	jal ra, BACKGROUND
+	
+	# muda a frame
+	li t0, 0xFF200604        		
+	lw t1, 0(t0)				# Descobre a tela 
+	xori t1, t1, 0x001
+	sw t1, 0(t0)
+	
+	j DE_FATO_E_O_FIM
+	
 L_FIM_MENSAGEM_WINS:
 	ebreak
 	jal ra, ESCOLHENDO_BOT			# Escolhe o novo personagem
