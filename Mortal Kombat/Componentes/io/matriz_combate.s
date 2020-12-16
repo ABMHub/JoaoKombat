@@ -577,6 +577,34 @@ L_FATALITY_IO:
 	jal ra, FRAME_DANCINHA_IA
 	la s11, VITORIA_2_IA
 	
+	# Pinta Fatality
+	
+	# apaga a mensagem anterior de finish him
+	la a0, MsgTransparente_1
+	li a2, 2
+	li a3, 0
+	li a1, 1
+	jal ra, M_FRAME_DESLOCAMENTO_VGA
+	
+	# Mostra fatality
+	la a0, Fatality
+	jal ra, M_FRAME_GOLPE_VGA
+	
+	la a0, Fatality
+	jal ra, M_FRAME_DANCINHA
+
+	# Sleep
+	li a0, 500
+	li a7, 32
+	ecall
+	
+	# Apaga a mensagem fatality
+	la a0, MsgTransparente_1
+	li a2, 2
+	li a3, 0
+	li a1, 1
+	jal ra, M_FRAME_DESLOCAMENTO_VGA
+	
 	j ACABOU_LUTA
 	
 VITORIA_IA:
@@ -746,7 +774,7 @@ ULTIMO_GOLPE_IA:
 	beq t1, a1, L_FATALITY_IA
 	
 SO_MORREU_IA:
-	ebreak
+	#ebreak
 	la t0, MORREU_IA
 	lw a0, 0(t0)
 	
@@ -802,6 +830,34 @@ L_FATALITY_IA:
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA
 	la s10, VITORIA_2_IO
+	
+	# Pinta Fatality
+	
+	# apaga a mensagem anterior de finish him
+	la a0, MsgTransparente_1
+	li a2, 2
+	li a3, 0
+	li a1, 1
+	jal ra, M_FRAME_DESLOCAMENTO_VGA
+	
+	# Mostra fatality
+	la a0, Fatality
+	jal ra, M_FRAME_GOLPE_VGA
+	
+	la a0, Fatality
+	jal ra, M_FRAME_DANCINHA
+
+	# Sleep
+	li a0, 500
+	li a7, 32
+	ecall
+	
+	# Apaga a mensagem fatality
+	la a0, MsgTransparente_1
+	li a2, 2
+	li a3, 0
+	li a1, 1
+	jal ra, M_FRAME_DESLOCAMENTO_VGA
 	
 	j ACABOU_LUTA
 	

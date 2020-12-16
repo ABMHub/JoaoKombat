@@ -24,6 +24,9 @@ TORRE_MK:
 FIRST_STAGE:
 	la a0, Montanha_4
 	
+	li t0,0xFF200604        	# Escolhe a frame 0
+    	sw zero, 0(t0)        		
+	
 	la t0, VGA1INICIO		#Inicio da Frame 0
 	lw a1, 0(t0)
 	la t0, VGA1FINAL		#Final da Frame 1

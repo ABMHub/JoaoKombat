@@ -129,7 +129,34 @@ POS_MORREU:
 	j FIM_VERMELHO_DE_VERDADE
 
 MORREU:
-	#ebreak
+	# PINTAR FINISH HIM
+	la t0, VITORIAS_1
+	lw t1, 0(t0)
+	
+	la t0, VITORIAS_2
+	lw t2, 0(t0)
+	
+	li t0, 1
+	beq s8, t0, V_IA_MORREU
+
+V_IO_MORREU:	
+	li t0, 1				# Se a IA já ganhou uma vez e matou a IO agora...
+	beq t2, t0, V_FINISH_HIM
+	j V_SEM_FINISH_HIM
+	
+V_IA_MORREU:	
+	li t0, 1				# Se a IO já ganhou uma vez e matou a IO agora...
+	beq t1, t0, V_FINISH_HIM
+	j V_SEM_FINISH_HIM
+	
+V_FINISH_HIM:	
+	la a0, FinishHim_1
+	jal ra, M_FRAME_GOLPE_VGA
+	
+	la a0, FinishHim_2
+	jal ra, M_FRAME_DANCINHA
+
+V_SEM_FINISH_HIM:	
 	li t2, 1
 	beq t2, s8, TONTO_P2
 	

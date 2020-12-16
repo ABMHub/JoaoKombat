@@ -88,6 +88,7 @@ L_LOOP_MENSAGEM_FIGHT_2_WINS:
 	j L_LOOP_MENSAGEM_FIGHT_2_WINS	
 
 L_FIM_MENSAGEM_WINS:
+	ebreak
 	jal ra, ESCOLHENDO_BOT			# Escolhe o novo personagem
 	jal ra, TORRE_MK			# Mostra a animação da torre
 	
@@ -152,20 +153,24 @@ L_AINDA_NAO_ACABOU:
 	la s11, DANCINHA_1_IA 
 	
 	# Pinta o background
-	la t0, VGA1INICIO
-	lw a1, 0(t0)				# ta1 = inicio da memória vga
-	la t0, VGA1FINAL
-	lw a2, 0(t0)				# ta2 = final da memória vga
-	
-	mv a0, s9
-	jal ra, BACKGROUND			# argumento em a0 = fundo
-	
 	mv a0, s9
 	la t0, VGA2INICIO
 	lw a1, 0(t0)				# ta1 = inicio da memória vga
 	la t0, VGA2FINAL
 	lw a2, 0(t0)				# ta2 = final da memória vga
 	
+	jal ra, BACKGROUND			# argumento em a0 = fundo
+	
+	li t0,0xFF200604        		# Escolhe a frame 1
+    	li t1, 1
+    	sw t1, 0(t0)        		
+	
+	la t0, VGA1INICIO
+	lw a1, 0(t0)				# ta1 = inicio da memória vga
+	la t0, VGA1FINAL
+	lw a2, 0(t0)				# ta2 = final da memória vga
+	
+	mv a0, s9
 	jal ra, BACKGROUND			# argumento em a0 = fundo
 
 	# Mostra a frame 0
@@ -184,7 +189,6 @@ L_AINDA_NAO_ACABOU:
 
     	la t0, DANCINHA_2_IO
     	lw a0, 0(t0)
-    	#la a7, PERSONAGEM1
     	jal ra, FRAME_DANCINHA
 	
 	# pinta o personagem 2
