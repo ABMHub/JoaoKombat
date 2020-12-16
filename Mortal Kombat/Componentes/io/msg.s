@@ -41,6 +41,9 @@ L_PLAYER_1_WINS:
     	
     	li t3, 0xFF200604	
 	
+	# Define o próximo cenário
+	jal ra, CENARIO
+	
 L_LOOP_MENSAGEM_FIGHT_1_WINS:
   	beq t0, t4, L_FIM_MENSAGEM_WINS
     	addi t0, t0, 1

@@ -21,7 +21,7 @@
 	#.include "Sprites/data/scorpion.s"
 	#.include "Sprites/data/mileena.s"
 	.include "Sprites/data/raiden.s"
-	#.include "Sprites/data/baraka.s"
+	.include "Sprites/data/baraka.s"
 	.include "Sprites/data/sprites.s"
 	
 	

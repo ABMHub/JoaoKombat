@@ -924,6 +924,176 @@ ST:	la t0, Wins_ShangTsung
 	j FIM
 	
 Ba:	
+	la t0, Wins_Baraka
+	la t1, PLAYER_1_WINS
+	sw t0, 0(t1)
+	
+	la t0, Fotinha_LK
+    	la t1, FOTINHA_IO
+    	sw t0, 0(t1)
+
+	la t0, BarakaAgachando_2
+    	la t1, AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+	la t0, BarakaAgachando_1
+    	la t1, AGACHANDO_IO
+    	sw t0, 0(t1)
+    	
+  	la t0, BarakaPulando_1
+    	la t1, PULAR_1_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaPulando_3V
+    	la t1, PULAR_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaAgachando_3V
+    	la t1, LEVANTAR_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaAndando_1
+    	la t1, CAMINHAR_DIREITA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaAndando_3V
+    	la t1, CAMINHAR_ESQUERDA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaCambalhota_1
+    	la t1, CAMBALHOTA_IO
+    	sw t0, 0(t1)
+
+	la t0, BarakaChuteBaixo_1
+   	la t1, CHUTE_1_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaChuteAgachado_1
+   	la t1, CHUTE_1_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaSoco_1
+   	la t1, SOCO_1_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaSocoAgachado_1
+   	la t1, SOCO_1_AGACHADO_IO
+    	sw t0, 0(t1)
+
+  	la t0, BarakaChuteAlto_1
+   	la t1, CHUTE_2_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaRasteira_1
+   	la t1, CHUTE_2_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaJab_1
+   	la t1, SOCO_2_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaAlpiste_1
+   	la t1, SOCO_2_AGACHADO_IO
+    	sw t0, 0(t1)  
+  
+  	la t0, BarakaPoder_1
+    	la t1, PODER_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaProjetil_1
+    	la t1, PROJETIL_IO
+    	sw t0, 0(t1)
+  
+  	la t0, BarakaDancando_1
+    	la t1, DANCINHA_1_IO
+    	sw t0, 0(t1)
+
+    	la t0, BarakaDancando_2
+    	la t1, DANCINHA_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaBlock_1
+    	la t1, BLOCK_EM_PE_IO
+    	sw t0, 0(t1)
+
+    	la t0, BarakaBlock_3V
+    	la t1, DESATIVAR_BLOCK_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaBlockAgachado_1
+    	la t1, BLOCK_AGACHADO_IO
+    	sw t0, 0(t1)
+
+ 	la t0, BarakaBlockAgachado_3V
+    	la t1, DESATIVAR_BLOCK_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaBlockAgachado_2
+    	la t1, BLOQUEANDO_AGACHADO_IO
+    	sw t0, 0(t1)    
+    	
+    	la t0, BarakaBlock_2
+    	la t1, BLOQUEANDO_EM_PE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaTomou_1
+    	la t1, RECUADA_LEVE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaHelicoptero_1
+    	la t1, RECUADA_PESADA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaCaiu_1
+    	la t1, LEVOU_RASTEIRA_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaVoando_1
+    	la t1, TOMOU_ALPISTE_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaTomouAgachado_1
+    	la t1, RECUADA_LEVE_AGACHADO_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaFinish_1
+    	la t1, TONTO_1_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaFinish_3
+    	la t1, TONTO_2_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaSemCabeca_1
+    	la t1, FATALITY_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaSemCabeca_6
+    	la t1, ULTIMO_FATALITY_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaRound_1
+    	la t1, MORREU_IO
+    	sw t0, 0(t1)
+    	
+    	la t0, BarakaRound_6
+    	la t1, ULTIMO_MORREU_IO
+    	sw t0, 0(t1)
+    	
+    	#la t0, BarakaCabeca_1
+    	#la t1, CABECA_IO
+    	#sw t0, 0(t1)
+ 
+    	la t0, BarakaVitoria_1
+    	la t1, VITORIA_1_IO 
+    	sw t0, 0(t1)   	
+    	
+    	la t0, BarakaVitoria_2
+    	la t1, VITORIA_2_IO 
+    	sw t0, 0(t1)  
+    	
+    	la s10, DANCINHA_1_IO
+	
 	j FIM
 	
 JC:	la t0, Wins_JohnnyCage
