@@ -511,6 +511,7 @@ ULTIMO_GOLPE_IO:
 	
 SO_MORREU_IO:
 	
+	#ebreak
 	la t0, MORREU_IO
 	lw a0, 0(t0)
 	
@@ -524,19 +525,68 @@ SO_MORREU_IO:
 	
 	j VITORIA_IA
 	
-L_FATALITY_IO:	
+L_FATALITY_IO:
+	
+		# soma 1 no round atual
+	la t0, ROUND_ATUAL
+	lw t1, 0(t0)
+	addi t1, t1, 1
+	sw t1, 0(t0)
+
+	# Soma 1 nas vitórias da IO
+	la t0, VITORIAS_2
+	li t1, 1
+	lw t2, 0(t0)
+	add t1, t1, t2
+	sw t1, 0(t0)
+	
+	# Começa a animar a IO morrendo de fatality
+	
 	la t0, FATALITY_IO
 	lw a0, 0(t0)
-	
 	li a2, 6
 	jal ra, IDENTIFICA_POSICAO
 	jal ra, FRAME_GOLPE_VGA
+	
+	#
+	
+	la t0, VITORIA_2_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA
+	la s11, VITORIA_2_IA
+	
+	li t0, 0xFF200604
+	lw t1, 0(t0)
+	xori t1, t1, 0x001
+	sw t1, 0(t0)			# Muda para a outra frame
 	
 	la t0, ULTIMO_FATALITY_IO
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA
 	
+	la t0, VITORIA_2_IA
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA_IA
+	la s11, VITORIA_2_IA
+	
+	j ACABOU_LUTA
+	
 VITORIA_IA:
+	# soma 1 no round atual
+	la t0, ROUND_ATUAL
+	lw t1, 0(t0)
+	addi t1, t1, 1
+	sw t1, 0(t0)
+
+	# Soma 1 nas vitórias da IA
+	la t0, VITORIAS_2
+	li t1, 1
+	lw t2, 0(t0)
+	add t1, t1, t2
+	sw t1, 0(t0)
+	
+	# Animação
+
 	la t0, VITORIA_1_IA
 	lw a0, 0(t0)
 	
@@ -544,36 +594,33 @@ VITORIA_IA:
 	jal ra, IDENTIFICA_POSICAO_IA
 	jal ra, FRAME_GOLPE_VGA_IA
 
-	
-	
-	############# IO MORREU ##############################################
+	############IO MORREU ###############################################
 	la t0, ULTIMO_MORREU_IO
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA
 	
 	la t0, VITORIA_2_IA
 	lw a0, 0(t0)
-	la s11, VITORIA_2_IA
 	jal ra, FRAME_DANCINHA_IA
+	la s11, VITORIA_2_IA
 	
 	li t0, 0xFF200604
 	lw t1, 0(t0)
 	xori t1, t1, 0x001
-	sw t2, 0(t0)			# Muda para a outra frame
+	sw t1, 0(t0)			# Muda para a outra frame
 	
 	la t0, ULTIMO_MORREU_IO
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA	
 	
-
 	la t0, VITORIA_2_IA
 	lw a0, 0(t0)
-	jal ra, FRAME_DANCINHA
+	jal ra, FRAME_DANCINHA_IA
 	la s11, VITORIA_2_IA
 	
-	
-	
 	j ACABOU_LUTA
+	
+	
 L_RECUADA_LEVE_IO:	
 	la t0, BLOQUEANDO_EM_PE_IO
 	beq s10, t0, FIM_BLOQUEANDO_IO				# se a IA estiver agachada na verdade ela não tomou
@@ -686,7 +733,7 @@ ULTIMO_GOLPE_IA:
 	beq t1, a1, L_FATALITY_IA
 	
 SO_MORREU_IA:
-	ebreak
+	#ebreak
 	la t0, MORREU_IA
 	lw a0, 0(t0)
 	
@@ -701,6 +748,20 @@ SO_MORREU_IA:
 	j VITORIA_IO
 	
 L_FATALITY_IA:	
+	# soma 1 no round atual
+	la t0, ROUND_ATUAL
+	lw t1, 0(t0)
+	addi t1, t1, 1
+	sw t1, 0(t0)
+
+	# Soma 1 nas vitórias da IO
+	la t0, VITORIAS_1
+	li t1, 1
+	lw t2, 0(t0)
+	add t1, t1, t2
+	sw t1, 0(t0)
+	
+	
 	la t0, FATALITY_IA
 	lw a0, 0(t0)
 	
@@ -708,11 +769,45 @@ L_FATALITY_IA:
 	jal ra, IDENTIFICA_POSICAO_IA
 	jal ra, FRAME_GOLPE_VGA_IA
 	
+	#
+	
+	la t0, VITORIA_2_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	la s10, VITORIA_2_IO
+	
+	li t0, 0xFF200604
+	lw t1, 0(t0)
+	xori t1, t1, 0x001
+	sw t1, 0(t0)			# Muda para a outra frame
+	
 	la t0, ULTIMO_FATALITY_IA
 	lw a0, 0(t0)
 	jal ra, FRAME_DANCINHA_IA
 	
+	la t0, VITORIA_2_IO
+	lw a0, 0(t0)
+	jal ra, FRAME_DANCINHA
+	la s10, VITORIA_2_IO
+	
+	j ACABOU_LUTA
+	
 VITORIA_IO:
+	# soma 1 no round atual
+	la t0, ROUND_ATUAL
+	lw t1, 0(t0)
+	addi t1, t1, 1
+	sw t1, 0(t0)
+
+	# Soma 1 nas vitórias da IO
+	la t0, VITORIAS_1
+	li t1, 1
+	lw t2, 0(t0)
+	add t1, t1, t2
+	sw t1, 0(t0)
+	
+	# Animação
+
 	la t0, VITORIA_1_IO
 	lw a0, 0(t0)
 	
@@ -735,7 +830,7 @@ VITORIA_IO:
 	li t0, 0xFF200604
 	lw t1, 0(t0)
 	xori t1, t1, 0x001
-	sw t2, 0(t0)			# Muda para a outra frame
+	sw t1, 0(t0)			# Muda para a outra frame
 	
 	la t0, ULTIMO_MORREU_IA
 	lw a0, 0(t0)
@@ -1039,7 +1134,7 @@ ACABOU_LUTA:
 	
 	
 	li s9, 0
-	ebreak
+	#ebreak
 	j SEM_DANO		
 ###################################################
 # Funções de colisão de movimento		  #

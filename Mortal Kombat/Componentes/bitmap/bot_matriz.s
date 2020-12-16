@@ -52,6 +52,10 @@ BOT_LK:
 	j FIM_ESCOLHENDO_BOT
 
 BOT_SZ:
+	la t0, Wins_SubZero
+	la t1, PLAYER_2_WINS
+	sw t0, 0(t1)
+
 	la t0, SubZeroAgachando_2
     	la t1, AGACHADO_IA
     	sw t0, 0(t1)

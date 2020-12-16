@@ -53,6 +53,10 @@ LK:	#la s10, LiuKangParado_1
 	j FIM
 	
 SZ:	 
+	la t0, Wins_SubZero
+	la t1, PLAYER_1_WINS
+	sw t0, 0(t1)
+
 	la t0, SubZeroAgachando_2
     	la t1, AGACHADO_IO
     	sw t0, 0(t1)

@@ -1,7 +1,7 @@
 .data
 	# BATALHA
 	CENARIO_ATUAL:			.word 0x0
-	ROUND_ATUAL:			.word 0x0
+	ROUND_ATUAL:			.word 0x1
 	HP_IA:				.word 100
 	HP_IO:				.word 100
 	MENSAGEM_POS:			.word 0xFF007228
@@ -9,7 +9,8 @@
 	VETOR_INIMIGOS:			.space 48
 	VITORIAS_1:			.word 0x0
 	VITORIAS_2:			.word 0x0
-	
+	PLAYER_1_WINS:			.word 0x0
+	PLAYER_2_WINS:			.word 0x0
 	
 	M_LARGURA_FRAME_0:		.word 0x0AC			
 	M_ALTURA_FRAME_0:		.word 0x01C

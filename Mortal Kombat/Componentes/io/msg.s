@@ -1,16 +1,97 @@
 NOVO_ROUND:
 
-	la t0, ROUND_ATUAL
+	la t0, VITORIAS_1
 	lw t1, 0(t0)
-	addi t1, t1, 1
-	li t2, 3
-	bgt t1, t2, ROUND_0
-	sw t1, 0(t0)
-	j OK_MS
-ROUND_0:
-	sw zero, 0(t0)
-	j NOVO_ROUND
-OK_MS:	
+	
+	la t2, VITORIAS_2
+	lw t3, 0(t2)
+	
+	li t4, 2
+	beq t1, t4, L_PLAYER_1_WINS
+	beq t3, t4, L_PLAYER_2_WINS
+
+	j L_AINDA_NAO_ACABOU
+
+L_PLAYER_1_WINS:
+	#ebreak
+	
+	la t0, PLAYER_1_WINS	
+	#lw a0, 0(t0)
+	la a0, Wins_SubZero
+	#ebreak
+	jal ra, M_FRAME_GOLPE_VGA
+	
+	la t0, PLAYER_1_WINS	
+	#lw a0, 0(t0)
+	la a0, Wins_SubZero
+	jal ra, M_FRAME_DANCINHA
+	
+
+	# Preparação mensagem de fight
+	li t0, 1	
+	li t4, 5			
+
+    	li a7, 32
+    	li a0, 50
+    	
+    	li t3, 0xFF200604	
+	
+L_LOOP_MENSAGEM_FIGHT_1_WINS:
+  	beq t0, t4, L_FIM_MENSAGEM_WINS
+    	addi t0, t0, 1
+    	
+    	lw t1, 0(t3)
+	xori t1, t1, 0x001
+	sw t1, 0(t3)			# Muda para a outra frame
+    	
+    	ecall				# SLEEP
+	j L_LOOP_MENSAGEM_FIGHT_1_WINS		
+
+L_PLAYER_2_WINS:
+
+	la t0, PLAYER_2_WINS	
+	lw a0, 0(t0)
+	jal ra, M_FRAME_GOLPE_VGA
+	
+	la t0, PLAYER_2_WINS	
+	lw a0, 0(t0)
+	jal ra, M_FRAME_DANCINHA
+
+	# Preparação mensagem de fight
+	li t0, 1	
+	li t4, 5			
+
+    	li a7, 32
+    	li a0, 50
+    	
+    	li t3, 0xFF200604	
+	
+L_LOOP_MENSAGEM_FIGHT_2_WINS:
+  	beq t0, t4, L_FIM_MENSAGEM_WINS
+    	addi t0, t0, 1
+    	
+    	lw t1, 0(t3)
+	xori t1, t1, 0x001
+	sw t1, 0(t3)				# Muda para a outra frame
+    		
+    	ecall					# SLEEP
+	j L_LOOP_MENSAGEM_FIGHT_2_WINS	
+
+L_FIM_MENSAGEM_WINS:
+	#jal ra, ESCOLHENDO_BOT			# Escolhe o novo personagem
+	#jal ra, TORRE_MK			# Mostra a animação da torre
+	
+	li t1, 1
+	la t0, ROUND_ATUAL
+	sw t1, 0(t0)				# Define o novo número do round
+	
+	la t0, VITORIAS_1
+	sw zero, 0(t0)				# Reinicia as vitórias da IO
+	
+	la t1, VITORIAS_2
+	sw zero, 0(t1)				# Reinicia as vitórias da IA
+	
+L_AINDA_NAO_ACABOU:
 	# reinicia o cenário
 	la t0, CENARIO_ATUAL
 	lw s9, 0(t0)
@@ -109,7 +190,7 @@ OK_MS:
     	
     	# barra de vida
     	jal ra, INICIALIZA_VIDA
-    	
+    	#ebreak
     	# identifica o rund atual
     	la t0, ROUND_ATUAL
 	lw t1, 0(t0)				# Descobre qual o round atual
@@ -158,7 +239,7 @@ L_ROUND_FIM:
 
     	li a7, 32
     	li a0, 50
-    	
+    	#ebreak
     	li t3, 0xFF200604		
     	
 L_LOOP_MENSAGEM_ROUND:
@@ -194,7 +275,7 @@ L_M_FIGHT:
 
     	li a7, 32
     	li a0, 50
-    	
+    	#ebreak
     	li t3, 0xFF200604	
 	
 L_LOOP_MENSAGEM_FIGHT:

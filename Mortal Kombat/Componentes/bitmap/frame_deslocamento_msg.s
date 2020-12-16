@@ -9,6 +9,7 @@ M_FRAME_GOLPE_VGA:
 	mv a3, zero
 	li a1, 1
 	li a2, 1
+	#ebreak
 M_FRAME_DESLOCAMENTO_VGA:
 	# backup de registradores
 	addi sp, sp, -16

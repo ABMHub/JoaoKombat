@@ -7,6 +7,7 @@
 	.include "Sprites/data/raiden.s"
 	.include "Sprites/data/scorpion.s"
 	.include "Sprites/data/menu.s"
+	.include "Sprites/data/wins.s"
 	.include "Sprites/data/mensagens.s"
 	.include "Sprites/data/MenuDeEscolha.s"
 	

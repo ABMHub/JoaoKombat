@@ -7,7 +7,8 @@
 ############################################################################################
 LIMPAR:
 	#li a1, 1
-
+	la t0, CENARIO_ATUAL
+	lw s9, 0(t0)
 
 	#Primeiro encontramos o canto superior esquerdo do personagem
 	#ebreak
