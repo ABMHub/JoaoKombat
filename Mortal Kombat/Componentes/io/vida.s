@@ -7,7 +7,7 @@ INICIALIZA_VIDA:
 	sw a5, 16(sp)
 	sw a6, 20(sp)
 
-	li t0, 30
+	li t0, 100
 	
 	la t1, HP_IA
 	sw t0, 0(t1)
@@ -15,26 +15,73 @@ INICIALIZA_VIDA:
 	la t1, HP_IO
 	sw t0, 0(t1)
 
-	la a0, BarraDeVida
-	li a1, -1
+	li t0, 0xFF200604
+	lw t1, 0(t0)			# t1 = frame atual
+	
 	mv a4, a0
 	addi a5, a0, 4
-	li a6, 0xFF001E80
+	
+	bne t1, zero, V_FRAME_1
+V_FRAME_0:
+
+	# pinta na frame 1
+	li a1, 1
+	la a0, BarraDeVida
+	li a6, 0xFF101ec0
 	jal ra, PERSONAGEM_V2
 	
+	li a1, -1
 	la a0, BarraDeVida
 	li a6, 0xFF101E80
+	jal ra, PERSONAGEM_V2
+	
+	# mostra a frame 1
+	li t0, 0xFF200604
+	li t1, 1
+	sw t1, 0(t0)
+	
+	# pinta na frame 0
+	la a0, BarraDeVida
+	li a1, -1
+	li a6, 0xFF001E80
 	jal ra, PERSONAGEM_V2
 	
 	li a1, 1
 	la a0, BarraDeVida
 	li a6, 0xFF001ec0
 	jal ra, PERSONAGEM_V2
+	j V_CONTINUE
 	
+V_FRAME_1:	
+	# pinta na frame 0
+	li a1, -1
+	la a0, BarraDeVida
+	li a6, 0xFF001E80
+	jal ra, PERSONAGEM_V2
+	
+	li a1, 1
+	la a0, BarraDeVida
+	li a6, 0xFF001ec0
+	jal ra, PERSONAGEM_V2	
+	
+	# mostra a frame 0
+	li t0, 0xFF200604
+	sw zero, 0(t0)
+	
+	# pinta na frame 1
+	li a1, 1
 	la a0, BarraDeVida
 	li a6, 0xFF101ec0
 	jal ra, PERSONAGEM_V2
 	
+	li a1, -1
+	la a0, BarraDeVida
+	li a6, 0xFF101E80
+	jal ra, PERSONAGEM_V2
+	
+	j V_CONTINUE
+	
+V_CONTINUE:	
 	lw ra, 0(sp)
 	lw a0, 4(sp)
 	lw a1, 8(sp)

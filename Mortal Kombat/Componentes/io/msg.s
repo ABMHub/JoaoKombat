@@ -32,6 +32,10 @@ L_PLAYER_1_WINS:
 	lw a0, 0(t0)
 	jal ra, M_FRAME_DANCINHA
 	
+	
+	# Define o próximo cenário
+	jal ra, CENARIO
+	
 	# Preparação mensagem de vitória
 	li t0, 1	
 	li t4, 5			
@@ -41,8 +45,7 @@ L_PLAYER_1_WINS:
     	
     	li t3, 0xFF200604	
 	
-	# Define o próximo cenário
-	jal ra, CENARIO
+	
 	
 L_LOOP_MENSAGEM_FIGHT_1_WINS:
   	beq t0, t4, L_FIM_MENSAGEM_WINS
@@ -126,7 +129,7 @@ L_FIM_MENSAGEM_WINS:
 	jal ra, TORRE_MK			# Mostra a animação da torre
 	
 	# Se já tiver ganhado acaba
-	la t0, PARTIDAS
+	la t0, PARTIDA
 	lw t0, 0(t0)
 	li t1, 11
 	beq t0, t1, NEXT_GAME_OVER
