@@ -1,4 +1,13 @@
 .data
+	# Seleção
+	PERSONAGEM1_INICIO:        .word 0xFF010430
+	SELETOR_INICIO:            .word 0xFF009158
+  	 S_LARGURA_FRAME_0:        .word 0x0
+    	S_LARGURA_FRAME_1:        .word 0x0
+    	S_ALTURA_FRAME_0:        .word 0x0
+    	S_ALTURA_FRAME_1:        .word 0x0
+
+
 	# TORRE
 	FOTINHA_INIM_ALT:        	.word 0x0
         FOTINHA_INIM_LARG:        	.word 0x0
@@ -31,7 +40,6 @@
 	VGA2INICIO:			.word 0xFF100000
 	VGA2FINAL:			.word 0xFF112C00
 	PERSONAGEM1: 			.word 0xFF010410
-	PERSONAGEM1_INICIO:		.word 0xFF009158
 	PERSONAGEM1_INICIO_ANTIGO: 	.word 0x0
 	PERSONAGEM1_FINAL: 		.word 0xFF00E4D0	#evite usar
 	PERSONAGEM2: 			.word 0xFF010530

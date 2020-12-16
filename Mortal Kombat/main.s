@@ -21,7 +21,7 @@
 	#.include "Sprites/data/scorpion.s"
 	#.include "Sprites/data/mileena.s"
 	.include "Sprites/data/raiden.s"
-	.include "Sprites/data/baraka.s"
+	#.include "Sprites/data/baraka.s"
 	.include "Sprites/data/sprites.s"
 	
 	
@@ -127,6 +127,8 @@ DE_FATO_E_O_FIM:
 .include "componentes/io/IA_MK.s"
 .include "componentes/bitmap/apagar.s"
 .include "componentes/bitmap/deslocamento.s"
+.include "componentes/bitmap/frame_deslocamento_seletor.s"
+.include "componentes/bitmap/dancinha_S.s"
 .include "componentes/bitmap/frame_deslocamento3.s"
 .include "componentes/bitmap/frame_deslocamento3IA.s"
 .include "componentes/bitmap/frame_deslocamento_msg.s"

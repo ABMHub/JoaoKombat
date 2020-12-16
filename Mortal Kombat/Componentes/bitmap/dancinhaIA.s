@@ -1,8 +1,9 @@
 FRAME_DANCINHA_IA:	
 
-	addi sp, sp, -8
+	addi sp, sp, -12
 	sw ra, 0(sp)
 	sw s0, 4(sp)
+	sw s1, 8(sp)
 
 	la s0, PERSONAGEM2
 	lw s1, 0(s0)			# s1 = personagem 1 INICIO
@@ -58,5 +59,6 @@ FIM_DANCINHA_IA:
 
 	lw ra, 0(sp)
 	lw s0, 4(sp)
-	addi sp, sp, 8
+	lw s1, 8(sp)
+	addi sp, sp, 12
 	ret

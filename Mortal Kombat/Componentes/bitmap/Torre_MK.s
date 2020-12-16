@@ -356,6 +356,9 @@ MOSTRA_TUDO:
 	
 	la s2, VETOR_INIMIGOS		#Carrega para a0 o endereço do vetor de inimigos
 	
+	li t0, 0xFF200604 
+	sw zero, 0(t0)
+	
 	la a0, Montanha_1
 	
 	la t0, VGA1INICIO		#Inicio da Frame 0

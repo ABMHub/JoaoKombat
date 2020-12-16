@@ -1,7 +1,8 @@
 M_FRAME_DANCINHA:	
-	addi sp, sp, -8
+	addi sp, sp, -12
 	sw ra, 0(sp)
 	sw s0, 4(sp)
+	sw s1, 8(sp)
 	
 	li a1, 1
 	la s0, MENSAGEM_POS
@@ -53,7 +54,8 @@ M_FIM_DANCINHA:
 
 	lw ra, 0(sp)
 	lw s0, 4(sp)
-	addi sp, sp, 8
+	lw s0, 8(sp)
+	addi sp, sp, 12
 	ret
 	
 	
