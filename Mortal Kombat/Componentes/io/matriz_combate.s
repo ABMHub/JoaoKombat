@@ -372,6 +372,7 @@ TESTE_CHUTE_AGACHADO:
 	bnez t5, HIT
 	bnez t3, HIT
 	bnez t4, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
@@ -395,6 +396,7 @@ TESTE_RASTEIRA:
 	
 	bnez t1, HIT
 	bnez t2, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
@@ -426,6 +428,7 @@ TESTE_PODER:
 	bnez t3, HIT
 	bnez t4, HIT
 	bnez t5, HIT
+	li s0, 0
 	bnez t6, LABEL_DO_JOAO
 	j FIM_TESTE
 	
