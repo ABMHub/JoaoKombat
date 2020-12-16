@@ -535,13 +535,13 @@ SO_MORREU_IO:
 	
 L_FATALITY_IO:
 	
-		# soma 1 no round atual
+	# soma 1 no round atual
 	la t0, ROUND_ATUAL
 	lw t1, 0(t0)
 	addi t1, t1, 1
 	sw t1, 0(t0)
 
-	# Soma 1 nas vitórias da IO
+	# Soma 1 nas vitórias da IA
 	la t0, VITORIAS_2
 	li t1, 1
 	lw t2, 0(t0)

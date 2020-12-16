@@ -25,17 +25,14 @@ L_PLAYER_1_WINS:
 	sw t1, 0(t0)
 	
 	la t0, PLAYER_1_WINS	
-	#lw a0, 0(t0)
-	la a0, Wins_SubZero
-	#ebreak
+	lw a0, 0(t0)
 	jal ra, M_FRAME_GOLPE_VGA
 	
 	la t0, PLAYER_1_WINS	
-	#lw a0, 0(t0)
-	la a0, Wins_SubZero
+	lw a0, 0(t0)
 	jal ra, M_FRAME_DANCINHA
 	
-	# Preparação mensagem de fight
+	# Preparação mensagem de vitória
 	li t0, 1	
 	li t4, 5			
 

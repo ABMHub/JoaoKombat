@@ -11,7 +11,7 @@
 	ROUND_ATUAL:			.word 0x1
 	HP_IA:				.word 100
 	HP_IO:				.word 100
-	MENSAGEM_POS:			.word 0xFF007228
+	MENSAGEM_POS:			.word 0xFF00784A
 	
 	VITORIAS_1:			.word 0x0	# VITÓRIAS DA IO
 	VITORIAS_2:			.word 0x0	# VITÓRIAS DA IA
