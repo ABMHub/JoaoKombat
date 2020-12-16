@@ -69,6 +69,9 @@ FIRST_STAGE:
 SECOND_STAGE:
 	la a0, Montanha_3
 	
+	li t0,0xFF200604        	# Escolhe a frame 0
+    	sw zero, 0(t0)        		
+	
 	la t0, VGA1INICIO		#Inicio da Frame 0
 	lw a1, 0(t0)
 	la t0, VGA1FINAL		#Final da Frame 1
@@ -111,6 +114,9 @@ SECOND_STAGE:
 THIRD_STAGE:
 	la a0, Montanha_2
 	
+	li t0,0xFF200604        	# Escolhe a frame 0
+    	sw zero, 0(t0)        		
+	
 	la t0, VGA1INICIO		#Inicio da Frame 0
 	lw a1, 0(t0)
 	la t0, VGA1FINAL		#Final da Frame 1
@@ -152,6 +158,9 @@ THIRD_STAGE:
 	
 LAST_STAGE:
 	la a0, Montanha_1
+	
+	li t0,0xFF200604        	# Escolhe a frame 0
+    	sw zero, 0(t0)        		
 	
 	la t0, VGA1INICIO		#Inicio da Frame 0
 	lw a1, 0(t0)
@@ -381,6 +390,10 @@ MOSTRA_TUDO:
 	
 	#ebreak
 	
+	li t0,0xFF200604        	# Escolhe a frame 0
+    	sw zero, 0(t0)        		
+	
+	
 	la a0, Montanha_2
 	
 	la t0, VGA1INICIO		#Inicio da Frame 0
@@ -410,6 +423,9 @@ TORRE1:
 	
 	#ebreak
 	
+	li t0,0xFF200604        	# Escolhe a frame 0
+    	sw zero, 0(t0)        		
+		
 	la a0, Montanha_3
 	
 	la t0, VGA1INICIO		#Inicio da Frame 0
@@ -436,6 +452,9 @@ TORRE2:
 	ecall
 	
 	#ebreak
+	
+	li t0,0xFF200604        	# Escolhe a frame 0
+    	sw zero, 0(t0)        		
 	
 	la a0, Montanha_4
 	

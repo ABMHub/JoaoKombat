@@ -1,4 +1,6 @@
 .data
+	DIFICULDADE_TEMPO: 	.word 1500
+	
 	# Seleção
 	PERSONAGEM1_INICIO:        .word 0xFF010430
 	SELETOR_INICIO:            .word 0xFF009158

@@ -1088,7 +1088,7 @@ BOT_Ba:
     	j FIM_ESCOLHENDO_BOT
     
 BOT_JC:
-		la t0, Wins_JohnnyCage
+	la t0, Wins_JohnnyCage
 	la t1, PLAYER_2_WINS
 	sw t0, 0(t1)
 

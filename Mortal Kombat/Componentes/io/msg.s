@@ -19,10 +19,18 @@ NOVO_ROUND:
 	j L_AINDA_NAO_ACABOU
 
 L_PLAYER_1_WINS:
+	la t0, DIFICULDADE_TEMPO
+	lw t1, 0(t0)
+	addi t1, t1, -100
+	sw t1, 0(t0)
+
 	la t0, PARTIDA
 	lw t1, 0(t0)
 	addi t1, t1, 1
 	sw t1, 0(t0)
+	
+	li t0, 11
+	bge t1, t0, L_GAME_OVER 			#ganhou
 	
 	la t0, PLAYER_1_WINS	
 	lw a0, 0(t0)
@@ -57,6 +65,7 @@ L_LOOP_MENSAGEM_FIGHT_1_WINS:
 
 
 L_PLAYER_2_WINS:
+	
 	la t0, PARTIDA
 	lw t1, 0(t0)
 	addi t1, t1, 1
@@ -102,7 +111,7 @@ L_GO_0:
 	
 	la t0, VGA1FINAL
 	lw a2, 0(t0)
-	j NEXT_GAME_OVER
+	j L_GAME_OVER
 L_GO_1:
 	la t0, VGA2INICIO
 	lw a1, 0(t0)
@@ -136,6 +145,12 @@ L_FIM_MENSAGEM_WINS:
 	sw zero, 0(t1)				# Reinicia as vitórias da IA
 	
 L_AINDA_NAO_ACABOU:
+	la t0, DIFICULDADE_TEMPO
+	lw t1, 0(t0)
+	
+	la t0, DIFICULDADE_IA
+	sw t1, 0(t0) 	
+	
 	# reinicia o cenário
 	la t0, CENARIO_ATUAL
 	lw s9, 0(t0)
