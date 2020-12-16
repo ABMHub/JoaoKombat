@@ -13,7 +13,10 @@ NOVO_ROUND:
 	j L_AINDA_NAO_ACABOU
 
 L_PLAYER_1_WINS:
-	#ebreak
+	la t0, PARTIDA
+	lw t1, 0(t0)
+	addi t1, t1, 1
+	sw t1, 0(t0)
 	
 	la t0, PLAYER_1_WINS	
 	#lw a0, 0(t0)
@@ -26,7 +29,6 @@ L_PLAYER_1_WINS:
 	la a0, Wins_SubZero
 	jal ra, M_FRAME_DANCINHA
 	
-
 	# Preparação mensagem de fight
 	li t0, 1	
 	li t4, 5			
@@ -47,7 +49,12 @@ L_LOOP_MENSAGEM_FIGHT_1_WINS:
     	ecall				# SLEEP
 	j L_LOOP_MENSAGEM_FIGHT_1_WINS		
 
+
 L_PLAYER_2_WINS:
+	la t0, PARTIDA
+	lw t1, 0(t0)
+	addi t1, t1, 1
+	sw t1, 0(t0)
 
 	la t0, PLAYER_2_WINS	
 	lw a0, 0(t0)
@@ -78,8 +85,8 @@ L_LOOP_MENSAGEM_FIGHT_2_WINS:
 	j L_LOOP_MENSAGEM_FIGHT_2_WINS	
 
 L_FIM_MENSAGEM_WINS:
-	#jal ra, ESCOLHENDO_BOT			# Escolhe o novo personagem
-	#jal ra, TORRE_MK			# Mostra a animação da torre
+	jal ra, ESCOLHENDO_BOT			# Escolhe o novo personagem
+	jal ra, TORRE_MK			# Mostra a animação da torre
 	
 	li t1, 1
 	la t0, ROUND_ATUAL
@@ -119,6 +126,8 @@ L_AINDA_NAO_ACABOU:
 	la t0, CONTADORH2
 	li t1, 0x011
 	sw t1, 0(t0)
+	
+	UPDATE_MATRIZ
 
 	# reinicia os HPs
 	li t0, 100
@@ -130,6 +139,9 @@ L_AINDA_NAO_ACABOU:
 
 	# reinicia a IA
 	la t0, TEMPO50_IA
+	sw zero, 0(t0)
+	
+	la t0, HITS_IA
 	sw zero, 0(t0)
 	
 	# reinicia o estado dos personagens

@@ -20,7 +20,6 @@ IA_BOT:
 	la t0, VITORIA_2_IA
 	beq t0, s11, IA_FIM
 	
-	
 	la t6, DIFICULDADE_IA		#Pega o endereço com a dificuldade (tempo ocioso)
 	lw t1, 0(t6)			#Pega o tempo max que fica sem fazer ação
 	
@@ -51,6 +50,9 @@ VIDA_OK_IA:
 		
 	sub s2, t4, t3			#Descobre a quantidade de colunas entre o player e o bot
 	addi s2, s2, -1			#Ajusta para o valor correto de colunas entre os dois
+	
+	la t0, TONTO_1_IO
+	beq t0, s10, FAZ_FATALITY_IA	#Se o personagem está tonto
 	
 	la t0, BLOQUEANDO_AGACHADO_IA		
 	beq t0, s11, BLOCK_BAIXO_IA		#Ve se está agachado e defendendo
@@ -220,6 +222,32 @@ ATAQUES_LONGOS_IA:
 	
 	j L_ESQUERDA_IA				#Ele volta a andar
 	
+######################################## FATALITY DA IA ################################################################
+FAZ_FATALITY_IA:
+	la t0, AGACHADO_IA
+	beq t0, s11, FFATALITY_IA
+	
+	li t3, 3
+	bge s2, t3, L_ESQUERDA_IA	#Vê se a distância é suficiente pro fatality
+	
+	li t3, 1
+	beq s2, t3, L_SOCO_1_IA		
+	
+	li a7, 41			#Gera um número aleatório
+	ecall
+	
+	li t1, 100			
+	remu a0, a0, t1			#Faz mod 100 do valor
+	addi a0, a0, 1			#Adiciona 1 para ficar entre 1 e 100
+	
+	li t1, 51
+	blt t1, a0, L_ESQUERDA_IA	#Se aproxima
+	
+	la t0, AGACHADO_IA
+	bne s11, t0, L_BAIXO_IA
+
+FFATALITY_IA:
+	j L_SOCO_2_IA
 
 ###############################################################################################################
 ########################################################################################################################
@@ -229,6 +257,7 @@ L_DIREITA_IA:
 	lw t1, 0(t0)				# t1 = contador
 	li a3, 0				# inicializa o deslocamento em 0
 	addi t1, t1, 1				# incrementa o contador
+	li a0 ,2
 	jal ra, VERIFICA_CONTADOR_DIREITA	# verifica se houve colisão
 	
 	bne a0, zero, L_LIMITE_DIREITA_IA	# a0 != 0 => houve colisão
@@ -258,6 +287,7 @@ L_ESQUERDA_IA:
 	lw t1, 0(t0)				# t1 = valor do contador
 	li a3, 0				# deslocamento = 0
 	addi t1, t1, -1				# subtrai um do contador
+	li a0, 2
 	jal ra, VERIFICA_CONTADOR_ESQUERDA	# verifica se houve colisão
 	bne a0, zero L_LIMITE_ESQUERDA_IA	# se a0 = 1 => houve colisão
 	sw t1, 0(t0)				# salva o novo contador somente se não houve colisão
@@ -743,6 +773,7 @@ L_PODER_IA:
     	lw t0, 0(t0)
     	li a1, 8
     	li s8, 2
+    	UPDATE_MATRIZ
     	jal ra, TESTE_GOLPE
     	la t0, PERSONAGEM2
     	lw t0, 0(t0)
@@ -787,6 +818,9 @@ L_GOLPE_IA:
 	sw t1, 0(t0)
 	
 	mv a1, s6					#???????????????????????????????????????
+	li s8, 2
+	
+	UPDATE_MATRIZ
     	jal ra, TESTE_GOLPE				#???????????????????????????????????????
 	
 	#

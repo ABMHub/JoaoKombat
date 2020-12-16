@@ -1,12 +1,18 @@
 .data
+	# TORRE
+	FOTINHA_INIM_ALT:        	.word 0x0
+        FOTINHA_INIM_LARG:        	.word 0x0
+	FOTINHA_IO:            		.word 0x0
+	PARTIDA:			.word 0x0
+	VETOR_INIMIGOS:			.space 48
+	
 	# BATALHA
 	CENARIO_ATUAL:			.word 0x0
 	ROUND_ATUAL:			.word 0x1
 	HP_IA:				.word 100
 	HP_IO:				.word 100
 	MENSAGEM_POS:			.word 0xFF007228
-	PARTIDA:			.word 0x0
-	VETOR_INIMIGOS:			.space 48
+	
 	VITORIAS_1:			.word 0x0
 	VITORIAS_2:			.word 0x0
 	PLAYER_1_WINS:			.word 0x0

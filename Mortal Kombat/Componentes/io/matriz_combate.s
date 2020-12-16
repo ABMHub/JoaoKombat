@@ -131,6 +131,7 @@ TESTE_GOLPE:
 	sw s7, 16(sp)
 	sw s0, 20(sp)
 	
+	mv a0, s8
 	mv t3, a1		# temp: t3 é tipo de golpe
 	jal ra, CALCULA_CONTADOR 
 	

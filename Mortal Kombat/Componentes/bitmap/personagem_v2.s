@@ -96,15 +96,15 @@ RETORNO_PERSONAGEM_V2:
 	#lw t1, -8(a0)
 	#lw t1, -12(a0)
 	
-#	csrr t1, 3073
+	csrr t1, 3073
 
-#SLEEP_PERSONAGEM:
+SLEEP_PERSONAGEM:
 
- #	csrr t0,3073 		# le o time atual
-#	sub t0,t0,t1 		# calcula o tempo
-#	li t2, 100
-#	bge t0, t2, FIM_SLEEP_PERSONAGEM
-#	j SLEEP_PERSONAGEM
+ 	csrr t0,3073 		# le o time atual
+	sub t0,t0,t1 		# calcula o tempo
+	li t2, 50
+	bge t0, t2, FIM_SLEEP_PERSONAGEM
+	j SLEEP_PERSONAGEM
 	
 FIM_SLEEP_PERSONAGEM:	
 	

@@ -57,12 +57,7 @@ Ja2:	j Ja
 Ra2:	j Ra
 
 
-LK:	
-	la t0, Wins_LiuKang
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-	
-	la t0, Fotinha_LK
+LK:	la t0, Fotinha_LK
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -230,11 +225,7 @@ LK:
 	
 	j FIM
 	
-SZ:	la t0, Wins_SubZero
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_SZ
+SZ:	la t0, Fotinha_SZ
     	la t1, FOTINHA_IO
     	sw t0, 0(t1) 
 	
@@ -407,11 +398,7 @@ SZ:	la t0, Wins_SubZero
     #la a4, ALTURA1            # a4 = endereço da altura
     #la a5, LARGURA1        # a5 = endereço da largura
 
-Mi:	la t0, Wins_LiuKang
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_MI
+Mi:	la t0, Fotinha_LK
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -579,11 +566,7 @@ Mi:	la t0, Wins_LiuKang
     	
 	j FIM
 
-KL:	la t0, Wins_KungLao
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_KL
+KL:	la t0, Fotinha_KL
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -751,11 +734,7 @@ KL:	la t0, Wins_KungLao
 	
 	j FIM
 
-ST:	la t0, Wins_ShangTsung
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_ST
+ST:	la t0, Fotinha_ST
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -923,11 +902,7 @@ ST:	la t0, Wins_ShangTsung
 	
 	j FIM
 	
-Ba:	la t0, Wins_LiuKang
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_BA
+Ba:	la t0, Fotinha_LK
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -1095,11 +1070,7 @@ Ba:	la t0, Wins_LiuKang
 	
 	j FIM
 	
-JC:	la t0, Wins_JohnnyCage
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_JC
+JC:	la t0, Fotinha_JC
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -1267,184 +1238,175 @@ JC:	la t0, Wins_JohnnyCage
     	
     	j FIM
 	
-Ki:	
-	la t0, Wins_Kitana
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_KI
+Ki:	la t0, Fotinha_LK
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
-	la t0, KitanaAgachado_2
+	la t0, LiuKangAgachando_2
     	la t1, AGACHADO_IO
     	sw t0, 0(t1)
     	
-	la t0, KitanaAgachado_1
+	la t0, LiuKangAgachando_1
     	la t1, AGACHANDO_IO
     	sw t0, 0(t1)
     	
-  	la t0, KitanaPulando_1
+  	la t0, LiuKangPulando_1
     	la t1, PULAR_1_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaPulando_3V
+    	la t0, LiuKangPulando_3V
     	la t1, PULAR_2_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaAgachado_3V
+    	la t0, LiuKangAgachando_3V
     	la t1, LEVANTAR_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaAndando_1
+    	la t0, LiuKangAndando_1
     	la t1, CAMINHAR_DIREITA_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaAndando_3V
+    	la t0, LiuKangAndando_3V
     	la t1, CAMINHAR_ESQUERDA_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaCambalhota_1
+    	la t0, LiuKangCambalhota_1
     	la t1, CAMBALHOTA_IO
     	sw t0, 0(t1)
 
-	la t0, KitanaChuteBaixo_1
+	la t0, LiuKangChuteBaixo_1
    	la t1, CHUTE_1_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaChuteAgachado_1
+    	la t0, LiuKangChuteAgachado_1
    	la t1, CHUTE_1_AGACHADO_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaSoco_1
+    	la t0, LiuKangSoco_1
    	la t1, SOCO_1_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaSocoAgachado_1
+    	la t0, LiuKangSocoAgachado_1
    	la t1, SOCO_1_AGACHADO_IO
     	sw t0, 0(t1)
 
-  	la t0, KitanaChuteAlto_1
+  	la t0, LiuKangChuteAlto_1
    	la t1, CHUTE_2_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaRasteira_1
+    	la t0, LiuKangRasteira_1
    	la t1, CHUTE_2_AGACHADO_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaJab_1
+    	la t0, LiuKangJab_1
    	la t1, SOCO_2_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaAlpiste_1
+    	la t0, LiuKangAlpiste_1
    	la t1, SOCO_2_AGACHADO_IO
     	sw t0, 0(t1)  
   
-  	la t0, KitanaPoder_1
+  	la t0, LiuKangPoder_1
     	la t1, PODER_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaProjetil_1
+    	la t0, LiuKangProjetil_1
     	la t1, PROJETIL_IO
     	sw t0, 0(t1)
   
-  	la t0, KitanaDancando_1
+  	la t0, LiuKangDancando_1
     	la t1, DANCINHA_1_IO
     	sw t0, 0(t1)
 
-    	la t0, KitanaDancando_2
+    	la t0, LiuKangDancando_2
     	la t1, DANCINHA_2_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaBlock_1
+    	la t0, LiuKangBlock_1
     	la t1, BLOCK_EM_PE_IO
     	sw t0, 0(t1)
 
-    	la t0, KitanaBlock_3V
+    	la t0, LiuKangBlock_3V
     	la t1, DESATIVAR_BLOCK_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaBlockAgachado_1
+    	la t0, LiuKangBlockAgachado_1
     	la t1, BLOCK_AGACHADO_IO
     	sw t0, 0(t1)
 
- 	la t0, KitanaBlockAgachado_3V
+ 	la t0, LiuKangBlockAgachado_3V
     	la t1, DESATIVAR_BLOCK_AGACHADO_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaBlockAgachado_2
+    	la t0, LiuKangBlockAgachado_2
     	la t1, BLOQUEANDO_AGACHADO_IO
     	sw t0, 0(t1)    
     	
-    	la t0, KitanaBlock_2
+    	la t0, LiuKangBlock_2
     	la t1, BLOQUEANDO_EM_PE_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaTomou_1
+    	la t0, LiuKangTomou_1
     	la t1, RECUADA_LEVE_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaHelicoptero_1
+    	la t0, LiuKangHelicoptero_1
     	la t1, RECUADA_PESADA_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaCaiu_1
+    	la t0, LiuKangCaiu_1
     	la t1, LEVOU_RASTEIRA_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaVoando_1
+    	la t0, LiuKangVoando_1
     	la t1, TOMOU_ALPISTE_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaTomouAgachado_1
+    	la t0, LiuKangTomouAgachado_1
     	la t1, RECUADA_LEVE_AGACHADO_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaFinish_1
+    	la t0, LiuKangFinish_1
     	la t1, TONTO_1_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaFinish_3
+    	la t0, LiuKangFinish_3
     	la t1, TONTO_2_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaSemCabeca_1
+    	la t0, LiuKangSemCabeca_1
     	la t1, FATALITY_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaSemCabeca_6
+    	la t0, LiuKangSemCabeca_6
     	la t1, ULTIMO_FATALITY_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaRound_1
+    	la t0, LiuKangRound_1
     	la t1, MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaRound_6
+    	la t0, LiuKangRound_6
     	la t1, ULTIMO_MORREU_IO
     	sw t0, 0(t1)
     	
-    	la t0, KitanaCabeca_1
+    	la t0, LiuKangCabeca_1
     	la t1, CABECA_IO
     	sw t0, 0(t1)
  
-    	la t0, KitanaVitoria_1
+    	la t0, LiuKangVitoria_1
     	la t1, VITORIA_1_IO 
     	sw t0, 0(t1)   	
     	
-    	la t0, KitanaVitoria_2
+    	la t0, LiuKangVitoria_2
     	la t1, VITORIA_2_IO 
     	sw t0, 0(t1)  
     	
     	la s10, DANCINHA_1_IO
-    	
-    	j FIM
-    	
-SC:	la t0, Wins_Scorpion
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_SC
+	
+	j FIM
+	
+SC:	la t0, Fotinha_SC
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -1612,11 +1574,7 @@ SC:	la t0, Wins_Scorpion
     	
     	j FIM
 	
-Re:	la t0, Wins_Reptile
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_RE
+Re:	la t0, Fotinha_RE
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -1784,183 +1742,26 @@ Re:	la t0, Wins_Reptile
 	
 	j FIM
 
-Ja:	la t0, Wins_Jax
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_JA
-    	la t1, FOTINHA_IO
-    	sw t0, 0(t1)
-
-	la t0, JaxAgachando_2
-    	la t1, AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-	la t0, JaxAgachando_1
-    	la t1, AGACHANDO_IO
-    	sw t0, 0(t1)
-    	
-  	la t0, JaxPulando_1
-    	la t1, PULAR_1_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxPulando_3V
-    	la t1, PULAR_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxAgachando_3V
-    	la t1, LEVANTAR_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxAndando_1
-    	la t1, CAMINHAR_DIREITA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxAndando_3V
-    	la t1, CAMINHAR_ESQUERDA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxCambalhota_1
-    	la t1, CAMBALHOTA_IO
-    	sw t0, 0(t1)
-
-	la t0, JaxChuteBaixo_1
-   	la t1, CHUTE_1_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxChuteAgachado_1
-   	la t1, CHUTE_1_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxSoco_1
-   	la t1, SOCO_1_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxSocoAgachado_1
-   	la t1, SOCO_1_AGACHADO_IO
-    	sw t0, 0(t1)
-
-  	la t0, JaxChuteAlto_1
-   	la t1, CHUTE_2_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxRasteira_1
-   	la t1, CHUTE_2_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxJab_1
-   	la t1, SOCO_2_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxAlpiste_1
-   	la t1, SOCO_2_AGACHADO_IO
-    	sw t0, 0(t1)  
-  
-  	la t0, JaxPoder_1
-    	la t1, PODER_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxProjetil_1
-    	la t1, PROJETIL_IO
-    	sw t0, 0(t1)
-  
-  	la t0, JaxDancando_1
-    	la t1, DANCINHA_1_IO
-    	sw t0, 0(t1)
-
-    	la t0, JaxDancando_2
-    	la t1, DANCINHA_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxBlock_1
-    	la t1, BLOCK_EM_PE_IO
-    	sw t0, 0(t1)
-
-    	la t0, JaxBlock_3V
-    	la t1, DESATIVAR_BLOCK_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxBlockAgachado_1
-    	la t1, BLOCK_AGACHADO_IO
-    	sw t0, 0(t1)
-
- 	la t0, JaxBlockAgachado_3V
-    	la t1, DESATIVAR_BLOCK_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxBlockAgachado_2
-    	la t1, BLOQUEANDO_AGACHADO_IO
-    	sw t0, 0(t1)    
-    	
-    	la t0, JaxBlock_2
-    	la t1, BLOQUEANDO_EM_PE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxTomou_1
-    	la t1, RECUADA_LEVE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxHelicoptero_1
-    	la t1, RECUADA_PESADA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxCaiu_1
-    	la t1, LEVOU_RASTEIRA_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxVoando_1
-    	la t1, TOMOU_ALPISTE_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxTomouAgachado_1
-    	la t1, RECUADA_LEVE_AGACHADO_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxFinish_1
-    	la t1, TONTO_1_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxFinish_3
-    	la t1, TONTO_2_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxSemCabeca_1
-    	la t1, FATALITY_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxSemCabeca_6
-    	la t1, ULTIMO_FATALITY_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxRound_1
-    	la t1, MORREU_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxRound_6
-    	la t1, ULTIMO_MORREU_IO
-    	sw t0, 0(t1)
-    	
-    	la t0, JaxCabeca_1
-    	la t1, CABECA_IO
-    	sw t0, 0(t1)
- 
-    	la t0, JaxVitoria_1
-    	la t1, VITORIA_1_IO 
-    	sw t0, 0(t1)   	
-    	
-    	la t0, JaxVitoria_2
-    	la t1, VITORIA_2_IO 
-    	sw t0, 0(t1)  
-    	
-    	la s10, DANCINHA_1_IO
-    	
-    	j FIM
+Ja:	#la s10, JaxParado_1
+	#la a0, JaxParado_1
 	
-Ra:	la t0, Wins_LiuKang
-	la t1, PLAYER_1_WINS
-	sw t0, 0(t1)
-
-	la t0, Fotinha_RA
+	#addi sp, sp, -4
+	#sw ra, 0(sp)
+	
+	#jal ra, PERSONAGEM
+	
+	#lw ra, 0(sp)
+	#addi sp, sp, 4
+	
+	#la tp,KDInterrupt_Jax    	# carrega em tp o endereço base das rotinas de Tratamento da Interrupção
+	#csrrw zero,5,tp     	# seta utvec (reg 5) para o endereço tp
+	#csrrsi zero,0,1     	# seta o bit de habilitação de interrupção global em ustatus (reg 0)
+	#li tp,0x100
+	#csrrw zero,4,tp     	# habilita a interrupção do usuário
+	
+	j FIM
+	
+Ra:	la t0, Fotinha_LK
     	la t1, FOTINHA_IO
     	sw t0, 0(t1)
 
@@ -2127,21 +1928,20 @@ Ra:	la t0, Wins_LiuKang
     	la s10, DANCINHA_1_IO
 	
 	j FIM
-
+	
+	j FIM
 FIM:
 	lw ra, 0(sp)
 	addi sp, sp, 4
 	
-	csrr t0, 3073
-    	la t1, DIFICULDADE_IA
-    	lw t1, 0(t1)
-    	sub t0, t0, s8
-    	bge t0, t1, LOOP_IA
+	la tp,KDInterrupt    # carrega em tp o endereço base das rotinas de Tratamento da Interrupção
+    	csrrw zero,5,tp     # seta utvec (reg 5) para o endereço tp
+     	csrrsi zero,0,1     # seta o bit de habilitação de interrupção global em ustatus (reg 0)
+    	li tp,0x100
+     	csrrw zero,4,tp        # habilita a interrupção do usuário
 
-    	csrr s6,3073         # le o time atual
-    	li t0,0xFF200604        # Escolhe o Frame 0 ou 1
-    	sw s7,0(t0)        # seleciona a Frame t2
-    	xori s7,s7,0x001    # escolhe a outra frame
-	
+     	li t1,0xFF200000    # Endereço de controle do KDMMIO
+    	li t0,0x02        # bit 1 habilita/desabilita a interrupção
+    	sw t0,0(t1)           # Habilita interrupção do teclado
 	
 	ret
