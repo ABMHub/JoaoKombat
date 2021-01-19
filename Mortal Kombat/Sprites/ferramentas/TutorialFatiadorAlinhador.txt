@@ -5,6 +5,8 @@ Para assistir um vídeo tutorial com explicações detalhadas do uso das ferramenta
 http://mbg3dmind.wordpress.com/2012/07/11/fatiador-de-sprite-sheet-e-editor-de-alinhamento/
 
 
+### Patch Notes
+
 
 Versão 1.4 - atualizada em 18/06/2018
 - Integração do fatiador e alinhador, basta usar F8 para alternar entre um e outro.
